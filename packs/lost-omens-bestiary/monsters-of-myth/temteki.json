@@ -4,53 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0Bx3PgoCfyF8jvK9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
+            "_id": "yo4zo7um4zj3frc7",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tjakvcyqyn8kyyzh",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Imposing Mien",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Temteki can use Intimidation to Coerce or Demoralize up to four targets instead of one, rolling separate Intimidation checks against the Will DCs of each target. In addition, since Temteki Demoralizes using its appearance alone, it doesn't take a penalty to Intimidation checks to Demoralize for not speaking a language.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -58,230 +27,41 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e7qdl8eb7e7dinj7",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Interposing Earth",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Temteki is targeted with a melee or ranged attack from an attacker it can see</p>\n<hr />\n<p><strong>Effect</strong> Temteki raises earth to block, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "interposing-earth",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "interposing-earth"
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            "acid splash",
+                            "detect magic",
+                            "tanglefoot"
                         ],
-                        "selector": "ac",
-                        "types": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eitzvztvjpcq5zu3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Earth Glide",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Temteki can Burrow through any earthen matter, including rock. When it does so, it moves at its full burrow Speed, leaving no tunnel or sign of its passing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kme8om2hrvqwguwn",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Earthen Cypress",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Temteki is standing on the ground</p><hr /><p><strong>Effect</strong> Temteki draws up the earth around itself into the shape of a cypress tree. While in this stance, Temteki's reach for spike Strikes increases to 15 feet, but Temteki can't move except to Burrow into the ground using Earth Glide. Doing so causes Temteki to leave this stance and creates a heap of earth in the square Temteki left, making the square difficult terrain.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nzsfk1vbw1c7faoi",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Toolbreaker",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Temteki can only target worked or crafted items with @UUID[Compendium.pf2e.spells-srd.Item.Shatter], not natural objects.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZNUo6g3HspqnzbiZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "push",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ceb4xaqnae0kdjw0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spike",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "push"
-                    ]
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "zjqChATREW4WJSLS": {
-                        "damage": "2d10+5",
-                        "damageType": "piercing"
+                        "value": 3
+                    },
+                    "slot3": {
+                        "prepared": [
+                            "earthbind",
+                            "quench (Advanced Players Guide 223)",
+                            "shatter (see Toolbreaker)",
+                            "shatter (see Toolbreaker)",
+                            "shatter (see Toolbreaker)"
+                        ]
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
+                "spelldc": {
+                    "dc": 19,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 11
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "VRP9uFTlQbMTwASl",
@@ -290,7 +70,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -356,7 +136,7 @@
             },
             "img": "systems/pf2e/icons/spells/quench.webp",
             "name": "Quench",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -440,7 +220,7 @@
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -523,7 +303,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -684,7 +464,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -751,7 +531,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -808,22 +588,31 @@
             "type": "spell"
         },
         {
-            "_id": "yo4zo7um4zj3frc7",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1500000,
+            "_id": "ceb4xaqnae0kdjw0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spike",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "zjqChATREW4WJSLS": {
+                        "damage": "2d10+5",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -831,41 +620,252 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            "acid splash",
-                            "detect magic",
-                            "tanglefoot"
-                        ],
-                        "value": 3
-                    },
-                    "slot3": {
-                        "prepared": [
-                            "earthbind",
-                            "quench (Advanced Players Guide 223)",
-                            "shatter (see Toolbreaker)",
-                            "shatter (see Toolbreaker)",
-                            "shatter (see Toolbreaker)"
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 11
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "0Bx3PgoCfyF8jvK9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tjakvcyqyn8kyyzh",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Imposing Mien",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Temteki can use Intimidation to Coerce or Demoralize up to four targets instead of one, rolling separate Intimidation checks against the Will DCs of each target. In addition, since Temteki Demoralizes using its appearance alone, it doesn't take a penalty to Intimidation checks to Demoralize for not speaking a language.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e7qdl8eb7e7dinj7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Interposing Earth",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Temteki is targeted with a melee or ranged attack from an attacker it can see</p>\n<hr />\n<p><strong>Effect</strong> Temteki raises earth to block, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "interposing-earth",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "interposing-earth"
+                        ],
+                        "selector": "ac",
+                        "types": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eitzvztvjpcq5zu3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earth Glide",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Temteki can Burrow through any earthen matter, including rock. When it does so, it moves at its full burrow Speed, leaving no tunnel or sign of its passing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kme8om2hrvqwguwn",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Earthen Cypress",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Temteki is standing on the ground</p><hr /><p><strong>Effect</strong> Temteki draws up the earth around itself into the shape of a cypress tree. While in this stance, Temteki's reach for spike Strikes increases to 15 feet, but Temteki can't move except to Burrow into the ground using Earth Glide. Doing so causes Temteki to leave this stance and creates a heap of earth in the square Temteki left, making the square difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nzsfk1vbw1c7faoi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Toolbreaker",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Temteki can only target worked or crafted items with @UUID[Compendium.pf2e.spells-srd.Item.Shatter], not natural objects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZNUo6g3HspqnzbiZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Temteki",

@@ -4,400 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ef4e0z2ye2fe1mqw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Knife Jab",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Creatures hit by Kiru's dagger Strike must succeed at a @Check[fortitude|dc:20|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Success)}@Check[fortitude|dc:25|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Critical Success)} save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NpTK4L9yg6CR90qn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kiru deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xx9wx5cf43c7dj2f",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Kiru.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "T9sQXIcXj01PwOvz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "CWjX7fPDsslrImWC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
-            },
-            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
-            "name": "Thieves' Tools",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "thieves-tools",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "vx2ggsl2qvg5mnkd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underworld Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "epk5okau1hph18v4",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "tHqQfpGNmYy3LJek"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "knife-jab"
-                    ]
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "o8Uhj117XbEKi8tZ": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "dqf9efquhy15nwwx",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "tHqQfpGNmYy3LJek"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "knife-jab"
-                    ]
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "7u45mhJC4DMAhaWb": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "tHqQfpGNmYy3LJek",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -477,6 +90,393 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "T9sQXIcXj01PwOvz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "CWjX7fPDsslrImWC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Tools",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "thieves-tools",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "epk5okau1hph18v4",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "tHqQfpGNmYy3LJek"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knife-jab"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "o8Uhj117XbEKi8tZ": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dqf9efquhy15nwwx",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "tHqQfpGNmYy3LJek"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knife-jab"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "7u45mhJC4DMAhaWb": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ef4e0z2ye2fe1mqw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Knife Jab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Creatures hit by Kiru's dagger Strike must succeed at a @Check[fortitude|dc:20|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Success)}@Check[fortitude|dc:25|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Critical Success)} save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NpTK4L9yg6CR90qn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kiru deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xx9wx5cf43c7dj2f",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surprise Attack",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Kiru.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vx2ggsl2qvg5mnkd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Kiru",

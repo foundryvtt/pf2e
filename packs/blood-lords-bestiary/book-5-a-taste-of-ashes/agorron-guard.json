@@ -4,494 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3IZdVb2IEp23wALM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense (Imprecise) 60 feet",
+            "_id": "cm8kh6khpDzrtqm7",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BwMRXsWD8i0AKeLT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ks76ZS8gWSFgrdl9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Catch Rock",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "catch-rock",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "catch-rock"
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": "catch-rock",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bRWkzuZ2ByRvUEXx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sKizGnItFf8dn6kf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dooming Touch",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Agorron guard's claws carry the accursed power of their foul gods. A creature hit by the guard's claw Strike becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ghavKYYcFvQxKQ3n",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Font of Death",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tomb giant turns the spiritual tide on a creature that has just died, temporarily transforming it into a volatile vessel of void energy. The tomb giant touches a creature that died in the past 24 hours, infusing its flesh and bone with void energy. Once during the next hour, the tomb giant can spend a single action (from any distance) to release this void energy from the corpse in an explosion that deals @Damage[10d10[void]] damage energy in a @Template[burst|distance:15] (@Check[fortitude|dc:36|basic] save); if not released before the end of the hour, the energy dissipates harmlessly. The tomb giant can't use Font of Death while a previous corpse remains infused.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sNchZQFp9J0mXyVA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Throw Rock",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "throw-rock",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k4X0vQBrs8WZ3tEV",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Wicked Blow",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Agorron guard makes a Strike with their scythe. A creature damaged by this attack takes @Damage[3d6[bleed]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "O6GoC5yqrWcERUf8",
-            "img": "systems/pf2e/icons/unarmed-attacks/rock.webp",
-            "name": "Rock",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "SCWOEv6X8RtegOjU",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8d5s5kWfxsTt1E7x"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scythe",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d10+18",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-2d10",
-                        "magical",
-                        "reach-10",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ULp1f7aziCabSbdr",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "dooming-touch"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "wfzqongy0qb4jngvti4k": {
-                        "damage": "3d6+18",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ETZ0a2GwlpGrMxWM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
                     "value": 28
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+18",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "brutal",
-                        "range-increment-120"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "KrNLYSX0cYZRMS2S",
@@ -500,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -566,7 +116,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-undead.webp",
             "name": "Create Undead",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -631,7 +181,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -824,53 +374,13 @@
             "type": "spell"
         },
         {
-            "_id": "cm8kh6khpDzrtqm7",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "8d5s5kWfxsTt1E7x",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.H74vYwHJ8XT4qOPI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
             "name": "Scythe",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "baseItem": "scythe",
                 "bonus": {
@@ -949,6 +459,496 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "O6GoC5yqrWcERUf8",
+            "img": "systems/pf2e/icons/unarmed-attacks/rock.webp",
+            "name": "Rock",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "SCWOEv6X8RtegOjU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8d5s5kWfxsTt1E7x"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scythe",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+18",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-2d10",
+                        "magical",
+                        "reach-10",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ULp1f7aziCabSbdr",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "dooming-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "wfzqongy0qb4jngvti4k": {
+                        "damage": "3d6+18",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ETZ0a2GwlpGrMxWM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+18",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "brutal",
+                        "range-increment-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3IZdVb2IEp23wALM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (Imprecise) 60 feet",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BwMRXsWD8i0AKeLT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ks76ZS8gWSFgrdl9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Catch Rock",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "catch-rock",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bRWkzuZ2ByRvUEXx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sKizGnItFf8dn6kf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dooming Touch",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Agorron guard's claws carry the accursed power of their foul gods. A creature hit by the guard's claw Strike becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ghavKYYcFvQxKQ3n",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Font of Death",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tomb giant turns the spiritual tide on a creature that has just died, temporarily transforming it into a volatile vessel of void energy. The tomb giant touches a creature that died in the past 24 hours, infusing its flesh and bone with void energy. Once during the next hour, the tomb giant can spend a single action (from any distance) to release this void energy from the corpse in an explosion that deals @Damage[10d10[void]] damage energy in a @Template[burst|distance:15] (@Check[fortitude|dc:36|basic] save); if not released before the end of the hour, the energy dissipates harmlessly. The tomb giant can't use Font of Death while a previous corpse remains infused.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sNchZQFp9J0mXyVA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k4X0vQBrs8WZ3tEV",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wicked Blow",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Agorron guard makes a Strike with their scythe. A creature damaged by this attack takes @Damage[3d6[bleed]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Agorron Guard",

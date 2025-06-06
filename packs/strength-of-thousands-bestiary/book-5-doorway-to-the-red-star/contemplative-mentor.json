@@ -4,262 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "InbOqflgAyisb22C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "fvYvSOGJPDGTFZWM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "45xonz5LSMC3ToFf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Temporal Sense",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A contemplative meditant can always roll Dimension of Time Lore for initiative. When it does, it gains a +2 circumstance bonus to the roll as it acts on flashes of insight harvested from potential futures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "dimension-of-time-lore"
-                        ],
-                        "selector": "initiative",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "62wyblwp8q8o18el",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Thoughtsense 100 feet",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The contemplative senses all non-mindless creatures at the listed range.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wzfYljxMBhqf1Inf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rbvc058lviokjy4r",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Atrophied",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A contemplative's limbs are withered and incapable of significant physical exertion. A contemplative can't properly wield a two-handed weapon or object without dedicating its telekinetic powers to supporting the weapon, and even then, it takes a -2 penalty to Strikes with such a weapon. It also can't use its spells or fly as long as it wields a two-handed weapon or object.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wjm7wty7dc72fbgi",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Project Calm",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The contemplative mentor projects a field of perfect calm in a @Template[emanation|distance:60]{60-foot emanation}. All creatures within the area of effect must succeed at a @Check[will|dc:40] save or be unable to take hostile actions for 1 round.</p>\n<p>After using this ability, the contemplative is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, or increases its drained value by 1 if it was already drained. A contemplative mentor can't use this ability if its drained value is 3 or more.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gl565xex6pajmjpd",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Temporal Suppression",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The contemplative attempts to hinder a target creature's personal flow of time. The target must be within 60 feet, and once targeted must attempt a @Check[will|dc:40] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a failure or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure.</p>\n<p>Each time an affected creature ends its turn, its slowed value decreases by 1. A creature that critically succeeds on their save against Temporal Suppression is temporarily immune to it for 24 hours.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3nyircdp5t6niy00",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dimension of Time Lore",
-            "sort": 800000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 35
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -268,59 +28,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hqn9qpyh7m66gsg2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "NRLsxGyOTxqb3DmQ": {
-                        "damage": "3d8+6",
-                        "damageType": "slashing"
-                    },
-                    "axro9k1ki8kncjt5i3vl": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 43,
+                    "mod": 0,
+                    "value": 33
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Toc1otfPCEaPATcr",
@@ -329,7 +51,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -393,7 +115,7 @@
             },
             "img": "systems/pf2e/icons/spells/disapperance.webp",
             "name": "Disappearance (Self Only)",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -454,7 +176,7 @@
             },
             "img": "icons/environment/settlement/watchtower-cliff.webp",
             "name": "Discern Location",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -517,7 +239,7 @@
             },
             "img": "systems/pf2e/icons/spells/rite-of-the-red-star.webp",
             "name": "Rite of the Red Star",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -582,7 +304,7 @@
             },
             "img": "icons/magic/light/explosion-glow-spiral-yellow.webp",
             "name": "Return To Essence",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -644,7 +366,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -706,7 +428,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +495,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -835,7 +557,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -902,7 +624,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -989,7 +711,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1052,7 +774,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1113,7 +835,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1189,7 +911,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1265,7 +987,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1329,7 +1051,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1390,7 +1112,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1508,22 +1230,312 @@
             "type": "spell"
         },
         {
-            "_id": "fvYvSOGJPDGTFZWM",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2700000,
+            "_id": "hqn9qpyh7m66gsg2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "NRLsxGyOTxqb3DmQ": {
+                        "damage": "3d8+6",
+                        "damageType": "slashing"
+                    },
+                    "axro9k1ki8kncjt5i3vl": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "InbOqflgAyisb22C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "45xonz5LSMC3ToFf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Temporal Sense",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A contemplative meditant can always roll Dimension of Time Lore for initiative. When it does, it gains a +2 circumstance bonus to the roll as it acts on flashes of insight harvested from potential futures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "dimension-of-time-lore"
+                        ],
+                        "selector": "initiative",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "62wyblwp8q8o18el",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense 100 feet",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The contemplative senses all non-mindless creatures at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wzfYljxMBhqf1Inf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rbvc058lviokjy4r",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Atrophied",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A contemplative's limbs are withered and incapable of significant physical exertion. A contemplative can't properly wield a two-handed weapon or object without dedicating its telekinetic powers to supporting the weapon, and even then, it takes a -2 penalty to Strikes with such a weapon. It also can't use its spells or fly as long as it wields a two-handed weapon or object.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wjm7wty7dc72fbgi",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Project Calm",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The contemplative mentor projects a field of perfect calm in a @Template[emanation|distance:60]{60-foot emanation}. All creatures within the area of effect must succeed at a @Check[will|dc:40] save or be unable to take hostile actions for 1 round.</p>\n<p>After using this ability, the contemplative is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, or increases its drained value by 1 if it was already drained. A contemplative mentor can't use this ability if its drained value is 3 or more.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gl565xex6pajmjpd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Temporal Suppression",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The contemplative attempts to hinder a target creature's personal flow of time. The target must be within 60 feet, and once targeted must attempt a @Check[will|dc:40] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a failure or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure.</p>\n<p>Each time an affected creature ends its turn, its slowed value decreases by 1. A creature that critically succeeds on their save against Temporal Suppression is temporarily immune to it for 24 hours.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3nyircdp5t6niy00",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dimension of Time Lore",
+            "sort": 2700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 35
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -1532,21 +1544,9 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 43,
-                    "mod": 0,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "occult"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Contemplative Mentor",

@@ -4,362 +4,56 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "A5bMStZHdbQ9yIaL",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Biting Snakes",
+            "_id": "CGM8F88qaHGfQqu8",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature ends its turn adjacent to Kerinza</p>\n<hr />\n<p><strong>Effect</strong> Kerinza makes a snake fangs Strike against the creature.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": "biting-snakes",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DSg26CbIfxkrLUWg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Petrifying Gaze",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[fortitude|dc:32] save. If the creature fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. Kerinza can activate or deactivate this aura by using a single action, which has the concentrate trait, but deactivating it is painful for her; she gains weakness 15 to physical damage while her petrifying gaze is deactivated.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "petrifying"
-                        ],
-                        "radius": 30,
-                        "slug": "petrifying-gaze",
-                        "traits": [
-                            "arcane",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "key": "Weakness",
-                        "predicate": [
-                            {
-                                "not": "petrifying"
-                            }
-                        ],
-                        "type": "physical",
-                        "value": 15
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "petrifying",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KYGkXasFEDSHzvXF",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focus Gaze",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kerinza fixes her glare on a creature she can see within 30 feet. The target must attempt a @Check[fortitude|dc:32] save against Kerinza's petrifying gaze. If the target was already @UUID[Compendium.pf2e.conditionitems.Item.Slowed] before attempting its save, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Petrified] permanently. After attempting its save, the creature is then temporarily immune until the start of Kerinza's next turn.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "incapacitation",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9Cc36Upj4BWfiWkA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Quick Responses",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If Kerinza isn't @UUID[Compendium.pf2e.conditionitems.Item.Slowed], her Strikes deal an additional 2d6 precision damage to slowed targets.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": "2",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:slowed",
-                            {
-                                "not": "self:condition:slowed"
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UjNnBMOv8pcW7Efc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Serpent Venom",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[5d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1HxmS5qWRVFDssEr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XndR8hsJyCsVfZOi"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
-            "name": "Smoked Goggles",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These goggles use lenses made out of smoked glass to protect against creatures with gaze attacks. While wearing smoked goggles, you're always considered to be @UUID[Compendium.pf2e.actionspf2e.Item.Avert Gaze]{Averting Your Gaze}, but all creatures have @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} from you.</p>\n<p>The fact that the goggles conceal creatures is part of what grants the wearer the item's benefits. If you have a way to negate the concealment from the smoked goggles, you no longer gain the benefit, either.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
+                "slots": {
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens The Grand Bazaar"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "smoked-goggles",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worneyepiece"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "aXrZV98faef4piBX",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "PE0YRDKP8ZZ0Zpht"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Mace",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "Ph97YOkI8N6QeAjy": {
-                        "damage": "2d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "shove"
-                    ]
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
+                    "value": 24
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "nFJmmnsDz6R63kzE",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Snake Fangs",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "serpent-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "GeGw0ceNuLH6T2vv": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "bJ2SVKvIxJBLJLV9",
@@ -368,7 +62,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -453,7 +147,7 @@
             },
             "img": "icons/commodities/stone/stone-porous-blue.webp",
             "name": "Stone Tell",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -515,7 +209,7 @@
             },
             "img": "systems/pf2e/icons/spells/stone-to-flesh.webp",
             "name": "Stone to Flesh",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -577,7 +271,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -666,7 +360,7 @@
             },
             "img": "icons/commodities/stone/paver-brick-brown.webp",
             "name": "Wall of Stone",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -728,7 +422,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Stoneskin",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -790,7 +484,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -863,7 +557,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -926,7 +620,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1006,7 +700,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1073,7 +767,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1158,7 +852,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1236,7 +930,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1317,7 +1011,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1373,65 +1067,13 @@
             "type": "spell"
         },
         {
-            "_id": "CGM8F88qaHGfQqu8",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "PE0YRDKP8ZZ0Zpht",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.x1TOpwH755Ami5bC"
             },
             "img": "icons/weapons/maces/mace-round-steel.webp",
             "name": "Light Mace",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "light-mace",
                 "bonus": {
@@ -1511,6 +1153,364 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "1HxmS5qWRVFDssEr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XndR8hsJyCsVfZOi"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
+            "name": "Smoked Goggles",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These goggles use lenses made out of smoked glass to protect against creatures with gaze attacks. While wearing smoked goggles, you're always considered to be @UUID[Compendium.pf2e.actionspf2e.Item.Avert Gaze]{Averting Your Gaze}, but all creatures have @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} from you.</p>\n<p>The fact that the goggles conceal creatures is part of what grants the wearer the item's benefits. If you have a way to negate the concealment from the smoked goggles, you no longer gain the benefit, either.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens The Grand Bazaar"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "smoked-goggles",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worneyepiece"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "aXrZV98faef4piBX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PE0YRDKP8ZZ0Zpht"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Mace",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "Ph97YOkI8N6QeAjy": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nFJmmnsDz6R63kzE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Snake Fangs",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "serpent-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "GeGw0ceNuLH6T2vv": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "A5bMStZHdbQ9yIaL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Biting Snakes",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its turn adjacent to Kerinza</p>\n<hr />\n<p><strong>Effect</strong> Kerinza makes a snake fangs Strike against the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "biting-snakes",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DSg26CbIfxkrLUWg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Petrifying Gaze",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[fortitude|dc:32] save. If the creature fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. Kerinza can activate or deactivate this aura by using a single action, which has the concentrate trait, but deactivating it is painful for her; she gains weakness 15 to physical damage while her petrifying gaze is deactivated.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "petrifying"
+                        ],
+                        "radius": 30,
+                        "slug": "petrifying-gaze",
+                        "traits": [
+                            "arcane",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "petrifying"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 15
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "petrifying",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "aura",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KYGkXasFEDSHzvXF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focus Gaze",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kerinza fixes her glare on a creature she can see within 30 feet. The target must attempt a @Check[fortitude|dc:32] save against Kerinza's petrifying gaze. If the target was already @UUID[Compendium.pf2e.conditionitems.Item.Slowed] before attempting its save, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Petrified] permanently. After attempting its save, the creature is then temporarily immune until the start of Kerinza's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "incapacitation",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9Cc36Upj4BWfiWkA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Quick Responses",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If Kerinza isn't @UUID[Compendium.pf2e.conditionitems.Item.Slowed], her Strikes deal an additional 2d6 precision damage to slowed targets.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": "2",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:slowed",
+                            {
+                                "not": "self:condition:slowed"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UjNnBMOv8pcW7Efc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Serpent Venom",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[5d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kerinza",

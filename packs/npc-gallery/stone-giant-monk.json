@@ -3,72 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MKdjcAmWOXZkk2Pu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Catch Rock",
+            "_id": "UticIspMVAd6QGkp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "catch-rock",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "catch-rock"
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": "catch-rock",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6UQShM6aleyfYDgH",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Big Swing",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The stone giant makes a fist Strike. The target is @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Push]{Pushed} up to 10 feet on a hit or up to 20 feet on a critical hit.</p>\n<p>If the target collides with a solid object or lands on the ground, it takes bludgeoning damage as though it had fallen the distance it moved.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -76,46 +27,150 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 16
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "9PJJ2Aqeorbh7BnP",
+            "_id": "UzMHQ0oIhtIUiYVl",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GQopUYTuhmtb7WMG"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Throw Rock",
-            "sort": 300000,
+            "img": "icons/skills/melee/strike-sword-steel-yellow.webp",
+            "name": "Perfect Strike",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                    "value": "<p><strong>Trigger</strong> You miss a Strike with an unarmed attack.</p>\n<hr />\n<p>You call upon insight from your training to recover accuracy. Reroll the missed attack roll and keep the new result.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "UticIspMVAd6QGkp"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Lost Omens World Guide"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "throw-rock",
+                "slug": "perfect-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "reaction"
+                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "AskFIj4o1chCrzQx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ZL8NTvB22NeEWhVG"
+            },
+            "img": "systems/pf2e/icons/spells/ki-strike.webp",
+            "name": "Ki Strike",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inner Upheaval]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "UticIspMVAd6QGkp"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ki-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "spell"
         },
         {
             "_id": "jMBs4PyC1EahZHlA",
@@ -266,155 +321,72 @@
             "type": "melee"
         },
         {
-            "_id": "UzMHQ0oIhtIUiYVl",
+            "_id": "MKdjcAmWOXZkk2Pu",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GQopUYTuhmtb7WMG"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
             },
-            "img": "icons/skills/melee/strike-sword-steel-yellow.webp",
-            "name": "Perfect Strike",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Catch Rock",
             "sort": 700000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> You miss a Strike with an unarmed attack.</p>\n<hr />\n<p>You call upon insight from your training to recover accuracy. Reroll the missed attack roll and keep the new result.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "UticIspMVAd6QGkp"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens World Guide"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "perfect-strike",
-                "target": {
-                    "value": ""
-                },
-                "time": {
+                "actionType": {
                     "value": "reaction"
                 },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "AskFIj4o1chCrzQx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ZL8NTvB22NeEWhVG"
-            },
-            "img": "systems/pf2e/icons/spells/ki-strike.webp",
-            "name": "Ki Strike",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actions": {
+                    "value": null
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
+                "category": "defensive",
                 "description": {
-                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inner Upheaval]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 4,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "UticIspMVAd6QGkp"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary"
                 },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ki-strike",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "catch-rock",
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "monk"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "UticIspMVAd6QGkp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 900000,
+            "_id": "6UQShM6aleyfYDgH",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Big Swing",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 4
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>The stone giant makes a fist Strike. The target is @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Push]{Pushed} up to 10 feet on a hit or up to 20 feet on a critical hit.</p>\n<p>If the target collides with a solid object or lands on the ground, it takes bludgeoning damage as though it had fallen the distance it moved.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -422,18 +394,46 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "divine"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "9PJJ2Aqeorbh7BnP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Stone Giant Monk",

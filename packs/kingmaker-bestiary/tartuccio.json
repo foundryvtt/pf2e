@@ -3,24 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cA2cBXkewzB0Fwtj",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
+            "_id": "rWVM81zPBmywUXvF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> By performing a ten-minute long incantation, Tartuccio takes on the appearance of any uniquely-appearing Small humanoid. He can't disguise himself as a specific individual. This doesn't change his Speed or his attack and damage modifiers with his Strikes. He can do this again to resume his true form, and must do so before he uses the ability again to assume a different appearance. He reverts to his true form if he is slain.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "P1W"
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,68 +26,1167 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "uMg5j8kbgsMRkJNO",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Invoke Old Sharptooth",
+            "_id": "rbZIdY30oD5udoGi",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Tartuccio is in Tartuk's form</p>\n<p><strong>Trigger</strong> A Sootscale kobold causes Tartuccio harm.</p>\n<hr />\n<p><strong>Effect</strong> Tartuccio (as Tartuk) can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the kobold who harmed him with a short warning such as \"Old Sharptooth will punish you for your transgressions!\" He gains a +2 circumstance bonus on the Intimidate check to do so.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "intimidation",
-                        "key": "RollOption",
-                        "option": "invoke-old-sharptooth",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "invoke-old-sharptooth",
-                            "action:demoralize"
-                        ],
-                        "selector": "intimidation",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "larhpcaRP1wZOk1d",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
+            },
+            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+            "name": "Invisibility",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "invisibility",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "auditory",
+                        "illusion",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zZIBcaWkSOLCHCNI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
+            },
+            "img": "systems/pf2e/icons/spells/mirror-image.webp",
+            "name": "Mirror Image",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "mirror-image",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qQfh4I62Jm3XGfgJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WILXkjU5Yq3yw10r"
+            },
+            "img": "systems/pf2e/icons/spells/counter-performance.webp",
+            "name": "Counter Performance",
+            "sort": 500000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You or an ally within 60 feet rolls a saving throw against an auditory or visual effect.</p>\n<hr />\n<p>Your performance protects you and your allies. Roll a Performance check for a type you know: an auditory performance if the trigger was auditory, or a visual one for a visual trigger. You and allies in the area can use the better result between your Performance check and the saving throw.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rbZIdY30oD5udoGi"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "counter-performance",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "reaction"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "composition",
+                        "concentrate",
+                        "focus",
+                        "fortune",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "ghZTta8MzX8rIa3j",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "0",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "403IvfIvlOVPgi4X",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "24u6xZfmlILRznIZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
+            },
+            "img": "systems/pf2e/icons/spells/illusory-object.webp",
+            "name": "Illusory Object",
+            "sort": 800000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-rank version, but the duration is unlimited.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "illusory-object",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "N9yp0p1r2vUHy5te",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY"
+            },
+            "img": "systems/pf2e/icons/spells/inspire-courage.webp",
+            "name": "Inspire Courage",
+            "sort": 900000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Courageous Anthem]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rbZIdY30oD5udoGi"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "inspire-courage",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "cantrip",
+                        "composition",
+                        "concentrate",
                         "emotion",
                         "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "BXjbdWb5qGMHJeH2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
+            },
+            "img": "systems/pf2e/icons/spells/light.webp",
+            "name": "Light",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "light",
+                "target": {
+                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "X5ZT8ObtEuo0G4Xm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5Pc55FGGqVpIAJ62"
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Loremaster's Etude",
+            "sort": 1100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You or an ally within range attempts a skill check to Recall Knowledge.</p>\n<hr />\n<p><strong>Effect</strong> You call upon your muse's deep mysteries, granting the target a greater ability to think and recall information. Roll the triggering Recall Knowledge skill check twice and use the better result.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rbZIdY30oD5udoGi"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "loremasters-etude",
+                "target": {
+                    "value": "you or the triggering ally"
+                },
+                "time": {
+                    "value": "free"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "focus",
+                        "fortune",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "gmZLeKrDl1Elx0Pn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W"
+            },
+            "img": "systems/pf2e/icons/spells/mage-armor.webp",
+            "name": "Mage Armor",
+            "sort": 1200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mystic Armor]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "mage-armor",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "drMxr5XF6T1jDVxj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
+            },
+            "img": "systems/pf2e/icons/spells/message.webp",
+            "name": "Message",
+            "sort": 1300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "see below"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "500 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "message",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "auditory",
+                        "cantrip",
+                        "concentrate",
+                        "illusion",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "fKB4mkiHk9uzfaLW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD"
+            },
+            "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
+            "name": "Phantom Pain",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the persistent damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the persistent damage by 1d4.</p>\n<p>@Damage[(@item.level)d4[persistent,mental]]{Scaling Persistent Mental Damage}</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "phantom-pain",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "IUElurwYlPu1ATha",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
+            },
+            "img": "systems/pf2e/icons/spells/shield.webp",
+            "name": "Shield",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the start of your next turn"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "shield",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "force"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "ASPMeNkZhz8vln7F",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
+            },
+            "img": "systems/pf2e/icons/spells/sigil.webp",
+            "name": "Sigil",
+            "sort": 1600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "unlimited"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sigil",
+                "target": {
+                    "value": "1 creature or object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "NQnjrr16372GyFZV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
+            },
+            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
+            "name": "True Strike",
+            "sort": 1700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the end of your turn"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "rWVM81zPBmywUXvF"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "true-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "oMIhKijss8NvtV5O",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
+            "name": "Sickle",
+            "sort": 1800000,
+            "system": {
+                "baseItem": "sickle",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": "low",
+                    "type": "cold-iron"
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sickle",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "f1KaRpZo7GoKPttu",
@@ -98,7 +1195,7 @@
             },
             "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
             "name": "Wand of Magic Missile (Level 1)",
-            "sort": 300000,
+            "sort": 1900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -242,7 +1339,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Spell Effect: Mage Armor",
-            "sort": 400000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]</p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>"
@@ -337,31 +1434,6 @@
             "type": "effect"
         },
         {
-            "_id": "RNxWSJIolrbdRbNy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Bardic Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "lYx7vXEHaPIDLbWp",
             "flags": {
                 "pf2e": {
@@ -370,7 +1442,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sickle",
-            "sort": 600000,
+            "sort": 2100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -412,1040 +1484,24 @@
             "type": "melee"
         },
         {
-            "_id": "larhpcaRP1wZOk1d",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-            },
-            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
-            "name": "Invisibility",
-            "sort": 700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "invisibility",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "illusion",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "zZIBcaWkSOLCHCNI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
-            },
-            "img": "systems/pf2e/icons/spells/mirror-image.webp",
-            "name": "Mirror Image",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "mirror-image",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "qQfh4I62Jm3XGfgJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WILXkjU5Yq3yw10r"
-            },
-            "img": "systems/pf2e/icons/spells/counter-performance.webp",
-            "name": "Counter Performance",
-            "sort": 900000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> You or an ally within 60 feet rolls a saving throw against an auditory or visual effect.</p>\n<hr />\n<p>Your performance protects you and your allies. Roll a Performance check for a type you know: an auditory performance if the trigger was auditory, or a visual one for a visual trigger. You and allies in the area can use the better result between your Performance check and the saving throw.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rbZIdY30oD5udoGi"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "counter-performance",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "reaction"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "bard",
-                        "composition",
-                        "concentrate",
-                        "focus",
-                        "fortune",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ghZTta8MzX8rIa3j",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 1000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "0",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "daze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "403IvfIvlOVPgi4X",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "fear",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "24u6xZfmlILRznIZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2oH5IufzdESuYxat"
-            },
-            "img": "systems/pf2e/icons/spells/illusory-object.webp",
-            "name": "Illusory Object",
-            "sort": 1200000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-rank version, but the duration is unlimited.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "illusory-object",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "N9yp0p1r2vUHy5te",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY"
-            },
-            "img": "systems/pf2e/icons/spells/inspire-courage.webp",
-            "name": "Inspire Courage",
-            "sort": 1300000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Courageous Anthem]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rbZIdY30oD5udoGi"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "inspire-courage",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "bard",
-                        "cantrip",
-                        "composition",
-                        "concentrate",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "BXjbdWb5qGMHJeH2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-            },
-            "img": "systems/pf2e/icons/spells/light.webp",
-            "name": "Light",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "light",
-                "target": {
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "light",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "X5ZT8ObtEuo0G4Xm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5Pc55FGGqVpIAJ62"
-            },
-            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
-            "name": "Loremaster's Etude",
-            "sort": 1500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> You or an ally within range attempts a skill check to Recall Knowledge.</p>\n<hr />\n<p><strong>Effect</strong> You call upon your muse's deep mysteries, granting the target a greater ability to think and recall information. Roll the triggering Recall Knowledge skill check twice and use the better result.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rbZIdY30oD5udoGi"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "loremasters-etude",
-                "target": {
-                    "value": "you or the triggering ally"
-                },
-                "time": {
-                    "value": "free"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "bard",
-                        "focus",
-                        "fortune",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "gmZLeKrDl1Elx0Pn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W"
-            },
-            "img": "systems/pf2e/icons/spells/mage-armor.webp",
-            "name": "Mage Armor",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mystic Armor]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "mage-armor",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "drMxr5XF6T1jDVxj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ"
-            },
-            "img": "systems/pf2e/icons/spells/message.webp",
-            "name": "Message",
-            "sort": 1700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "see below"
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "range": {
-                                "value": "500 feet"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "message",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "auditory",
-                        "cantrip",
-                        "concentrate",
-                        "illusion",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "fKB4mkiHk9uzfaLW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD"
-            },
-            "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
-            "name": "Phantom Pain",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the persistent damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the persistent damage by 1d4.</p>\n<p>@Damage[(@item.level)d4[persistent,mental]]{Scaling Persistent Mental Damage}</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "phantom-pain",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "IUElurwYlPu1ATha",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR"
-            },
-            "img": "systems/pf2e/icons/spells/shield.webp",
-            "name": "Shield",
-            "sort": 1900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the start of your next turn"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "shield",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "force"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ASPMeNkZhz8vln7F",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
-            },
-            "img": "systems/pf2e/icons/spells/sigil.webp",
-            "name": "Sigil",
-            "sort": 2000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "unlimited"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sigil",
-                "target": {
-                    "value": "1 creature or object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "NQnjrr16372GyFZV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
-            },
-            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
-            "name": "True Strike",
-            "sort": 2100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the end of your turn"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "rWVM81zPBmywUXvF"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "true-strike",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "rWVM81zPBmywUXvF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
+            "_id": "cA2cBXkewzB0Fwtj",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
             "sort": 2200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
+                "actions": {
                     "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per week</p>\n<hr />\n<p><strong>Effect</strong> By performing a ten-minute long incantation, Tartuccio takes on the appearance of any uniquely-appearing Small humanoid. He can't disguise himself as a specific individual. This doesn't change his Speed or his attack and damage modifiers with his Strikes. He can do this again to resume his true form, and must do so before he uses the ability again to assume a different appearance. He reverts to his true form if he is slain.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1W"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1453,149 +1509,93 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "rbZIdY30oD5udoGi",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "oMIhKijss8NvtV5O",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
-            "name": "Sickle",
-            "sort": 2400000,
-            "system": {
-                "baseItem": "sickle",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d4"
-                },
-                "description": {
-                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": "low",
-                    "type": "cold-iron"
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "sickle",
-                "splashDamage": {
-                    "value": 0
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "trip"
+                        "concentrate",
+                        "occult",
+                        "polymorph"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "uMg5j8kbgsMRkJNO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Invoke Old Sharptooth",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> Tartuccio is in Tartuk's form</p>\n<p><strong>Trigger</strong> A Sootscale kobold causes Tartuccio harm.</p>\n<hr />\n<p><strong>Effect</strong> Tartuccio (as Tartuk) can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the kobold who harmed him with a short warning such as \"Old Sharptooth will punish you for your transgressions!\" He gains a +2 circumstance bonus on the Intimidate check to do so.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "intimidation",
+                        "key": "RollOption",
+                        "option": "invoke-old-sharptooth",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "invoke-old-sharptooth",
+                            "action:demoralize"
+                        ],
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RNxWSJIolrbdRbNy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Bardic Lore",
+            "sort": 2400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Tartuccio",

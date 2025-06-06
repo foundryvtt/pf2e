@@ -4,306 +4,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "pJ39pj0YZSOI1Hy6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Site Bound",
+            "_id": "4VHRW4Y0OmyqAHpQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The sporespawn of Treerazer cannot leave the Witchbole's sanctum.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UoKQ5xYxwkzldwhR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LGcCkQeZH3GXWthL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t3USaq2CKWLoaP9A",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 40 (Deactivated by Holy)",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 40
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "spBsMqVOA8rbhE2e",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Spores",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. A faint, hazy green cloud surrounds the sporespawn of Treerazer, causing fungi to grow on plants in the area. A living creature in the aura must succeed at a @Check[fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) from the sensation of these spores taking root on their bodies. A creature that's already sickened and fails their save against the aura of spores becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round because of excessive fungal growth on their bodies.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "aura-of-corruption",
-                        "traits": [
-                            "primal",
-                            "fungus",
-                            "poison"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "fungus",
-                        "poison",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7TG8awCuym8R9OVb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g2irWtwE4YUnllGP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "cfnd06scpmtmq5s2r6xd": {
-                        "damage": "4d10+18",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": 9
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "jaws",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "a9dfkKBjrmlqmTdn",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fungal Lash",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "4cJ56CVCILEMaebh": {
-                        "damage": "4d10+18",
-                        "damageType": "bludgeoning"
-                    },
-                    "iJm1eiIdeZB5zeAK": {
-                        "damage": "2d6",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-20",
-                        "unholy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 45,
+                    "mod": 0,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "n9p034nLYhSNoWkr",
@@ -312,7 +52,7 @@
             },
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Desiccate",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -397,7 +137,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers (At Will)",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -463,7 +203,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -527,7 +267,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement (Constant)",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -589,7 +329,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind (At Will)",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -656,7 +396,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -737,7 +477,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic (At Will)",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -800,7 +540,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -863,7 +603,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -981,23 +721,25 @@
             "type": "spell"
         },
         {
-            "_id": "4VHRW4Y0OmyqAHpQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1800000,
+            "_id": "g2irWtwE4YUnllGP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 9
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "cfnd06scpmtmq5s2r6xd": {
+                        "damage": "4d10+18",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -1005,22 +747,280 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 45,
-                    "mod": 0,
-                    "value": 37
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "slug": "jaws",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "a9dfkKBjrmlqmTdn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fungal Lash",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "4cJ56CVCILEMaebh": {
+                        "damage": "4d10+18",
+                        "damageType": "bludgeoning"
+                    },
+                    "iJm1eiIdeZB5zeAK": {
+                        "damage": "2d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pJ39pj0YZSOI1Hy6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Site Bound",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The sporespawn of Treerazer cannot leave the Witchbole's sanctum.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UoKQ5xYxwkzldwhR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LGcCkQeZH3GXWthL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t3USaq2CKWLoaP9A",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 40 (Deactivated by Holy)",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 40
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "spBsMqVOA8rbhE2e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Spores",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. A faint, hazy green cloud surrounds the sporespawn of Treerazer, causing fungi to grow on plants in the area. A living creature in the aura must succeed at a @Check[fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) from the sensation of these spores taking root on their bodies. A creature that's already sickened and fails their save against the aura of spores becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round because of excessive fungal growth on their bodies.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "aura-of-corruption",
+                        "traits": [
+                            "primal",
+                            "fungus",
+                            "poison"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fungus",
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7TG8awCuym8R9OVb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sporespawn of Treerazer",

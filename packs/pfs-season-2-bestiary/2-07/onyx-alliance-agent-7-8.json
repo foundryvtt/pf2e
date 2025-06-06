@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cLydPbejmvuvP55z",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Canny Reversal",
+            "_id": "FKsLVETgUnB7XGbB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An opponent within the Onyx Alliance agent's reach critically fails on a melee Strike targeted at the agent</p>\n<hr />\n<p><strong>Effect</strong> The Onyx Alliance agent makes a melee Strike or Trip attempt against the opponent and then Steps.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,410 +28,35 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Tqw4tDUBGZZ8fmwr",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Shadow Retreat",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per year</p>\n<hr />\n<p><strong>Effect</strong> Activating a special ritual taught through the Onyx Alliance, the agent teleports to a safe house located in the Shadow Plane.</p>\n<p>Simultaneous with the teleportation, a @Template[emanation|distance:5] of darkness appears where the agent once stood. The darkness lasts for one minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "P1Y"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "shadow",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FPjWLeDA8csoEgo3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Onyx Alliance agents deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "value": 5
                     },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t7JYxlOoGJLxhVqn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "2mg02oLqQAlJyTsa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
-            },
-            "img": "icons/commodities/materials/liquid-orange.webp",
-            "name": "Lethargy Poison",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 7
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "lethargy-poison",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "incapacitation",
-                        "injury",
-                        "poison",
-                        "sleep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "AYfTHsImYRwa3jVO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
-            "name": "Blowgun Needles",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "RRf2T1Yb2A0kNodq",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "EFGH5ZZN3ZFpuICM"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Whip",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "fy12gxywqec7vpaeinvr": {
-                        "damage": "1d4+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "reach",
-                        "trip"
-                    ]
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 16
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "Np3xLfgehIAeBS78",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "f1BJYbQ7Q1tiN6vx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Blowgun",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "lethargy-poison"
-                    ]
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "yrivjcg9yifku4srfxke": {
-                        "damage": "1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "MWdzW3i4MEYgmBMJ",
@@ -437,7 +65,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -509,7 +137,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotic Pattern",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -579,7 +207,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -657,7 +285,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -734,7 +362,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -802,7 +430,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -863,7 +491,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -926,7 +554,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -987,7 +615,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1067,7 +695,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1154,7 +782,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1235,7 +863,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1313,7 +941,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1394,7 +1022,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1469,7 +1097,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1530,7 +1158,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1592,7 +1220,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1647,68 +1275,13 @@
             "type": "spell"
         },
         {
-            "_id": "FKsLVETgUnB7XGbB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "value": 5
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "f1BJYbQ7Q1tiN6vx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FPwsiGqMCNPLHmjX"
             },
             "img": "systems/pf2e/icons/equipment/weapons/blowgun.webp",
             "name": "Blowgun",
-            "sort": 2700000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "blowgun",
                 "bonus": {
@@ -1794,7 +1367,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
             "name": "Whip",
-            "sort": 2800000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "whip",
                 "bonus": {
@@ -1875,6 +1448,433 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "t7JYxlOoGJLxhVqn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 2100000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "2mg02oLqQAlJyTsa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
+            },
+            "img": "icons/commodities/materials/liquid-orange.webp",
+            "name": "Lethargy Poison",
+            "sort": 2200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "lethargy-poison",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "incapacitation",
+                        "injury",
+                        "poison",
+                        "sleep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "AYfTHsImYRwa3jVO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
+            "name": "Blowgun Needles",
+            "sort": 2300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "blowgun-darts",
+                "stackGroup": "blowgunDarts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "RRf2T1Yb2A0kNodq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EFGH5ZZN3ZFpuICM"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Whip",
+            "sort": 2400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "fy12gxywqec7vpaeinvr": {
+                        "damage": "1d4+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Np3xLfgehIAeBS78",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "f1BJYbQ7Q1tiN6vx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blowgun",
+            "sort": 2500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "lethargy-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "yrivjcg9yifku4srfxke": {
+                        "damage": "1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cLydPbejmvuvP55z",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Canny Reversal",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An opponent within the Onyx Alliance agent's reach critically fails on a melee Strike targeted at the agent</p>\n<hr />\n<p><strong>Effect</strong> The Onyx Alliance agent makes a melee Strike or Trip attempt against the opponent and then Steps.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tqw4tDUBGZZ8fmwr",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Shadow Retreat",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per year</p>\n<hr />\n<p><strong>Effect</strong> Activating a special ritual taught through the Onyx Alliance, the agent teleports to a safe house located in the Shadow Plane.</p>\n<p>Simultaneous with the teleportation, a @Template[emanation|distance:5] of darkness appears where the agent once stood. The darkness lasts for one minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1Y"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "shadow",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FPjWLeDA8csoEgo3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Onyx Alliance agents deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Onyx Alliance Agent (7-8)",

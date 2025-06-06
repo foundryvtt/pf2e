@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4K08Pjh4KFcc51HP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blightburn Resin",
+            "_id": "DsescHdhJkDcwlne",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:30]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage (1 round)</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,164 +27,640 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "LEJfQC3oWEtamJxI"
+                            },
+                            {
+                                "id": "fjWn0ZFPOfeAIzjx"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "KUWay6xrpMGrn7M1"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "WNIZrN5sZ2lJ4NEn"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "l2vq3FHSvRwnG5sI"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "nEBF4cBQ7Fov04IL"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "alchemical",
-                        "contact",
-                        "poison"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 27,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "ZjESRQunTVjwTe9r",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Prayer Attack",
+            "_id": "nEBF4cBQ7Fov04IL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Translocate",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Red Mantis assassin wields a sawtooth saber in each hand</p><hr /><p><strong>Effect</strong> The Red Mantis assassin attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] an enemy within 30 feet. If the Feint is successful, the assassin's next successful strike with a sawtooth saber in that same turn deals 2d6 persistent bleed damage to the target. In addition, provided they remain visible to that target and that target remains within 30 feet of the assassin, additional Prayer Attacks against that target automatically cause them to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the assassin's attacks until the end of their turn.</p>"
+                    "value": "<p>You instantly transport yourself and any items you're wearing and holding from your current space to an unoccupied space within range you can see. If this would bring another creature with you—even if you're carrying it in an extradimensional container—the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are then temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "prayer-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "bleed",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "prayer-attack"
-                        ],
-                        "selector": "sawtooth-saber-damage"
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "translocate",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "concentrate"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "Jq0fBMKrpfIbsrdJ",
+            "_id": "l2vq3FHSvRwnG5sI",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.DCQHaLrYXMI37dvW"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "img": "systems/pf2e/icons/spells/paralyze.webp",
+            "name": "Paralyze",
             "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The Red Mantis assassin deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is Paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "paralyze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "I2Or0WEkwOz7GPKE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Surprise Attack",
+            "_id": "WNIZrN5sZ2lJ4NEn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9XHmC2JgTUIQ1CCm"
+            },
+            "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
+            "name": "Mist",
             "sort": 400000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": {
+                    "type": "burst",
+                    "value": 20
                 },
-                "actions": {
-                    "value": null
+                "cost": {
+                    "value": ""
                 },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the Red Mantis assassin.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. You can Dismiss the cloud.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "mist",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "water"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "LEJfQC3oWEtamJxI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI"
+            },
+            "img": "systems/pf2e/icons/spells/ghost-sound.webp",
+            "name": "Figment",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Figment]</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "figment",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "subtle"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "fjWn0ZFPOfeAIzjx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
+            },
+            "img": "systems/pf2e/icons/spells/sigil.webp",
+            "name": "Sigil",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "unlimited"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sigil",
+                "target": {
+                    "value": "1 creature or object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "KUWay6xrpMGrn7M1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
+            },
+            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
+            "name": "Sure Strike",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the end of your turn"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "DsescHdhJkDcwlne"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sure-strike",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Gh6tCmRyaYmByuzC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wkzxLpSe7LN6c5Ld"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sawtooth-saber.webp",
+            "name": "Sawtooth Saber",
+            "sort": 800000,
+            "system": {
+                "baseItem": "sawtooth-saber",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>The signature weapon of the Red Mantis assassins, this curved blade is serrated like a saw, hence the name.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "wounding"
+                    ],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "sawtooth-saber",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "twin"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "1HbuEDzell3VFQ5G",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fjkwYZ0hRmBztwBG"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
+            "name": "Shuriken (With Blightburn Resin)",
+            "sort": 900000,
+            "system": {
+                "baseItem": "shuriken",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This \"throwing star\" is a small piece of flat metal with sharp edges, designed to be flung with a flick of the wrist.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:30]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "dart",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "range": 20,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shuriken",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "monk",
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "mpZBhtppvvGgUKUW",
@@ -190,7 +669,7 @@
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
-            "sort": 500000,
+            "sort": 1000000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
@@ -250,80 +729,13 @@
             "type": "armor"
         },
         {
-            "_id": "4eqaAeSmXGHAizGI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
-            "name": "Potion of Flying (Standard)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "potion-of-flying-standard",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "1Oft4yrxLFiUGhIh",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Ku14uJEbwXi0XqD9"
             },
             "img": "icons/equipment/head/helm-spangen.webp",
             "name": "Mask of the Mantis",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -418,30 +830,71 @@
             "type": "equipment"
         },
         {
-            "_id": "3C0qGq1pJK0OpVp1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Achaekek Lore",
-            "sort": 800000,
+            "_id": "4eqaAeSmXGHAizGI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
+            "name": "Potion of Flying (Standard)",
+            "sort": 1200000,
             "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
                 },
-                "mod": {
-                    "value": 18
+                "equipped": {
+                    "carryType": "worn"
                 },
-                "proficient": {
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
                     "value": 0
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "level": {
+                    "value": 8
                 },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
                 "rules": [],
-                "slug": null,
-                "traits": {}
+                "size": "med",
+                "slug": "potion-of-flying-standard",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
             },
-            "type": "lore"
+            "type": "consumable"
         },
         {
             "_id": "NNcbk26Kgjh1yP8j",
@@ -452,7 +905,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shuriken",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "attackEffects": {
                     "value": [
@@ -498,7 +951,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sawtooth Saber",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -539,421 +992,20 @@
             "type": "melee"
         },
         {
-            "_id": "nEBF4cBQ7Fov04IL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Translocate",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You instantly transport yourself and any items you're wearing and holding from your current space to an unoccupied space within range you can see. If this would bring another creature with you—even if you're carrying it in an extradimensional container—the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are then temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "levels": {
-                        "5": {
-                            "range": {
-                                "value": "1 mile"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "translocate",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "l2vq3FHSvRwnG5sI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.DCQHaLrYXMI37dvW"
-            },
-            "img": "systems/pf2e/icons/spells/paralyze.webp",
-            "name": "Paralyze",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is Paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "7": {
-                            "target": {
-                                "value": "10 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "paralyze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "WNIZrN5sZ2lJ4NEn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9XHmC2JgTUIQ1CCm"
-            },
-            "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
-            "name": "Mist",
-            "sort": 1300000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. You can Dismiss the cloud.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "mist",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "water"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "LEJfQC3oWEtamJxI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI"
-            },
-            "img": "systems/pf2e/icons/spells/ghost-sound.webp",
-            "name": "Figment",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Figment]</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "figment",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "subtle"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "fjWn0ZFPOfeAIzjx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
-            },
-            "img": "systems/pf2e/icons/spells/sigil.webp",
-            "name": "Sigil",
+            "_id": "4K08Pjh4KFcc51HP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blightburn Resin",
             "sort": 1500000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "unlimited"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sigil",
-                "target": {
-                    "value": "1 creature or object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "KUWay6xrpMGrn7M1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
-            },
-            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
-            "name": "Sure Strike",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the end of your turn"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "DsescHdhJkDcwlne"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sure-strike",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "DsescHdhJkDcwlne",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:30]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -961,242 +1013,190 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "LEJfQC3oWEtamJxI"
-                            },
-                            {
-                                "id": "fjWn0ZFPOfeAIzjx"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "KUWay6xrpMGrn7M1"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "WNIZrN5sZ2lJ4NEn"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "l2vq3FHSvRwnG5sI"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "nEBF4cBQ7Fov04IL"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "alchemical",
+                        "contact",
+                        "poison"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "Gh6tCmRyaYmByuzC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wkzxLpSe7LN6c5Ld"
+            "_id": "ZjESRQunTVjwTe9r",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Prayer Attack",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Red Mantis assassin wields a sawtooth saber in each hand</p><hr /><p><strong>Effect</strong> The Red Mantis assassin attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] an enemy within 30 feet. If the Feint is successful, the assassin's next successful strike with a sawtooth saber in that same turn deals 2d6 persistent bleed damage to the target. In addition, provided they remain visible to that target and that target remains within 30 feet of the assassin, additional Prayer Attacks against that target automatically cause them to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the assassin's attacks until the end of their turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "prayer-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "prayer-attack"
+                        ],
+                        "selector": "sawtooth-saber-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/sawtooth-saber.webp",
-            "name": "Sawtooth Saber",
+            "type": "action"
+        },
+        {
+            "_id": "Jq0fBMKrpfIbsrdJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Red Mantis assassin deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I2Or0WEkwOz7GPKE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Surprise Attack",
             "sort": 1800000,
             "system": {
-                "baseItem": "sawtooth-saber",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "advanced",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The signature weapon of the Red Mantis assassins, this curved blade is serrated like a saw, hence the name.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the Red Mantis assassin.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "quantity": 2,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [
-                        "wounding"
-                    ],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "sawtooth-saber",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "twin"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "1HbuEDzell3VFQ5G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fjkwYZ0hRmBztwBG"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
-            "name": "Shuriken (With Blightburn Resin)",
+            "_id": "3C0qGq1pJK0OpVp1",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Achaekek Lore",
             "sort": 1900000,
             "system": {
-                "baseItem": "shuriken",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
                 "description": {
-                    "value": "<p>This \"throwing star\" is a small piece of flat metal with sharp edges, designed to be flung with a flick of the wrist.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:30]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[9d6[poison]] damage (1 round)</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                "mod": {
+                    "value": 18
                 },
-                "group": "dart",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficient": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 5,
-                "range": 20,
-                "reload": {
-                    "value": "0"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shuriken",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "agile",
-                        "monk",
-                        "thrown"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
-                }
+                "slug": null,
+                "traits": {}
             },
-            "type": "weapon"
+            "type": "lore"
         }
     ],
     "name": "Red Mantis Assassin",

@@ -4,587 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "I4PFPbSqFgIw8s2a",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bar Brawler",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional [[/r {1d4}]]{1d4 damage}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Fighting in their own bar",
-                        "option": "bar-brawler",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "bar-brawler"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "bar-brawler"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FjAegBQAJrWQfb7O",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Barkeep's Advice",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The barkeep gives some pertinent advice to a single creature other than themself. For 24 hours, when that creature fails a skill check or saving throw, they can recall this advice and reroll the check, using the second result instead. Once that creature uses this ability, its effect ends.</p>\n<p>A creature that receives the Barkeep's Advice is temporarily immune to the ability for 1 month.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "fortune",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qwLSP7T632FUr5WK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
-            "name": "Padded Armor",
-            "sort": 300000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "padded-armor",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "light",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": null,
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "padded-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "LnIhfL58EXF76QqH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.HUgVrYvdy9SkqRZ9"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/rounds-large.webp",
-            "name": "Rounds (Dwarven Scattergun)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 5,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dwarven-scattergun",
-                "stackGroup": "rounds5",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "rulzIJtH4wzjhysd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UMAXLDpI6YLSfYX1"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/alcohol.webp",
-            "name": "Flask of Whiskey",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "drug",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Alcohol is a common substance available in stunning variety. The Price of a dose of alcohol depends on the specific beverage. You can't recover from the sickened condition from alcohol while affected.</p>\n<p>If you fail a saving throw against alcohol other than initial saves, the affliction's stage doesn't increase; the only way to increase the stage of alcohol's affliction is to consume more alcohol.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:12]</p>\n<p><strong>Onset</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> +1 item bonus to saving throws against fear (10 minutes)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], +1 item bonus to saving throws against fear effects (10 minutes)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, off-guard, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (10 minutes)</p>\n<p><strong>Stage 4</strong> clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (10 minutes)</p>\n<p><strong>Stage 5</strong> clumsy 2, sickened 2, and stupefied 2 (10 minutes)</p>\n<p><strong>Stage 6</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (8 hours)</p>\n<p><strong>Stage 7</strong> death</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Gamemastery Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "alcohol",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "drug",
-                        "ingested",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "roHRfYZYSmmL21qh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wRSS5vP8ltrThsoC"
-            },
-            "img": "icons/containers/kitchenware/mug-steel-wood-brown.webp",
-            "name": "Pewter Mug",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "mug",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "aONIkEPFl7BL1rkL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Alcohol Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "4w2LTZI9OzE7borg",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "EQLEZdmlLZXizMZz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sap",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "6y3hnohj1zgw67pg72d8": {
-                        "damage": "1d6+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bM8n1Qm0DzVoFL3t",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "x4rqc3cuc5fg21sfvg77": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "EWBPSoYOlJNmUbko",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pewter Mug",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "a7asuxszo1898kos1kxs": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "kKuwyIcQI3BkiMXc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "XpdVtvLFSec6Lnz4"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dwarven Scattergun",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "xg7gxx9l7dg4wncsp28r": {
-                        "damage": "1d8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concussive",
-                        "kickback",
-                        "range-increment-50",
-                        "reload-1",
-                        "scatter-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "XpdVtvLFSec6Lnz4",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jcIabnkJgjwzK6Og"
             },
             "img": "icons/weapons/guns/gun-blunderbuss-bronze.webp",
             "name": "Dwarven Scattergun",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dwarven-scattergun",
                 "bonus": {
@@ -672,7 +98,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/sap.webp",
             "name": "Sap",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "baseItem": "sap",
                 "bonus": {
@@ -750,6 +176,580 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "qwLSP7T632FUr5WK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Padded Armor",
+            "sort": 300000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "roHRfYZYSmmL21qh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wRSS5vP8ltrThsoC"
+            },
+            "img": "icons/containers/kitchenware/mug-steel-wood-brown.webp",
+            "name": "Pewter Mug",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "mug",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "LnIhfL58EXF76QqH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.HUgVrYvdy9SkqRZ9"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/rounds-large.webp",
+            "name": "Rounds (Dwarven Scattergun)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 5,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dwarven-scattergun",
+                "stackGroup": "rounds5",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "rulzIJtH4wzjhysd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UMAXLDpI6YLSfYX1"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/alcohol.webp",
+            "name": "Flask of Whiskey",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "drug",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Alcohol is a common substance available in stunning variety. The Price of a dose of alcohol depends on the specific beverage. You can't recover from the sickened condition from alcohol while affected.</p>\n<p>If you fail a saving throw against alcohol other than initial saves, the affliction's stage doesn't increase; the only way to increase the stage of alcohol's affliction is to consume more alcohol.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:12]</p>\n<p><strong>Onset</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> +1 item bonus to saving throws against fear (10 minutes)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], +1 item bonus to saving throws against fear effects (10 minutes)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, off-guard, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (10 minutes)</p>\n<p><strong>Stage 4</strong> clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (10 minutes)</p>\n<p><strong>Stage 5</strong> clumsy 2, sickened 2, and stupefied 2 (10 minutes)</p>\n<p><strong>Stage 6</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (8 hours)</p>\n<p><strong>Stage 7</strong> death</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Gamemastery Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alcohol",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "drug",
+                        "ingested",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "4w2LTZI9OzE7borg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EQLEZdmlLZXizMZz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sap",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "6y3hnohj1zgw67pg72d8": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bM8n1Qm0DzVoFL3t",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "x4rqc3cuc5fg21sfvg77": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EWBPSoYOlJNmUbko",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pewter Mug",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "a7asuxszo1898kos1kxs": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kKuwyIcQI3BkiMXc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "XpdVtvLFSec6Lnz4"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dwarven Scattergun",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "xg7gxx9l7dg4wncsp28r": {
+                        "damage": "1d8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concussive",
+                        "kickback",
+                        "range-increment-50",
+                        "reload-1",
+                        "scatter-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "I4PFPbSqFgIw8s2a",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bar Brawler",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The barkeep has been in enough bar fights to know how to throw a few punches. When fighting in their bar and making a nonlethal attack, the barkeep gains a +1 circumstance bonus to attack rolls and deals an additional [[/r {1d4}]]{1d4 damage}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Fighting in their own bar",
+                        "option": "bar-brawler",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bar-brawler"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "bar-brawler"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FjAegBQAJrWQfb7O",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Barkeep's Advice",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The barkeep gives some pertinent advice to a single creature other than themself. For 24 hours, when that creature fails a skill check or saving throw, they can recall this advice and reroll the check, using the second result instead. Once that creature uses this ability, its effect ends.</p>\n<p>A creature that receives the Barkeep's Advice is temporarily immune to the ability for 1 month.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "fortune",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aONIkEPFl7BL1rkL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Alcohol Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Steaming Kingdom Bartender",

@@ -4,443 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zStVPp0gYqesILe2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Constructed",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Anvaca gains a +1 circumstance bonus to saving throws against death effects, disease, and poison, as well as to saving throws against effects that would give them the @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], or @UUID[Compendium.pf2e.conditionitems.Item.Sickened] conditions. They count as a living creature (and can therefore be healed by vitality and harmed by void damage).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Immunity",
-                        "mode": "remove",
-                        "type": [
-                            "bleed",
-                            "death-effects",
-                            "disease",
-                            "fatigued",
-                            "doomed",
-                            "drained",
-                            "fatigued",
-                            "healing",
-                            "nonlethal-attacks",
-                            "paralyzed",
-                            "poison",
-                            "sickened",
-                            "spirit",
-                            "unconscious",
-                            "vitality",
-                            "void"
-                        ]
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:trait:death",
-                                    "item:trait:disease",
-                                    "inflicts:drained",
-                                    "inflicts:paralyzed",
-                                    "item:trait:poison",
-                                    "inflicts:sickened"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IfiJpL33NmdNIR47",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shield Block",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zo7h1UF1S3XiJyQd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bolt Emitter",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Price</strong> 900 gp; <strong>Ammunition</strong> magical energy (unlimited; no reload)</p><hr /><p><strong>Usage</strong> mounted on tracks</p>\n<p><strong>Space</strong> 7 feet long, 5 feet wide, 5 feet high</p><hr /><p><strong>Crew</strong> 1–3; <strong>Proficiency</strong> martial</p><hr /><p><strong>AC</strong> 22; <strong>Fort</strong> [[/r 1d20+17 #Fortitude]]{+17}; <strong>Ref</strong> [[/r 1d20+13 #Reflex]]{+13}</p>\n<p><strong>Hardness</strong> 15; <strong>HP</strong> 80 (BT 40); <strong>Immunities</strong> object immunities</p><hr /><p><strong>Speed</strong> 15 feet (pushed or pulled along tracks; can't be removed from tracks)</p>\n<p><strong>Aim</strong> <span class=\"action-glyph\">1</span> 60 feet, minimum distance 10 feet</p>\n<p><strong>Fire</strong> <span class=\"action-glyph\">1</span> (attack, flourish, manipulate, range 200 feet) @Damage[6d10[electricity]], single target, @Check[reflex|dc:23]. On a failed save, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} from electric shock.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o9hIFf9LPgENxdRP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dead, But Not Forgotten",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The countless ghostly echoes that compose Anvaca's spirit surround the poppet's body, then surge out in either a @Template[type:emanation|distance:15] or a @Template[type:line|distance:60], dealing @Damage[6d10[spirit]|options:area-damage] damage to all creatures in the area (@Check[reflex|dc:28|basic] save). Anvaca can't use Dead, But Not Forgotten again for [[/gmr 1d4 #Recharge Dead, But Not Forgotten]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "magical",
-                        "spirit"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sFvIrdCN0KlmAXIN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Moon-Blessed Hoplite",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Anvaca can wield a longspear in one hand if they're holding a shield in their other hand. Spear weapons Anvaca wields temporarily become <em>+2 greater striking</em> and deal an additional 1d8 spirit damage on a hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0TIzm0SotUXlV0VG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shielded Approach",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Anvaca Raises their Shield, then either Strides or Steps.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "z6NOWB6xFedwKHmI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
-            },
-            "img": "icons/tools/smithing/anvil.webp",
-            "name": "Repair Toolkit",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "tiny",
-                "slug": "repair-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "0DbMEx3Mh6oo5rfM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wm6skmHn3YwF8Xx3"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longspear",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "KSSGZcCI4ljOansI": {
-                        "damage": "3d8+8",
-                        "damageType": "piercing"
-                    },
-                    "WhWDaCADwgXeWgIv": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "longspear",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "i0uvaVyEMVmJJZ4f",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bolt Emitter",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "QR6AvOyo7ZDMEker": {
-                        "damage": "6d10+4",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": "<p>See below.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "range-200"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "t5VOzTGErJaMMnjH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.nDZX25OwoN0Imrq6"
-            },
-            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
-            "name": "Sturdy Shield (Lesser)",
-            "sort": 1000000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "steel-shield",
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 10, HP 80, and BT 40.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 10,
-                "hp": {
-                    "max": 80,
-                    "value": 80
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 360
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "reinforcing": 0
-                },
-                "size": "tiny",
-                "slug": "sturdy-shield-lesser",
-                "specific": {
-                    "integrated": null,
-                    "material": {
-                        "grade": null,
-                        "type": null
-                    },
-                    "runes": {
-                        "reinforcing": 0
-                    }
-                },
-                "speedPenalty": 0,
-                "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                }
-            },
-            "type": "shield"
-        },
-        {
             "_id": "wm6skmHn3YwF8Xx3",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV"
             },
             "img": "icons/weapons/polearms/spear-simple-engraved.webp",
             "name": "Longspear",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "longspear",
                 "bonus": {
@@ -517,6 +87,436 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "t5VOzTGErJaMMnjH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.nDZX25OwoN0Imrq6"
+            },
+            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
+            "name": "Sturdy Shield (Lesser)",
+            "sort": 200000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 10, HP 80, and BT 40.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 10,
+                "hp": {
+                    "max": 80,
+                    "value": 80
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 360
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "tiny",
+                "slug": "sturdy-shield-lesser",
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "shield"
+        },
+        {
+            "_id": "z6NOWB6xFedwKHmI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
+            },
+            "img": "icons/tools/smithing/anvil.webp",
+            "name": "Repair Toolkit",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "tiny",
+                "slug": "repair-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0DbMEx3Mh6oo5rfM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wm6skmHn3YwF8Xx3"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longspear",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "KSSGZcCI4ljOansI": {
+                        "damage": "3d8+8",
+                        "damageType": "piercing"
+                    },
+                    "WhWDaCADwgXeWgIv": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "longspear",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "i0uvaVyEMVmJJZ4f",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bolt Emitter",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "QR6AvOyo7ZDMEker": {
+                        "damage": "6d10+4",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": "<p>See below.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-200"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zStVPp0gYqesILe2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constructed",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Anvaca gains a +1 circumstance bonus to saving throws against death effects, disease, and poison, as well as to saving throws against effects that would give them the @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], or @UUID[Compendium.pf2e.conditionitems.Item.Sickened] conditions. They count as a living creature (and can therefore be healed by vitality and harmed by void damage).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "fatigued",
+                            "doomed",
+                            "drained",
+                            "fatigued",
+                            "healing",
+                            "nonlethal-attacks",
+                            "paralyzed",
+                            "poison",
+                            "sickened",
+                            "spirit",
+                            "unconscious",
+                            "vitality",
+                            "void"
+                        ]
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:death",
+                                    "item:trait:disease",
+                                    "inflicts:drained",
+                                    "inflicts:paralyzed",
+                                    "item:trait:poison",
+                                    "inflicts:sickened"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IfiJpL33NmdNIR47",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zo7h1UF1S3XiJyQd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bolt Emitter",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Price</strong> 900 gp; <strong>Ammunition</strong> magical energy (unlimited; no reload)</p><hr /><p><strong>Usage</strong> mounted on tracks</p>\n<p><strong>Space</strong> 7 feet long, 5 feet wide, 5 feet high</p><hr /><p><strong>Crew</strong> 1–3; <strong>Proficiency</strong> martial</p><hr /><p><strong>AC</strong> 22; <strong>Fort</strong> [[/r 1d20+17 #Fortitude]]{+17}; <strong>Ref</strong> [[/r 1d20+13 #Reflex]]{+13}</p>\n<p><strong>Hardness</strong> 15; <strong>HP</strong> 80 (BT 40); <strong>Immunities</strong> object immunities</p><hr /><p><strong>Speed</strong> 15 feet (pushed or pulled along tracks; can't be removed from tracks)</p>\n<p><strong>Aim</strong> <span class=\"action-glyph\">1</span> 60 feet, minimum distance 10 feet</p>\n<p><strong>Fire</strong> <span class=\"action-glyph\">1</span> (attack, flourish, manipulate, range 200 feet) @Damage[6d10[electricity]], single target, @Check[reflex|dc:23]. On a failed save, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} from electric shock.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o9hIFf9LPgENxdRP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dead, But Not Forgotten",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The countless ghostly echoes that compose Anvaca's spirit surround the poppet's body, then surge out in either a @Template[type:emanation|distance:15] or a @Template[type:line|distance:60], dealing @Damage[6d10[spirit]|options:area-damage] damage to all creatures in the area (@Check[reflex|dc:28|basic] save). Anvaca can't use Dead, But Not Forgotten again for [[/gmr 1d4 #Recharge Dead, But Not Forgotten]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "magical",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sFvIrdCN0KlmAXIN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Moon-Blessed Hoplite",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Anvaca can wield a longspear in one hand if they're holding a shield in their other hand. Spear weapons Anvaca wields temporarily become <em>+2 greater striking</em> and deal an additional 1d8 spirit damage on a hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0TIzm0SotUXlV0VG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shielded Approach",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Anvaca Raises their Shield, then either Strides or Steps.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Anvaca",

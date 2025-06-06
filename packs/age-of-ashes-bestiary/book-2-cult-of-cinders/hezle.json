@@ -4,815 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kZcHhT2dlbVHF7AS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Kobold Explosives",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<hr />\n<p><strong>Effect</strong> Hezle quickly cobbles together an explosive bomb and lobs it up to 30 feet. All creatures in a @Template[burst|distance:5] take @Damage[5d6[fire]] damage (@Check[reflex|dc:26|basic|traits:interact] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "fire",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e2Kf0nqsKQ0S7M4n",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Smoky Retreat",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Requirements</strong> Hezle must be adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> Hezle throws a mix of special powders centered on a corner of her space, creating a plume of smoke filling a @Template[burst|distance:5] until the end of her turn that causes her to be @UUID[Compendium.pf2e.conditionitems.Item.Hidden]. She then immediately @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]{Sneaks}, but must end her movement in a space that's not adjacent to any enemies.</p>\n<p>All creatures other than Hezle in the smoke cloud must attempt a @Check[fortitude|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SmEfn9FnR2kxlXyr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Hezle deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EferdcZmtLTCxvjj",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Staff Mastery",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Although Hezle does not cast spells, her obsession with fire and long hours of practice allow her to cast spells from her <em>staff of fire</em> as if she had the spells on her spell list and could cast them. She still must expend charges from the staff normally; when she prepares the staff each morning, she is capable of placing 4 charges in the staff.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yCrwnLcHnd1TPKrB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 500000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "P8LtiZQwTHzcrJeH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XWkeL34yJK6t5qUE"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
-            "name": "Antidote (Greater)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +4 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "antidote-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "oKiC5hjwGxfB5TeE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "cS1gFj0x5OkGUnhg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WL4O32qFifxnMj0H"
-            },
-            "img": "icons/commodities/materials/liquid-blue.webp",
-            "name": "Wyvern Poison [Applied to 4 Bolts]",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26|name:Wyvern Poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 80
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "wyvern-poison",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "injury",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "UT4ziqgiSxt2toBQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Moderate)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "3d8+10",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-moderate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "GWB9Y5J1UIUrQmlk",
-            "img": "systems/pf2e/icons/equipment/consumables/oils/salve-of-antiparalysis.webp",
-            "name": "Infused Reagents",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "tvWQ8FsujbpIgBJg",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mining Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5UfaoE8p4Wo5eUod",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Gr4iC9v8WDwl1THc"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "m7z16zi8y7pjetkl20m7": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "k8bgECKZjROUF5gA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "b1HGVCwtMXd45naV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff of Fire",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "yo1d5zvkb6k8s377ewoe": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yXL2GLDidWh51HPb",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Gr4iC9v8WDwl1THc"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "xgwqf6vmf17wnxxdexae": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JRd0vnYlb4G88YJ6",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ZpFKjHuyvoYiqXhM"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Crossbow",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "wyvern-poison"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "znb085xyk6qs7253a8zf": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-120",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ZpFKjHuyvoYiqXhM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
             },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
-            "sort": 1600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "crossbow",
                 "bonus": {
@@ -895,7 +93,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1700000,
+            "sort": 200000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -983,7 +181,7 @@
             },
             "img": "systems/pf2e/icons/equipment/staves/staff-of-fire.webp",
             "name": "Staff of Fire (Greater)",
-            "sort": 1800000,
+            "sort": 300000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1062,6 +260,808 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "yCrwnLcHnd1TPKrB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "P8LtiZQwTHzcrJeH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XWkeL34yJK6t5qUE"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+            "name": "Antidote (Greater)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +4 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "antidote-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "oKiC5hjwGxfB5TeE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "cS1gFj0x5OkGUnhg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WL4O32qFifxnMj0H"
+            },
+            "img": "icons/commodities/materials/liquid-blue.webp",
+            "name": "Wyvern Poison [Applied to 4 Bolts]",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26|name:Wyvern Poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 80
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "wyvern-poison",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "UT4ziqgiSxt2toBQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Moderate)",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "3d8+10",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "GWB9Y5J1UIUrQmlk",
+            "img": "systems/pf2e/icons/equipment/consumables/oils/salve-of-antiparalysis.webp",
+            "name": "Infused Reagents",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "5UfaoE8p4Wo5eUod",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Gr4iC9v8WDwl1THc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "m7z16zi8y7pjetkl20m7": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "k8bgECKZjROUF5gA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "b1HGVCwtMXd45naV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff of Fire",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "yo1d5zvkb6k8s377ewoe": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yXL2GLDidWh51HPb",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Gr4iC9v8WDwl1THc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "xgwqf6vmf17wnxxdexae": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JRd0vnYlb4G88YJ6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ZpFKjHuyvoYiqXhM"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Crossbow",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "wyvern-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "znb085xyk6qs7253a8zf": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-120",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kZcHhT2dlbVHF7AS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Kobold Explosives",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<hr />\n<p><strong>Effect</strong> Hezle quickly cobbles together an explosive bomb and lobs it up to 30 feet. All creatures in a @Template[burst|distance:5] take @Damage[5d6[fire]] damage (@Check[reflex|dc:26|basic|traits:interact] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e2Kf0nqsKQ0S7M4n",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Smoky Retreat",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Requirements</strong> Hezle must be adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> Hezle throws a mix of special powders centered on a corner of her space, creating a plume of smoke filling a @Template[burst|distance:5] until the end of her turn that causes her to be @UUID[Compendium.pf2e.conditionitems.Item.Hidden]. She then immediately @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]{Sneaks}, but must end her movement in a space that's not adjacent to any enemies.</p>\n<p>All creatures other than Hezle in the smoke cloud must attempt a @Check[fortitude|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SmEfn9FnR2kxlXyr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hezle deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EferdcZmtLTCxvjj",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Staff Mastery",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Although Hezle does not cast spells, her obsession with fire and long hours of practice allow her to cast spells from her <em>staff of fire</em> as if she had the spells on her spell list and could cast them. She still must expend charges from the staff normally; when she prepares the staff each morning, she is capable of placing 4 charges in the staff.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tvWQ8FsujbpIgBJg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mining Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Hezle",

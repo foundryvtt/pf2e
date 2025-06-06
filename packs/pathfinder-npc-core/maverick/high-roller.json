@@ -4,500 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "SSpv0YzxRDFGa7q5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Gaming Arsenal",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The high roller treats all game tools—such as cards (used in the stat block's Strike entries), dice, coins, and gambling tokens—as melee weapons with a d4 damage die and the agile, finesse and thrown 20 feet traits. The high roller gets a +1 item bonus to attack rolls with them and deals two damage dice. The damage type depends on the item and is determined by the GM.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0JGyZaLfHkTcMLjM",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+4 to Sense Motive",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dTt5gdnU4P28VxWX",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Tip the Scales",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature the high roller is observing critically fails a check</p><hr /><p><strong>Effect</strong> The high roller picks up on luck that others dropped. They roll twice on their next d20 roll before the end of their next turn and take the better result.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Tip the Scales",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Tip the Scales"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a5DYCFFpjb7dteYJ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Lucky Momentum",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The high roller's last action was a critical success</p><hr /><p><strong>Effect</strong> The high roller either Strides twice or attempts a Strike that deals an additional 4d6 precision damage and deals half damage on a failure (but not a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "lucky-momentum",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 4,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "lucky-momentum"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5mZHOHvumjTVWjwh",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Royal Flush Flurry",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The high roller has at least 16 cards in one hand</p><hr /><p><strong>Effect</strong> The high roller unleashes the cards in a @Template[type:cone|distance:30], dealing @Damage[16d4[slashing]|options:area-damage] damage to all creatures in the area with a @Check[reflex|dc:30|basic|options:area-effect] save. This ability expends the full deck of cards held.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SswEEohBA63CQBAD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EsqFTJXcmzfngRgL"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
-            "name": "Playing Cards (54-Card Deck)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A standard deck of cards consists of 54 cards made from thick paper contained within a paper sleeve. The most common deck used for games and gambling is known as the Old Mage deck and features four suits themed with the four essences of magic, each with 13 cards, as well as two wildcards. The name and appearance of the deck varies from region to region, such as the Magician's Deck in Taldor or the Deck of Masks in the Shackles.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Pathfinder Society Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "playing-cards",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "SER6o00Ism1pUwdb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZIQAzOavTXJCcCMD"
-            },
-            "img": "systems/pf2e/icons/equipment/held-items/predictable-silver-piece.webp",
-            "name": "Predictable Silver Piece",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This seemingly unremarkable, weathered silver coin bears the bust of an unnamed monarch on the face and a majestic bird on the tail. You can toss the coin without activating it, in which case it follows the normal laws of probability.</p>\n<p><strong>Activate—Cheat Fate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p><strong>Effect</strong> You rub your thumb on one side of the coin with the intent of slightly tweaking the strands of fate, then flip the coin into the air in a coin toss. No matter how the toss is resolved- letting the coin fall to the ground, slapping it down on the back of your hand, or catching it on your open palm-it always lands with the side you rubbed face up.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "predictable-silver-piece",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "SAz8XoRWN6zhhhhs",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Games Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BjnfZePFbK0XJY7N",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "eZSJFcbRusUnCf30"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "WMS8MF75OVYH2ZQr": {
-                        "damage": "2d6+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "rapier",
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "jEJr8fgTTOL4T2j5",
-            "_stats": {
-                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WREJuCmtfdVK2Ol4",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Card",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "xR2OJ0GPQajZSxwP": {
-                        "damage": "2d4+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ZwYHBlRyXuuIr5D9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Card",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "nQrFRys9ilZWtH5P": {
-                        "damage": "2d4+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "eZSJFcbRusUnCf30",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1300000,
+            "sort": 100000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -576,6 +89,493 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "SswEEohBA63CQBAD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EsqFTJXcmzfngRgL"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
+            "name": "Playing Cards (54-Card Deck)",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A standard deck of cards consists of 54 cards made from thick paper contained within a paper sleeve. The most common deck used for games and gambling is known as the Old Mage deck and features four suits themed with the four essences of magic, each with 13 cards, as well as two wildcards. The name and appearance of the deck varies from region to region, such as the Magician's Deck in Taldor or the Deck of Masks in the Shackles.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Pathfinder Society Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "playing-cards",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "SER6o00Ism1pUwdb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZIQAzOavTXJCcCMD"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/predictable-silver-piece.webp",
+            "name": "Predictable Silver Piece",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This seemingly unremarkable, weathered silver coin bears the bust of an unnamed monarch on the face and a majestic bird on the tail. You can toss the coin without activating it, in which case it follows the normal laws of probability.</p>\n<p><strong>Activate—Cheat Fate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p><strong>Effect</strong> You rub your thumb on one side of the coin with the intent of slightly tweaking the strands of fate, then flip the coin into the air in a coin toss. No matter how the toss is resolved- letting the coin fall to the ground, slapping it down on the back of your hand, or catching it on your open palm-it always lands with the side you rubbed face up.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "predictable-silver-piece",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "BjnfZePFbK0XJY7N",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "eZSJFcbRusUnCf30"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "WMS8MF75OVYH2ZQr": {
+                        "damage": "2d6+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "rapier",
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jEJr8fgTTOL4T2j5",
+            "_stats": {
+                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WREJuCmtfdVK2Ol4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Card",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "xR2OJ0GPQajZSxwP": {
+                        "damage": "2d4+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZwYHBlRyXuuIr5D9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Card",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "nQrFRys9ilZWtH5P": {
+                        "damage": "2d4+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SSpv0YzxRDFGa7q5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gaming Arsenal",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The high roller treats all game tools—such as cards (used in the stat block's Strike entries), dice, coins, and gambling tokens—as melee weapons with a d4 damage die and the agile, finesse and thrown 20 feet traits. The high roller gets a +1 item bonus to attack rolls with them and deals two damage dice. The damage type depends on the item and is determined by the GM.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0JGyZaLfHkTcMLjM",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 to Sense Motive",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dTt5gdnU4P28VxWX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tip the Scales",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature the high roller is observing critically fails a check</p><hr /><p><strong>Effect</strong> The high roller picks up on luck that others dropped. They roll twice on their next d20 roll before the end of their next turn and take the better result.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Tip the Scales",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Tip the Scales"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a5DYCFFpjb7dteYJ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lucky Momentum",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The high roller's last action was a critical success</p><hr /><p><strong>Effect</strong> The high roller either Strides twice or attempts a Strike that deals an additional 4d6 precision damage and deals half damage on a failure (but not a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "lucky-momentum",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "lucky-momentum"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5mZHOHvumjTVWjwh",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Royal Flush Flurry",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The high roller has at least 16 cards in one hand</p><hr /><p><strong>Effect</strong> The high roller unleashes the cards in a @Template[type:cone|distance:30], dealing @Damage[16d4[slashing]|options:area-damage] damage to all creatures in the area with a @Check[reflex|dc:30|basic|options:area-effect] save. This ability expends the full deck of cards held.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SAz8XoRWN6zhhhhs",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Games Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "High Roller",

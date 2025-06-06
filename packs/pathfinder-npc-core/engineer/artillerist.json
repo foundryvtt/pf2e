@@ -4,582 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3qXRqtGN9GQB9uVH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Siege Acumen",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The artillerist is permanently quickened. They can use this extra action only to Aim, Load, or Launch a siege weapon.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
-                    },
-                    {
-                        "itemType": "condition",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:granter:id:{item|id}"
-                        ],
-                        "property": "description",
-                        "value": [
-                            {
-                                "text": "{item|description}"
-                            }
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lnKcxanCqxdXvGZG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Siege Shield",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>While adjacent to a siege weapon, the artillerist gains a +1 circumstance bonus to AC.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "siege-shield",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "siege-shield"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BKAZUyxs7ojI3Lc0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Siege Weapons Expert",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The artillerist gains a +2 bonus to @Check[perception|options:siege-weapon] if the artillerist is crewing a siege weapon. Additionally, they gain a +2 bonus to @Check[engineering-lore|options:siege-weapon] and @Check[explosive-lore|options:siege-weapon] for siege weapons.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "siege-weapon"
-                        ],
-                        "selector": [
-                            "perception",
-                            "engineering-lore",
-                            "explosive-lore"
-                        ],
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "axHGPBgPqDgvP4Ej",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bombard",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The artillerist activates a shoulder-mounted artillery piece to launch an explosive shell up to 120 feet away that explodes in @Template[type:burst|distance:10]. Creatures within the burst take @Damage[2d6[piercing],2d6[fire]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect] save. A creature that fails its save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The artillerist can't use Bombard again until they reload the artillery with 2 Interact actions; these actions don't have to be consecutive.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1az3VnNuhx8WdWn4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Dueling Pistol)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dueling-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "ylF6uXZvH340e8cy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.y34yjumCFakrbtdw"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/artisan-tools.webp",
-            "name": "Artisan's Toolkit (Siege Weaponry)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 2
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need these tools to create items from raw materials with the Craft skill. Different sets are needed for different work, as determined by the GM; for example, a blacksmith's toolkit differs from a woodworker's toolkit. If you wear your artisan's toolkit, you can draw and replace it as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "artisans-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "BroUSf9YVBdyWnB7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
-            },
-            "img": "icons/tools/smithing/anvil.webp",
-            "name": "Repair Toolkit",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "repair-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "jHcmiLruhO5cf2uj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Engineering Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NgI500OpopDEPzxl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Explosive Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "XPrAc5v0cINleOFN",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "owlsZRihFBK6IOaE",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "UjAr1RSnVJXFpaHs"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Hammer",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "Rv24kuL1KRBHII0M": {
-                        "damage": "1d6+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "light-hammer",
-                "traits": {
-                    "value": [
-                        "agile"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "G0X5NTY9zkD9mOdc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "UjAr1RSnVJXFpaHs"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Hammer",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "mACL5vWOgewuWPLN": {
-                        "damage": "1d6+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "light-hammer",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "U1SfHxwloAN8Ch0R",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "igDCUQcYxUgg4yR6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dueling Pistol",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "umcNB3BQiD60gtLF": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dueling-pistol",
-                "traits": {
-                    "value": [
-                        "concealable",
-                        "concussive",
-                        "fatal-d10",
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "igDCUQcYxUgg4yR6",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ogv5nwwrc3sU8DnP"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dueling-pistol.webp",
             "name": "Dueling Pistol",
-            "sort": 1400000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dueling-pistol",
                 "bonus": {
@@ -666,7 +97,7 @@
             },
             "img": "icons/weapons/hammers/shorthammer-embossed-white.webp",
             "name": "Light Hammer",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "baseItem": "light-hammer",
                 "bonus": {
@@ -745,6 +176,575 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ylF6uXZvH340e8cy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.y34yjumCFakrbtdw"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/artisan-tools.webp",
+            "name": "Artisan's Toolkit (Siege Weaponry)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 2
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need these tools to create items from raw materials with the Craft skill. Different sets are needed for different work, as determined by the GM; for example, a blacksmith's toolkit differs from a woodworker's toolkit. If you wear your artisan's toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "artisans-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "BroUSf9YVBdyWnB7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
+            },
+            "img": "icons/tools/smithing/anvil.webp",
+            "name": "Repair Toolkit",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "repair-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1az3VnNuhx8WdWn4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dueling Pistol)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dueling-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "XPrAc5v0cINleOFN",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "owlsZRihFBK6IOaE",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UjAr1RSnVJXFpaHs"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Hammer",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "Rv24kuL1KRBHII0M": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "light-hammer",
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "G0X5NTY9zkD9mOdc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UjAr1RSnVJXFpaHs"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Hammer",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "mACL5vWOgewuWPLN": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "light-hammer",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "U1SfHxwloAN8Ch0R",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "igDCUQcYxUgg4yR6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dueling Pistol",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "umcNB3BQiD60gtLF": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dueling-pistol",
+                "traits": {
+                    "value": [
+                        "concealable",
+                        "concussive",
+                        "fatal-d10",
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3qXRqtGN9GQB9uVH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Siege Acumen",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The artillerist is permanently quickened. They can use this extra action only to Aim, Load, or Launch a siege weapon.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+                    },
+                    {
+                        "itemType": "condition",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:granter:id:{item|id}"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lnKcxanCqxdXvGZG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Siege Shield",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While adjacent to a siege weapon, the artillerist gains a +1 circumstance bonus to AC.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "siege-shield",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "siege-shield"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BKAZUyxs7ojI3Lc0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Siege Weapons Expert",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The artillerist gains a +2 bonus to @Check[perception|options:siege-weapon] if the artillerist is crewing a siege weapon. Additionally, they gain a +2 bonus to @Check[engineering-lore|options:siege-weapon] and @Check[explosive-lore|options:siege-weapon] for siege weapons.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "siege-weapon"
+                        ],
+                        "selector": [
+                            "perception",
+                            "engineering-lore",
+                            "explosive-lore"
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "axHGPBgPqDgvP4Ej",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bombard",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The artillerist activates a shoulder-mounted artillery piece to launch an explosive shell up to 120 feet away that explodes in @Template[type:burst|distance:10]. Creatures within the burst take @Damage[2d6[piercing],2d6[fire]|options:area-damage] damage with a @Check[reflex|dc:19|basic|options:area-effect] save. A creature that fails its save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The artillerist can't use Bombard again until they reload the artillery with 2 Interact actions; these actions don't have to be consecutive.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jHcmiLruhO5cf2uj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Engineering Lore",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "NgI500OpopDEPzxl",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Explosive Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Artillerist",

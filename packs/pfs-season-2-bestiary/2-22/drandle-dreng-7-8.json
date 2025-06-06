@@ -4,662 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0AYBgeZHXC2owEcl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Deny Advantage",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Drandle Dreng isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to flanking, @UUID[Compendium.pf2e.conditionitems.Item.Hidden], or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures of 8th-level or lower, or creatures of 8th-level or lower using surprise attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z48JRCf4URMUM0Q9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Evasion",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Drandle Dreng rolls a success on a Reflex save, they get a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "reflex",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "reflex"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UykzrkInyoNAKmim",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Sidestep",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The attack roll for a Strike targeting Drandle Dreng fails or critically fails</p>\n<hr />\n<p><strong>Effect</strong> Drandle Dreng redirects the attack to a creature of his choice that is adjacent to him and within the reach of the triggering attack. The attacker rerolls the Strike's attack roll against the new target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vL7u3rlO2YAb82SH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>On the first round of combat, if Drandle Dreng rolls Deception or Stealth for initiative, creatures who haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "self:participant:initiative:stat:deception",
-                                    "self:participant:initiative:stat:stealth"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GRRU6CL37dvFlwaU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mobility",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Drandle Dreng Strides half his Speed or less, that movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5ULu0OsCskg71fjK",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Skirmish Strike",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Drandle Dreng either Steps and then Strikes, or Strikes and then Steps.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "r3vUpJDQI6ajElwr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Drandle Dreng deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sTilPlp6SfdLJsA8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tumble Behind",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Drandle Dreng successfully @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]{Tumbles Through}, the foe whose space he passed through is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the next attack he makes before the end of his turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WpRkMcYnNqJnDYVh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 900000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "YC5jLNOEWbpUwc2D",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.k6D64EAjcKMf8NZB"
-            },
-            "img": "icons/commodities/claws/claw-insect-brown.webp",
-            "name": "Bloodseeker Beak",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "talisman",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Usage</strong> affixed to a weapon</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit an off-guard creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 4
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "bloodseeker-beak",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "talisman"
-                    ]
-                },
-                "usage": {
-                    "value": "affixed-to-weapon"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "BQexdDUtPDU7C17E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.88pGCHV0uKMskTVO"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.webp",
-            "name": "Darkvision Elixir (Lesser)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "darkvision-elixir-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "eVFl2ekbi0JK6bf5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.14rbefsoClgClRQ8"
-            },
-            "img": "icons/equipment/finger/ring-band-engraved-teal.webp",
-            "name": "Ring of Sustenance",
-            "sort": 1200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This polished wooden ring constantly refreshes your body and mind. You don't need to eat or drink while wearing it, and you need only 2 hours of sleep per day to gain the benefits of 8 hours of sleep. A ring of sustenance doesn't function until it's been worn and invested continuously for a week. Removing it resets this interval.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 325
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "ring-of-sustenance",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "12TkoPFUPbS35nmR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Pathfinder Society Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "evjqayVTfyOlY8q9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "qFBgDmgWUfVE9mY8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "lch64h5kw6a27j4nbf5j": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "qFBgDmgWUfVE9mY8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1500000,
+            "sort": 100000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -738,6 +89,655 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "WpRkMcYnNqJnDYVh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "eVFl2ekbi0JK6bf5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.14rbefsoClgClRQ8"
+            },
+            "img": "icons/equipment/finger/ring-band-engraved-teal.webp",
+            "name": "Ring of Sustenance",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This polished wooden ring constantly refreshes your body and mind. You don't need to eat or drink while wearing it, and you need only 2 hours of sleep per day to gain the benefits of 8 hours of sleep. A ring of sustenance doesn't function until it's been worn and invested continuously for a week. Removing it resets this interval.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 325
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "ring-of-sustenance",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "YC5jLNOEWbpUwc2D",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.k6D64EAjcKMf8NZB"
+            },
+            "img": "icons/commodities/claws/claw-insect-brown.webp",
+            "name": "Bloodseeker Beak",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>This long, hollow proboscis is harvested from the notorious bloodseeker beast and drips a trickle of blood.</p>\n<p><strong>Usage</strong> affixed to a weapon</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Envision</p>\n<p><strong>Trigger</strong> You hit an off-guard creature with the affixed weapon</p>\n<p>When you activate the beak, you deal an extra 1d4 precision damage on your damage roll. If you deal sneak attack damage to the creature, you also deal @Damage[1d4[bleed]].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bloodseeker-beak",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-weapon"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "BQexdDUtPDU7C17E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.88pGCHV0uKMskTVO"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.webp",
+            "name": "Darkvision Elixir (Lesser)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "darkvision-elixir-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "evjqayVTfyOlY8q9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "qFBgDmgWUfVE9mY8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "lch64h5kw6a27j4nbf5j": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0AYBgeZHXC2owEcl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Deny Advantage",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Drandle Dreng isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to flanking, @UUID[Compendium.pf2e.conditionitems.Item.Hidden], or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures of 8th-level or lower, or creatures of 8th-level or lower using surprise attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z48JRCf4URMUM0Q9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Evasion",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Drandle Dreng rolls a success on a Reflex save, they get a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "reflex",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UykzrkInyoNAKmim",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Sidestep",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The attack roll for a Strike targeting Drandle Dreng fails or critically fails</p>\n<hr />\n<p><strong>Effect</strong> Drandle Dreng redirects the attack to a creature of his choice that is adjacent to him and within the reach of the triggering attack. The attacker rerolls the Strike's attack roll against the new target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vL7u3rlO2YAb82SH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surprise Attack",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>On the first round of combat, if Drandle Dreng rolls Deception or Stealth for initiative, creatures who haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "self:participant:initiative:stat:deception",
+                                    "self:participant:initiative:stat:stealth"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GRRU6CL37dvFlwaU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mobility",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Drandle Dreng Strides half his Speed or less, that movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5ULu0OsCskg71fjK",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Skirmish Strike",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Drandle Dreng either Steps and then Strikes, or Strikes and then Steps.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r3vUpJDQI6ajElwr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Drandle Dreng deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sTilPlp6SfdLJsA8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tumble Behind",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Drandle Dreng successfully @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]{Tumbles Through}, the foe whose space he passed through is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the next attack he makes before the end of his turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "12TkoPFUPbS35nmR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Pathfinder Society Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Drandle Dreng (7-8)",

@@ -4,321 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Le02eHQ1ZlJ9JV2Z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "kDogI9KtrI66DwNf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5N85punRSLnEN6T1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y7hvS4ZYdpmVnEKM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Knowing Eyes",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[will|dc:34] save. If the creature fails, any Deception check it attempts until the end of its next turn has its result reduced by one degree of success. On a failed saving throw, a creature that is currently disguised or in a shape other than its true form also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "all-knowing-eyes",
-                        "traits": [
-                            "divine",
-                            "mental",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bQ9KwlZyFYWXB95l",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Fiery Spokes",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The wheel archon spins furiously, emitting a rain of divine fire. All creatures in a @Template[emanation|distance:60] take @Damage[12d6[fire],5d6[spirit]]{12d6 fire damage and 5d6 spirit damage} (@Check[reflex|dc:37|basic]). The wheel archon can't use Fiery Spokes for [[/gmr 1d4 #Recharge Fiery Spokes]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire",
-                        "good",
-                        "holy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fVHRATRLRiaVwvEi",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focus Gaze",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The wheel archon fixes its gaze on a creature they can see within 30 feet. The target must immediately attempt a @Check[will|dc:37] save against the wheel archon's all-knowing eyes. If the creature is under any magical effect that disguises it or has altered its shape, the wheel archon attempts to counter that magical disguise effect (counteract [[/r 1d20+29]]{+29}, 8th level). After attempting its save, the creature is then temporarily immune until the start of the wheel archon's next turn.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sLXBqpRvWsK2VW3e",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "mod": {
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 37,
+                    "mod": 0,
                     "value": 29
                 },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "sA1AjCMr9UZaW7fp",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Slam",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "RPpR0mcBiP7e3mZp": {
-                        "damage": "3d12+14",
-                        "damageType": "bludgeoning"
-                    },
-                    "vZx0JDAodYpPx5fZ": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "holy",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "uLmmS0IQid7p3QX2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tongue of Flame",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "mom2hwn9qp6G3KwW": {
-                        "damage": "3d4+8",
-                        "damageType": "fire"
-                    },
-                    "ummpKp8fk9UvIC7o": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "good",
-                        "holy",
-                        "magical",
-                        "range-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "HtLGbPLrKtiqh7fA",
@@ -327,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/antimagic-field.webp",
             "name": "Antimagic Field",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "details": "10-foot emanation which affects you.",
@@ -393,7 +116,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -480,7 +203,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -544,7 +267,7 @@
             },
             "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
             "name": "Zealous Conviction",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -607,7 +330,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -695,7 +418,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -758,7 +481,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -820,7 +543,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies (Constant)",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -884,7 +607,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -967,22 +690,32 @@
             "type": "spell"
         },
         {
-            "_id": "kDogI9KtrI66DwNf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1800000,
+            "_id": "sA1AjCMr9UZaW7fp",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Slam",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "RPpR0mcBiP7e3mZp": {
+                        "damage": "3d12+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "vZx0JDAodYpPx5fZ": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -990,21 +723,288 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 29
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "holy",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "uLmmS0IQid7p3QX2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue of Flame",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "mom2hwn9qp6G3KwW": {
+                        "damage": "3d4+8",
+                        "damageType": "fire"
+                    },
+                    "ummpKp8fk9UvIC7o": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "good",
+                        "holy",
+                        "magical",
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Le02eHQ1ZlJ9JV2Z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5N85punRSLnEN6T1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y7hvS4ZYdpmVnEKM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Knowing Eyes",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[will|dc:34] save. If the creature fails, any Deception check it attempts until the end of its next turn has its result reduced by one degree of success. On a failed saving throw, a creature that is currently disguised or in a shape other than its true form also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "all-knowing-eyes",
+                        "traits": [
+                            "divine",
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bQ9KwlZyFYWXB95l",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Fiery Spokes",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wheel archon spins furiously, emitting a rain of divine fire. All creatures in a @Template[emanation|distance:60] take @Damage[12d6[fire],5d6[spirit]]{12d6 fire damage and 5d6 spirit damage} (@Check[reflex|dc:37|basic]). The wheel archon can't use Fiery Spokes for [[/gmr 1d4 #Recharge Fiery Spokes]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire",
+                        "good",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fVHRATRLRiaVwvEi",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focus Gaze",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wheel archon fixes its gaze on a creature they can see within 30 feet. The target must immediately attempt a @Check[will|dc:37] save against the wheel archon's all-knowing eyes. If the creature is under any magical effect that disguises it or has altered its shape, the wheel archon attempts to counter that magical disguise effect (counteract [[/r 1d20+29]]{+29}, 8th level). After attempting its save, the creature is then temporarily immune until the start of the wheel archon's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sLXBqpRvWsK2VW3e",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Wheel Archon",

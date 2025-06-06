@@ -3,92 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RFPvW7U5w3NRyp3q",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Envisioning",
+            "_id": "ziM5W7Pshzb5HJ4L",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When a theletos conveys information, it does so wordlessly through psychic projections. This acts as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Telepathy] with a range of 100 feet but is understandable to all creatures regardless of whether they have a language. The meaning to non-aeons can be vague and is often mysterious. A theletos can use this ability to communicate flawlessly with any other aeon on the same plane.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H8pl0JtfMdj3zBzS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "f3X4SLxmMSok3p65",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fate Drain",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature damaged by the theletos's tentacle must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p>As long as the creature is stupefied, it can no longer benefit from fortune effects. If the target fails additional saves against this ability, the condition value increases by 1 (to a maximum of stupefied 4). This condition value decreases by 1 every 24 hours.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -96,153 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "fate-drain",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "divine",
-                        "fortune",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sA3oeWc14avc7CPO",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Wrath of Fate",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The theletos releases a @Template[cone|distance:60] of energy from its center. Creatures in the cone become overwhelmed with the knowledge of various fates that destiny has in store for them and lack of clear pathways to these potential futures. They must succeed at a @Check[will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} indefinitely.</p>\n<p>An affected creature can choose to roll twice when it attempts an attack, saving throw, or skill check and take the lower result. Regardless of the outcome, that creature is no longer slowed after that roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Wrath of Fate]</p>\n<p>The theletos can't use Wrath of Fate again for [[/gmr 1d4 #Recharge Wrath of Fate]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "divine",
-                        "mental",
-                        "misfortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zzv3YiVwAfvq91jl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
                     "value": 17
                 },
-                "damageRolls": {
-                    "44fn8liiunlsbt5kfyzb": {
-                        "damage": "2d10+4",
-                        "damageType": "bludgeoning"
-                    },
-                    "fruhrl4eefeyek6o6shr": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "wveW1LFrPr2tdNpt",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "fate-drain"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "57y5u65ffija25dhpnfw": {
-                        "damage": "2d8+4",
-                        "damageType": "slashing"
-                    },
-                    "ka3ge3h7dadf25cf5vye": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "mLsKErBN02PEpFEb",
@@ -251,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury (At will)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -312,7 +108,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -381,7 +177,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -443,7 +239,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -510,7 +306,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -579,7 +375,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -640,7 +436,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -708,7 +504,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -774,7 +570,7 @@
             },
             "img": "icons/equipment/head/mask-carved-wood-brown.webp",
             "name": "Geas",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -834,23 +630,32 @@
             "type": "spell"
         },
         {
-            "_id": "ziM5W7Pshzb5HJ4L",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1600000,
+            "_id": "zzv3YiVwAfvq91jl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "44fn8liiunlsbt5kfyzb": {
+                        "damage": "2d10+4",
+                        "damageType": "bludgeoning"
+                    },
+                    "fruhrl4eefeyek6o6shr": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -858,18 +663,213 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "wveW1LFrPr2tdNpt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "fate-drain"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "57y5u65ffija25dhpnfw": {
+                        "damage": "2d8+4",
+                        "damageType": "slashing"
+                    },
+                    "ka3ge3h7dadf25cf5vye": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RFPvW7U5w3NRyp3q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Envisioning",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When a theletos conveys information, it does so wordlessly through psychic projections. This acts as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Telepathy] with a range of 100 feet but is understandable to all creatures regardless of whether they have a language. The meaning to non-aeons can be vague and is often mysterious. A theletos can use this ability to communicate flawlessly with any other aeon on the same plane.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H8pl0JtfMdj3zBzS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f3X4SLxmMSok3p65",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fate Drain",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature damaged by the theletos's tentacle must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}.</p>\n<p>As long as the creature is stupefied, it can no longer benefit from fortune effects. If the target fails additional saves against this ability, the condition value increases by 1 (to a maximum of stupefied 4). This condition value decreases by 1 every 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "fate-drain",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "fortune",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sA3oeWc14avc7CPO",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wrath of Fate",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The theletos releases a @Template[cone|distance:60] of energy from its center. Creatures in the cone become overwhelmed with the knowledge of various fates that destiny has in store for them and lack of clear pathways to these potential futures. They must succeed at a @Check[will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} indefinitely.</p>\n<p>An affected creature can choose to roll twice when it attempts an attack, saving throw, or skill check and take the lower result. Regardless of the outcome, that creature is no longer slowed after that roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Wrath of Fate]</p>\n<p>The theletos can't use Wrath of Fate again for [[/gmr 1d4 #Recharge Wrath of Fate]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "mental",
+                        "misfortune"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Theletos",

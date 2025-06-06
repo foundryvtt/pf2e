@@ -4,603 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wpNmKVXrsYREANso",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Emotionsense",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ji-yook can sense the emotions of those within 60 feet as an imprecise sense.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0re3IvXdMI3hruGq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Waylay",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Ji-yook Strides at least 10 feet, illusions make her @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the start of her next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "illusion"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xdBHxrpUSU3jagUS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ji-yook transforms into her human form. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. Ji-yook can remain in her human form indefinitely, and she can shift back to her true kitsune form by using this action again.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xdrqco4SvUVM2x5s",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Disquieting Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ji-yook selects one enemy within 60 feet, then Changes Shape into humanoid form, taking the form of a person emotionally close to that enemy, such as a dead family member. Ji-yook is not aware of the form she will take until she transforms. If her target sees her, even if they are aware it is a trick, they must attempt a @Check[will|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure) for 1 round. This is a fear effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8ULYDiv4dGRYhRSI",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Foxfire Blast",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional 3d6 electricity damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "foxfire-blast"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "foxfire-blast",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
-                        "predicate": [
-                            "foxfire-blast"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "electricity",
-                        "flourish",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S8NgWvFJ5GShS0zs",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Pinning Shot",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ji-yook pins a foe's clothing to a wall or floor or the ground. Ji-yook makes a dart Strike. If the attack hits, it deals no damage and instead pins the target to an adjacent surface. The target is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and must spend an Interact action to attempt a @Check[athletics|dc:10|name:Pull Dart Free] check to pull the dart free; it can't move from its space until it succeeds. If Ji-yook's dart Strike was a critical hit, the target must succeed at two separate Athletics checks to pull the dart free. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while it remains immobilized in this way.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6Spsogip56jkjFLS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ji-yook's Strikes deal an additional 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 4,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NvzvMtLv8YRAsXBP",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Toughest Teamwork: Unsettling Murmur",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 60 feet is the target of a Strike or attempts a Will save</p>\n<hr />\n<p><strong>Effect</strong> Just when an enemy is preparing to defend itself, Ji-yook sends an illusion of herself to whisper a disquieting secret or threat into their ear. The enemy takes a -2 circumstance penalty to their AC or Will save against the triggering attack or effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AGu8P98yV6KO8ktV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Explorer's Clothing",
-            "sort": 900000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 2
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "GUeMIPbxo0fffDYn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ehss8yPTXxiUdVlJ"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/smokestick.webp",
-            "name": "Smokestick (Greater)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>With a sharp twist of this item, you instantly create a screen of thick, opaque smoke in a burst centered on one corner of your space. All creatures within that area are concealed, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>\n<p>The radius of the burst is 20 feet.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 53
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "smokestick-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "8sDUf9pocbVkQkcy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "eo1mf6mtds8kw3zpw1xv": {
-                        "damage": "6d4+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cmFK3CqBVheZ119e",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5ufNE0GG42wnglu1"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "i5vsp4s1jca0afxhdfkf": {
-                        "damage": "6d4+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reload-0",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "rzcjzyV18fCpbAEl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Foxfire",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "9il7x8fv16e9v8vvou3k": {
-                        "damage": "6d4+8",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "5ufNE0GG42wnglu1",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Tt4Qw64fwrxhr5gT"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 1400000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -688,7 +98,7 @@
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+3 Greater Striking Handwraps of Mighty Blows",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -771,6 +181,596 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "AGu8P98yV6KO8ktV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 300000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 2
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "GUeMIPbxo0fffDYn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ehss8yPTXxiUdVlJ"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/smokestick.webp",
+            "name": "Smokestick (Greater)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>With a sharp twist of this item, you instantly create a screen of thick, opaque smoke in a burst centered on one corner of your space. All creatures within that area are concealed, and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>\n<p>The radius of the burst is 20 feet.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 53
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "smokestick-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "8sDUf9pocbVkQkcy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "eo1mf6mtds8kw3zpw1xv": {
+                        "damage": "6d4+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cmFK3CqBVheZ119e",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5ufNE0GG42wnglu1"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "i5vsp4s1jca0afxhdfkf": {
+                        "damage": "6d4+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reload-0",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rzcjzyV18fCpbAEl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Foxfire",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "9il7x8fv16e9v8vvou3k": {
+                        "damage": "6d4+8",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wpNmKVXrsYREANso",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Emotionsense",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ji-yook can sense the emotions of those within 60 feet as an imprecise sense.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0re3IvXdMI3hruGq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Waylay",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Ji-yook Strides at least 10 feet, illusions make her @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the start of her next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xdBHxrpUSU3jagUS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ji-yook transforms into her human form. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. Ji-yook can remain in her human form indefinitely, and she can shift back to her true kitsune form by using this action again.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xdrqco4SvUVM2x5s",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Disquieting Change Shape",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ji-yook selects one enemy within 60 feet, then Changes Shape into humanoid form, taking the form of a person emotionally close to that enemy, such as a dead family member. Ji-yook is not aware of the form she will take until she transforms. If her target sees her, even if they are aware it is a trick, they must attempt a @Check[will|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure) for 1 round. This is a fear effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8ULYDiv4dGRYhRSI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Foxfire Blast",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ji-yook makes a fist Strike. On a hit, the target takes an additional 3d6 electricity damage and is pushed back 5 feet. On a critical hit, the target is pushed back and then knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "foxfire-blast",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "foxfire-blast"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "flourish",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S8NgWvFJ5GShS0zs",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pinning Shot",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ji-yook pins a foe's clothing to a wall or floor or the ground. Ji-yook makes a dart Strike. If the attack hits, it deals no damage and instead pins the target to an adjacent surface. The target is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and must spend an Interact action to attempt a @Check[athletics|dc:10|name:Pull Dart Free] check to pull the dart free; it can't move from its space until it succeeds. If Ji-yook's dart Strike was a critical hit, the target must succeed at two separate Athletics checks to pull the dart free. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while it remains immobilized in this way.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6Spsogip56jkjFLS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ji-yook's Strikes deal an additional 4d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NvzvMtLv8YRAsXBP",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Toughest Teamwork: Unsettling Murmur",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy within 60 feet is the target of a Strike or attempts a Will save</p>\n<hr />\n<p><strong>Effect</strong> Just when an enemy is preparing to defend itself, Ji-yook sends an illusion of herself to whisper a disquieting secret or threat into their ear. The enemy takes a -2 circumstance penalty to their AC or Will save against the triggering attack or effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ji-yook (Gumiho Form)",

@@ -4,213 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "T3ZpHsIT64RGyhT0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Power of the Mob",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When three or more commoners are adjacent to each other, each commoner gets a +1 circumstance bonus to Athletics checks to [[/act shove]], attack rolls, and damage rolls.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "power-of-the-mob",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:shove",
-                            "power-of-the-mob"
-                        ],
-                        "selector": "athletics",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "power-of-the-mob"
-                        ],
-                        "selector": [
-                            "attack",
-                            "damage"
-                        ],
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lqVfEZu6MeCHDuky",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (any one related to their trade)",
-            "sort": 200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "o8GJ3AVTDFtS1dFG",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "UZlHtMydIq06OfJW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sickle",
-            "sort": 300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "uc1s1t4wur5bbofg09gjg": {
-                        "damage": "1d4+2",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Q9h6X4WFBsWo4KlV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 3
-                },
-                "damageRolls": {
-                    "c16oqbic9ep578zkoag35t": {
-                        "damage": "1d4+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "n3jCGW9WDHnhi4Ky",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "upHGZeI52vum8yU1": {
-                        "damage": "1d4+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "UZlHtMydIq06OfJW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
             },
             "img": "icons/tools/hand/sickle-steel-grey.webp",
             "name": "Sickle",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "sickle",
                 "bonus": {
@@ -289,6 +89,206 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "o8GJ3AVTDFtS1dFG",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UZlHtMydIq06OfJW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sickle",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "uc1s1t4wur5bbofg09gjg": {
+                        "damage": "1d4+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Q9h6X4WFBsWo4KlV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 3
+                },
+                "damageRolls": {
+                    "c16oqbic9ep578zkoag35t": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "n3jCGW9WDHnhi4Ky",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "upHGZeI52vum8yU1": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "T3ZpHsIT64RGyhT0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Power of the Mob",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When three or more commoners are adjacent to each other, each commoner gets a +1 circumstance bonus to Athletics checks to [[/act shove]], attack rolls, and damage rolls.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "power-of-the-mob",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:shove",
+                            "power-of-the-mob"
+                        ],
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "power-of-the-mob"
+                        ],
+                        "selector": [
+                            "attack",
+                            "damage"
+                        ],
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lqVfEZu6MeCHDuky",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (any one related to their trade)",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Commoner",

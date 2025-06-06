@@ -4,464 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zVKp3Jc5FD2YoGYt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hjsbx1be0lmoslp9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Restrain",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the jailer makes a successful mancatcher Strike, their target must succeed at a @Check[reflex|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the jailer's next turn.</p>\n<p>Each time the target fails an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the jailer, it takes @Damage[2d6[piercing]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9kdhw0jv0lj57xjt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Subduing Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Abendego jailers deal an additional 3d6 precision damage to creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Frightened] or within reach of at least one of their allies.</p>\n<p>The jailer can make an attack with this additional damage as a nonlethal attack, if they choose.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "subduing-attack",
-                                    "target:condition:frightened"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "subduing-attack",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "i8aqWl1qKYnozRbB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
-            },
-            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
-            "name": "Scale Mail",
-            "sort": 400000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "scale-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "composite",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "scale-mail",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "pIlE35F9ahVsHm9q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lWeADBqMFwFlVIuV"
-            },
-            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
-            "name": "Manacles (Average)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from average manacles requires four successful @Check[thievery|dc:27|traits:action:pick-a-lock] checks.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "manacles-average",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "eyi2jDXOsCQHoW60",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Norgorber (Wooden)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "dprfcjwk29c2zc04",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "jc7PEohyJVvFDkyM"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mancatcher",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "restrain"
-                    ]
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "KgHUvbNHeUlKbnzs": {
-                        "damage": "1d8+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wsp06ehqm4lw6k7x",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7mUdkQJ0x78YF7Nz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "cwmFvFMqf7nIxCw8": {
-                        "damage": "1d4+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "0wvro9wj1eyafq5h",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7mUdkQJ0x78YF7Nz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "t9Ld0KmXvSUijvsb": {
-                        "damage": "1d4+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "jc7PEohyJVvFDkyM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Mancatcher",
-            "sort": 1000000,
+            "sort": 100000,
             "system": {
                 "baseItem": "longspear",
                 "bonus": {
@@ -546,7 +95,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -626,6 +175,457 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "i8aqWl1qKYnozRbB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
+            },
+            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
+            "name": "Scale Mail",
+            "sort": 300000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "scale-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "composite",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "scale-mail",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "pIlE35F9ahVsHm9q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lWeADBqMFwFlVIuV"
+            },
+            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
+            "name": "Manacles (Average)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from average manacles requires four successful @Check[thievery|dc:27|traits:action:pick-a-lock] checks.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "manacles-average",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "eyi2jDXOsCQHoW60",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Norgorber (Wooden)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "dprfcjwk29c2zc04",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "jc7PEohyJVvFDkyM"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mancatcher",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "restrain"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "KgHUvbNHeUlKbnzs": {
+                        "damage": "1d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wsp06ehqm4lw6k7x",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7mUdkQJ0x78YF7Nz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "cwmFvFMqf7nIxCw8": {
+                        "damage": "1d4+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0wvro9wj1eyafq5h",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7mUdkQJ0x78YF7Nz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "t9Ld0KmXvSUijvsb": {
+                        "damage": "1d4+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zVKp3Jc5FD2YoGYt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hjsbx1be0lmoslp9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Restrain",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the jailer makes a successful mancatcher Strike, their target must succeed at a @Check[reflex|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until the end of the jailer's next turn.</p>\n<p>Each time the target fails an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the jailer, it takes @Damage[2d6[piercing]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9kdhw0jv0lj57xjt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Subduing Attack",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Abendego jailers deal an additional 3d6 precision damage to creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Frightened] or within reach of at least one of their allies.</p>\n<p>The jailer can make an attack with this additional damage as a nonlethal attack, if they choose.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "subduing-attack",
+                                    "target:condition:frightened"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "subduing-attack",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Abendego Jailer",

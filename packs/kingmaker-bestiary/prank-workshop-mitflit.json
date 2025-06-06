@@ -3,275 +3,45 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3TfIMe12rJpDf9LZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Self-Loathing",
+            "_id": "RUcX4XrsDpkjIiPy",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A mitflit's self-loathing makes it easy to influence. It takes a -4 penalty to its Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], and @UUID[Compendium.pf2e.actionspf2e.Item.Request].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:coerce",
-                                    "action:demoralize",
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "will",
-                        "value": -4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tvFxmbJKPxnCnTbb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vermin Empathy",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Mitflits can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on and @UUID[Compendium.pf2e.actionspf2e.Item.Request] things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of @UUID[Compendium.pf2e.conditionitems.Item.Indifferent] to mitflits.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H8mIfS4BQ0XpEAtY",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Launch Marbles",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mitflit uses the marble launcher to fire six marbles at a creature. The target must attempt a @Check[reflex|dc:16] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is distracted by the marbles and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the marbles hits the creature somewhere sensitive, causing @Damage[1d6[nonlethal,bludgeoning]]{1d6 nonlethal bludgeoning} damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CiirPvlIj0ZtuHce",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vengeful Anger",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>As long as it isn't @UUID[Compendium.pf2e.conditionitems.Item.Frightened], a mitflit gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "vengeful-anger",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "vengeful-anger",
-                            {
-                                "not": "self:condition:frightened"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QhMa96wG1I9FiTWZ",
-            "img": "systems/pf2e/icons/default-icons/consumable.svg",
-            "name": "Marbles",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 6,
                 "rules": [],
-                "size": "med",
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "LRT2YJWR1S18u4vp",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5BocjA6rG31MrfjU"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
                     "value": 9
                 },
-                "damageRolls": {
-                    "v2owiwtq9qenlunw27s0": {
-                        "damage": "1d6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "QLpCft5YSm98kbx4",
@@ -280,7 +50,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will) (Arthropods Only)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -339,7 +109,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -408,7 +178,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -465,54 +235,13 @@
             "type": "spell"
         },
         {
-            "_id": "RUcX4XrsDpkjIiPy",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "5BocjA6rG31MrfjU",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -591,6 +320,277 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "QhMa96wG1I9FiTWZ",
+            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "name": "Marbles",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 6,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "LRT2YJWR1S18u4vp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5BocjA6rG31MrfjU"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "v2owiwtq9qenlunw27s0": {
+                        "damage": "1d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3TfIMe12rJpDf9LZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Self-Loathing",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A mitflit's self-loathing makes it easy to influence. It takes a -4 penalty to its Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], and @UUID[Compendium.pf2e.actionspf2e.Item.Request].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:coerce",
+                                    "action:demoralize",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tvFxmbJKPxnCnTbb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vermin Empathy",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Mitflits can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on and @UUID[Compendium.pf2e.actionspf2e.Item.Request] things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of @UUID[Compendium.pf2e.conditionitems.Item.Indifferent] to mitflits.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H8mIfS4BQ0XpEAtY",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Launch Marbles",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mitflit uses the marble launcher to fire six marbles at a creature. The target must attempt a @Check[reflex|dc:16] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is distracted by the marbles and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the marbles hits the creature somewhere sensitive, causing @Damage[1d6[nonlethal,bludgeoning]]{1d6 nonlethal bludgeoning} damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CiirPvlIj0ZtuHce",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vengeful Anger",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As long as it isn't @UUID[Compendium.pf2e.conditionitems.Item.Frightened], a mitflit gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "vengeful-anger",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vengeful-anger",
+                            {
+                                "not": "self:condition:frightened"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Prank Workshop Mitflit",

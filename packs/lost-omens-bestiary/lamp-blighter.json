@@ -4,63 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v91oTbziIEEKSC7h",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "UYRmaPYr1fZwFEyZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MYBjuJKpzNnE178Z",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Eye Pluck",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The lamp blighter's last action was a successful claw Strike against a creature with eyes</p><hr /><p><strong>Effect</strong> The lamp blighter attempts to pluck out one of the required creature's eyes. The target must attempt a @Check[fortitude|dc:21] save. On a failure, the target takes @Damage[4[bleed]]{4 persistent bleed} damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. On a critical failure, the target's eye is also severely damaged, taking a –4 circumstance penalty on all sight-based Perception checks until the target returns to full Hit Points or the wound is otherwise healed (by magic such as @UUID[Compendium.pf2e.spells-srd.Item.Sound Body] or @UUID[Compendium.pf2e.spells-srd.Item.Regenerate]). If all a creature's eyes are severely damaged in this way, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for the same duration.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Eye Pluck]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -68,232 +27,28 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lbQcoDWn1Bh1uNJ5",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Fear the Darkness",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The lamp blighter must be in an area of darkness</p><hr /><p><strong>Effect</strong> The lamp blighter evokes the terror of being unable to see in the dark. Each creature within a @Template[type:emanation|distance:20] that doesn't have darkvision must succeed at a @Check[will|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3Tru6bJxIFd3qLz4",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Snuff the Light",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The lamp blighter extinguishes light sources in a @Template[type:emanation|distance:10]. They extinguish all non-magical light sources automatically and attempt to extinguish magical light sources with a [[/r 1d20+16 #Counteract]]{+16} counteract modifier and a counteract rank of 3. If the lamp blighter successfully extinguishes any light, their next successful claw or shortbow Strike deals @Damage[1d6[persistent,fire]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ngyilCgAbROntHkz",
-            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
-            "name": "Arrows",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 60,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "aRtU5WJQRECqFv70",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 24,
                     "value": 16
                 },
-                "damageRolls": {
-                    "7DxNXyWFQc27m8ct": {
-                        "damage": "2d4+7",
-                        "damageType": "slashing"
-                    }
+                "tradition": {
+                    "value": "primal"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                }
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "HDdlRikxWJxCo7rc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "WSpXZ5ibAFmc2PO6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortbow",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "PCQxMDjzQOTTxkIy": {
-                        "damage": "1d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shortbow",
-                "traits": {
-                    "value": [
-                        "deadly-d10",
-                        "range-increment-60",
-                        "reload-0"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "t61kZB7IL0qC1sxG",
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -360,7 +115,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -424,7 +179,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -489,7 +244,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -550,7 +305,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Floating Flame",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "square",
@@ -636,7 +391,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -701,7 +456,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -809,7 +564,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -870,7 +625,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -926,50 +681,10 @@
             "type": "spell"
         },
         {
-            "_id": "UYRmaPYr1fZwFEyZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": 4
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "WSpXZ5ibAFmc2PO6",
             "img": "icons/weapons/bows/shortbow-leather.webp",
             "name": "Shortbow",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "shortbow",
                 "bonus": {
@@ -1046,6 +761,291 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ngyilCgAbROntHkz",
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 60,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "aRtU5WJQRECqFv70",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "7DxNXyWFQc27m8ct": {
+                        "damage": "2d4+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HDdlRikxWJxCo7rc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "WSpXZ5ibAFmc2PO6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortbow",
+            "sort": 1400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "PCQxMDjzQOTTxkIy": {
+                        "damage": "1d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shortbow",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "range-increment-60",
+                        "reload-0"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "v91oTbziIEEKSC7h",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MYBjuJKpzNnE178Z",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Eye Pluck",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The lamp blighter's last action was a successful claw Strike against a creature with eyes</p><hr /><p><strong>Effect</strong> The lamp blighter attempts to pluck out one of the required creature's eyes. The target must attempt a @Check[fortitude|dc:21] save. On a failure, the target takes @Damage[4[bleed]]{4 persistent bleed} damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. On a critical failure, the target's eye is also severely damaged, taking a –4 circumstance penalty on all sight-based Perception checks until the target returns to full Hit Points or the wound is otherwise healed (by magic such as @UUID[Compendium.pf2e.spells-srd.Item.Sound Body] or @UUID[Compendium.pf2e.spells-srd.Item.Regenerate]). If all a creature's eyes are severely damaged in this way, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for the same duration.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Eye Pluck]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lbQcoDWn1Bh1uNJ5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Fear the Darkness",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The lamp blighter must be in an area of darkness</p><hr /><p><strong>Effect</strong> The lamp blighter evokes the terror of being unable to see in the dark. Each creature within a @Template[type:emanation|distance:20] that doesn't have darkvision must succeed at a @Check[will|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Tru6bJxIFd3qLz4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Snuff the Light",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The lamp blighter extinguishes light sources in a @Template[type:emanation|distance:10]. They extinguish all non-magical light sources automatically and attempt to extinguish magical light sources with a [[/r 1d20+16 #Counteract]]{+16} counteract modifier and a counteract rank of 3. If the lamp blighter successfully extinguishes any light, their next successful claw or shortbow Strike deals @Damage[1d6[persistent,fire]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Lamp Blighter",

@@ -3,172 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NCKi4E87WbMTQF29",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Heat of the Forge",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet. An munsahir's skin radiates heat like a forge's fire. A creature that starts its turn in the area must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the area. Creatures immune to environmental heat effects or with any fire resistance are immune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "heat-of-the-forge",
-                        "traits": [
-                            "fire"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fEeaznyEsmyRdWGo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Self-Destruct",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the munsahir is reduced to 0 HP, their armor explodes at the start of their next turn, dealing @Damage[5d6[fire]] damage in a @Template[emanation|distance:10] (@Check[reflex|dc:19|basic]).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zUDsQayKIEHHh3Nz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blazing Rush",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gatecrasher Strides up to double their Speed in a straight line. They can pass through enemy spaces and make a hammer gauntlet Strike against each creature they move through. Blazing Rush can't be used again for [[/gmr 1d4 #Recharge Blazing Rush]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3eljJtZ3IPeQd7kL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Burning Touch",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The munsahir gatecrasher's Strikes deal an extra 1d6 fire damage (included above). When the gatecrasher successfully performs a @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove] action, they also deal @Damage[1d6[fire]] damage to their target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:grapple",
-                                    "action:shove"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "FvX3ZmNOtTABMaAA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3mmS3Y291h6Ckgin"
             },
             "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
             "name": "Gatecrasher Armor",
-            "sort": 500000,
+            "sort": 100000,
             "system": {
                 "acBonus": 6,
                 "baseItem": "full-plate",
@@ -233,35 +74,10 @@
             "type": "armor"
         },
         {
-            "_id": "NYd0tuzyiTuMeHqw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Plane of Fire Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "LkNDJT5FPLvWx2HF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hammer Gauntlet",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -304,7 +120,7 @@
             "_id": "1uDDZwQOsH9tBUsO",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flame Jet",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -348,6 +164,190 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "NCKi4E87WbMTQF29",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Heat of the Forge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. An munsahir's skin radiates heat like a forge's fire. A creature that starts its turn in the area must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] while it remains in the area. Creatures immune to environmental heat effects or with any fire resistance are immune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "heat-of-the-forge",
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fEeaznyEsmyRdWGo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Self-Destruct",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the munsahir is reduced to 0 HP, their armor explodes at the start of their next turn, dealing @Damage[5d6[fire]] damage in a @Template[emanation|distance:10] (@Check[reflex|dc:19|basic]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zUDsQayKIEHHh3Nz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blazing Rush",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gatecrasher Strides up to double their Speed in a straight line. They can pass through enemy spaces and make a hammer gauntlet Strike against each creature they move through. Blazing Rush can't be used again for [[/gmr 1d4 #Recharge Blazing Rush]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3eljJtZ3IPeQd7kL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Burning Touch",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The munsahir gatecrasher's Strikes deal an extra 1d6 fire damage (included above). When the gatecrasher successfully performs a @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove] action, they also deal @Damage[1d6[fire]] damage to their target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:shove"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NYd0tuzyiTuMeHqw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Plane of Fire Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Munsahir Gatecrasher",

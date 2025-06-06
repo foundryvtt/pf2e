@@ -4,264 +4,41 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0wyZPAkVPa7vL3Gc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Immune to Fatigued From the Effects of Starvation or Thirst",
+            "_id": "C87slniCJsgBKjT2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iDo6QhZ2bapANymO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Shred",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures killed by a meokdan are difficult to bring back to life or animate as undead. The meokdan automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+7 #Counteract]]{+7}, counteract rank 2). If the meokdan who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "op8fCllngyVHTwuc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Manifest Bone Club",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The meokdan isn't carrying a bone club</p>\n<hr />\n<p><strong>Effect</strong> The meokdan reaches down its throat into its stomach and pulls out a human femur that it can wield as a bone club. After the meokdan Strikes a creature, the bone club shatters, but its sharp fragments remain in roughly the same shape; Strikes with a shattered bone club inflict slashing and bleed damage. After the meokdan Strikes with a shattered bone club, or if the meokdan drops the bone club, the club is destroyed, and the nindoru can Manifest a new bone club.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
-                        "option": "bone-club",
-                        "selection": "shattered",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.New",
-                                "value": "new"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Shattered",
-                                "value": "shattered"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "attackModifier": 10,
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d6",
-                                "modifier": 6
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
-                        "predicate": [
-                            "bone-club:new"
-                        ],
-                        "slug": "bone-club",
-                        "traits": [
-                            "magical"
-                        ]
-                    },
-                    {
-                        "attackModifier": 10,
-                        "damage": {
-                            "base": {
-                                "damageType": "slashing",
-                                "dice": 1,
-                                "die": "d4",
-                                "modifier": 6
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.ShatteredLabel",
-                        "predicate": [
-                            "bone-club:shattered"
-                        ],
-                        "slug": "shattered-bone-club",
-                        "traits": [
-                            "magical"
-                        ]
-                    },
-                    {
-                        "damageCategory": "persistent",
-                        "damageType": "bleed",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:slug:shattered-bone-club"
-                        ],
-                        "selector": "strike-damage",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KOaNndSNOhszGH7a",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Quick Snack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The meokdan critically hits a living creature with its bite</p>\n<hr />\n<p><strong>Effect</strong> The meokdan Snacks on the creature.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0xiXRd17fu61DBMB",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Snack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The meokdan attempts a bite Strike against an adjacent creature or chews on a handheld object they're carrying. If the creature is living or the object is food, the meokdan gurgles in delight and restores @Damage[(1d8+8)[healing]] Hit Points. If the creature is undead or a construct, or the object is inedible, the meokdan shrieks in frustration and gains a +1 status bonus to attack rolls and saving throws until the end of its next turn. The meokdan can't Snack again for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a2hwP9L7YAoW7BUK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 18,
                     "value": 10
                 },
-                "damageRolls": {
-                    "OTchPl7dqOdMtwoR": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "occult"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "4LV0V1SjFlT77Z7c",
@@ -270,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -333,7 +110,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -396,7 +173,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -482,7 +259,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -600,50 +377,13 @@
             "type": "spell"
         },
         {
-            "_id": "C87slniCJsgBKjT2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "1VKsmYqn94nTkQP0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5fu6dCtqhdBnHNqh"
             },
             "img": "icons/weapons/maces/mace-round-spiked-black.webp",
             "name": "Bone Morningstar",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "baseItem": "morningstar",
                 "bonus": {
@@ -720,6 +460,266 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "a2hwP9L7YAoW7BUK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "OTchPl7dqOdMtwoR": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0wyZPAkVPa7vL3Gc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Immune to Fatigued From the Effects of Starvation or Thirst",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iDo6QhZ2bapANymO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Shred",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures killed by a meokdan are difficult to bring back to life or animate as undead. The meokdan automatically attempts to counteract any attempt to resurrect or animate any creature that it has killed (counteract modifier [[/r 1d20+7 #Counteract]]{+7}, counteract rank 2). If the meokdan who slew the creature is itself slain, the creature can be brought back from death or become undead normally.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "op8fCllngyVHTwuc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Manifest Bone Club",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The meokdan isn't carrying a bone club</p>\n<hr />\n<p><strong>Effect</strong> The meokdan reaches down its throat into its stomach and pulls out a human femur that it can wield as a bone club. After the meokdan Strikes a creature, the bone club shatters, but its sharp fragments remain in roughly the same shape; Strikes with a shattered bone club inflict slashing and bleed damage. After the meokdan Strikes with a shattered bone club, or if the meokdan drops the bone club, the club is destroyed, and the nindoru can Manifest a new bone club.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
+                        "option": "bone-club",
+                        "selection": "shattered",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.New",
+                                "value": "new"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Shattered",
+                                "value": "shattered"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.Label",
+                        "predicate": [
+                            "bone-club:new"
+                        ],
+                        "slug": "bone-club",
+                        "traits": [
+                            "magical"
+                        ]
+                    },
+                    {
+                        "attackModifier": 10,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.Nindoru.Meokdan.BoneClub.ShatteredLabel",
+                        "predicate": [
+                            "bone-club:shattered"
+                        ],
+                        "slug": "shattered-bone-club",
+                        "traits": [
+                            "magical"
+                        ]
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "bleed",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:slug:shattered-bone-club"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KOaNndSNOhszGH7a",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quick Snack",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The meokdan critically hits a living creature with its bite</p>\n<hr />\n<p><strong>Effect</strong> The meokdan Snacks on the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0xiXRd17fu61DBMB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snack",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The meokdan attempts a bite Strike against an adjacent creature or chews on a handheld object they're carrying. If the creature is living or the object is food, the meokdan gurgles in delight and restores @Damage[(1d8+8)[healing]] Hit Points. If the creature is undead or a construct, or the object is inedible, the meokdan shrieks in frustration and gains a +1 status bonus to attack rolls and saving throws until the end of its next turn. The meokdan can't Snack again for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Meokdan",

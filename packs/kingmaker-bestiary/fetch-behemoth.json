@@ -3,302 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lYCCv7NRnl6ZnNjT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "kU6LiydL3jldv5KQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e1txRyfONnCuYPny",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q78tMeRUfO7vehcO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 45 (Deactivated by Fire or Void)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "fire",
-                            "void"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 45
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Wt9KDemV1jGIVjE5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Catch Rock",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "catch-rock",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "catch-rock"
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": "catch-rock",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ipARSA7VFfyApjl1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Throw Rock",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "throw-rock",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "htpcG9CC3rJNay4j",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "M3j9EMRHXmkHHLVe": {
-                        "damage": "4d6+18",
-                        "damageType": "bludgeoning"
-                    },
-                    "zQ0kdguVzUt5OQrj": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "QLqI8GHyMhlnlL3h",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "s6nqIzXSnI6Hzqal": {
-                        "damage": "4d4+18",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "brutal",
-                        "range-increment-120"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "jejbslfpwsZmV2jx",
@@ -307,7 +48,7 @@
             },
             "img": "icons/magic/earth/lava-explosion-orange.webp",
             "name": "Cataclysm",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -444,7 +185,7 @@
             },
             "img": "icons/magic/lightning/projectile-tendrils-teal.webp",
             "name": "Disjunction",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -505,7 +246,7 @@
             },
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Earthquake",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -600,7 +341,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (to or from the First World only)",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -664,7 +405,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -727,7 +468,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,22 +524,32 @@
             "type": "spell"
         },
         {
-            "_id": "kU6LiydL3jldv5KQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1400000,
+            "_id": "htpcG9CC3rJNay4j",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "M3j9EMRHXmkHHLVe": {
+                        "damage": "4d6+18",
+                        "damageType": "bludgeoning"
+                    },
+                    "zQ0kdguVzUt5OQrj": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -806,20 +557,269 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "QLqI8GHyMhlnlL3h",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "s6nqIzXSnI6Hzqal": {
+                        "damage": "4d4+18",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "brutal",
+                        "range-increment-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lYCCv7NRnl6ZnNjT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e1txRyfONnCuYPny",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q78tMeRUfO7vehcO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 45 (Deactivated by Fire or Void)",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "void"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 45
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Wt9KDemV1jGIVjE5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Catch Rock",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "catch-rock",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ipARSA7VFfyApjl1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.a0tx6exmB9v9CUsj"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Fetch Behemoth",

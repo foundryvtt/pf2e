@@ -4,415 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2UGwylnfcWptWs5I",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+2 to Sense Motive",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g827tssEKjaW3MWi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Social Specialist",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For social encounters involving gaming or gambling, the gambling companion is a 5th-level challenge</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V0PBTcwoJcgrbpP2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Gamer's Guidance",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the gambling companion successfully Aids a skill check related to games or gambling, the ally rolls twice and takes the higher result instead of gaining the usual bonus.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OkkL7DSD3tgTcL7x",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Distracting Trick",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The gambling companion is wielding cards or dice</p><hr /><p><strong>Effect</strong> The gambling companion performs a quick trick with the cards or dice to @UUID[Compendium.pf2e.actionspf2e.Item.Feint], then makes a beak Strike against the same target. If the Feint succeeds, the Strike deals an additional 1d6 precision damage.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "distracting-trick",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "distracting-trick"
-                        ],
-                        "selector": "beak-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jYMNfyvGjLsuIffJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EsqFTJXcmzfngRgL"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
-            "name": "Playing Cards",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A standard deck of cards consists of 54 cards made from thick paper contained within a paper sleeve. The most common deck used for games and gambling is known as the Old Mage deck and features four suits themed with the four essences of magic, each with 13 cards, as well as two wildcards. The name and appearance of the deck varies from region to region, such as the Magician's Deck in Taldor or the Deck of Masks in the Shackles.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Pathfinder Society Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "playing-cards",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "du8Xcuh7ebfiL5Vk",
-            "img": "icons/sundries/gaming/dice-pair-white-green.webp",
-            "name": "Set of six ivory dice",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 6,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "rSS1iWQfEyrgfeBu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Games Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ElOKMxGCrwxe3vcl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "xsVgRL5RstnGUX4I": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "GENCnh72fzz04o52",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Olr4JSREpwfk6tM7"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "Pxs360RbKRb34cok": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "6pucib74i9HvvO4U",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Olr4JSREpwfk6tM7"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "SwuRsdZyBpSdcE9R": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "Olr4JSREpwfk6tM7",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -493,6 +91,408 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "jYMNfyvGjLsuIffJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EsqFTJXcmzfngRgL"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/playing-cards.webp",
+            "name": "Playing Cards",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A standard deck of cards consists of 54 cards made from thick paper contained within a paper sleeve. The most common deck used for games and gambling is known as the Old Mage deck and features four suits themed with the four essences of magic, each with 13 cards, as well as two wildcards. The name and appearance of the deck varies from region to region, such as the Magician's Deck in Taldor or the Deck of Masks in the Shackles.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Pathfinder Society Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "playing-cards",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "du8Xcuh7ebfiL5Vk",
+            "img": "icons/sundries/gaming/dice-pair-white-green.webp",
+            "name": "Set of six ivory dice",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 6,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ElOKMxGCrwxe3vcl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "xsVgRL5RstnGUX4I": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GENCnh72fzz04o52",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Olr4JSREpwfk6tM7"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "Pxs360RbKRb34cok": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6pucib74i9HvvO4U",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Olr4JSREpwfk6tM7"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "SwuRsdZyBpSdcE9R": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2UGwylnfcWptWs5I",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 to Sense Motive",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g827tssEKjaW3MWi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Social Specialist",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For social encounters involving gaming or gambling, the gambling companion is a 5th-level challenge</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V0PBTcwoJcgrbpP2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gamer's Guidance",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the gambling companion successfully Aids a skill check related to games or gambling, the ally rolls twice and takes the higher result instead of gaining the usual bonus.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OkkL7DSD3tgTcL7x",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Distracting Trick",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gambling companion is wielding cards or dice</p><hr /><p><strong>Effect</strong> The gambling companion performs a quick trick with the cards or dice to @UUID[Compendium.pf2e.actionspf2e.Item.Feint], then makes a beak Strike against the same target. If the Feint succeeds, the Strike deals an additional 1d6 precision damage.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "distracting-trick",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "distracting-trick"
+                        ],
+                        "selector": "beak-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rSS1iWQfEyrgfeBu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Games Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Gambling Companion",

@@ -4,383 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FuRqBqNBG6h6r7cd",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Musketeer's Advance",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The musketeer is wielding a flintlock musket</p><hr /><p><strong>Effect</strong> The musketeer makes a flintlock musket Strike. If the Strike hits, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to melee attacks by the musketeer until the end of the musketeer's next turn. Regardless of whether the Strike hit, the musketeer then Interacts to swap their flintlock musket for their rapier and Strides toward the creature they attacked.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lK3tALhh4hYqK6ZF",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "One for All",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The musketeer is wielding a single one-handed weapon in one hand and has their other hand free</p><hr /><p><strong>Effect</strong> The musketeer grants a +1 circumstance bonus to AC to themself until the start of their next turn. Allies also gain this bonus while adjacent to the musketeer. If a creature would benefit from more than one creature's One for All ability, the bonus is +2 instead of +1.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: One for All]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "59nUwkzA3Ahd0cDq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The musketeer deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jXX5hvuw4njh1Utq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "sCd4iKHJ5nz0dsE5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Fy63rwYVBq0hXh0T"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Flintlock Musket)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-flintlock-musket",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "gN3M7AQN6HYbbIDU",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4gUzr5eXqIC4IzGB"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "4pVlm8mgcE1f5HFg": {
-                        "damage": "1d6+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "rapier",
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4Avy2GEkkRr74ynY",
-            "_stats": {
-                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "fCAVgSMFbB7F05wH",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "AjfqOCKJ6Mrl1R9n"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Flintlock Musket",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "VPSsTAIQcGPoXyTw": {
-                        "damage": "1d6+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "flintlock-musket",
-                "traits": {
-                    "value": [
-                        "concussive",
-                        "fatal-d10",
-                        "range-increment-70",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "AjfqOCKJ6Mrl1R9n",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hqMtsTwmOShdAdQW"
             },
             "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
             "name": "Flintlock Musket",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "flintlock-musket",
                 "bonus": {
@@ -466,7 +96,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -545,6 +175,376 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "jXX5hvuw4njh1Utq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 300000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "sCd4iKHJ5nz0dsE5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Fy63rwYVBq0hXh0T"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Flintlock Musket)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-flintlock-musket",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "gN3M7AQN6HYbbIDU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4gUzr5eXqIC4IzGB"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "4pVlm8mgcE1f5HFg": {
+                        "damage": "1d6+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "rapier",
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4Avy2GEkkRr74ynY",
+            "_stats": {
+                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fCAVgSMFbB7F05wH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "AjfqOCKJ6Mrl1R9n"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flintlock Musket",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "VPSsTAIQcGPoXyTw": {
+                        "damage": "1d6+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "flintlock-musket",
+                "traits": {
+                    "value": [
+                        "concussive",
+                        "fatal-d10",
+                        "range-increment-70",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FuRqBqNBG6h6r7cd",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Musketeer's Advance",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The musketeer is wielding a flintlock musket</p><hr /><p><strong>Effect</strong> The musketeer makes a flintlock musket Strike. If the Strike hits, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to melee attacks by the musketeer until the end of the musketeer's next turn. Regardless of whether the Strike hit, the musketeer then Interacts to swap their flintlock musket for their rapier and Strides toward the creature they attacked.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lK3tALhh4hYqK6ZF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "One for All",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The musketeer is wielding a single one-handed weapon in one hand and has their other hand free</p><hr /><p><strong>Effect</strong> The musketeer grants a +1 circumstance bonus to AC to themself until the start of their next turn. Allies also gain this bonus while adjacent to the musketeer. If a creature would benefit from more than one creature's One for All ability, the bonus is +2 instead of +1.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: One for All]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "59nUwkzA3Ahd0cDq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The musketeer deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Musketeer",

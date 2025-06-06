@@ -4,374 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8xiTkaG2ad3CUDNe",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "T9lgD1z7bkh2qBCl",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dffqvlkV01jThdbA",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xwaJUWg8kgFZf93Q",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Secretive Tattoos",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The mask keeps their faith tattoo hidden (typically by wearing gloves to cover the palm). To use it as a divine focus, they must first Interact to uncover the tattoo. The tattoo then stays uncovered until the mask Interacts to cover it up. A mask's faith tattoo only allows for the casting of @UUID[Compendium.pf2e.spells-srd.Item.Harm]. Upon the mask's death, the tattoo disappears.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7GBmB1zzFojQDr23",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aspect's Agony",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a mask of Norgorber Strikes a foe with a weapon, they inflict an additional 1d6 persistent mental damage. As long as a creature is taking this persistent damage, they're @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "target:condition:persistent-damage:mental"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    },
-                    {
-                        "category": "persistent",
-                        "damageType": "mental",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "noKgfvuENYb4Qm3Z",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Insidious Secrets",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The mask whispers, then targets a creature within 30 feet. The target must then attempt a @Check[will|dc:37] save.</p><hr /><p><strong>Critical Success</strong> The target fails to hear the secret whispered and is unaffected.</p>\n<p><strong>Success</strong> The mask whispers a horrific secret to the target, and though their mind recoils and forgets, the target still takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As failure, but @Damage[17d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}; the target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] as long as they are frightened.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[30d6[mental]] damage and the target is confused for 1 minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yrEwyHuSOd8DF4Cw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A mask of Norgorber deals 2d6 extra precision damage to creatures who are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FFgyFc6hnPexkj4i",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 700000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "71JiR6jiERDyuc2l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yqAVU3Y9w4O19e24"
-            },
-            "img": "icons/magic/symbols/star-inverted-yellow.webp",
-            "name": "Faith Tattoo (True)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p><strong>Prerequisites</strong> worshipper of a deity, alignment matching the deity's follower alignments</p>\n<hr />\n<p>You have marked your body to show your devotion to a deity. This tattoo could be the deity's religious symbol, another image that evokes that deity, or another mark you gained through your devotion. The tattoo serves as a silver religious symbol of the deity. Provided you keep the tattoo uncovered, you need not wield it to gain that benefit. If you cease meeting the prerequisites, the tattoo fades, and you lose its benefits until you perform an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual and meet the prerequisites thereafter.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The tattoo casts 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Harm], 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Heal], or the 7th-rank spell from your deity's cleric spells. You can choose harm or heal only in accord with the deity's divine font. If the deity allows either spell, choose one the tattoo can cast when you receive the tattoo. The DC for any of these spells is 35. Also, the tattoo has as a trait the school of the spell the tattoo can cast.</p>\n<hr />\n<p><strong>Craft Requirements</strong> silver worth 2 gp to include in the ink</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 16
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Treasure Vault"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "faith-tattoo-true",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "invested",
-                        "tattoo"
-                    ]
-                },
-                "usage": {
-                    "value": "tattooed-on-the-body"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "gz8XDDfssNhrIr2t",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Norgorber Lore",
-            "sort": 900000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 31
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -379,54 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "divine"
+                },
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "gHaBw8YovkZz3bGH",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "GyYlN3EO3ypoibYQ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "sc54aPnOIsMxKsdt": {
-                        "damage": "3d6+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shortsword",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "P3nym1TXuO1lqaQ2",
@@ -435,7 +50,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -523,7 +138,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -592,7 +207,7 @@
             },
             "img": "systems/pf2e/icons/spells/spellwrack.webp",
             "name": "Spellwrack",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -661,7 +276,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -725,7 +340,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -792,7 +407,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -902,7 +517,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -964,7 +579,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1044,7 +659,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +722,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1173,7 +788,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1239,7 +854,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1326,7 +941,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1393,7 +1008,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1594,7 +1209,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1664,53 +1279,13 @@
             "type": "spell"
         },
         {
-            "_id": "T9lgD1z7bkh2qBCl",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "GyYlN3EO3ypoibYQ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 2700000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -1789,6 +1364,431 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "FFgyFc6hnPexkj4i",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 1800000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "71JiR6jiERDyuc2l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yqAVU3Y9w4O19e24"
+            },
+            "img": "icons/magic/symbols/star-inverted-yellow.webp",
+            "name": "Faith Tattoo (True)",
+            "sort": 1900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Prerequisites</strong> worshipper of a deity, alignment matching the deity's follower alignments</p>\n<hr />\n<p>You have marked your body to show your devotion to a deity. This tattoo could be the deity's religious symbol, another image that evokes that deity, or another mark you gained through your devotion. The tattoo serves as a silver religious symbol of the deity. Provided you keep the tattoo uncovered, you need not wield it to gain that benefit. If you cease meeting the prerequisites, the tattoo fades, and you lose its benefits until you perform an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual and meet the prerequisites thereafter.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The tattoo casts 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Harm], 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Heal], or the 7th-rank spell from your deity's cleric spells. You can choose harm or heal only in accord with the deity's divine font. If the deity allows either spell, choose one the tattoo can cast when you receive the tattoo. The DC for any of these spells is 35. Also, the tattoo has as a trait the school of the spell the tattoo can cast.</p>\n<hr />\n<p><strong>Craft Requirements</strong> silver worth 2 gp to include in the ink</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 16
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Treasure Vault"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "faith-tattoo-true",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "invested",
+                        "tattoo"
+                    ]
+                },
+                "usage": {
+                    "value": "tattooed-on-the-body"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "gHaBw8YovkZz3bGH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GyYlN3EO3ypoibYQ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 2000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "sc54aPnOIsMxKsdt": {
+                        "damage": "3d6+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shortsword",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8xiTkaG2ad3CUDNe",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dffqvlkV01jThdbA",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xwaJUWg8kgFZf93Q",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Secretive Tattoos",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The mask keeps their faith tattoo hidden (typically by wearing gloves to cover the palm). To use it as a divine focus, they must first Interact to uncover the tattoo. The tattoo then stays uncovered until the mask Interacts to cover it up. A mask's faith tattoo only allows for the casting of @UUID[Compendium.pf2e.spells-srd.Item.Harm]. Upon the mask's death, the tattoo disappears.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7GBmB1zzFojQDr23",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aspect's Agony",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a mask of Norgorber Strikes a foe with a weapon, they inflict an additional 1d6 persistent mental damage. As long as a creature is taking this persistent damage, they're @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "target:condition:persistent-damage:mental"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "noKgfvuENYb4Qm3Z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Insidious Secrets",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The mask whispers, then targets a creature within 30 feet. The target must then attempt a @Check[will|dc:37] save.</p><hr /><p><strong>Critical Success</strong> The target fails to hear the secret whispered and is unaffected.</p>\n<p><strong>Success</strong> The mask whispers a horrific secret to the target, and though their mind recoils and forgets, the target still takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As failure, but @Damage[17d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}; the target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] as long as they are frightened.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[30d6[mental]] damage and the target is confused for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yrEwyHuSOd8DF4Cw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A mask of Norgorber deals 2d6 extra precision damage to creatures who are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gz8XDDfssNhrIr2t",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Norgorber Lore",
+            "sort": 2700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 31
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Mask of the Reaper",

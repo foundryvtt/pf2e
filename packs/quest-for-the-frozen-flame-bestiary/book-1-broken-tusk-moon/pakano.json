@@ -4,584 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qula0uMKfWBhmoBB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "A2qkCuXMmGz80r2y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shield Block",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KEtKcl13XiRDDkbq",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spurred by Death",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet reduces a creature to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> Pakano Steps or Strides.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B9H07GySQIMpEcZ0",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hunt Prey",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] his prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional 1d8 precision damage. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": [
-                            "action:seek",
-                            "hunted-prey"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": [
-                            "action:track",
-                            "hunted-prey"
-                        ],
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": [
-                            "hunted-prey"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
-                        "option": "first-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "hunted-prey",
-                            "first-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qUKMuVdvLIBeqJta",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spear Fighter",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional [[/r {1d6}]]{1d6 damage}. If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "spear-attack",
-                        "text": "If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rv01E7yhBVwVraz0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
-            },
-            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
-            "name": "Hide Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "hide-armor",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "hide-armor",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "sCFMVnixo91dTL5G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.9TAYUFDOJa0kvk9m"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/talismans/wolf-fang.webp",
-            "name": "Mad Mammoth's Juke",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "talisman",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> envision</p>\n<p><strong>Trigger</strong> You would be injured by an effect that would bury you, such as an avalanche or a tunnel collapse</p>\n<p><strong>Requirements</strong> You are an expert in Acrobatics</p>\n<hr />\n<p>This small, fragile tusk came from a very young mammoth. It's filled with ice-cold glacial water and capped with a carved piece of ivory. When you crush the tusk, the water rushes around you in an instant as you twist away from impending disaster with a supernatural flourish. You teleport to an unoccupied space within 200 feet that you can see, bringing along all your equipment. You can't bring any other creature with you, even in an extradimensional space.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #175: Broken Tusk Moon"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "talisman",
-                        "teleportation"
-                    ]
-                },
-                "usage": {
-                    "value": "affixed-to-armor"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "Kz93j6dThh5o1qKB",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QQAoFsGuQMjILRMP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "pguvzb8qme7dnsxzleqh": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "parry"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "KuPdUEa7oeXo6LYx",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QQAoFsGuQMjILRMP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "ozfz7zo1sika8u8v2nn2": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2EYIvdhzhuLnfjFM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "cgUywSBOjfaSfhp9"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tallow Bomb",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "category": "persistent",
-                        "damage": "2d4",
-                        "damageType": "fire"
-                    },
-                    "1": {
-                        "category": "splash",
-                        "damage": "2",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "splash",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "lnwPtLdboZ8jJt7i",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
-            },
-            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
-            "name": "Buckler",
-            "sort": 1100000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "buckler",
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 3,
-                "hp": {
-                    "max": 6,
-                    "value": 6
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "reinforcing": 0
-                },
-                "size": "med",
-                "slug": "buckler",
-                "speedPenalty": 0,
-                "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "shield"
-        },
-        {
             "_id": "QQAoFsGuQMjILRMP",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
             "name": "Spear",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -666,7 +95,7 @@
             },
             "img": "icons/consumables/food/soup-broth-bowl-wooden-yellow.webp",
             "name": "Tallow Bomb (Moderate)",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "baseItem": "alchemical-bomb",
                 "bonus": {
@@ -762,6 +191,577 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "lnwPtLdboZ8jJt7i",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
+            },
+            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
+            "name": "Buckler",
+            "sort": 300000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "buckler",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 3,
+                "hp": {
+                    "max": 6,
+                    "value": 6
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "buckler",
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "shield"
+        },
+        {
+            "_id": "rv01E7yhBVwVraz0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
+            },
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+            "name": "Hide Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "hide-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hide-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "sCFMVnixo91dTL5G",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.9TAYUFDOJa0kvk9m"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/wolf-fang.webp",
+            "name": "Mad Mammoth's Juke",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> envision</p>\n<p><strong>Trigger</strong> You would be injured by an effect that would bury you, such as an avalanche or a tunnel collapse</p>\n<p><strong>Requirements</strong> You are an expert in Acrobatics</p>\n<hr />\n<p>This small, fragile tusk came from a very young mammoth. It's filled with ice-cold glacial water and capped with a carved piece of ivory. When you crush the tusk, the water rushes around you in an instant as you twist away from impending disaster with a supernatural flourish. You teleport to an unoccupied space within 200 feet that you can see, bringing along all your equipment. You can't bring any other creature with you, even in an extradimensional space.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #175: Broken Tusk Moon"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman",
+                        "teleportation"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Kz93j6dThh5o1qKB",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QQAoFsGuQMjILRMP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "pguvzb8qme7dnsxzleqh": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "parry"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KuPdUEa7oeXo6LYx",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QQAoFsGuQMjILRMP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "ozfz7zo1sika8u8v2nn2": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2EYIvdhzhuLnfjFM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "cgUywSBOjfaSfhp9"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tallow Bomb",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "category": "persistent",
+                        "damage": "2d4",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "splash",
+                        "damage": "2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "splash",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qula0uMKfWBhmoBB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A2qkCuXMmGz80r2y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KEtKcl13XiRDDkbq",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spurred by Death",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 30 feet reduces a creature to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> Pakano Steps or Strides.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B9H07GySQIMpEcZ0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunt Prey",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] his prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Track] his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional 1d8 precision damage. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                        "option": "first-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "hunted-prey",
+                            "first-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qUKMuVdvLIBeqJta",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spear Fighter",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional [[/r {1d6}]]{1d6 damage}. If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "spear-attack",
+                        "text": "If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of Pakano's next turn.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Pakano",

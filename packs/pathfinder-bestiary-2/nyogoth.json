@@ -3,171 +3,341 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zhw2nm585TNwCDjL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "nQJ4bCNSLy7MFyXP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "telepathy",
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "Pf5vvLRmAkPaLN0r",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
+            },
+            "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
+            "name": "Cloudkill",
+            "sort": 200000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "6d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "poison"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You conjure a poisonous fog. This functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist], except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "nQJ4bCNSLy7MFyXP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "cloudkill",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
                     "value": [
-                        "aura",
-                        "magical"
+                        "concentrate",
+                        "death",
+                        "manipulate",
+                        "poison"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "aRmGycM99xyVkKnJ",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Caustic Blood",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The nyogoth takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The nyogoth sprays its acidic blood on adjacent creatures, dealing @Damage[6d6[acid]] damage (@Check[reflex|dc:29|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+            "_id": "mbr0k4VLD5DblIlR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
-            "type": "action"
-        },
-        {
-            "_id": "V5mIlHkiRCxhndVN",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Feeding Frenzy",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door",
             "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The nyogoth has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p><hr /><p><strong>Effect</strong> The nyogoth slavers and chews at the grabbed creature, dealing @Damage[(2d6+7)[slashing],1d6[acid]]{2d6+7 slashing and 1d6 acid} damage (@Check[fortitude|dc:29|basic] save).</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "nQJ4bCNSLy7MFyXP"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "mcIvTT80sYixnl9W",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Nauseating Display",
+            "_id": "AVCJ2SYe5pptCOsw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear (At will)",
             "sort": 400000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 2
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The nyogoth untangles its tentacles and prolapses its many mouths, turning itself inside out in a truly nauseating display. Creatures in a @Template[emanation|distance:30] must attempt a @Check[will|dc:29] save, after which they are temporarily immune to further Nauseating Displays for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 5} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "nQJ4bCNSLy7MFyXP"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
                         "emotion",
                         "fear",
-                        "incapacitation",
-                        "mental",
-                        "occult",
-                        "visual"
+                        "manipulate",
+                        "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "U6lHO1793L8PN4Hc",
+            "_id": "4MzJVcfYcPuvs7SR",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
+            "name": "Acid Arrow (At will)",
             "sort": 500000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    }
                 },
-                "category": "offensive",
+                "defense": null,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "nQJ4bCNSLy7MFyXP"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "grab",
+                "slug": "acid-arrow",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "acid",
+                        "attack",
+                        "concentrate",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
             "_id": "k0yAlAVkZbGrXfX3",
@@ -284,341 +454,171 @@
             "type": "melee"
         },
         {
-            "_id": "Pf5vvLRmAkPaLN0r",
+            "_id": "zhw2nm585TNwCDjL",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
-            "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
-            "name": "Cloudkill",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 800000,
             "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
+                "actionType": {
+                    "value": "passive"
                 },
-                "cost": {
-                    "value": ""
+                "actions": {
+                    "value": null
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "6d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "poison"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>You conjure a poisonous fog. This functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist], except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "nQJ4bCNSLy7MFyXP"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "cloudkill",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
+                "slug": "telepathy",
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
                     "value": [
-                        "concentrate",
-                        "death",
-                        "manipulate",
-                        "poison"
+                        "aura",
+                        "magical"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "mbr0k4VLD5DblIlR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door",
+            "_id": "aRmGycM99xyVkKnJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Caustic Blood",
             "sort": 900000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "reaction"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "nQJ4bCNSLy7MFyXP"
+                    "value": "<p><strong>Trigger</strong> The nyogoth takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The nyogoth sprays its acidic blood on adjacent creatures, dealing @Damage[6d6[acid]] damage (@Check[reflex|dc:29|basic] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "AVCJ2SYe5pptCOsw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear (At will)",
+            "_id": "V5mIlHkiRCxhndVN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feeding Frenzy",
             "sort": 1000000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
+                "actions": {
+                    "value": 1
                 },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "nQJ4bCNSLy7MFyXP"
+                    "value": "<p><strong>Requirements</strong> The nyogoth has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p><hr /><p><strong>Effect</strong> The nyogoth slavers and chews at the grabbed creature, dealing @Damage[(2d6+7)[slashing],1d6[acid]]{2d6+7 slashing and 1d6 acid} damage (@Check[fortitude|dc:29|basic] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "fear",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mcIvTT80sYixnl9W",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Nauseating Display",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nyogoth untangles its tentacles and prolapses its many mouths, turning itself inside out in a truly nauseating display. Creatures in a @Template[emanation|distance:30] must attempt a @Check[will|dc:29] save, after which they are temporarily immune to further Nauseating Displays for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 5} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "emotion",
                         "fear",
-                        "manipulate",
-                        "mental"
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "visual"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "4MzJVcfYcPuvs7SR",
+            "_id": "U6lHO1793L8PN4Hc",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
-            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
-            "name": "Acid Arrow (At will)",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "3d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "acid"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "nQJ4bCNSLy7MFyXP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "acid-arrow",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "acid",
-                        "attack",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "nQJ4bCNSLy7MFyXP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         }
     ],
     "name": "Nyogoth",

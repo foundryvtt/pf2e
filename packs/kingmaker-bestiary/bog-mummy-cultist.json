@@ -3,335 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "khwh43CDMROkIfgf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 30 feet",
+            "_id": "0WYsG1PdrVoJN2Ue",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HLcMADTgT1nixxce",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Breath of the Bog",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature that begins its turn within the area feels as if its lungs were filling with water and must succeed at a @Check[fortitude|dc:25] save or be unable to speak or breathe. The creature can still hold its breath and can attempt a new saving throw at the end of its turn.</p>\n<p>A creature that succeeds is temporarily immune to breath of the bog for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "breath-of-the-bog",
-                        "traits": [
-                            "divine",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hO1dPgyMTWEGJRxH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Unless the damage that destroys a bog mummy cultist is vitality damage, necromantic energies rebuild its body from swamp muck 1 week later. If the uncompleted body is destroyed during that time, the process starts anew. Anyone who succeeds at a @Check[religion|dc:26] check to Recall Knowledge realizes that a consecrate ritual performed on the site that a bog mummy cultist was destroyed prevents its rejuvenation, the way vitality damage prevents the rejuvenation from occurring.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AWNveQn0EQ1aYORU",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Rise Up",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature walks on top of a bog mummy cultist that lies buried in the mud or peat below</p>\n<p><strong>Requirements</strong> Initiative has not yet been rolled</p>\n<hr />\n<p><strong>Effect</strong> The bog mummy automatically notices the creature and @UUID[Compendium.pf2e.actionspf2e.Item.Burrow]{Burrows} before rolling initiative.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QaqXp54jr3aKQjWN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XmKUjz23s0dNFOYW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bog Rot",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with remove curse or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be brought back to life except by a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "disease",
-                        "divine",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HvSxWkSSm2CCuJHu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 700000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [
-                        "coldResistant"
-                    ],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "8SCH000Zv6X9BFPf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "bog-rot"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ZsJDLvXfQs3KVttM",
@@ -340,7 +48,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -429,7 +137,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -512,7 +220,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -593,7 +301,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -675,22 +383,101 @@
             "type": "spell"
         },
         {
-            "_id": "0WYsG1PdrVoJN2Ue",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1300000,
+            "_id": "HvSxWkSSm2CCuJHu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "coldResistant"
+                    ],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "8SCH000Zv6X9BFPf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "bog-rot"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+10",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -698,20 +485,233 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "khwh43CDMROkIfgf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HLcMADTgT1nixxce",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Breath of the Bog",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that begins its turn within the area feels as if its lungs were filling with water and must succeed at a @Check[fortitude|dc:25] save or be unable to speak or breathe. The creature can still hold its breath and can attempt a new saving throw at the end of its turn.</p>\n<p>A creature that succeeds is temporarily immune to breath of the bog for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "breath-of-the-bog",
+                        "traits": [
+                            "divine",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hO1dPgyMTWEGJRxH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Unless the damage that destroys a bog mummy cultist is vitality damage, necromantic energies rebuild its body from swamp muck 1 week later. If the uncompleted body is destroyed during that time, the process starts anew. Anyone who succeeds at a @Check[religion|dc:26] check to Recall Knowledge realizes that a consecrate ritual performed on the site that a bog mummy cultist was destroyed prevents its rejuvenation, the way vitality damage prevents the rejuvenation from occurring.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AWNveQn0EQ1aYORU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rise Up",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks on top of a bog mummy cultist that lies buried in the mud or peat below</p>\n<p><strong>Requirements</strong> Initiative has not yet been rolled</p>\n<hr />\n<p><strong>Effect</strong> The bog mummy automatically notices the creature and @UUID[Compendium.pf2e.actionspf2e.Item.Burrow]{Burrows} before rolling initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QaqXp54jr3aKQjWN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XmKUjz23s0dNFOYW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bog Rot",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with remove curse or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be brought back to life except by a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "disease",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Bog Mummy Cultist",

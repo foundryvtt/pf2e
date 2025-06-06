@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CEfswh5tNUyZKkgV",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Anchor the Unliving",
+            "_id": "O01tkGK9bScQt2sk",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Heldin displays their religious symbol at an undead creature within 30 feet. The creature must attempt a @Check[fortitude|dc:17] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Reduce the creature's resistances by 1 for [[/r 1d4]] rounds, after which it's immune to this ability for 1 round.</p>\n<p><strong>Failure</strong> As success, but the resistances are reduced by 3.</p>\n<p><strong>Critical Failure</strong> As success, but the resistances are reduced by 5.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,405 +28,43 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NbENvH5RcSazDrUG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
-            "sort": 200000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chainmail. However, it is much lighter than chainmail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-shirt",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "HHGAR6vjIprtcPNq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Ti4gWILk69LPxKuU"
-            },
-            "img": "icons/sundries/lights/candle-unlit-grey.webp",
-            "name": "Candle",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>A lit candle sheds dim light in a 10‐foot radius for 8 hours.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 10,
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "lit-candle"
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 4,
-                                "speed": 1,
-                                "type": "torch"
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Fpdd2O2OQqWVMbdk"
                             },
-                            "color": "#9b7337",
-                            "dim": 10,
-                            "shadows": 0.2
-                        }
+                            {
+                                "id": "Wqhifh7yO6Nqjj2z"
+                            },
+                            {
+                                "id": "NHvFQDZ8BPQgzOVL"
+                            }
+                        ]
                     },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.LitCandle",
-                        "option": "lit-candle",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "TokenEffectIcon",
-                        "predicate": [
-                            "lit-candle"
-                        ],
-                        "value": "icons/sundries/lights/candle-unlit-grey.webp"
-                    }
-                ],
-                "size": "med",
-                "slug": "candle",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "bThNsJjm0nONnQOY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
-            },
-            "img": "icons/commodities/stone/geode-raw-tan.webp",
-            "name": "Flint and Steel",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 5
+                    "slot1": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "DBZ2n13f8usweWlY"
+                            },
+                            {
+                                "id": "Qf4NDhttKQz2nVGP"
+                            }
+                        ]
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "flint-and-steel",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "eQXfKU4h4ctNnoK8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Wooden)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "UTLANcqk2v61JdXh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
-            },
-            "img": "icons/tools/smithing/anvil.webp",
-            "name": "Repair Kit",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "repair-kit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "DH0ivdNxXjLCzKkw",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "PlHqKyQ8VgsvZjtT"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Warhammer",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "5UOBIG7gVl0A2OUq": {
-                        "damage": "1d8+1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "shove"
-                    ]
+                "spelldc": {
+                    "dc": 17,
+                    "value": 0
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Fpdd2O2OQqWVMbdk",
@@ -432,7 +73,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -518,7 +159,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -714,7 +355,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-weapon.webp",
             "name": "Magic Weapon",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -775,7 +416,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +478,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -894,76 +535,13 @@
             "type": "spell"
         },
         {
-            "_id": "O01tkGK9bScQt2sk",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 1300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Fpdd2O2OQqWVMbdk"
-                            },
-                            {
-                                "id": "Wqhifh7yO6Nqjj2z"
-                            },
-                            {
-                                "id": "NHvFQDZ8BPQgzOVL"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "DBZ2n13f8usweWlY"
-                            },
-                            {
-                                "id": "Qf4NDhttKQz2nVGP"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 0
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "PlHqKyQ8VgsvZjtT",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ"
             },
             "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
             "name": "Warhammer",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "baseItem": "warhammer",
                 "bonus": {
@@ -1040,6 +618,428 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "NbENvH5RcSazDrUG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
+            "name": "Chain Shirt",
+            "sort": 800000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "chain-shirt",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chainmail. However, it is much lighter than chainmail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-shirt",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "bThNsJjm0nONnQOY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "eQXfKU4h4ctNnoK8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol (Wooden)",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "UTLANcqk2v61JdXh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
+            },
+            "img": "icons/tools/smithing/anvil.webp",
+            "name": "Repair Kit",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "repair-kit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "HHGAR6vjIprtcPNq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Ti4gWILk69LPxKuU"
+            },
+            "img": "icons/sundries/lights/candle-unlit-grey.webp",
+            "name": "Candle",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>A lit candle sheds dim light in a 10‐foot radius for 8 hours.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 10,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 10,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitCandle",
+                        "option": "lit-candle",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": "icons/sundries/lights/candle-unlit-grey.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "candle",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "DH0ivdNxXjLCzKkw",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "PlHqKyQ8VgsvZjtT"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Warhammer",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "5UOBIG7gVl0A2OUq": {
+                        "damage": "1d8+1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CEfswh5tNUyZKkgV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Anchor the Unliving",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Heldin displays their religious symbol at an undead creature within 30 feet. The creature must attempt a @Check[fortitude|dc:17] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Reduce the creature's resistances by 1 for [[/r 1d4]] rounds, after which it's immune to this ability for 1 round.</p>\n<p><strong>Failure</strong> As success, but the resistances are reduced by 3.</p>\n<p><strong>Critical Failure</strong> As success, but the resistances are reduced by 5.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Heldin Ulgincamp",

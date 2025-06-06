@@ -4,180 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "O2CT9C7oM6YOLZNX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Glow",
+            "_id": "BZL7n09A5aQfGHjz",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. The tips of a voidglutton's fingers and its seven eyes glow, casting bright light in the area and making it visible if it was @UUID[Compendium.pf2e.conditionitems.Item.Invisible].</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "glowing"
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 1,
-                                "speed": 3,
-                                "type": "pulse"
-                            },
-                            "bright": 30,
-                            "color": "#fff9a3"
-                        }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JPj4ayUtkVtkvYCy",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Consume Light",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The voidglutton casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness]</p>\n<hr />\n<p><strong>Effect</strong> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "darkness",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gdWSFRbbf21JhOa9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ectoplasmic Web Trap",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the voidglutton's ectoplasmic web trap is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and stuck to the nearest surface until it succeeds at a DC 26 check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. Ectoplasmic Web Trap can immobilize incorporeal creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "ectoplasmic-web-trap",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rdEPYGmtMUuJ7I3P",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fearful Strike",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the voidglutton damages a creature with its claw Strike, the creature must succeed at a @Check[will|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "fearful-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "45yP2nFzQUcp3Zvm",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Feed on Fear",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> An enemy is affected by a fear effect or has the frightened or dying condition, and is within 25 feet of the voidglutton</p>\n<hr />\n<p><strong>Effect</strong> The voidglutton feeds on the creature's terror. It regains @Damage[3d4[healing]] Hit Points and its Glow reignites if it had been extinguished.</p>\n<p>It cannot use Consume Light again for [[/gmr 1d4 #Recharge Consume Light]]{1d4 rounds}, as it is too glutted on fear to suppress its Glow.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -186,138 +28,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "k0izMsqD3Kbrn6oD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magic Immunity",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A voidglutton is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Quandary], and spells with the light trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WsGIMLD86LgMNUWg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "fearful-strike"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "rcytt82gz8dih0hvh7oh": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    },
-                    "p2netin17bko1wkmywuo": {
-                        "damage": "4d6",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "zGg5a7ALqF7zVFCa",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Ectoplasmic Web",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "ectoplasmic-web-trap"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "BeVACGeSdq4dZpvw",
@@ -326,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -387,22 +112,273 @@
             "type": "spell"
         },
         {
-            "_id": "BZL7n09A5aQfGHjz",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1000000,
+            "_id": "WsGIMLD86LgMNUWg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "fearful-strike"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "rcytt82gz8dih0hvh7oh": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    },
+                    "p2netin17bko1wkmywuo": {
+                        "damage": "4d6",
+                        "damageType": "force"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zGg5a7ALqF7zVFCa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ectoplasmic Web",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "ectoplasmic-web-trap"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "O2CT9C7oM6YOLZNX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The tips of a voidglutton's fingers and its seven eyes glow, casting bright light in the area and making it visible if it was @UUID[Compendium.pf2e.conditionitems.Item.Invisible].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 30,
+                            "color": "#fff9a3"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JPj4ayUtkVtkvYCy",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Consume Light",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The voidglutton casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness]</p>\n<hr />\n<p><strong>Effect</strong> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "darkness",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gdWSFRbbf21JhOa9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ectoplasmic Web Trap",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the voidglutton's ectoplasmic web trap is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and stuck to the nearest surface until it succeeds at a DC 26 check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]. Ectoplasmic Web Trap can immobilize incorporeal creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "ectoplasmic-web-trap",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rdEPYGmtMUuJ7I3P",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fearful Strike",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the voidglutton damages a creature with its claw Strike, the creature must succeed at a @Check[will|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "fearful-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "45yP2nFzQUcp3Zvm",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Fear",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> An enemy is affected by a fear effect or has the frightened or dying condition, and is within 25 feet of the voidglutton</p>\n<hr />\n<p><strong>Effect</strong> The voidglutton feeds on the creature's terror. It regains @Damage[3d4[healing]] Hit Points and its Glow reignites if it had been extinguished.</p>\n<p>It cannot use Consume Light again for [[/gmr 1d4 #Recharge Consume Light]]{1d4 rounds}, as it is too glutted on fear to suppress its Glow.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -411,21 +387,45 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "k0izMsqD3Kbrn6oD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Immunity",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A voidglutton is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Quandary], and spells with the light trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Voidglutton",

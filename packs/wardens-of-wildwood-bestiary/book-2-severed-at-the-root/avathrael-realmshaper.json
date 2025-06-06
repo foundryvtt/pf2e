@@ -4,596 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Xo2g22wwKjCp2Iwk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shadowsense",
+            "_id": "BwdJDHkyX8eC90wf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The shadows of Gloaming Arbor are an extension of Avathrael, and they can sense creatures in areas of dim light or darkness.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qJyU2tLGSY2w958M",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KOkuVRaySm4Opg9i",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Floral Defense",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Avathrael is the target of a physical attack</p>\n<hr />\n<p><strong>Effect</strong> Avathrael raises their plant-covered wings to block the incoming blow. They gain a +2 circumstance bonus to AC against the triggering attack. If the attack misses, it's deflected by Avathrael's wing, causing some of the dangerous plants growing on the wing to burst and release a cloud of toxic pollen. The triggering creature takes @Damage[2d10[poison]] damage (@Check[fortitude|dc:29|basic] save). On a critical failure, the triggering creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "floral-defense",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "floral-defense"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "plant"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ng8zhhcNLfzAv58a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet @Check[will|dc:29]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bf5BHZU2Bl9S8nWM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fouu9HgSTKZ9IqrA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Momentum",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Avathrael recharges their Poison Breath whenever they score a critical hit with a Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "isAx60abtb8NnFGu",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Poison Breath",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Avathrael exhales a cloud of sweet-smelling poisonous gas that deals @Damage[13d6[poison]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[fortitude|dc:32|basic|options:area-effect] save). A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. Avathrael can't use Poison Breath again for [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qO66NCkrZ2SpTswc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shadow Step",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> twice per day</p>\n<hr />\n<p><strong>Effect</strong> Avathrael teleports with the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Translocate] spell, but Avathrael must begin and end the teleportation effect in an area of dim light or darkness. If they use 2 actions to activate this ability, Avathrael also regains @Damage[8d10[healing]] Hit Points. Avathrael can't use Shadow Step again for [[/gmr 1d4 #Recharge Shadow Step]]{1d4 rounds}.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "healing",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BLk9AGEXn01YJzcr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shape Shadow Realm",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Avathrael mentally reshapes their realm, reshaping terrain and creating obstacles to hinder their foes. All squares within a @Template[burst|distance:50] become difficult terrain. Creatures in the area take @Damage[10d6[void]] damage (@Check[reflex|dc:32|basic] save) from the shadows. On a failure, that creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the malleable shadows (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 32). At the beginning of Avathrael's turn, each creature that's grabbed takes @Damage[4d6[void]] damage. Avathrael can't use Shape Shadow Realm again for [[/gmr 1d4 #Recharge Shape Shadow Realm]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "shadow"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "O4yReHZ770ZPsERR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Snuff Light",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Avathrael exhales, automatically extinguishing all non-magical lights within 100 feet. Avathrael attempts to counteract each light source within 100 feet ([[/r 1d20+22 #Counteract]]{+22} counteract).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Pm3f0zk0mVkFgx4e",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Woodland Stride",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Avathrael ignores difficult terrain and greater difficult terrain from non-magical foliage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4PlvrEdDIYWstSfM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Architecture Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "LeEptFhriacVypHB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Art Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "0HXcaTTdJpsTcCVu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Netherworld Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RVlR13NtqxxuM6Qm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "85rcY2i5yjGGa2oL": {
-                        "damage": "3d10+11",
-                        "damageType": "piercing"
-                    },
-                    "KsticSv6ssmr3B9a": {
-                        "damage": "1d8",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "kYMOcAM7za7SsgVQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Razor Tail",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 32,
                     "value": 24
                 },
-                "damageRolls": {
-                    "BzlzqyhirlLb8cDI": {
-                        "damage": "4d8+11",
-                        "damageType": "bludgeoning"
-                    },
-                    "kNLm7LQLDkanP0XN": {
-                        "category": "persistent",
-                        "damage": "1d8",
-                        "damageType": "bleed"
-                    }
+                "tradition": {
+                    "value": "arcane"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "fDjRHJ6bfzUUkP1T",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shadow Claws",
-            "sort": 1700000,
+            "_id": "Vp8zNCcyRmNuncYn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "3pLpkhtUOAm9GLUo": {
-                        "damage": "1d8",
-                        "damageType": "void"
-                    },
-                    "ZHaLdBgjkSveSGzj": {
-                        "damage": "2d8+11",
-                        "damageType": "bludgeoning"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -601,65 +67,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10"
-                    ]
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "y3keFmRXfEm0EHdT",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Seedpod",
-            "sort": 1800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "LZB34WCYWHwSyPGB": {
-                        "damage": "2d6+11",
-                        "damageType": "bludgeoning"
-                    },
-                    "r7cJ3UYrGOiwgnDT": {
-                        "damage": "1d6",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "8qGUBbRlzIZH0UCE",
@@ -668,7 +87,7 @@
             },
             "img": "systems/pf2e/icons/spells/awaken-animal.webp",
             "name": "Awaken Animal",
-            "sort": 1900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -733,7 +152,7 @@
             },
             "img": "systems/pf2e/icons/spells/commune.webp",
             "name": "Commune",
-            "sort": 2000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -798,7 +217,7 @@
             },
             "img": "icons/magic/nature/root-vine-spiral-thorns-teal.webp",
             "name": "Nature's Reprisal",
-            "sort": 2100000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -882,7 +301,7 @@
             },
             "img": "systems/pf2e/icons/spells/primal-call.webp",
             "name": "Primal Call",
-            "sort": 2200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -945,7 +364,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
-            "sort": 2300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1011,7 +430,7 @@
             },
             "img": "systems/pf2e/icons/spells/ward-domain.webp",
             "name": "Ward Domain",
-            "sort": 2400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1074,7 +493,7 @@
             },
             "img": "icons/magic/nature/stealth-hide-eyes-pink.webp",
             "name": "Dread Ambience",
-            "sort": 2500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1142,7 +561,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 2600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1210,7 +629,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Nature's Pathway",
-            "sort": 2700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1273,7 +692,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 2800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1387,7 +806,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 2900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1449,7 +868,7 @@
             },
             "img": "icons/creatures/mammals/bat-giant-tattered-purple.webp",
             "name": "Umbral Journey",
-            "sort": 3000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1512,7 +931,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 3100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1578,7 +997,7 @@
             },
             "img": "icons/environment/wilderness/tree-spruce.webp",
             "name": "Plant Growth",
-            "sort": 3200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1645,7 +1064,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
             "name": "Chilling Darkness",
-            "sort": 3300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1757,7 +1176,7 @@
             },
             "img": "icons/creatures/magical/construct-face-stone-pink.webp",
             "name": "Inscrutable Mask",
-            "sort": 3400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1817,7 +1236,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 3500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1881,7 +1300,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 3600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1962,7 +1381,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 3700000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2029,7 +1448,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
-            "sort": 3800000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2096,7 +1515,7 @@
             },
             "img": "icons/magic/nature/tree-twisted-glow-yellow.webp",
             "name": "One with Plants",
-            "sort": 3900000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2159,7 +1578,7 @@
             },
             "img": "icons/magic/nature/barrier-shield-wood-vines.webp",
             "name": "Shape Wood (At Will)",
-            "sort": 4000000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2222,7 +1641,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4100000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2289,7 +1708,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 4200000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2352,7 +1771,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 4300000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2415,7 +1834,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4400000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2494,7 +1913,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 4500000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2557,7 +1976,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 4600000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2621,7 +2040,7 @@
             },
             "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
             "name": "Vanishing Tracks (Constant)",
-            "sort": 4700000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2690,22 +2109,32 @@
             "type": "spell"
         },
         {
-            "_id": "BwdJDHkyX8eC90wf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 4800000,
+            "_id": "RVlR13NtqxxuM6Qm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 3200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "85rcY2i5yjGGa2oL": {
+                        "damage": "3d10+11",
+                        "damageType": "piercing"
+                    },
+                    "KsticSv6ssmr3B9a": {
+                        "damage": "1d8",
+                        "damageType": "poison"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2713,39 +2142,48 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
-            "_id": "Vp8zNCcyRmNuncYn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 4900000,
+            "_id": "kYMOcAM7za7SsgVQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Razor Tail",
+            "sort": 3300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "BzlzqyhirlLb8cDI": {
+                        "damage": "4d8+11",
+                        "damageType": "bludgeoning"
+                    },
+                    "kNLm7LQLDkanP0XN": {
+                        "category": "persistent",
+                        "damage": "1d8",
+                        "damageType": "bleed"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2753,18 +2191,580 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-20"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fDjRHJ6bfzUUkP1T",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Claws",
+            "sort": 3400000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "3pLpkhtUOAm9GLUo": {
+                        "damage": "1d8",
+                        "damageType": "void"
+                    },
+                    "ZHaLdBgjkSveSGzj": {
+                        "damage": "2d8+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "y3keFmRXfEm0EHdT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Seedpod",
+            "sort": 3500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "LZB34WCYWHwSyPGB": {
+                        "damage": "2d6+11",
+                        "damageType": "bludgeoning"
+                    },
+                    "r7cJ3UYrGOiwgnDT": {
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Xo2g22wwKjCp2Iwk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadowsense",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The shadows of Gloaming Arbor are an extension of Avathrael, and they can sense creatures in areas of dim light or darkness.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qJyU2tLGSY2w958M",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KOkuVRaySm4Opg9i",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Floral Defense",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Avathrael is the target of a physical attack</p>\n<hr />\n<p><strong>Effect</strong> Avathrael raises their plant-covered wings to block the incoming blow. They gain a +2 circumstance bonus to AC against the triggering attack. If the attack misses, it's deflected by Avathrael's wing, causing some of the dangerous plants growing on the wing to burst and release a cloud of toxic pollen. The triggering creature takes @Damage[2d10[poison]] damage (@Check[fortitude|dc:29|basic] save). On a critical failure, the triggering creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "floral-defense",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "floral-defense"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "plant"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ng8zhhcNLfzAv58a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet @Check[will|dc:29]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bf5BHZU2Bl9S8nWM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fouu9HgSTKZ9IqrA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draconic Momentum",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Avathrael recharges their Poison Breath whenever they score a critical hit with a Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "isAx60abtb8NnFGu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Poison Breath",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Avathrael exhales a cloud of sweet-smelling poisonous gas that deals @Damage[13d6[poison]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[fortitude|dc:32|basic|options:area-effect] save). A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. Avathrael can't use Poison Breath again for [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qO66NCkrZ2SpTswc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadow Step",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> twice per day</p>\n<hr />\n<p><strong>Effect</strong> Avathrael teleports with the effects of a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Translocate] spell, but Avathrael must begin and end the teleportation effect in an area of dim light or darkness. If they use 2 actions to activate this ability, Avathrael also regains @Damage[8d10[healing]] Hit Points. Avathrael can't use Shadow Step again for [[/gmr 1d4 #Recharge Shadow Step]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "healing",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BLk9AGEXn01YJzcr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shape Shadow Realm",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Avathrael mentally reshapes their realm, reshaping terrain and creating obstacles to hinder their foes. All squares within a @Template[burst|distance:50] become difficult terrain. Creatures in the area take @Damage[10d6[void]] damage (@Check[reflex|dc:32|basic] save) from the shadows. On a failure, that creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the malleable shadows (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 32). At the beginning of Avathrael's turn, each creature that's grabbed takes @Damage[4d6[void]] damage. Avathrael can't use Shape Shadow Realm again for [[/gmr 1d4 #Recharge Shape Shadow Realm]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O4yReHZ770ZPsERR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snuff Light",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Avathrael exhales, automatically extinguishing all non-magical lights within 100 feet. Avathrael attempts to counteract each light source within 100 feet ([[/r 1d20+22 #Counteract]]{+22} counteract).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Pm3f0zk0mVkFgx4e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Woodland Stride",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Avathrael ignores difficult terrain and greater difficult terrain from non-magical foliage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4PlvrEdDIYWstSfM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Architecture Lore",
+            "sort": 4700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "LeEptFhriacVypHB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Art Lore",
+            "sort": 4800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "0HXcaTTdJpsTcCVu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Netherworld Lore",
+            "sort": 4900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Avathrael Realmshaper",

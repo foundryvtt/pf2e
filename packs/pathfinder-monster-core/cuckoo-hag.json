@@ -3,287 +3,84 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "pNhF7GFjrQ8VQQ9Y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
+            "_id": "SXmAKsDPSPYlTSIc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A cuckoo hag adds @UUID[Compendium.pf2e.spells-srd.Item.Dominate], @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], and scrying to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YfGqOsiIhx0TaiUj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E7jlxzaIihQdS5MA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sound Imitation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A cuckoo hag who succeeds at a Deception check to Lie can mimic the sound of any feminine voice they have heard (in cases where this may be unclear, the GM is the final arbiter) and have a +4 circumstance bonus to this check.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1VEl4iJ7F2Ibvo7T",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cuckoo hag can take on the appearance of any Medium female humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "hag",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
-                                "value": "hag"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
-                                "value": "humanoid-medium"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "change-shape:humanoid-medium"
-                        ],
-                        "selector": "damage"
-                    }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4aNVURqHi7XpEN03",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Cuckoo's Lair",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A cuckoo hag is intrinsically connected to a pocket dimension that serves as their home domain. The lair is an extradimensional space that is 40 feet wide, 40 feet deep, and 30 feet tall. It contains whatever mundane food, buildings, landscapes, and objects that the cuckoo hag desires, though anything removed from the cuckoo's lair dissolves into nothingness instantly.</p>\n<p>In order to enter or leave the plane, the cuckoo hag must create a door in the physical world as a single action, which has the concentrate and manipulate traits. The door is @UUID[Compendium.pf2e.conditionitems.Item.Invisible] by default, though the cuckoo hag can choose a target creature that can perceive the door normally. The cuckoo hag can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] this door from reality, but only if they (and no other creature) are inside of their lair and alone.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "o4k078mKK1fQa1cc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Soul Covenant",
-            "sort": 600000,
+            "_id": "khuoTbs3SZTanSgG",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The cuckoo hag can cast @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul] at will, but only to target a creature who has agreed to stay with them forever. They typically do so as soon as the agreement is made but might hold off to gain leverage over a situation.</p>\n<p>They typically place the soul into a construct, typically a soulbound doll if they want a companion or a more powerful construct if they want a guardian.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ihuNuFlXMZxioKl0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "NAq9h3kmDElZUUd7": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "h6Zi87RHd84mOwow": {
-                        "damage": "2d8+8",
-                        "damageType": "slashing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "lV8mZBeaXo2P2fg8",
@@ -292,7 +89,7 @@
             },
             "img": "icons/magic/unholy/orb-glowing-purple.webp",
             "name": "Seize Soul (At Will, See Soul Covenant)",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -354,7 +151,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -417,7 +214,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Cursed Metamorphosis",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -487,7 +284,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -555,7 +352,7 @@
             },
             "img": "systems/pf2e/icons/spells/scrying.webp",
             "name": "Scrying",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -622,7 +419,7 @@
             },
             "img": "icons/environment/settlement/gazebo.webp",
             "name": "Dreaming Potential",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -683,7 +480,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -751,7 +548,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -819,7 +616,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Scouting Eye",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -882,7 +679,7 @@
             },
             "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
             "name": "Subconscious Suggestion",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -962,7 +759,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1024,7 +821,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1086,7 +883,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1149,7 +946,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 2100000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1215,7 +1012,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1283,7 +1080,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 2300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1351,7 +1148,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 2400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1421,7 +1218,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 2500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1487,7 +1284,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 2600000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1549,7 +1346,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 2700000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1611,7 +1408,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 2800000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1684,7 +1481,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message (At Will)",
-            "sort": 2900000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1757,7 +1554,7 @@
             },
             "img": "icons/magic/acid/dissolve-arm-flesh.webp",
             "name": "Acid Grip",
-            "sort": 3000000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1846,7 +1643,7 @@
             },
             "img": "icons/weapons/staves/broom-yellow-purple.webp",
             "name": "Animate Object",
-            "sort": 3100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1909,7 +1706,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 3200000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1971,7 +1768,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will)",
-            "sort": 3300000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2033,7 +1830,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3400000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2114,7 +1911,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3500000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2201,7 +1998,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3600000,
+            "sort": 3100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2268,7 +2065,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 3700000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2331,7 +2128,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 3800000,
+            "sort": 3300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2397,7 +2194,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 3900000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2473,7 +2270,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 4000000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2536,7 +2333,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4100000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2615,7 +2412,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep (At Will)",
-            "sort": 4200000,
+            "sort": 3700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2681,22 +2478,32 @@
             "type": "spell"
         },
         {
-            "_id": "SXmAKsDPSPYlTSIc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 4300000,
+            "_id": "ihuNuFlXMZxioKl0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 3800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "NAq9h3kmDElZUUd7": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "h6Zi87RHd84mOwow": {
+                        "damage": "2d8+8",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -2704,39 +2511,114 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
-            "_id": "khuoTbs3SZTanSgG",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
-            "sort": 4400000,
+            "_id": "pNhF7GFjrQ8VQQ9Y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
+            "sort": 3900000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A cuckoo hag adds @UUID[Compendium.pf2e.spells-srd.Item.Dominate], @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], and scrying to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YfGqOsiIhx0TaiUj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E7jlxzaIihQdS5MA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sound Imitation",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A cuckoo hag who succeeds at a Deception check to Lie can mimic the sound of any feminine voice they have heard (in cases where this may be unclear, the GM is the final arbiter) and have a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2744,21 +2626,139 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "1VEl4iJ7F2Ibvo7T",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cuckoo hag can take on the appearance of any Medium female humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "hag",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hag",
+                                "value": "hag"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "bludgeoning"
+                        },
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4aNVURqHi7XpEN03",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cuckoo's Lair",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A cuckoo hag is intrinsically connected to a pocket dimension that serves as their home domain. The lair is an extradimensional space that is 40 feet wide, 40 feet deep, and 30 feet tall. It contains whatever mundane food, buildings, landscapes, and objects that the cuckoo hag desires, though anything removed from the cuckoo's lair dissolves into nothingness instantly.</p>\n<p>In order to enter or leave the plane, the cuckoo hag must create a door in the physical world as a single action, which has the concentrate and manipulate traits. The door is @UUID[Compendium.pf2e.conditionitems.Item.Invisible] by default, though the cuckoo hag can choose a target creature that can perceive the door normally. The cuckoo hag can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] this door from reality, but only if they (and no other creature) are inside of their lair and alone.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o4k078mKK1fQa1cc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soul Covenant",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The cuckoo hag can cast @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul] at will, but only to target a creature who has agreed to stay with them forever. They typically do so as soon as the agreement is made but might hold off to gain leverage over a situation.</p>\n<p>They typically place the soul into a construct, typically a soulbound doll if they want a companion or a more powerful construct if they want a guardian.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Cuckoo Hag",

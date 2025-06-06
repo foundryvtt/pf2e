@@ -4,340 +4,56 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bNxplPE27bJF3Sph",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "mUKUqNlrK3zrugx7",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5jcyj8fswkazu3tr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Inspired Feast",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a biloko feasts on a human corpse for 1 minute or more, they gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls for 1 hour.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "inspired-feast"
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "hK1F9hAgf8OvUF4h"
+                            }
                         ],
-                        "selector": "attack",
-                        "type": "status",
                         "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "inspired-feast"
-                        ],
-                        "selector": "strike-damage",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "inspired-feast",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "orec2boz49au2bis",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Terrifying Roar",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The biloko reaver unleashes a frightful roar. Any non-biloko within 30 feet must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). Those who critically succeed are temporarily immune for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CreqUbKobgQgY6P5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "05ww0z6gxakd2uop",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "HJdMbOEawNrGrwlP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Maul",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "ODfOfnY2mN48aBBQ": {
-                        "damage": "2d12+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
+                "spelldc": {
+                    "dc": 26,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
+                    "value": 18
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "7bfjahrkxmy8m5n6",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "NjMWy2UYWyolTabA": {
-                        "damage": "2d8+12",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "598389m6ouixtrda",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "i28ZWOqaNcOGG7Zl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "aOvvAbjcWyxeL2mY": {
-                        "damage": "1d6+12",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "hK1F9hAgf8OvUF4h",
@@ -346,7 +62,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -409,65 +125,13 @@
             "type": "spell"
         },
         {
-            "_id": "mUKUqNlrK3zrugx7",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Innate Spells",
-            "sort": 900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "hK1F9hAgf8OvUF4h"
-                            }
-                        ],
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "i28ZWOqaNcOGG7Zl",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
             "name": "Spear",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -552,7 +216,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/maul.webp",
             "name": "Maul",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "baseItem": "maul",
                 "bonus": {
@@ -629,6 +293,342 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "CreqUbKobgQgY6P5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 500000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "05ww0z6gxakd2uop",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "HJdMbOEawNrGrwlP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Maul",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "ODfOfnY2mN48aBBQ": {
+                        "damage": "2d12+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7bfjahrkxmy8m5n6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "NjMWy2UYWyolTabA": {
+                        "damage": "2d8+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "598389m6ouixtrda",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "i28ZWOqaNcOGG7Zl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "aOvvAbjcWyxeL2mY": {
+                        "damage": "1d6+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bNxplPE27bJF3Sph",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5jcyj8fswkazu3tr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Inspired Feast",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a biloko feasts on a human corpse for 1 minute or more, they gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "inspired-feast"
+                        ],
+                        "selector": "attack",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "inspired-feast"
+                        ],
+                        "selector": "strike-damage",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "inspired-feast",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "orec2boz49au2bis",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Terrifying Roar",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The biloko reaver unleashes a frightful roar. Any non-biloko within 30 feet must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical failure). Those who critically succeed are temporarily immune for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Biloko Reaver",

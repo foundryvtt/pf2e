@@ -4,523 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XunhCsr1zHfDRomY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Silencer",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A @UUID[Compendium.pf2e.equipment-srd.Item.Silencer] is an uncommon item worth 1 sp. It has light Bulk and can be attached to a firearm in 1 minute; the sniper typically already has one attached before going into combat. The first time a shot is fired through it, the silencer is consumed and reduces the report to a quiet noise. A silencer doesn't work on scatter firearms.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BVB355JhAHogkxhY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Concussive Shot",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sniper makes an arquebus Strike against a creature within the weapon's first range increment. On a success, the creature must succeed at a @Check[fortitude|dc:21] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FyFIRoWjKDG22nQw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Full Bore",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sniper makes an arquebus Strike against two creatures that are adjacent to each other. The attack ignores any lesser cover one target provides the other. Roll damage once, and apply it to each creature the sniper hits. This counts as two attacks when determining the sniper's multiple attack penalty.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D1hu15dN2GBPyimX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sniper's Edge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sniper's ranged Strikes deal 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h6yXbl50QM3FgRog",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Surprise Attack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>All enemy creatures that have not yet acted in combat are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the sniper.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7JVVr1nMsvsYN6be",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lHyguikeoZlFlYdx"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Arquebus)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-arquebus",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "wy6QjhL90gMPxQbx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0BEbpOMBo7ET8NsR"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/silencer.webp",
-            "name": "Silencer",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>One of the more prolifically used devices developed in the infamous Alkenstar Gunworks, these small firearm components are capable of muffling most of the weapons' explosive sound when fired. Without a silencer, a firearm's shot makes a loud and distinctive bang, which can easily be heard through doors and thin walls, but firearms equipped with silencers only make a quiet noise when fired. Due to engineering constraints, a silencer can't be attached to any firearm with the scatter trait. Attaching a silencer to a firearm takes 1 minute, and the silencer is consumed the first time a shot is fired through it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "silencer",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Z7oTGvEbKXogqTIz",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "T1jufCIq6jQD8mXH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "GEP54QCyxaLOFYe7": {
-                        "damage": "1d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "label": "PF2E.TraitVersatileS",
-                        "option": "versatile-s-dagger",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            "versatile-s-dagger"
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "{item|id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": "slashing"
-                    }
-                ],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "X5qsbYVrUobI4FBY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "T1jufCIq6jQD8mXH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "qUcsOGJYDPoWpIdq": {
-                        "damage": "1d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            "versatile-s-dagger"
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "{item|id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": "slashing"
-                    }
-                ],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PqVjybDBEmhPxOA7",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yoLqLgxbXSKc5GTN",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xqbVe1KqNepxwknW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Arquebus",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "VFVEUMnyunHnMIoh": {
-                        "damage": "1d8+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "arquebus",
-                "traits": {
-                    "value": [
-                        "concussive",
-                        "fatal-d12",
-                        "kickback",
-                        "range-increment-150",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "T1jufCIq6jQD8mXH",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -609,7 +99,7 @@
             },
             "img": "icons/weapons/guns/gun-red.webp",
             "name": "Arquebus",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "baseItem": "arquebus",
                 "bonus": {
@@ -688,6 +178,516 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "wy6QjhL90gMPxQbx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0BEbpOMBo7ET8NsR"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/silencer.webp",
+            "name": "Silencer",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>One of the more prolifically used devices developed in the infamous Alkenstar Gunworks, these small firearm components are capable of muffling most of the weapons' explosive sound when fired. Without a silencer, a firearm's shot makes a loud and distinctive bang, which can easily be heard through doors and thin walls, but firearms equipped with silencers only make a quiet noise when fired. Due to engineering constraints, a silencer can't be attached to any firearm with the scatter trait. Attaching a silencer to a firearm takes 1 minute, and the silencer is consumed the first time a shot is fired through it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "silencer",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "7JVVr1nMsvsYN6be",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lHyguikeoZlFlYdx"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Arquebus)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-arquebus",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Z7oTGvEbKXogqTIz",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "T1jufCIq6jQD8mXH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "GEP54QCyxaLOFYe7": {
+                        "damage": "1d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.TraitVersatileS",
+                        "option": "versatile-s-dagger",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "versatile-s-dagger"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": "slashing"
+                    }
+                ],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "X5qsbYVrUobI4FBY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "T1jufCIq6jQD8mXH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "qUcsOGJYDPoWpIdq": {
+                        "damage": "1d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "versatile-s-dagger"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": "slashing"
+                    }
+                ],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PqVjybDBEmhPxOA7",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yoLqLgxbXSKc5GTN",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xqbVe1KqNepxwknW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Arquebus",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "VFVEUMnyunHnMIoh": {
+                        "damage": "1d8+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "arquebus",
+                "traits": {
+                    "value": [
+                        "concussive",
+                        "fatal-d12",
+                        "kickback",
+                        "range-increment-150",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XunhCsr1zHfDRomY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Silencer",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A @UUID[Compendium.pf2e.equipment-srd.Item.Silencer] is an uncommon item worth 1 sp. It has light Bulk and can be attached to a firearm in 1 minute; the sniper typically already has one attached before going into combat. The first time a shot is fired through it, the silencer is consumed and reduces the report to a quiet noise. A silencer doesn't work on scatter firearms.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BVB355JhAHogkxhY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Concussive Shot",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sniper makes an arquebus Strike against a creature within the weapon's first range increment. On a success, the creature must succeed at a @Check[fortitude|dc:21] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FyFIRoWjKDG22nQw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Full Bore",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sniper makes an arquebus Strike against two creatures that are adjacent to each other. The attack ignores any lesser cover one target provides the other. Roll damage once, and apply it to each creature the sniper hits. This counts as two attacks when determining the sniper's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D1hu15dN2GBPyimX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sniper's Edge",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sniper's ranged Strikes deal 2d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h6yXbl50QM3FgRog",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Surprise Attack",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All enemy creatures that have not yet acted in combat are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the sniper.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sniper",

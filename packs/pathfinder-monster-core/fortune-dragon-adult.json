@@ -3,472 +3,49 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RvtzkMW1PTqja0gM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Arcane",
+            "_id": "2ZLsaPJA5gu2RAy4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:arcane"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot7": {
+                        "max": 2,
                         "value": 2
                     }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TeMGPTAgB6CQgUrI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Disruption",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>120 feet.</p>\n<p>The dragon radiates disruptive energies that allow them to feed on magic. When a spell is counteracted or disrupted within the aura, the dragon regains one expended spontaneous spell slot and gains 25 temporary Hit Points that last for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 120,
-                        "traits": [
-                            "arcane"
-                        ]
-                    }
-                ],
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fLPSxVkoQyjEcOhg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Capture Spell",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
+                "spelldc": {
+                    "dc": 36,
+                    "value": 22
                 },
-                "actions": {
-                    "value": null
+                "tradition": {
+                    "value": "arcane"
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon succeeds or critically succeeds on a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to capture a portion of the spell's magic to feed themself. They attempt to counteract the spell (counteract rank 7, counteract modifier [[/r 1d20+28 #Counteract]]{+28}). If successful, the dragon is unaffected by the spell and regains one expended spontaneous spell slot; other subjects are affected by the spell normally.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Fd9jpCrOyon1zkTb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Disruptive Breath",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon unleashes a spray of magic-disrupting energies that deals @Damage[13d6[force]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:36|basic|options:area-effect] save). Creatures that fail become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>\n<p>The dragon can't use Disruptive Breath again for [[/gmr 1d4 #Recharge Disruptive Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "force"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wlFjZPNirGsmZHEX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Frenzy",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xZbyHDzzCDYB7MD6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Momentum",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever they score a critical hit with a Strike, the dragon chooses to either recharge Disruptive Breath or regain one expended spontaneous spell slot.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HrKiO0jPCr68aaT0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Share the Wealth",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon's body is covered in riches (this is typically the case when the dragon is first encountered)</p>\n<hr />\n<p><strong>Effect</strong> The dragon shakes their body aggressively, sending coins and other riches flying in every direction, dealing @Damage[9d10[bludgeoning]] damage with a @Check[reflex|dc:35|basic] save to all creatures in a @Template[emanation|distance:40]. The dragon's body is then no longer covered in riches.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZSBangxptZQWQrmm",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Treasure Dive",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon's body isn't covered in riches and the dragon is adjacent to their hoard</p>\n<hr />\n<p><strong>Effect</strong> The dragon Strides or Burrows through their hoard using their land Speed. They coat themself in coins, magic items, and other treasures. This contact with magical items revitalizes the dragon, causing them to regain one expended spontaneous spell slot.</p>\n<p>The dragon can move through other creatures while moving in this way. Creatures in the dragon's path, or above it if the dragon Burrows, must succeed at a @Check[reflex|dc:33] save or be pushed 10 feet (or pushed 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xAnWgLECiMfi9alB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Accounting Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "U2aHyDSUjhmZQz3D",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mercantile Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "V3RdFn1rzRknyFZk",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "iwlmvl2GFFYoBmS3": {
-                        "damage": "3d10+13",
-                        "damageType": "piercing"
-                    },
-                    "j5pDe9EIF57tLxOw": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ZtXhjfJCNa4QpidO",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "K2keTUhMd4lrkJkV": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    },
-                    "c1iO7V2MYwYPf4iJ": {
-                        "damage": "3d6+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "l85X7HFMtvq5VzZO",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "AXQCnFSSiyByRwZX": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    },
-                    "vZCl7pYZeHLr4N21": {
-                        "damage": "3d10+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "FaVnIgs11nKc3n6Z",
@@ -477,7 +54,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -546,7 +123,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -631,7 +208,7 @@
             },
             "img": "icons/creatures/reptiles/serpent-horned-green.webp",
             "name": "Slither",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -730,7 +307,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -792,7 +369,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -880,7 +457,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -947,7 +524,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1021,7 +598,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1094,22 +671,32 @@
             "type": "spell"
         },
         {
-            "_id": "2ZLsaPJA5gu2RAy4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 2200000,
+            "_id": "V3RdFn1rzRknyFZk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "iwlmvl2GFFYoBmS3": {
+                        "damage": "3d10+13",
+                        "damageType": "piercing"
+                    },
+                    "j5pDe9EIF57tLxOw": {
+                        "damage": "1d6",
+                        "damageType": "force"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -1117,26 +704,439 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "slots": {
-                    "slot7": {
-                        "max": 2,
-                        "value": 2
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZtXhjfJCNa4QpidO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "K2keTUhMd4lrkJkV": {
+                        "damage": "1d6",
+                        "damageType": "force"
+                    },
+                    "c1iO7V2MYwYPf4iJ": {
+                        "damage": "3d6+13",
+                        "damageType": "piercing"
                     }
                 },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "value": 22
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "l85X7HFMtvq5VzZO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
                 },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "AXQCnFSSiyByRwZX": {
+                        "damage": "1d6",
+                        "damageType": "force"
+                    },
+                    "vZCl7pYZeHLr4N21": {
+                        "damage": "3d10+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RvtzkMW1PTqja0gM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Arcane",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:arcane"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TeMGPTAgB6CQgUrI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Disruption",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>120 feet.</p>\n<p>The dragon radiates disruptive energies that allow them to feed on magic. When a spell is counteracted or disrupted within the aura, the dragon regains one expended spontaneous spell slot and gains 25 temporary Hit Points that last for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "traits": [
+                            "arcane"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fLPSxVkoQyjEcOhg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capture Spell",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragon succeeds or critically succeeds on a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to capture a portion of the spell's magic to feed themself. They attempt to counteract the spell (counteract rank 7, counteract modifier [[/r 1d20+28 #Counteract]]{+28}). If successful, the dragon is unaffected by the spell and regains one expended spontaneous spell slot; other subjects are affected by the spell normally.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fd9jpCrOyon1zkTb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disruptive Breath",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon unleashes a spray of magic-disrupting energies that deals @Damage[13d6[force]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:36|basic|options:area-effect] save). Creatures that fail become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>\n<p>The dragon can't use Disruptive Breath again for [[/gmr 1d4 #Recharge Disruptive Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "force"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wlFjZPNirGsmZHEX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draconic Frenzy",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xZbyHDzzCDYB7MD6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draconic Momentum",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever they score a critical hit with a Strike, the dragon chooses to either recharge Disruptive Breath or regain one expended spontaneous spell slot.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HrKiO0jPCr68aaT0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Share the Wealth",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon's body is covered in riches (this is typically the case when the dragon is first encountered)</p>\n<hr />\n<p><strong>Effect</strong> The dragon shakes their body aggressively, sending coins and other riches flying in every direction, dealing @Damage[9d10[bludgeoning]] damage with a @Check[reflex|dc:35|basic] save to all creatures in a @Template[emanation|distance:40]. The dragon's body is then no longer covered in riches.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZSBangxptZQWQrmm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Treasure Dive",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon's body isn't covered in riches and the dragon is adjacent to their hoard</p>\n<hr />\n<p><strong>Effect</strong> The dragon Strides or Burrows through their hoard using their land Speed. They coat themself in coins, magic items, and other treasures. This contact with magical items revitalizes the dragon, causing them to regain one expended spontaneous spell slot.</p>\n<p>The dragon can move through other creatures while moving in this way. Creatures in the dragon's path, or above it if the dragon Burrows, must succeed at a @Check[reflex|dc:33] save or be pushed 10 feet (or pushed 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xAnWgLECiMfi9alB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Accounting Lore",
+            "sort": 2100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "U2aHyDSUjhmZQz3D",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mercantile Lore",
+            "sort": 2200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Fortune Dragon (Adult)",

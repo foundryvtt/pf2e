@@ -3,87 +3,174 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "gV8plzH46OeVvlNG",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
+            "_id": "yW3k0nAo6sWO1GvX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
+            },
+            "img": "icons/weapons/axes/axe-double-engraved.webp",
+            "name": "Greataxe",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "greataxe",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A creature that comes within @Template[emanation|distance:30] of the xulgath and can smell the xulgath must attempt a @Check[fortitude|dc:19] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch. A creature that succeeds at its save isn't affected by any xulgaths' stenches for 1 minute <em>(Use @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1})</em>.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": []
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RX6HAClLi39MgLLI",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Swipe",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "bulk": {
                     "value": 2
                 },
-                "category": "offensive",
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12"
+                },
                 "description": {
-                    "value": "<p>The xulgath boss makes two Strikes with their greataxe against two adjacent foes, both of whom are within their reach, with a +1 circumstance bonus. The second attack uses the same multiple attack penalty as the first, but attacks the xulgath boss makes after this take a -10 multiple attack penalty (or a -8 multiple attack penalty for its claw).</p>"
+                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "group": "axe",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "swipe",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "swipe"
-                        ],
-                        "selector": "greataxe-attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "greataxe",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "sweep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "1x1GZKpA4K3ZaSZD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
+            "name": "Javelin",
+            "sort": 200000,
+            "system": {
+                "baseItem": "javelin",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "dart",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "range": 30,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "javelin",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "Vebk6mvEAQ2umwd9",
@@ -340,174 +427,87 @@
             "type": "melee"
         },
         {
-            "_id": "yW3k0nAo6sWO1GvX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
-            },
-            "img": "icons/weapons/axes/axe-double-engraved.webp",
-            "name": "Greataxe",
+            "_id": "gV8plzH46OeVvlNG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
             "sort": 800000,
             "system": {
-                "baseItem": "greataxe",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d12"
-                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
-                    "invested": null
-                },
-                "group": "axe",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
+                    "value": "<p>A creature that comes within @Template[emanation|distance:30] of the xulgath and can smell the xulgath must attempt a @Check[fortitude|dc:19] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch. A creature that succeeds at its save isn't affected by any xulgaths' stenches for 1 minute <em>(Use @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1})</em>.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "greataxe",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": []
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "sweep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "1x1GZKpA4K3ZaSZD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
-            "name": "Javelin",
+            "_id": "RX6HAClLi39MgLLI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Swipe",
             "sort": 900000,
             "system": {
-                "baseItem": "javelin",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 2
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "dart",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
+                    "value": "<p>The xulgath boss makes two Strikes with their greataxe against two adjacent foes, both of whom are within their reach, with a +1 circumstance bonus. The second attack uses the same multiple attack penalty as the first, but attacks the xulgath boss makes after this take a -10 multiple attack penalty (or a -8 multiple attack penalty for its claw).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 4,
-                "range": 30,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "javelin",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "swipe",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "swipe"
+                        ],
+                        "selector": "greataxe-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "thrown"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Xulgath Leader (BB)",

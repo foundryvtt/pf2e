@@ -3,444 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "88wfIYYh2caypx0G",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.VdSMQ6yRZ3YXNXHL"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wavesense (Imprecise) 100 feet",
+            "_id": "t0jxVnsS6HbKkoTf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "wavesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wuJYkji7dBLYrLAK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WCzpBUZV9MrBfZQq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+4 Status to All Saves vs. Mental or Divine",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:trait:mental",
-                                    "item:trait:divine"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 4
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H6E4xmp7lHmRZXO2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hadalic Presence",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Creatures that fail their Will save against the titan's Impossible Stature aura also experience the crushing depths and darkness of the ocean floor.</p>\n<p>Such creatures see as if in an area of @UUID[Compendium.pf2e.spells-srd.Item.Darkness] (10th level), and the titan can use their wavesense to detect such creatures as a precise sense, even if neither are in water. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "illusion",
-                        "mental",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rxsLa6trqZBzZIOL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Impossible Stature",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[will|dc:46] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 100,
-                        "slug": "impossible-stature",
-                        "traits": [
-                            "divine",
-                            "illusion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "illusion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g5jByzHTDqydOMis",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Relentless",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "maVqItGv6VD6w8M3",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Roiling Rebuke",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 200 feet targets the titan with or includes the titan in the area of an attack, spell, or other effect</p>\n<hr />\n<p><strong>Effect</strong> The titan makes a benthic wave Strike against the triggering creature. If the Strike hits, the titan disrupts the triggering action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mODjcKhuMNY9CZD6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Huge or smaller, foot, @Check[reflex|dc:46|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BcWStlMljvf4ap7v",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Wide Cleave",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nPGxZlK7eZNuVRvj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
-            },
-            "img": "systems/pf2e/icons/conditions/quickened.webp",
-            "name": "Quickened",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": null,
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [],
-                "slug": "quickened",
-                "value": {
-                    "isValued": false,
-                    "value": null
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "stXqE9CezJeM4Whd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9RHcmhuS5shME3T2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatclub",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 43
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d10+20",
-                        "damageType": "bludgeoning"
-                    },
-                    "931covuueh44fb2407d4": {
-                        "damage": "2d12",
-                        "damageType": "cold"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "magical",
-                        "reach-40",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ZEGxGxVAaZSmhNp7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Foot",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d8+20",
-                        "damageType": "bludgeoning"
-                    },
-                    "ov7cqd6r4qg8qbukso7v": {
-                        "damage": "2d12",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -448,71 +26,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-30",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 46,
+                    "value": 38
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "69BcgWueS6EljWeK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Benthic Wave",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d6+20",
-                        "damageType": "bludgeoning"
-                    },
-                    "kmm64hufmoml4polor0l": {
-                        "damage": "2d12",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "brutal",
-                        "magical",
-                        "range-200",
-                        "water"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "aJb2KcawwegTCZRH",
@@ -521,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/implosion.webp",
             "name": "Implosion",
-            "sort": 1400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -604,7 +131,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather (Doesn't Require Secondary Casters)",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -669,7 +196,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -775,7 +302,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Planar Binding (Doesn't Require Secondary Casters)",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -840,7 +367,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -904,7 +431,7 @@
             },
             "img": "icons/magic/fire/explosion-flame-blue.webp",
             "name": "Control Water (At Will)",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -967,7 +494,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect (Doesn't Require Secondary Casters)",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1034,7 +561,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1096,7 +623,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1187,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic (At Will)",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1250,7 +777,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Water Walk (Constant)",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1325,7 +852,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1526,7 +1053,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 2600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1604,52 +1131,13 @@
             "type": "spell"
         },
         {
-            "_id": "t0jxVnsS6HbKkoTf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 46,
-                    "value": 38
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "9RHcmhuS5shME3T2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
             "name": "Greatclub",
-            "sort": 2800000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "greatclub",
                 "bonus": {
@@ -1728,6 +1216,518 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "nPGxZlK7eZNuVRvj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl"
+            },
+            "img": "systems/pf2e/icons/conditions/quickened.webp",
+            "name": "Quickened",
+            "sort": 1600000,
+            "system": {
+                "description": {
+                    "value": "<p>You gain 1 additional action at the start of your turn each round. Many effects that make you quickened specify the types of actions you can use with this additional action. If you become quickened from multiple sources, you can use the extra action you've been granted for any single action allowed by any of the effects that made you quickened. Because quickened has its effect at the start of your turn, you don't immediately gain actions if you become quickened during your turn.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": null,
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [],
+                "slug": "quickened",
+                "value": {
+                    "isValued": false,
+                    "value": null
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "stXqE9CezJeM4Whd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9RHcmhuS5shME3T2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatclub",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 43
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d10+20",
+                        "damageType": "bludgeoning"
+                    },
+                    "931covuueh44fb2407d4": {
+                        "damage": "2d12",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "reach-40",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZEGxGxVAaZSmhNp7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Foot",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8+20",
+                        "damageType": "bludgeoning"
+                    },
+                    "ov7cqd6r4qg8qbukso7v": {
+                        "damage": "2d12",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-30",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "69BcgWueS6EljWeK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Benthic Wave",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d6+20",
+                        "damageType": "bludgeoning"
+                    },
+                    "kmm64hufmoml4polor0l": {
+                        "damage": "2d12",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "brutal",
+                        "magical",
+                        "range-200",
+                        "water"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "88wfIYYh2caypx0G",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.VdSMQ6yRZ3YXNXHL"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wavesense (Imprecise) 100 feet",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "wavesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wuJYkji7dBLYrLAK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WCzpBUZV9MrBfZQq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 Status to All Saves vs. Mental or Divine",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:mental",
+                                    "item:trait:divine"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H6E4xmp7lHmRZXO2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hadalic Presence",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures that fail their Will save against the titan's Impossible Stature aura also experience the crushing depths and darkness of the ocean floor.</p>\n<p>Such creatures see as if in an area of @UUID[Compendium.pf2e.spells-srd.Item.Darkness] (10th level), and the titan can use their wavesense to detect such creatures as a precise sense, even if neither are in water. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "illusion",
+                        "mental",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rxsLa6trqZBzZIOL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Impossible Stature",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[will|dc:46] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "impossible-stature",
+                        "traits": [
+                            "divine",
+                            "illusion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g5jByzHTDqydOMis",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Relentless",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The titan is as ever-moving as ocean waves. They're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1}, and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "maVqItGv6VD6w8M3",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Roiling Rebuke",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 200 feet targets the titan with or includes the titan in the area of an attack, spell, or other effect</p>\n<hr />\n<p><strong>Effect</strong> The titan makes a benthic wave Strike against the triggering creature. If the Strike hits, the titan disrupts the triggering action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mODjcKhuMNY9CZD6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Huge or smaller, foot, @Check[reflex|dc:46|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BcWStlMljvf4ap7v",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Wide Cleave",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Danava Titan",

@@ -3,252 +3,47 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "D89GcjloR9CLNbq8",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Elemental Bulwark",
+            "_id": "qXSjj6mmQyNoxHDN",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy is about to damage the dune dancer with cold, electricity, or fire, or with a spell that has the air, earth, fire, or water trait</p>\n<hr />\n<p><strong>Effect</strong> The dune dancer gain resistance 2 against the triggering damage</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "earth",
-                        "fire",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1Kmvtn64DZibqUls",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Elemental Assault",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Elemental magic fills the dune dancer's body or weapon. The dune dancer chooses one element and makes a melee Strike. The Strike deals an additional [[/r {1d4}]]{1d4 damage} of the indicated type and has the trait corresponding to the element:</p>\n<ul>\n<li><strong>Air</strong> electricity</li>\n<li><strong>Earth</strong> bludgeoning</li>\n<li><strong>Fire</strong> fire</li>\n<li><strong>Water</strong> cold</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "elemental-assault",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAir",
-                                "value": "air"
-                            },
-                            {
-                                "label": "PF2E.TraitEarth",
-                                "value": "earth"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitWater",
-                                "value": "water"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "elemental-assault",
-                            "item:melee"
-                        ],
-                        "property": "traits",
-                        "value": "{item|flags.pf2e.rulesSelections.elementalAssault}"
-                    },
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "elemental-assault:air"
-                        ],
-                        "selector": "melee-strike-damage"
-                    },
-                    {
-                        "damageType": "bludgeoning",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "elemental-assault:earth"
-                        ],
-                        "selector": "melee-strike-damage"
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "elemental-assault:fire"
-                        ],
-                        "selector": "melee-strike-damage"
-                    },
-                    {
-                        "damageType": "cold",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "elemental-assault:water"
-                        ],
-                        "selector": "melee-strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pIbaFSljYvozaZdG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
-            },
-            "img": "icons/tools/instruments/pipe-flue-tan.webp",
-            "name": "Tambourine (Handheld Musical Instrument)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 8
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "musical-instrument-handheld",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "GHbCLo2MkEFt1qai",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "KtOLD0nyLOkE1HSe"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scimitar",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "slashing"
-                    }
-                },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "forceful",
-                        "sweep"
-                    ]
+                "slots": {
+                    "slot1": {
+                        "max": "2",
+                        "value": "2"
+                    }
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "7NabRCMOK0TFhUpx",
@@ -257,7 +52,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -328,7 +123,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -395,7 +190,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -456,7 +251,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Inspire Courage",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -520,7 +315,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -581,7 +376,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -643,7 +438,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -722,7 +517,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -846,7 +641,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 1300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -900,56 +695,13 @@
             "type": "spell"
         },
         {
-            "_id": "qXSjj6mmQyNoxHDN",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": "2",
-                        "value": "2"
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "KtOLD0nyLOkE1HSe",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.grmaV4GdoGD7sKbn"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
             "name": "Scimitar",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "scimitar",
                 "bonus": {
@@ -1027,6 +779,254 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "pIbaFSljYvozaZdG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
+            },
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
+            "name": "Tambourine (Handheld Musical Instrument)",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "musical-instrument-handheld",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "GHbCLo2MkEFt1qai",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "KtOLD0nyLOkE1HSe"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scimitar",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "D89GcjloR9CLNbq8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Elemental Bulwark",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy is about to damage the dune dancer with cold, electricity, or fire, or with a spell that has the air, earth, fire, or water trait</p>\n<hr />\n<p><strong>Effect</strong> The dune dancer gain resistance 2 against the triggering damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "earth",
+                        "fire",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1Kmvtn64DZibqUls",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Elemental Assault",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Elemental magic fills the dune dancer's body or weapon. The dune dancer chooses one element and makes a melee Strike. The Strike deals an additional [[/r {1d4}]]{1d4 damage} of the indicated type and has the trait corresponding to the element:</p>\n<ul>\n<li><strong>Air</strong> electricity</li>\n<li><strong>Earth</strong> bludgeoning</li>\n<li><strong>Fire</strong> fire</li>\n<li><strong>Water</strong> cold</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "elemental-assault",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAir",
+                                "value": "air"
+                            },
+                            {
+                                "label": "PF2E.TraitEarth",
+                                "value": "earth"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitWater",
+                                "value": "water"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "elemental-assault",
+                            "item:melee"
+                        ],
+                        "property": "traits",
+                        "value": "{item|flags.pf2e.rulesSelections.elementalAssault}"
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:air"
+                        ],
+                        "selector": "melee-strike-damage"
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:earth"
+                        ],
+                        "selector": "melee-strike-damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:fire"
+                        ],
+                        "selector": "melee-strike-damage"
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "elemental-assault:water"
+                        ],
+                        "selector": "melee-strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Suli Dune Dancer",

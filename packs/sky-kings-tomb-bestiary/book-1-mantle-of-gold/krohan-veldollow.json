@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tXvqgLqBrimXP4fE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Occult Catharsis",
+            "_id": "6Xg9DFVfVXtAYfC1",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>Krohan's magic converts his pain into spellpower. After he casts an innate occult spell, he attempts a @Check[flat|dc:5], increasing the DC by twice the spell's rank if it was not a cantrip. On a success, Krohan's Spirits Drawn to Suffering effect ends; he can reduce the value of one condition affecting him by 1, and he regains @Damage[2d6[healing]] Hit Points.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,125 +27,859 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "healing",
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "lWiglyBB5umJWwHM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spirits Drawn to Suffering",
+            "_id": "bksxRtU4kDekbv69",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mrDi3v933gsmnw25"
+            },
+            "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
+            "name": "Telekinetic Maneuver",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "free"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> Krohan critically fails a saving throw, takes mental damage, takes damage from a critical hit, or gains a harmful condition with a numerical value (such as frightened or sickened). This effect does not trigger due to self-harm or similarly engineered circumstances.</p>\n<hr />\n<p><strong>Effect</strong> Krohan gains the ability to cast his innate occult spells for 1 minute.</p>"
+                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M"
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "uses": {
+                        "value": 1
+                    },
+                    "value": "6Xg9DFVfVXtAYfC1"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "telekinetic-maneuver",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "value": [
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
                         "occult"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "force",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "IkDEDbRDvwyghpU3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unwitting Rivethun",
+            "_id": "MkxO6tFxywUV9ORO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
+            },
+            "img": "systems/pf2e/icons/spells/chill-touch.webp",
+            "name": "Chill Touch",
             "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
                 },
-                "category": "defensive",
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>Krohan has very limited access to Rivethun magic, able to cast spells only when experiencing pain or distress.</p>"
+                    "value": "<p>Siphoning void energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals void damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage to living creatures increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "6Xg9DFVfVXtAYfC1"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "chill-touch",
+                "target": {
+                    "value": "1 living or undead creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "value": [
-                        "emotion",
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
                         "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "void"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "bsEfrREmlwPU2BPz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Righthand Man",
+            "_id": "stTBSOdmP4DTonyI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
             "sort": 400000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "0",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
                 },
-                "category": "offensive",
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
                 "description": {
-                    "value": "<p>Krohan gains a +2 circumstance bonus to attack rolls and skill checks attempted to Aid others. He can attempt a Dwarf Lore check in place of any other attack roll or skill check to Aid a dwarf.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "6Xg9DFVfVXtAYfC1"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:aid"
-                        ],
-                        "selector": [
-                            "attack",
-                            "skill-check"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "v9UUsNttgsxQoZ9Y",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "uses": {
+                        "value": 1
+                    },
+                    "value": "6Xg9DFVfVXtAYfC1"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "euuwWbFDMUBpdILi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.RA7VKcen3p56rVyZ"
+            },
+            "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
+            "name": "Forbidding Ward",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Forbidding Ward]</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "6Xg9DFVfVXtAYfC1"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "forbidding-ward",
+                "target": {
+                    "value": "1 ally and 1 enemy"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "UQRmewJYY6D5GNIB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TFitdEOpQC4SzKQQ"
+            },
+            "img": "systems/pf2e/icons/spells/magic-weapon.webp",
+            "name": "Magic Weapon",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Runic Weapon]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "6Xg9DFVfVXtAYfC1"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "magic-weapon",
+                "target": {
+                    "value": "1 weapon that is unattended or wielded by you or a willing ally"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Lg8SnuzHI3P09Bnd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
+            },
+            "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
+            "name": "Soothe",
+            "sort": 800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d10+4",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "6Xg9DFVfVXtAYfC1"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "soothe",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "healing",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "xGWmhdXf0b7O4VGY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yHujiDQPdtXW797e"
+            },
+            "img": "icons/magic/control/energy-stream-link-teal.webp",
+            "name": "Spirit Link",
+            "sort": 900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "9k8ayqgvgultdghx": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You form a spiritual link with another creature, taking in its pain. When you Cast this Spell and at the start of each of your turns, if the target is below maximum Hit Points, it regains 2 Hit Points (or the difference between its current and maximum Hit Points, if that's lower). You lose as many Hit Points as the target regained.</p>\n<p>This is a spiritual transfer, so no effects apply that would increase the Hit Points the target regains or decrease the Hit Points you lose. This transfer also ignores any temporary Hit Points you or the target have. Since this effect doesn't involve vitality or void energy, spirit link works even if you or the target is undead. While the duration persists, you gain no benefit from regeneration or fast healing. You can Dismiss this spell, and if you're ever at 0 Hit Points, spirit link ends automatically.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of Hit Points transferred each time increases by 2.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "heightening": {
+                    "damage": {
+                        "9k8ayqgvgultdghx": "2"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "6Xg9DFVfVXtAYfC1"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "spirit-link",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "healing",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "pNVGXUOwvaUYJoYd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/pick.webp",
+            "name": "Pick",
+            "sort": 1000000,
+            "system": {
+                "baseItem": "pick",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>A pick designed solely for combat has a sturdy wooden shaft and a heavy, pointed head to deliver devastating blows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "pick",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 7
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "pick",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "2X519k9ffDoLreOO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
+            "name": "Composite Shortbow",
+            "sort": 1100000,
+            "system": {
+                "baseItem": "composite-shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 14
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "composite-shortbow",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "propulsive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "3XUSRBlH9TPsU5xs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
+            },
+            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
+            "name": "Buckler",
+            "sort": 1200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "buckler",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 3,
+                "hp": {
+                    "max": 6,
+                    "value": 6
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "buckler",
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
                     "value": []
                 }
             },
-            "type": "action"
+            "type": "shield"
         },
         {
             "_id": "P8oHASAbaEbzCxrS",
@@ -152,7 +888,7 @@
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
-            "sort": 500000,
+            "sort": 1300000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
@@ -213,410 +949,13 @@
             "type": "armor"
         },
         {
-            "_id": "Jobvhe2YNBMYOVA8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
-            },
-            "img": "icons/containers/bags/pack-leather-white-tan.webp",
-            "name": "Backpack",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "capacity": 4,
-                    "heldOrStowed": 0.1,
-                    "ignored": 2,
-                    "value": 0
-                },
-                "collapsed": false,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "backpack",
-                "stowing": true,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornbackpack"
-                }
-            },
-            "type": "backpack"
-        },
-        {
-            "_id": "ogafv8QrDKgUYDxW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "mURClaimWFFfpd4H",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": "Jobvhe2YNBMYOVA8",
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "chalk",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "VCg47tTrn95hVInS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": "Jobvhe2YNBMYOVA8",
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "rations",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 7,
-                    "value": 7
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "kfwJTn7184dWRStW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Lesser)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "2d8+5",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "VQ2GcuucZjOHTUyZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
-            "name": "Antidote (Lesser)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "antidote-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "i3qhYxcwSpn79NgM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
             },
             "img": "icons/sundries/survival/rope-wrapped-brown.webp",
             "name": "Rope",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -673,7 +1012,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
-            "sort": 1300000,
+            "sort": 1500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -730,7 +1069,7 @@
             },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
-            "sort": 1400000,
+            "sort": 1600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -787,7 +1126,7 @@
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -924,7 +1263,7 @@
             },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -981,7 +1320,7 @@
             },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
-            "sort": 1700000,
+            "sort": 1900000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -1032,29 +1371,401 @@
             "type": "equipment"
         },
         {
-            "_id": "g1CM0g4DmY71SWuw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dwarf Lore",
-            "sort": 1800000,
+            "_id": "ogafv8QrDKgUYDxW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 2000000,
             "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
-                "mod": {
-                    "value": 8
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
-                "proficient": {
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
                     "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "quantity": 20,
                 "rules": [],
-                "slug": null
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
             },
-            "type": "lore"
+            "type": "consumable"
+        },
+        {
+            "_id": "mURClaimWFFfpd4H",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "Jobvhe2YNBMYOVA8",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "VCg47tTrn95hVInS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 2200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "Jobvhe2YNBMYOVA8",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "kfwJTn7184dWRStW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Lesser)",
+            "sort": 2300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "VQ2GcuucZjOHTUyZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+            "name": "Antidote (Lesser)",
+            "sort": 2400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "antidote-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Jobvhe2YNBMYOVA8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 2500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
         },
         {
             "_id": "KULtvYYxoWXmXjHC",
@@ -1065,7 +1776,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pick",
-            "sort": 1900000,
+            "sort": 2600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1112,7 +1823,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
-            "sort": 2000000,
+            "sort": 2700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1153,690 +1864,20 @@
             "type": "melee"
         },
         {
-            "_id": "3XUSRBlH9TPsU5xs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
-            },
-            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
-            "name": "Buckler",
-            "sort": 2100000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "buckler",
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 3,
-                "hp": {
-                    "max": 6,
-                    "value": 6
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "reinforcing": 0
-                },
-                "size": "med",
-                "slug": "buckler",
-                "speedPenalty": 0,
-                "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "shield"
-        },
-        {
-            "_id": "bksxRtU4kDekbv69",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mrDi3v933gsmnw25"
-            },
-            "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
-            "name": "Telekinetic Maneuver",
-            "sort": 2200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "uses": {
-                        "value": 1
-                    },
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "telekinetic-maneuver",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "attack",
-                        "concentrate",
-                        "force",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "MkxO6tFxywUV9ORO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
-            },
-            "img": "systems/pf2e/icons/spells/chill-touch.webp",
-            "name": "Chill Touch",
-            "sort": 2300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Siphoning void energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals void damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round on a failed Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The void damage to living creatures increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "chill-touch",
-                "target": {
-                    "value": "1 living or undead creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "stTBSOdmP4DTonyI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 2400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "0",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "daze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "v9UUsNttgsxQoZ9Y",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 2500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "uses": {
-                        "value": 1
-                    },
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "fear",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "euuwWbFDMUBpdILi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.RA7VKcen3p56rVyZ"
-            },
-            "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
-            "name": "Forbidding Ward",
-            "sort": 2600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Forbidding Ward]</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "forbidding-ward",
-                "target": {
-                    "value": "1 ally and 1 enemy"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "UQRmewJYY6D5GNIB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TFitdEOpQC4SzKQQ"
-            },
-            "img": "systems/pf2e/icons/spells/magic-weapon.webp",
-            "name": "Magic Weapon",
-            "sort": 2700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Runic Weapon]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "magic-weapon",
-                "target": {
-                    "value": "1 weapon that is unattended or wielded by you or a willing ally"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Lg8SnuzHI3P09Bnd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
-            },
-            "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
-            "name": "Soothe",
+            "_id": "tXvqgLqBrimXP4fE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Occult Catharsis",
             "sort": 2800000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d10+4",
-                        "kinds": [
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d10+4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "soothe",
-                "target": {
-                    "value": "1 willing creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "healing",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xGWmhdXf0b7O4VGY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yHujiDQPdtXW797e"
-            },
-            "img": "icons/magic/control/energy-stream-link-teal.webp",
-            "name": "Spirit Link",
-            "sort": 2900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "9k8ayqgvgultdghx": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2",
-                        "kinds": [
-                            "healing"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You form a spiritual link with another creature, taking in its pain. When you Cast this Spell and at the start of each of your turns, if the target is below maximum Hit Points, it regains 2 Hit Points (or the difference between its current and maximum Hit Points, if that's lower). You lose as many Hit Points as the target regained.</p>\n<p>This is a spiritual transfer, so no effects apply that would increase the Hit Points the target regains or decrease the Hit Points you lose. This transfer also ignores any temporary Hit Points you or the target have. Since this effect doesn't involve vitality or void energy, spirit link works even if you or the target is undead. While the duration persists, you gain no benefit from regeneration or fast healing. You can Dismiss this spell, and if you're ever at 0 Hit Points, spirit link ends automatically.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of Hit Points transferred each time increases by 2.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "heightening": {
-                    "damage": {
-                        "9k8ayqgvgultdghx": "2"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "6Xg9DFVfVXtAYfC1"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "spirit-link",
-                "target": {
-                    "value": "1 willing creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "healing",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "6Xg9DFVfVXtAYfC1",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 3000000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>Krohan's magic converts his pain into spellpower. After he casts an innate occult spell, he attempts a @Check[flat|dc:5], increasing the DC by twice the spell's rank if it was not a cantrip. On a success, Krohan's Spirits Drawn to Suffering effect ends; he can reduce the value of one condition affecting him by 1, and he regains @Damage[2d6[healing]] Hit Points.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1844,191 +1885,150 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "healing",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "pNVGXUOwvaUYJoYd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
+            "_id": "lWiglyBB5umJWwHM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spirits Drawn to Suffering",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> Krohan critically fails a saving throw, takes mental damage, takes damage from a critical hit, or gains a harmful condition with a numerical value (such as frightened or sickened). This effect does not trigger due to self-harm or similarly engineered circumstances.</p>\n<hr />\n<p><strong>Effect</strong> Krohan gains the ability to cast his innate occult spells for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/pick.webp",
-            "name": "Pick",
+            "type": "action"
+        },
+        {
+            "_id": "IkDEDbRDvwyghpU3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unwitting Rivethun",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Krohan has very limited access to Rivethun magic, able to cast spells only when experiencing pain or distress.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bsEfrREmlwPU2BPz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Righthand Man",
             "sort": 3100000,
             "system": {
-                "baseItem": "pick",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>A pick designed solely for combat has a sturdy wooden shaft and a heavy, pointed head to deliver devastating blows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "pick",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 7
-                    }
+                    "value": "<p>Krohan gains a +2 circumstance bonus to attack rolls and skill checks attempted to Aid others. He can attempt a Dwarf Lore check in place of any other attack roll or skill check to Aid a dwarf.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "pick",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:aid"
+                        ],
+                        "selector": [
+                            "attack",
+                            "skill-check"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fatal-d10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "2X519k9ffDoLreOO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
-            "name": "Composite Shortbow",
+            "_id": "g1CM0g4DmY71SWuw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dwarf Lore",
             "sort": 3200000,
             "system": {
-                "baseItem": "composite-shortbow",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
                 "description": {
-                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                "mod": {
+                    "value": 8
                 },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficient": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 14
-                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": 60,
-                "reload": {
-                    "value": "0"
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "composite-shortbow",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "propulsive"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
-                }
+                "slug": null
             },
-            "type": "weapon"
+            "type": "lore"
         }
     ],
     "name": "Krohan Veldollow",

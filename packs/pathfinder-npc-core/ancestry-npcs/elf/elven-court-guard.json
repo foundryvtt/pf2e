@@ -4,433 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AaOOjjv7qWyZjSRx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vigilance",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A court guard gains a +1 circumstance bonus on Perception checks to [[/act sense-motive]] and [[/act seek]] creatures, and if they succeed, they get a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:sense-motive",
-                                    "action:seek"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "adjustment": {
-                            "success": "to-critical-success"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:seek",
-                                    "action:sense-motive"
-                                ]
-                            }
-                        ],
-                        "selector": "perception"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HD8ng5ztntdkkxge",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status vs. mental effects",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:mental"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JTsMp47be8v9pxuS",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Interposition",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 15 feet of the guard would take damage</p><hr /><p><strong>Effect</strong> The guard Strides. This movement does not trigger reactions, and the guard must end the Stride in a space adjacent to the ally. The guard then switches places with the ally, taking all damage and associated effects instead of the ally.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tISUVqfI40SDSKA2",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Avenge the Fallen",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The guard is within 30 feet of the creature they were guarding, and that creature is either @UUID[Compendium.pf2e.conditionitems.Item.Dying] or died since the guard's last turn</p><hr /><p><strong>Effect</strong> The guard Strikes the creature that damaged their ally. They roll the attack roll twice and use the higher result.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Avenge the Fallen",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Avenge the Fallen"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "T304HvLr34r0XFww",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dancing Blade",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The guard makes a Strike against a creature, then Strides. This Stride doesn't trigger reactions. If the guard ends this Stride in a different space adjacent to the same creature, they make another Strike against it. If both Strikes succeed, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of the guard's next turn. Each attack counts toward the guard's multiple attack penalty, but the penalty doesn't increase until they've made both attacks.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NapOQceQbGPFsq5m",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "chain-shirt",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "KqHJZ3YdxXFGWrYF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Heraldry Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5NAfECd1xFh2S5Ot",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ckxLC9l6XnnIxbCK"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Elven Curve Blade",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "QTTjOar1BqplZNLS": {
-                        "damage": "2d8+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "elven-curve-blade",
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "forceful",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "EYPBNoi7827X8rjS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "kYsXbmY6yBKcChYW": {
-                        "damage": "1d4+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "18D815fwKglqhif3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9qSaK8PH39me6wcQ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Longbow",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "7rPygkmXX4q4XnF8": {
-                        "damage": "2d8+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "composite-longbow",
-                "traits": {
-                    "value": [
-                        "deadly-d10",
-                        "magical",
-                        "propulsive",
-                        "range-increment-100",
-                        "reload-0",
-                        "volley-30"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ckxLC9l6XnnIxbCK",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mgrabKkyLmvxgLBK"
             },
             "img": "systems/pf2e/icons/equipment/weapons/elven-curve-blade.webp",
             "name": "Elven Curve Blade",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "elven-curve-blade",
                 "bonus": {
@@ -517,7 +97,7 @@
             },
             "img": "icons/weapons/bows/longbow-recurve-brown.webp",
             "name": "Composite Longbow",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "baseItem": "composite-longbow",
                 "bonus": {
@@ -596,6 +176,426 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "NapOQceQbGPFsq5m",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
+            "name": "Chain Shirt",
+            "sort": 300000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "chain-shirt",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "chain-shirt",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "5NAfECd1xFh2S5Ot",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ckxLC9l6XnnIxbCK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Elven Curve Blade",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "QTTjOar1BqplZNLS": {
+                        "damage": "2d8+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "elven-curve-blade",
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "forceful",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EYPBNoi7827X8rjS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "kYsXbmY6yBKcChYW": {
+                        "damage": "1d4+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "18D815fwKglqhif3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9qSaK8PH39me6wcQ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Longbow",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "7rPygkmXX4q4XnF8": {
+                        "damage": "2d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "composite-longbow",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "propulsive",
+                        "range-increment-100",
+                        "reload-0",
+                        "volley-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AaOOjjv7qWyZjSRx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vigilance",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A court guard gains a +1 circumstance bonus on Perception checks to [[/act sense-motive]] and [[/act seek]] creatures, and if they succeed, they get a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-motive",
+                                    "action:seek"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:seek",
+                                    "action:sense-motive"
+                                ]
+                            }
+                        ],
+                        "selector": "perception"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HD8ng5ztntdkkxge",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status vs. mental effects",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:mental"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JTsMp47be8v9pxuS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Interposition",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 15 feet of the guard would take damage</p><hr /><p><strong>Effect</strong> The guard Strides. This movement does not trigger reactions, and the guard must end the Stride in a space adjacent to the ally. The guard then switches places with the ally, taking all damage and associated effects instead of the ally.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tISUVqfI40SDSKA2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Avenge the Fallen",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The guard is within 30 feet of the creature they were guarding, and that creature is either @UUID[Compendium.pf2e.conditionitems.Item.Dying] or died since the guard's last turn</p><hr /><p><strong>Effect</strong> The guard Strikes the creature that damaged their ally. They roll the attack roll twice and use the higher result.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Avenge the Fallen",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Avenge the Fallen"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T304HvLr34r0XFww",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dancing Blade",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The guard makes a Strike against a creature, then Strides. This Stride doesn't trigger reactions. If the guard ends this Stride in a different space adjacent to the same creature, they make another Strike against it. If both Strikes succeed, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of the guard's next turn. Each attack counts toward the guard's multiple attack penalty, but the penalty doesn't increase until they've made both attacks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KqHJZ3YdxXFGWrYF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Heraldry Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Elven Court Guard",

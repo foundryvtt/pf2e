@@ -4,556 +4,88 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RT6lf0UIWCyeRrNn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 feet",
+            "_id": "hBMs29Sx7CesfsgK",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rgyk2wqtcm1Oys6K",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "No Face",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Noppera-bos have no sense of vision, but their sense of hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E8hm8o66D7fiL1NA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Identity Crisis",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Zoudou successfully Steals the Face of an adjacent creature</p>\n<hr />\n<p><strong>Effect</strong> As Zoudou Steals the creature's Face, she telepathically draws at the creature's sense of identity and self. The creature must attempt a @Check[will|dc:20] save. On a failure, the creature questions their own identity and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. On a critical failure, they're slowed 1 for 1 minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "mental",
-                        "occult",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "I9BKkQUqUChWg1Nf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Oath of Anonymity",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Zoudou has a face, she can't cast divine prepared spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n34F72Y2nq0N1iiI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sensitive Hearing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>As long as a noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "self:condition:deafened"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "envUeTN0k7tSghdD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Impersonate Shape",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "impersonate-shape",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "impersonate-shape",
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            {
-                                "not": "impersonate-shape"
-                            }
-                        ],
-                        "type": [
-                            "inhaled",
-                            "olfactory",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5Kqoe0pLRpiq2TNT",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Regain Anonymity",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Zoudou has a face</p>\n<hr />\n<p><strong>Effect</strong> Zoudou melts the face she's wearing and gains [[/br 3d6 #Temp HP]] temporary Hit Points. She can't Regain Anonymity again for [[/gmr 1d4 #Recharge Regain Anonymity]]{1d4 rounds}.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LgQiF13VCqc7oE31",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Silent Casting",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Zoudou is faceless, she can substitute an additional somatic component for a verbal component.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rR5vCZbn7VEK8QPN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steal Face",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Zoudou is faceless</p>\n<hr />\n<p><strong>Effect</strong> Zoudou targets one creature within 30 feet. The creature must attempt a @Check[fortitude|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>\n<p><strong>Failure</strong> The noppera-bo gains the target's face. The target's face vanishes until the end of its next turn. Until then, it is @UUID[Compendium.pf2e.conditionitems.Item.Blinded], can't speak or ingest, and can't smell. The target must also hold its breath or begin to suffocate.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect doesn't end automatically. The target can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such attempt.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "curse",
-                        "incapacitation",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EvC3ONBBZ2EKEFmD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Twisted Knot of Wood (Religious Symbol of Kugaptee)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "x1g9zU084Cr6njfx"
+                            },
+                            {
+                                "id": "LfynaUBIUVQdgWI2"
+                            },
+                            {
+                                "id": "GaNiFfRi821KSzzS"
+                            },
+                            {
+                                "id": "MoIT0fIjWo2nUZxO"
+                            },
+                            {
+                                "id": "ic0Gz2m7vZmjW4fv"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "r2hEgrEnR6Udip9x"
+                            },
+                            {
+                                "id": "2OzGtVF5oZkFUZ08"
+                            },
+                            {
+                                "id": "nqrwm78Jlk2SPxuv"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "s5Gp6OX4rxrkF1vx"
+                            },
+                            {
+                                "id": "eCaEYBFAF7y5m7mU"
+                            }
+                        ]
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "RYl5DDB7dSdRvmJA",
-            "img": "icons/sundries/books/book-worn-brown.webp",
-            "name": "Tattered Ledger",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "equipment"
-        },
-        {
-            "_id": "KD8qKsjDIO4QpDhe",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zFVCaM0TICud7NpK"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fiend's Hunger",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "gNGbEkN2aeIE3AqD": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MzxnPEBUY8HDVrkJ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zFVCaM0TICud7NpK"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fiend's Hunger",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "kOWKDCo2qa0zOaiC": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "g97xDb2Q8j877kCH",
@@ -562,7 +94,7 @@
             },
             "img": "systems/pf2e/icons/spells/consecrate.webp",
             "name": "Consecrate",
-            "sort": 1400000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -630,7 +162,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -696,7 +228,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -765,7 +297,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -851,7 +383,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -938,7 +470,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1019,7 +551,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1099,7 +631,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1293,7 +825,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1489,7 +1021,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1568,7 +1100,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1624,97 +1156,13 @@
             "type": "spell"
         },
         {
-            "_id": "hBMs29Sx7CesfsgK",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "x1g9zU084Cr6njfx"
-                            },
-                            {
-                                "id": "LfynaUBIUVQdgWI2"
-                            },
-                            {
-                                "id": "GaNiFfRi821KSzzS"
-                            },
-                            {
-                                "id": "MoIT0fIjWo2nUZxO"
-                            },
-                            {
-                                "id": "ic0Gz2m7vZmjW4fv"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "r2hEgrEnR6Udip9x"
-                            },
-                            {
-                                "id": "2OzGtVF5oZkFUZ08"
-                            },
-                            {
-                                "id": "nqrwm78Jlk2SPxuv"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "s5Gp6OX4rxrkF1vx"
-                            },
-                            {
-                                "id": "eCaEYBFAF7y5m7mU"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "zFVCaM0TICud7NpK",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZwJXdOdnE8TcSHK1"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Fiend's Hunger",
-            "sort": 2600000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1807,6 +1255,558 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "EvC3ONBBZ2EKEFmD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Twisted Knot of Wood (Religious Symbol of Kugaptee)",
+            "sort": 1400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "RYl5DDB7dSdRvmJA",
+            "img": "icons/sundries/books/book-worn-brown.webp",
+            "name": "Tattered Ledger",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "KD8qKsjDIO4QpDhe",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zFVCaM0TICud7NpK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fiend's Hunger",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "gNGbEkN2aeIE3AqD": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MzxnPEBUY8HDVrkJ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zFVCaM0TICud7NpK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fiend's Hunger",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "kOWKDCo2qa0zOaiC": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RT6lf0UIWCyeRrNn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rgyk2wqtcm1Oys6K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "No Face",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Noppera-bos have no sense of vision, but their sense of hearing is precise. They don't breathe and are immune to effects that require breathing. They gain sustenance by absorbing fluids through their skin—traditionally by immersing their hands or faceless head into the fluid to \"drink\" through osmosis; they can also benefit from consumables, such as potions or elixirs, in this way.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E8hm8o66D7fiL1NA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Identity Crisis",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Zoudou successfully Steals the Face of an adjacent creature</p>\n<hr />\n<p><strong>Effect</strong> As Zoudou Steals the creature's Face, she telepathically draws at the creature's sense of identity and self. The creature must attempt a @Check[will|dc:20] save. On a failure, the creature questions their own identity and becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. On a critical failure, they're slowed 1 for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I9BKkQUqUChWg1Nf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Oath of Anonymity",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Zoudou has a face, she can't cast divine prepared spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n34F72Y2nq0N1iiI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sensitive Hearing",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>As long as a noppera-bo is @UUID[Compendium.pf2e.conditionitems.Item.Deafened], they are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "self:condition:deafened"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "envUeTN0k7tSghdD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Impersonate Shape",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The noppera-bo changes into a version of a Small or Medium humanoid they've touched during the last 24 hours, and gains the target creature's face and voice. While transformed, the noppera-bo gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] that creature and loses its no face ability and listed immunities. The noppera-bo can change back by using this ability again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "impersonate-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "impersonate-shape",
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            {
+                                "not": "impersonate-shape"
+                            }
+                        ],
+                        "type": [
+                            "inhaled",
+                            "olfactory",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5Kqoe0pLRpiq2TNT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Regain Anonymity",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Zoudou has a face</p>\n<hr />\n<p><strong>Effect</strong> Zoudou melts the face she's wearing and gains [[/br 3d6 #Temp HP]] temporary Hit Points. She can't Regain Anonymity again for [[/gmr 1d4 #Recharge Regain Anonymity]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LgQiF13VCqc7oE31",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Silent Casting",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Zoudou is faceless, she can substitute an additional somatic component for a verbal component.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rR5vCZbn7VEK8QPN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steal Face",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Zoudou is faceless</p>\n<hr />\n<p><strong>Effect</strong> Zoudou targets one creature within 30 feet. The creature must attempt a @Check[fortitude|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>\n<p><strong>Failure</strong> The noppera-bo gains the target's face. The target's face vanishes until the end of its next turn. Until then, it is @UUID[Compendium.pf2e.conditionitems.Item.Blinded], can't speak or ingest, and can't smell. The target must also hold its breath or begin to suffocate.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect doesn't end automatically. The target can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such attempt.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "curse",
+                        "incapacitation",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Zoudou The Zealous",

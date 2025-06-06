@@ -3,98 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lzbAKcAmDlWaRGOF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "HL22Gfjw3DN4v0Sx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bdyhFvQv8a9N2rd2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8PnlI5NzEir5W7Il",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Derghodaemon's Stare",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A non-evil target must succeed at a @Check[will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round, or 1 minute on a critical failure. It is temporarily immune for 10 minutes.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -102,116 +27,358 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "2UHZp2JLcI6aSHmH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.peCF6VArm8urfwxZ"
+            },
+            "img": "icons/skills/melee/strike-dagger-white-orange.webp",
+            "name": "Blade Barrier",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "7d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "force"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>Blades of force form a churning wall. The wall is a straight line 20 feet high, 120 feet long, and 2 inches thick, and it provides cover. The wall deals 7d8 force damage to each creature that's in the wall's space when it is created, that attempts to pass through the wall, or that ends its turn inside the wall. A basic Reflex save reduces the damage. A creature that succeeds at this save when the wall is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the wall fail to do so if they critically fail the save, ending their movement adjacent to the wall.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "HL22Gfjw3DN4v0Sx"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "blade-barrier",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
                     "value": [
-                        "divine",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "visual"
+                        "concentrate",
+                        "force",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "x2IF1MX8EodRyzeW",
+            "_id": "641IAvHIWYmCo22k",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 400000,
+            "img": "systems/pf2e/icons/spells/feeblemind.webp",
+            "name": "Feeblemind",
+            "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
                 },
-                "rules": [],
-                "slug": "rend",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SHBwJIixLi2Gr8Lx",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Savage Assault",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
+                "level": {
+                    "value": 6
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The derghodaemon makes up to five claw Strikes, each against a different target. These attacks count toward the derghodaemon's multiple attack penalty, but the penalty doesn't increase until after all the attacks.</p>"
+                "location": {
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "value": "HL22Gfjw3DN4v0Sx"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "feeblemind",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h282lP6zRpC6R83o",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Swarming Infestation",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The derghodaemon spews a large swarm, making a swarm spit Strike against up to two adjacent targets within range. Whether or not the targets are hit, each must attempt a @Check[reflex|dc:31|traits:damaging-effect] save (at a -2 circumstance penalty if it was actually hit by the swarm spit).</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Piercing Damage} caused by the swarming infestation ends as soon as the creature takes any amount of damage from an area effect.</p>\n<p>The derghodaemon can't use this ability for [[/gmr 1d4 #Recharge Swarming Infestation]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The swarm disperses as soon as it deals its swarm spit Strike damage.</p>\n<p><strong>Success</strong> The swarm clings to the target and infests it, dealing @Damage[1d6[persistent,piercing]] damage.</p>\n<p><strong>Failure</strong> The swarm clings to the target and infests it, dealing @Damage[2d6[persistent,piercing]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the hissing sounds caused by the infestation also cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; this additional effect has the auditory, emotion, and mental traits.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "auditory",
-                        "emotion",
+                        "concentrate",
+                        "curse",
+                        "incapacitation",
+                        "manipulate",
                         "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "QA06oxiBx2Bj99VS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "HL22Gfjw3DN4v0Sx"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "fVJKjuH7SYz6QQHp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door (At will)",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "HL22Gfjw3DN4v0Sx"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "ot1UCPxTvpQLgwz3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
+            },
+            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
+            "name": "Detect Alignment (At will) (Good only)",
+            "sort": 600000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "HL22Gfjw3DN4v0Sx"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "detect-alignment",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
         },
         {
             "_id": "Wbgjzf3goWRWkItA",
@@ -315,382 +482,215 @@
             "type": "melee"
         },
         {
-            "_id": "2UHZp2JLcI6aSHmH",
+            "_id": "lzbAKcAmDlWaRGOF",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.peCF6VArm8urfwxZ"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
             },
-            "img": "icons/skills/melee/strike-dagger-white-orange.webp",
-            "name": "Blade Barrier",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 900000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "7d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "force"
-                    }
+                "actions": {
+                    "value": null
                 },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>Blades of force form a churning wall. The wall is a straight line 20 feet high, 120 feet long, and 2 inches thick, and it provides cover. The wall deals 7d8 force damage to each creature that's in the wall's space when it is created, that attempts to pass through the wall, or that ends its turn inside the wall. A basic Reflex save reduces the damage. A creature that succeeds at this save when the wall is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the wall fail to do so if they critically fail the save, ending their movement adjacent to the wall.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "HL22Gfjw3DN4v0Sx"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "blade-barrier",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
+                "slug": "telepathy",
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "divine"
-                    ],
                     "value": [
-                        "concentrate",
-                        "force",
-                        "manipulate"
+                        "aura",
+                        "magical"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "641IAvHIWYmCo22k",
+            "_id": "bdyhFvQv8a9N2rd2",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5BbU1V6wGSGbrmRD"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
-            "img": "systems/pf2e/icons/spells/feeblemind.webp",
-            "name": "Feeblemind",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
             "system": {
-                "area": null,
-                "cost": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
                     "value": ""
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
                     }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8PnlI5NzEir5W7Il",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Derghodaemon's Stare",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "HL22Gfjw3DN4v0Sx"
+                    "value": "<p>A non-evil target must succeed at a @Check[will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round, or 1 minute on a critical failure. It is temporarily immune for 10 minutes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "feeblemind",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
                     "value": [
-                        "concentrate",
-                        "curse",
+                        "divine",
+                        "emotion",
                         "incapacitation",
-                        "manipulate",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x2IF1MX8EodRyzeW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SHBwJIixLi2Gr8Lx",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Savage Assault",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The derghodaemon makes up to five claw Strikes, each against a different target. These attacks count toward the derghodaemon's multiple attack penalty, but the penalty doesn't increase until after all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h282lP6zRpC6R83o",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Swarming Infestation",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The derghodaemon spews a large swarm, making a swarm spit Strike against up to two adjacent targets within range. Whether or not the targets are hit, each must attempt a @Check[reflex|dc:31|traits:damaging-effect] save (at a -2 circumstance penalty if it was actually hit by the swarm spit).</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Piercing Damage} caused by the swarming infestation ends as soon as the creature takes any amount of damage from an area effect.</p>\n<p>The derghodaemon can't use this ability for [[/gmr 1d4 #Recharge Swarming Infestation]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The swarm disperses as soon as it deals its swarm spit Strike damage.</p>\n<p><strong>Success</strong> The swarm clings to the target and infests it, dealing @Damage[1d6[persistent,piercing]] damage.</p>\n<p><strong>Failure</strong> The swarm clings to the target and infests it, dealing @Damage[2d6[persistent,piercing]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the hissing sounds caused by the infestation also cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; this additional effect has the auditory, emotion, and mental traits.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
                         "mental"
                     ]
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "QA06oxiBx2Bj99VS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "HL22Gfjw3DN4v0Sx"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "fVJKjuH7SYz6QQHp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door (At will)",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "HL22Gfjw3DN4v0Sx"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ot1UCPxTvpQLgwz3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
-            },
-            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment (At will) (Good only)",
-            "sort": 1300000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "HL22Gfjw3DN4v0Sx"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "detect-alignment",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HL22Gfjw3DN4v0Sx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
+            "type": "action"
         }
     ],
     "name": "Derghodaemon",

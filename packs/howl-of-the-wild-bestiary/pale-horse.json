@@ -3,244 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lWFPmS0H0zSECgmE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spectral Mount",
+            "_id": "mWlPi3k2oYYdgk2z",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A pale horse can accept a corporeal rider, but such a rider is left behind if the pale horse passes through a creature or object.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Jsr2o1sS2Yu2fFjC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Xw8tomP14n2Bj8VB",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Despair",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A living creature that begins its turn in the aura must succeed at a @Check[will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. A creature is temporarily immune to the aura for 1 hour if it critically succeeds.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "emotion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fivZSuYRBZdOaMOO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V6SsPWfZ04OeUEDE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spectral Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The pale horse Flies twice and then makes a horn Strike. The pale horse can move through creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "joNOo1Nzcl103gsT",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spectral Horn",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "2H0zwBbNm3phC1qM": {
-                        "damage": "3d10+10",
-                        "damageType": "void"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "SIO6Rj1NrYqB3Yme",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "38uR1zxHeGpHleyD": {
-                        "damage": "3d8+10",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -248,19 +26,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 27,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "PXlaPqZTPZpBP3nS",
@@ -269,7 +49,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Toxic Cloud",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -358,7 +138,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -430,7 +210,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At-Will)",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -497,7 +277,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -690,22 +470,28 @@
             "type": "spell"
         },
         {
-            "_id": "mWlPi3k2oYYdgk2z",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1200000,
+            "_id": "joNOo1Nzcl103gsT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spectral Horn",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "2H0zwBbNm3phC1qM": {
+                        "damage": "3d10+10",
+                        "damageType": "void"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -713,21 +499,235 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 0
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "SIO6Rj1NrYqB3Yme",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hoof",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "38uR1zxHeGpHleyD": {
+                        "damage": "3d8+10",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lWFPmS0H0zSECgmE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spectral Mount",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A pale horse can accept a corporeal rider, but such a rider is left behind if the pale horse passes through a creature or object.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Jsr2o1sS2Yu2fFjC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Xw8tomP14n2Bj8VB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Despair",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A living creature that begins its turn in the aura must succeed at a @Check[will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}. A creature is temporarily immune to the aura for 1 hour if it critically succeeds.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fivZSuYRBZdOaMOO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V6SsPWfZ04OeUEDE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spectral Charge",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The pale horse Flies twice and then makes a horn Strike. The pale horse can move through creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Pale Horse",

@@ -4,173 +4,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0fnFhzeCY0zsRybu",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Planar Workshop",
+            "_id": "p2Zc3ftvbeeGJ4aA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Occult Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An anugobu is intrinsically connected to small, pocket dimension that they typically refer to as their workshop. The workshop is an extradimensional 10-foot cube. The workshop holds an anugobu's collected tools and materials. An anugobu can enter or leave their planar workshop as an action, which has the concentrate and manipulate traits. The anugobu gains resistance 5 to all damage (except force) and @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{concealment} while within the workshop. The workshop is only visible while the anugobu is inside it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "planar-workshop",
-                        "toggleable": true
-                    },
-                    {
-                        "exceptions": [
-                            "force"
-                        ],
-                        "key": "Resistance",
-                        "predicate": [
-                            "planar-workshop"
-                        ],
-                        "type": "all-damage",
-                        "value": 5
-                    },
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "planar-workshop"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w1mZIpYGsjanGbXd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stone Step",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An anugobu can effortlessly stick to any worked or manufactured surface, allowing them to walk up walls and stand on ceilings.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "II0wJHhgSyNVtnVh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/artisan-tools.webp",
-            "name": "Artisan's Tools (Sterling)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 2
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need these tools to create items from raw materials with the Craft skill. Sterling artisan's tools give you a +1 item bonus to the check.</p>\n<p>Different sets are needed for different work, as determined by the GM; for example, blacksmith's tools differ from woodworker's tools.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Artisan's Tools, Sterling (craft items)",
-                        "predicate": [
-                            "action:craft"
-                        ],
-                        "selector": "crafting",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "artisans-tools-sterling",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "qhiZh4CdSOvOAvxq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Engineering Lore",
-            "sort": 400000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 20
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -179,187 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ivzyQeZGHar9Q2Xf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hammer",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "xnybt81rbfmfmsemlne0": {
-                        "damage": "2d8+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "ouJI8qdXqiadJKyV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Chisel",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "nl57iizt3b1kuz917u1u": {
-                        "damage": "2d6+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "parry",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "EpHD40clP6JhRkjJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Foot",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "hrozmghyre3c3mtyizwl": {
-                        "damage": "2d4+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PxumFwRaJHxCCe9N",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hammer",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "by4e63g1ep78e4lity31": {
-                        "damage": "2d8+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ecBm7k5M75PpelxX",
@@ -368,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -429,7 +108,7 @@
             },
             "img": "icons/commodities/wood/log-cut-cherry-brown.webp",
             "name": "Creation (At Will)",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -489,7 +168,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending (At Will)",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -551,7 +230,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -613,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -675,7 +354,7 @@
             },
             "img": "icons/magic/light/circle-window-clock-blue.webp",
             "name": "Floating Disk",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -736,7 +415,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -799,7 +478,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -923,7 +602,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant (At Will)",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -978,21 +657,351 @@
             "type": "spell"
         },
         {
-            "_id": "p2Zc3ftvbeeGJ4aA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
-            "sort": 1800000,
+            "_id": "II0wJHhgSyNVtnVh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/artisan-tools.webp",
+            "name": "Artisan's Tools (Sterling)",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 2
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need these tools to create items from raw materials with the Craft skill. Sterling artisan's tools give you a +1 item bonus to the check.</p>\n<p>Different sets are needed for different work, as determined by the GM; for example, blacksmith's tools differ from woodworker's tools.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Artisan's Tools, Sterling (craft items)",
+                        "predicate": [
+                            "action:craft"
+                        ],
+                        "selector": "crafting",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "artisans-tools-sterling",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ivzyQeZGHar9Q2Xf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hammer",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "xnybt81rbfmfmsemlne0": {
+                        "damage": "2d8+5",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ouJI8qdXqiadJKyV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Chisel",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "nl57iizt3b1kuz917u1u": {
+                        "damage": "2d6+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "parry",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EpHD40clP6JhRkjJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Foot",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "hrozmghyre3c3mtyizwl": {
+                        "damage": "2d4+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PxumFwRaJHxCCe9N",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hammer",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "by4e63g1ep78e4lity31": {
+                        "damage": "2d8+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0fnFhzeCY0zsRybu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Planar Workshop",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An anugobu is intrinsically connected to small, pocket dimension that they typically refer to as their workshop. The workshop is an extradimensional 10-foot cube. The workshop holds an anugobu's collected tools and materials. An anugobu can enter or leave their planar workshop as an action, which has the concentrate and manipulate traits. The anugobu gains resistance 5 to all damage (except force) and @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{concealment} while within the workshop. The workshop is only visible while the anugobu is inside it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "planar-workshop",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "force"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w1mZIpYGsjanGbXd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stone Step",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An anugobu can effortlessly stick to any worked or manufactured surface, allowing them to walk up walls and stand on ceilings.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qhiZh4CdSOvOAvxq",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Engineering Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -1001,18 +1010,9 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Anugobu Wondercrafter",

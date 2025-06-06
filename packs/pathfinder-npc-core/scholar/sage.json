@@ -4,247 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "mOaqXByjpJOQroyH",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Timely Advice",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally is about to attempt an attack roll or skill check and has not yet rolled</p>\n<hr />\n<p><strong>Effect</strong> The sage gives the ally a savvy piece of advice, providing valuable insight. The ally gains a +2 circumstance bonus to the triggering roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Timely Advice]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pCgvFzMbb4y6tLfW",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Sage's Analysis",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sage studies a creature, attempting an @Check[arcana], @Check[nature], @Check[occultism], @Check[religion], or @Check[society] check against the creature's Recall Knowledge DC. On a success, the sage gains a +2 circumstance bonus to attack rolls and AC against that creature and deals an additional 2d6 damage to the creature with weapon attacks.</p>\n<p>These benefits last for 1 minute or until the sage uses this ability again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sage's Analysis]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LbstDLNdYGShLO4N",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Wooden)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MLCrUvDlugE5BKqe",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mKFp9wl5UZg1QAXE"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Hcuoxxe2F5IxOXGv",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "mKFp9wl5UZg1QAXE",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -319,6 +85,240 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "LbstDLNdYGShLO4N",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol (Wooden)",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "MLCrUvDlugE5BKqe",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mKFp9wl5UZg1QAXE"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Hcuoxxe2F5IxOXGv",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "mOaqXByjpJOQroyH",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Timely Advice",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally is about to attempt an attack roll or skill check and has not yet rolled</p>\n<hr />\n<p><strong>Effect</strong> The sage gives the ally a savvy piece of advice, providing valuable insight. The ally gains a +2 circumstance bonus to the triggering roll.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Timely Advice]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pCgvFzMbb4y6tLfW",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Sage's Analysis",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sage studies a creature, attempting an @Check[arcana], @Check[nature], @Check[occultism], @Check[religion], or @Check[society] check against the creature's Recall Knowledge DC. On a success, the sage gains a +2 circumstance bonus to attack rolls and AC against that creature and deals an additional 2d6 damage to the creature with weapon attacks.</p>\n<p>These benefits last for 1 minute or until the sage uses this ability again.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sage's Analysis]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sage",

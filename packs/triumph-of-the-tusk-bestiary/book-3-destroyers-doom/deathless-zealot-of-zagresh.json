@@ -4,259 +4,185 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9mVvJzUmzQMKmUQ3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Field of Slaughter",
+            "_id": "FchPhanFztd2bYl7",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>40 feet. Allies within the aura treat their weapons and unarmed attacks as <em>keen</em>, even if the weapons don't meet the requirements. Critical hits within the aura deal 3d6 persistent bleed damage, in addition to any other critical hit effects. If the critical hit would already deal persistent bleed damage, increase the damage to 3d6+3.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Slaughter (Bleed)"
-                            },
-                            {
-                                "affects": "allies",
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Slaughter (Keen)"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 40
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Aq22NNbltXf4zrCi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ravage Heretic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who the deathless zealot can see and who doesn't worship Zagresh casts a divine spell</p><hr /><p><strong>Effect</strong> The deathless zealot attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 5. If the spell is counteracted, the caster is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} from the pain of the backlash. If the deathless zealot fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VwB6lLYfJspUk74r",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LEF9Ye3m3E1sgKjQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spellsmash",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The zealot Casts a Spell that requires a spell attack roll or has a range of touch, channeling it into their greatclub, then makes a melee Strike. This attack roll determines the effects of both the Strike and the spell. This counts as two attacks for their multiple attack penalty, but the penalty isn't applied until after the Spellsmash. The zealot can't use Spellsmash again until they recharge it with a single action, which has the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sbNmZScdwfw1iIkf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Zagresh",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "sVf9FeYMKGKW7p3o",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fHOAD9IMTPFYYUNp"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatclub",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "t8n2HvM0pfe0S8jW": {
-                        "damage": "2d10+11",
-                        "damageType": "bludgeoning"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": "greatclub",
-                "traits": {
-                    "value": [
-                        "backswing",
-                        "magical",
-                        "shove"
-                    ]
-                }
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "2tyqrUOtafz2UOpp"
+                            },
+                            {
+                                "id": "M1NJfcIJIOrs3NXs"
+                            },
+                            {
+                                "id": "ovWzDPafnVcPid5R"
+                            },
+                            {
+                                "id": null
+                            },
+                            {
+                                "id": null
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "MHgvIY7W6GdcNtl6"
+                            },
+                            {
+                                "id": "16QcKu9Cmx6L13Fk"
+                            },
+                            {
+                                "id": "YFlDSGfmylPGJ5Vq"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "3lxRt09Q7K2CMORj"
+                            },
+                            {
+                                "id": "3lxRt09Q7K2CMORj"
+                            },
+                            {
+                                "id": "pH66KlMTw1I2qjle"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "BQjs0F84JDasUuDu"
+                            },
+                            {
+                                "id": "SbpqVRqduVRl9EtL"
+                            },
+                            {
+                                "id": "8tFB53uy0iPJkcpk"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "839vI3F2KPDbQkCR"
+                            },
+                            {
+                                "id": "839vI3F2KPDbQkCR"
+                            },
+                            {
+                                "id": "Q5aoDO5degLKuB5P"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 7,
+                        "prepared": [
+                            {
+                                "id": "BQjs0F84JDasUuDu"
+                            },
+                            {
+                                "id": "JUTqDljFRV1z1cz2"
+                            },
+                            {
+                                "id": "VMGhO8QBQXiooOp8"
+                            },
+                            {
+                                "id": "VMGhO8QBQXiooOp8"
+                            },
+                            {
+                                "id": "VMGhO8QBQXiooOp8"
+                            },
+                            {
+                                "id": "VMGhO8QBQXiooOp8"
+                            },
+                            {
+                                "id": "VMGhO8QBQXiooOp8"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "qp9jk41sSqrwpu7W",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
         },
         {
             "_id": "JUTqDljFRV1z1cz2",
@@ -265,7 +191,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -353,7 +279,7 @@
             },
             "img": "systems/pf2e/icons/spells/destructive-aura.webp",
             "name": "Destructive Aura",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -416,7 +342,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -504,7 +430,7 @@
             },
             "img": "systems/pf2e/icons/spells/implement-of-destruction.webp",
             "name": "Implement of Destruction",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -572,7 +498,7 @@
             },
             "img": "icons/magic/light/beam-explosion-pink-purple.webp",
             "name": "Chilling Darkness",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -664,7 +590,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +699,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -859,7 +785,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -943,7 +869,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1094,7 +1020,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1164,7 +1090,7 @@
             },
             "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
             "name": "Cry of Destruction",
-            "sort": 1700000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1275,7 +1201,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1342,7 +1268,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1424,7 +1350,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1504,7 +1430,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2100000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1591,7 +1517,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1785,7 +1711,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1865,194 +1791,13 @@
             "type": "spell"
         },
         {
-            "_id": "FchPhanFztd2bYl7",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "2tyqrUOtafz2UOpp"
-                            },
-                            {
-                                "id": "M1NJfcIJIOrs3NXs"
-                            },
-                            {
-                                "id": "ovWzDPafnVcPid5R"
-                            },
-                            {
-                                "id": null
-                            },
-                            {
-                                "id": null
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "MHgvIY7W6GdcNtl6"
-                            },
-                            {
-                                "id": "16QcKu9Cmx6L13Fk"
-                            },
-                            {
-                                "id": "YFlDSGfmylPGJ5Vq"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "3lxRt09Q7K2CMORj"
-                            },
-                            {
-                                "id": "3lxRt09Q7K2CMORj"
-                            },
-                            {
-                                "id": "pH66KlMTw1I2qjle"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "BQjs0F84JDasUuDu"
-                            },
-                            {
-                                "id": "SbpqVRqduVRl9EtL"
-                            },
-                            {
-                                "id": "8tFB53uy0iPJkcpk"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "839vI3F2KPDbQkCR"
-                            },
-                            {
-                                "id": "839vI3F2KPDbQkCR"
-                            },
-                            {
-                                "id": "Q5aoDO5degLKuB5P"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 7,
-                        "prepared": [
-                            {
-                                "id": "BQjs0F84JDasUuDu"
-                            },
-                            {
-                                "id": "JUTqDljFRV1z1cz2"
-                            },
-                            {
-                                "id": "VMGhO8QBQXiooOp8"
-                            },
-                            {
-                                "id": "VMGhO8QBQXiooOp8"
-                            },
-                            {
-                                "id": "VMGhO8QBQXiooOp8"
-                            },
-                            {
-                                "id": "VMGhO8QBQXiooOp8"
-                            },
-                            {
-                                "id": "VMGhO8QBQXiooOp8"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "qp9jk41sSqrwpu7W",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "fHOAD9IMTPFYYUNp",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.kdGqnqbrwPzQfTsm"
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
             "name": "Greatclub",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "greatclub",
                 "bonus": {
@@ -2130,6 +1875,261 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "sbNmZScdwfw1iIkf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Zagresh",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "sVf9FeYMKGKW7p3o",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fHOAD9IMTPFYYUNp"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatclub",
+            "sort": 2200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "t8n2HvM0pfe0S8jW": {
+                        "damage": "2d10+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "greatclub",
+                "traits": {
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "shove"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9mVvJzUmzQMKmUQ3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Field of Slaughter",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>40 feet. Allies within the aura treat their weapons and unarmed attacks as <em>keen</em>, even if the weapons don't meet the requirements. Critical hits within the aura deal 3d6 persistent bleed damage, in addition to any other critical hit effects. If the critical hit would already deal persistent bleed damage, increase the damage to 3d6+3.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Slaughter (Bleed)"
+                            },
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Slaughter (Keen)"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 40
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Aq22NNbltXf4zrCi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ravage Heretic",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who the deathless zealot can see and who doesn't worship Zagresh casts a divine spell</p><hr /><p><strong>Effect</strong> The deathless zealot attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 5. If the spell is counteracted, the caster is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} from the pain of the backlash. If the deathless zealot fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VwB6lLYfJspUk74r",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LEF9Ye3m3E1sgKjQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spellsmash",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zealot Casts a Spell that requires a spell attack roll or has a range of touch, channeling it into their greatclub, then makes a melee Strike. This attack roll determines the effects of both the Strike and the spell. This counts as two attacks for their multiple attack penalty, but the penalty isn't applied until after the Spellsmash. The zealot can't use Spellsmash again until they recharge it with a single action, which has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Deathless Zealot of Zagresh",

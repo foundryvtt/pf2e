@@ -4,232 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VOt7byVN0Y1EHTi5",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Lasting Debilitating Strike",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The xun's Strike hits an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature and deals damage</p>\n<hr />\n<p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CaFY5kyjRXQON92N",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Looming Threat",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The master xun @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} or @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, then @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "htMmxOMY7QoAXqje",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The master xun deals an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] opponents.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RVmOo5xOQglFxRey",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "g1w3JqYiRS4IbEVz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "62eitohljqb7c6n4vfvp": {
-                        "damage": "2d4+13",
-                        "damageType": "piercing"
-                    },
-                    "8mhdgunybnrb0acpxqq5": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "NkbH46F6uS1A1Vxr",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "g1w3JqYiRS4IbEVz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "2m7rsld2gwn5hnr0ryxf": {
-                        "damage": "2d4+13",
-                        "damageType": "piercing"
-                    },
-                    "yz4eusoz0v067rgjedsi": {
-                        "damage": "1d6",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "g1w3JqYiRS4IbEVz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -311,6 +92,225 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "RVmOo5xOQglFxRey",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "g1w3JqYiRS4IbEVz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "62eitohljqb7c6n4vfvp": {
+                        "damage": "2d4+13",
+                        "damageType": "piercing"
+                    },
+                    "8mhdgunybnrb0acpxqq5": {
+                        "damage": "1d6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NkbH46F6uS1A1Vxr",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "g1w3JqYiRS4IbEVz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "2m7rsld2gwn5hnr0ryxf": {
+                        "damage": "2d4+13",
+                        "damageType": "piercing"
+                    },
+                    "yz4eusoz0v067rgjedsi": {
+                        "damage": "1d6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VOt7byVN0Y1EHTi5",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Lasting Debilitating Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The xun's Strike hits an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature and deals damage</p>\n<hr />\n<p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CaFY5kyjRXQON92N",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Looming Threat",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The master xun @UUID[Compendium.pf2e.actionspf2e.Item.Step]{Steps} or @UUID[Compendium.pf2e.actionspf2e.Item.Feint]{Feints}, then @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize]{Demoralizes}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "htMmxOMY7QoAXqje",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The master xun deals an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] opponents.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Master Xun",

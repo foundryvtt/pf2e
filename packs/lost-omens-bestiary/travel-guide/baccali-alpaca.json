@@ -4,89 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HuxqXHbNPMVfb98R",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.nZMQh4AaBr291TUf"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Buck",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Check[reflex|dc:15] @Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "buck",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CyJqBVfPXX4Fp283",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gallop",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The baccali alpaca Strides twice. It has a +10-foot circumstance bonus to its Speed during these Strides.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "gallop",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "gallop"
-                        ],
-                        "selector": "land-speed",
-                        "type": "circumstance",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "HNM58d8JH28lGstw",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -128,7 +49,7 @@
             "_id": "x5GWeyJ3dSDa0npJ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spit",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -166,6 +87,85 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "HuxqXHbNPMVfb98R",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.nZMQh4AaBr291TUf"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Buck",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:15] @Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "buck",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CyJqBVfPXX4Fp283",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Gallop",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The baccali alpaca Strides twice. It has a +10-foot circumstance bonus to its Speed during these Strides.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "gallop",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "gallop"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Baccali Alpaca",

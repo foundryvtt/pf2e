@@ -4,128 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3rNXQkNGeebwnfzB",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Caress Soul",
+            "_id": "Zh9Je8Z6vJcufJil",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Arisept critically hits a target with his rapier</p>\n<hr />\n<p><strong>Effect</strong> The target must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails). If the target fails additional saves against this ability, the condition value increases by 1 if failed, or 2 if critically failed (to a maximum of enfeebled 4). This condition value decreases by 1 every 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CPA8ExaPOUENzjZ7",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Abyssal Strikes",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Arisept makes a rapier attack against up to 3 targets within 10 feet, his blade extending beyond its normal reach and lashing out like a spear. Each attack counts toward his multiple attack penalty, but the penalty does not increase until after he has made all of his attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XVCjLuuchDLqBm6O",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "2lwD6eoKFqeGovz0"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 300000,
-            "system": {
-                "attack": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": []
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "bonus": {
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
                     "value": 22
                 },
-                "damageRolls": {
-                    "plgzoisvrv0uzfxc": {
-                        "damage": "2d6 + 10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|id}-damage",
-                        "text": "<span class=\"action-glyph\">r</span> The target must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails).",
-                        "title": "Caress Soul"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Ry3yVJZL8TbT2FuX",
@@ -134,7 +68,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -216,7 +150,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -305,7 +239,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -377,7 +311,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -456,7 +390,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -544,7 +478,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -616,7 +550,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "line",
@@ -704,7 +638,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -781,7 +715,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -844,7 +778,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -905,7 +839,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -972,7 +906,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1053,7 +987,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1134,7 +1068,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1196,7 +1130,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1253,71 +1187,13 @@
             "type": "spell"
         },
         {
-            "_id": "Zh9Je8Z6vJcufJil",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 1900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "2lwD6eoKFqeGovz0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 2000000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -1396,6 +1272,130 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "XVCjLuuchDLqBm6O",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2lwD6eoKFqeGovz0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "plgzoisvrv0uzfxc": {
+                        "damage": "2d6 + 10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|id}-damage",
+                        "text": "<span class=\"action-glyph\">r</span> The target must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails).",
+                        "title": "Caress Soul"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3rNXQkNGeebwnfzB",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Caress Soul",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Arisept critically hits a target with his rapier</p>\n<hr />\n<p><strong>Effect</strong> The target must succeed at a @Check[will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails). If the target fails additional saves against this ability, the condition value increases by 1 if failed, or 2 if critically failed (to a maximum of enfeebled 4). This condition value decreases by 1 every 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CPA8ExaPOUENzjZ7",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Abyssal Strikes",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Arisept makes a rapier attack against up to 3 targets within 10 feet, his blade extending beyond its normal reach and lashing out like a spear. Each attack counts toward his multiple attack penalty, but the penalty does not increase until after he has made all of his attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Arisept (9-10)",

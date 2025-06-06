@@ -4,406 +4,124 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "dBV28CzhtFrzovJP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
+            "_id": "qpq0VIPCkLU5mLCR",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Alzira changes into her humanoid or hybrid shape. Each shape has a specific, persistent appearance. In hybrid shape, Alzira appears as a mix between her elf ancestry and a bat. She gains a jaws unarmed Strike resembling a bat's fangs. In her humanoid shape, she retains the appearance of her original ancestry.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "humanoid",
-                        "suboptions": [
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
-                                "value": "humanoid"
+                                "id": "QfUx7ypXUe6DiDMc"
                             },
                             {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
-                                "value": "hybrid"
+                                "id": "Cra1XrE5fArb6jB8"
+                            },
+                            {
+                                "id": "m8VhgwztopWmWnZU"
+                            },
+                            {
+                                "id": "PRit1lkZwj5ZrPkU"
+                            },
+                            {
+                                "id": "9aur7mZJUrY1HPoU"
                             }
-                        ],
-                        "toggleable": true,
-                        "value": true
+                        ]
                     },
-                    {
-                        "attackModifier": 7,
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 1,
-                                "die": "d4"
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "XcNP4MJONgYmzOSl"
+                            },
+                            {
+                                "id": "bM5AYluWGdhmcLsb"
+                            },
+                            {
+                                "id": "tNwryg6K5lfR6qQU"
                             }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.BattleForm.Attack.Jaws",
-                        "predicate": [
-                            "change-shape:hybrid"
-                        ],
-                        "slug": "jaws",
-                        "traits": [
-                            "agile",
-                            "finesse",
-                            "unarmed"
+                        ]
+                    },
+                    "slot2": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "yNl2RPlNcj3ODmVq"
+                            },
+                            {
+                                "id": "t5HT2YHiIqbowppK"
+                            },
+                            {
+                                "id": "zkotUQUV32RUDfPS"
+                            },
+                            {
+                                "id": "zkotUQUV32RUDfPS"
+                            },
+                            {
+                                "id": "zkotUQUV32RUDfPS"
+                            },
+                            {
+                                "id": "zkotUQUV32RUDfPS"
+                            },
+                            {
+                                "id": null
+                            }
                         ]
                     }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pwkWRCiqVeVp7DqJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harming Hands",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Alzira casts @UUID[Compendium.pf2e.spells-srd.Item.Harm], she rolls d10s instead of d8s.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d10"
-                        },
-                        "predicate": [
-                            "item:slug:harm"
-                        ],
-                        "selector": [
-                            "spell-damage",
-                            "spell-healing"
-                        ]
-                    }
-                ],
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "K90rxKZFzCbDcPQa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Quick Change",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
+                "spelldc": {
+                    "dc": 19,
+                    "value": 9
                 },
-                "actions": {
-                    "value": null
+                "tradition": {
+                    "value": "divine"
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Alzira rolls initiative</p><hr /><p><strong>Effect</strong> Alzira's instincts kick in, and she takes on an aggressive stance. Alzira uses Change Shape to enter her hybrid form.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "exDwet1EB6bQeVCw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Explorer's Clothing",
-            "sort": 400000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "drpL0B4ccHo9Hq5p",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Lesser)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "2d8+5",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "ce5yfhipPzye5wiv",
-            "img": "icons/commodities/metal/pin-cottar-steel.webp",
-            "name": "Intake Skeleton Key",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "dWY50VRJzzdlKFLa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Camazotz Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "yrFqvMDtj8O1PMmT",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "uZIe0VntYElbe6hC"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sickle",
-            "sort": 800000,
+            "_id": "6W2tKCG7tBZIOA7x",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "0Jx7p3cTuTpTbN4O": {
-                        "damage": "1d4+1",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -411,17 +129,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "sickle",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "trip"
-                    ]
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 19,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "yNl2RPlNcj3ODmVq",
@@ -430,7 +149,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -514,7 +233,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -665,7 +384,7 @@
             },
             "img": "systems/pf2e/icons/spells/cloak-of-shadows.webp",
             "name": "Cloak of Shadow",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -726,7 +445,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -793,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -875,7 +594,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -941,7 +660,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1028,7 +747,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1222,7 +941,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1307,7 +1026,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1370,7 +1089,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1432,7 +1151,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1512,152 +1231,13 @@
             "type": "spell"
         },
         {
-            "_id": "qpq0VIPCkLU5mLCR",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "QfUx7ypXUe6DiDMc"
-                            },
-                            {
-                                "id": "Cra1XrE5fArb6jB8"
-                            },
-                            {
-                                "id": "m8VhgwztopWmWnZU"
-                            },
-                            {
-                                "id": "PRit1lkZwj5ZrPkU"
-                            },
-                            {
-                                "id": "9aur7mZJUrY1HPoU"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "XcNP4MJONgYmzOSl"
-                            },
-                            {
-                                "id": "bM5AYluWGdhmcLsb"
-                            },
-                            {
-                                "id": "tNwryg6K5lfR6qQU"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "yNl2RPlNcj3ODmVq"
-                            },
-                            {
-                                "id": "t5HT2YHiIqbowppK"
-                            },
-                            {
-                                "id": "zkotUQUV32RUDfPS"
-                            },
-                            {
-                                "id": "zkotUQUV32RUDfPS"
-                            },
-                            {
-                                "id": "zkotUQUV32RUDfPS"
-                            },
-                            {
-                                "id": "zkotUQUV32RUDfPS"
-                            },
-                            {
-                                "id": null
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "6W2tKCG7tBZIOA7x",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "uZIe0VntYElbe6hC",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
             },
             "img": "icons/tools/hand/sickle-steel-grey.webp",
             "name": "Sickle",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "sickle",
                 "bonus": {
@@ -1736,6 +1316,426 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "exDwet1EB6bQeVCw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 1600000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ce5yfhipPzye5wiv",
+            "img": "icons/commodities/metal/pin-cottar-steel.webp",
+            "name": "Intake Skeleton Key",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "drpL0B4ccHo9Hq5p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Lesser)",
+            "sort": 1800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "yrFqvMDtj8O1PMmT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uZIe0VntYElbe6hC"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sickle",
+            "sort": 1900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "0Jx7p3cTuTpTbN4O": {
+                        "damage": "1d4+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sickle",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dBV28CzhtFrzovJP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Alzira changes into her humanoid or hybrid shape. Each shape has a specific, persistent appearance. In hybrid shape, Alzira appears as a mix between her elf ancestry and a bat. She gains a jaws unarmed Strike resembling a bat's fangs. In her humanoid shape, she retains the appearance of her original ancestry.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "humanoid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                                "value": "hybrid"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "attackModifier": 7,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            "change-shape:hybrid"
+                        ],
+                        "slug": "jaws",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pwkWRCiqVeVp7DqJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harming Hands",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Alzira casts @UUID[Compendium.pf2e.spells-srd.Item.Harm], she rolls d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": [
+                            "item:slug:harm"
+                        ],
+                        "selector": [
+                            "spell-damage",
+                            "spell-healing"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K90rxKZFzCbDcPQa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quick Change",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Alzira rolls initiative</p><hr /><p><strong>Effect</strong> Alzira's instincts kick in, and she takes on an aggressive stance. Alzira uses Change Shape to enter her hybrid form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dWY50VRJzzdlKFLa",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Camazotz Lore",
+            "sort": 2300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Alzira Mustanir",

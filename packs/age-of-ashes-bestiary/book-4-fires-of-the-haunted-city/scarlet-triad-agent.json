@@ -4,581 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9dzKJk6ywUvYJxGr",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Efficient Capture",
+            "_id": "CCddbUlZDpZVHPi9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spells Known",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": 3
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The Scarlet Triad agent has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent attempts to bind the creature's wrists or ankles with the manacles. If they succeed at an attack roll with a [[/r 1d20+24]]{+24 modifier} against the target's AC, they apply the manacles.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tfAQ1l4sV2c1psLD",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Precise Debilitations",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The Scarlet Triad agent's Strike hits an off-guard creature and deals damage.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.</p>\n<ul>\n<li><em>Brow Gash</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</li>\n<li><em>Deep Cut</em> The target takes an additional 2d6 precision damage from the Scarlet Triad agent's attacks.</li>\n<li><em>Hamstring</em> The target takes a -10-foot status penalty to its Speeds.</li>\n<li><em>Low Blow</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hamstring]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "<span class=\"action-glyph\">f</span> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3oioSefge5pvcqam",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The scarlet triad agent deals an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SJvjp5tv9lMwcTyw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Weapon Trick",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the Scarlet Triad agent critically succeeds at an attack roll against an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature, they apply the critical specialization effect for the weapon they are wielding.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "CriticalSpecialization",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b0MtgA6YzYyKSJQr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 500000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "WCn25d9U81Qwv8zt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
-            "name": "Blowgun Darts",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "blowgun-darts",
-                "stackGroup": "blowgunDarts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "whOhQBoKXdvoe8Bu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
-            },
-            "img": "icons/commodities/materials/liquid-orange.webp",
-            "name": "Lethargy Poison",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 7
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "lethargy-poison",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "incapacitation",
-                        "injury",
-                        "poison",
-                        "sleep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "pTsT5w7fgUpWmTcO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.iRDCa4OVSTGUD3vi"
-            },
-            "img": "icons/consumables/potions/bottle-conical-corked-purple.webp",
-            "name": "Purple Worm Venom",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Venom from enormous purple worms leaves a victim weakened.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage and enfeebled 2 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and enfeebled 2 (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 13
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "purple-worm-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "injury",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "gC50kU8JXa9jFuuV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5g0rE5yMsTH3E2LJ"
-            },
-            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
-            "name": "Manacles (Good)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 250
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "manacles-good",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "j5LDyAGkf9FeoBAt",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "cH86pXBWXoCzfFuA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "3gpq4kz9gnglakvjgu96": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    }
-                },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CadzQEjQFp41MtkP",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "iwjhcDyX2SKcHon0"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Blowgun",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "lethargy-poison",
-                        "purple-worm-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "1egv96ym8tjucswromr9": {
-                        "damage": "7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -586,22 +28,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "nonlethal",
-                        "range-increment-20",
-                        "reload-1"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "4AYADKdKk9D4xLeO",
@@ -610,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -678,7 +119,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -759,7 +200,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +278,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -894,108 +335,13 @@
             "type": "spell"
         },
         {
-            "_id": "CCddbUlZDpZVHPi9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spells Known",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": 3
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "jEFmMCQkUOlH3g51",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Mm3xgz27Q94wZhti"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/art-objects/minor-art-object/engraved-copper-ring.webp",
-            "name": "Ruby and Sapphire ring",
-            "sort": 1700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "engraved-copper-ring",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "iwjhcDyX2SKcHon0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FPwsiGqMCNPLHmjX"
             },
             "img": "systems/pf2e/icons/equipment/weapons/blowgun.webp",
             "name": "Blowgun",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "baseItem": "blowgun",
                 "bonus": {
@@ -1081,7 +427,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -1160,6 +506,660 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "b0MtgA6YzYyKSJQr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 800000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "gC50kU8JXa9jFuuV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5g0rE5yMsTH3E2LJ"
+            },
+            "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
+            "name": "Manacles (Good)",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two-legged creature with its legs bound takes a -15-foot circumstance penalty to its Speeds, and a two-handed creature with its wrists bound has to succeed at a @Check[flat|dc:5] any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any. Freeing a creature from good manacles requires five successful @Check[thievery|dc:32|traits:action:pick-a-lock] checks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 250
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "manacles-good",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "WCn25d9U81Qwv8zt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.sqhr1crb184s3Vnd"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
+            "name": "Blowgun Darts",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "blowgun-darts",
+                "stackGroup": "blowgunDarts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "whOhQBoKXdvoe8Bu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
+            },
+            "img": "icons/commodities/materials/liquid-orange.webp",
+            "name": "Lethargy Poison",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "lethargy-poison",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "incapacitation",
+                        "injury",
+                        "poison",
+                        "sleep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "pTsT5w7fgUpWmTcO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.iRDCa4OVSTGUD3vi"
+            },
+            "img": "icons/consumables/potions/bottle-conical-corked-purple.webp",
+            "name": "Purple Worm Venom",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Venom from enormous purple worms leaves a victim weakened.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[5d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage and enfeebled 2 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and enfeebled 2 (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 13
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "purple-worm-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "jEFmMCQkUOlH3g51",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Mm3xgz27Q94wZhti"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/art-objects/minor-art-object/engraved-copper-ring.webp",
+            "name": "Ruby and Sapphire ring",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "engraved-copper-ring",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "j5LDyAGkf9FeoBAt",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "cH86pXBWXoCzfFuA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "3gpq4kz9gnglakvjgu96": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CadzQEjQFp41MtkP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "iwjhcDyX2SKcHon0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blowgun",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "lethargy-poison",
+                        "purple-worm-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "1egv96ym8tjucswromr9": {
+                        "damage": "7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "nonlethal",
+                        "range-increment-20",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9dzKJk6ywUvYJxGr",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Efficient Capture",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Scarlet Triad agent has manacles in hand and is adjacent to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent attempts to bind the creature's wrists or ankles with the manacles. If they succeed at an attack roll with a [[/r 1d20+24]]{+24 modifier} against the target's AC, they apply the manacles.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tfAQ1l4sV2c1psLD",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Precise Debilitations",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Scarlet Triad agent's Strike hits an off-guard creature and deals damage.</p>\n<hr />\n<p><strong>Effect</strong> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.</p>\n<ul>\n<li><em>Brow Gash</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</li>\n<li><em>Deep Cut</em> The target takes an additional 2d6 precision damage from the Scarlet Triad agent's attacks.</li>\n<li><em>Hamstring</em> The target takes a -10-foot status penalty to its Speeds.</li>\n<li><em>Low Blow</em> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hamstring]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "<span class=\"action-glyph\">f</span> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3oioSefge5pvcqam",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The scarlet triad agent deals an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SJvjp5tv9lMwcTyw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Weapon Trick",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the Scarlet Triad agent critically succeeds at an attack roll against an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature, they apply the critical specialization effect for the weapon they are wielding.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Scarlet Triad Agent",

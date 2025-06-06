@@ -4,499 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bUJXKW2vBb65avUR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Dodge",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The mage killer is targeted by a spell</p><hr /><p><strong>Effect</strong> The mage killer gains a +2 circumstance bonus to AC and saving throws against the triggering spell.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "spell-dodge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:type:spell"
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oxbzD6yvYaTTyXYx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Interception",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of the mage killer Casts a Spell</p><hr /><p><strong>Effect</strong> The mage killer makes a melee Strike or thrown dagger Strike against the triggering creature. If it hits, the spell is disrupted.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ucOr5uz1E0WM2Tut",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magical Static",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mage killer's Strikes deal an additional 1d8 mental damage to a creature that has Cast (or attempted to Cast) a Spell within the last round, and on a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "magical-static",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "mental",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "magical-static"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jBgDRRCU9YrfN2Je",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shift Energy Runes",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The mage killer alters the magical countermeasures in the runes on their armor. They change their resistance to the energy type of their choice (acid, cold, electricity, fire, force, sonic, vitality, or void).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "option": "shift-energy-runes",
-                        "selection": "cold",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAcid",
-                                "value": "acid"
-                            },
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitForce",
-                                "value": "force"
-                            },
-                            {
-                                "label": "PF2E.TraitSonic",
-                                "value": "sonic"
-                            },
-                            {
-                                "label": "PF2E.TraitVitality",
-                                "value": "vitality"
-                            },
-                            {
-                                "label": "PF2E.TraitVoid",
-                                "value": "void"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "type": "{item|flags.pf2e.rulesSelections.shiftEnergyRunes}",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MkQEqJb8sm1sgYR8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sudden Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mage killer Strides twice. If they end their movement within melee reach of at least one enemy, they can make a melee Strike against it.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8EyerNbZC68LkArf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "m084t1jlpLj6vcHQ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "LaThuGfdvAYvC3O4"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "magical-static"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "FnVdAhh0DEIqUpWA": {
-                        "damage": "1d4+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "drJgIvcP1L08zcbR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "LaThuGfdvAYvC3O4"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "magical-static"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "t6IG6oDQBAASyV2E": {
-                        "damage": "1d4+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "BTXbWWx0MtQeyMyX",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5IhbXEnT3b7kI8zW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "magical-static"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "TbSNHBj9QNo5NFvx": {
-                        "damage": "2d6+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "rapier",
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "gXvuZbjNoqKdJb8m",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "magical-static"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "LaThuGfdvAYvC3O4",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -585,7 +99,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -664,6 +178,492 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "8EyerNbZC68LkArf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 300000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "m084t1jlpLj6vcHQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "LaThuGfdvAYvC3O4"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "magical-static"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "FnVdAhh0DEIqUpWA": {
+                        "damage": "1d4+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "drJgIvcP1L08zcbR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "LaThuGfdvAYvC3O4"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "magical-static"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "t6IG6oDQBAASyV2E": {
+                        "damage": "1d4+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "BTXbWWx0MtQeyMyX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5IhbXEnT3b7kI8zW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "magical-static"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "TbSNHBj9QNo5NFvx": {
+                        "damage": "2d6+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "rapier",
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "gXvuZbjNoqKdJb8m",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "magical-static"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bUJXKW2vBb65avUR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Dodge",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The mage killer is targeted by a spell</p><hr /><p><strong>Effect</strong> The mage killer gains a +2 circumstance bonus to AC and saving throws against the triggering spell.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "spell-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:type:spell"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oxbzD6yvYaTTyXYx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Interception",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of the mage killer Casts a Spell</p><hr /><p><strong>Effect</strong> The mage killer makes a melee Strike or thrown dagger Strike against the triggering creature. If it hits, the spell is disrupted.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ucOr5uz1E0WM2Tut",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magical Static",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mage killer's Strikes deal an additional 1d8 mental damage to a creature that has Cast (or attempted to Cast) a Spell within the last round, and on a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "magical-static",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "magical-static"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jBgDRRCU9YrfN2Je",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shift Energy Runes",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The mage killer alters the magical countermeasures in the runes on their armor. They change their resistance to the energy type of their choice (acid, cold, electricity, fire, force, sonic, vitality, or void).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "shift-energy-runes",
+                        "selection": "cold",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.shiftEnergyRunes}",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MkQEqJb8sm1sgYR8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sudden Charge",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mage killer Strides twice. If they end their movement within melee reach of at least one enemy, they can make a melee Strike against it.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Mage Killer",

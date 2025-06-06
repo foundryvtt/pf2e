@@ -3,210 +3,48 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zoC1ICbBEHFarVuk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "kFNxTYgL056it5oI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z1uxEMSqDnZV9SCY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Glow",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "glowing"
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 1,
-                                "speed": 3,
-                                "type": "pulse"
-                            },
-                            "color": "#fff9a3",
-                            "dim": 20,
-                            "shadows": 0.1
-                        }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nuNIIa81vZ9PT2RL",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dazzling Burst",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The d'ziriak causes its body to flare with intense colorful light. Non-d'ziriaks in a @Template[emanation|distance:20] must attempt a @Check[fortitude|dc:20] save. After using this ability, the d'ziriak loses its glow for 24 hours; during this time it can't use again.</p>\n<p>A creature that attempts this save is immune to all Dazzling Bursts for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and dazzled for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "light",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Cxm87AR1TJom2drt",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Double Claw",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The d'ziriak makes two claw Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. This counts as two attacks for the d'ziriak's multiple attack penalty, and the penalty doesn't increase until after both attacks.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OxEJ1NOQewlXZjZh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "rx98900a3om9l0312uzf": {
-                        "damage": "1d10+4",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
+                "slots": {
+                    "slot7": {
+                        "max": 1,
+                        "value": 1
+                    }
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 19,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "olvPYkQEIgtlun6u",
@@ -215,7 +53,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (Self only) (To Shadow Plane only)",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -272,23 +110,28 @@
             "type": "spell"
         },
         {
-            "_id": "kFNxTYgL056it5oI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 700000,
+            "_id": "OxEJ1NOQewlXZjZh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "rx98900a3om9l0312uzf": {
+                        "damage": "1d10+4",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -296,24 +139,181 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot7": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 9
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "zoC1ICbBEHFarVuk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z1uxEMSqDnZV9SCY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Glow",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 20,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nuNIIa81vZ9PT2RL",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dazzling Burst",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The d'ziriak causes its body to flare with intense colorful light. Non-d'ziriaks in a @Template[emanation|distance:20] must attempt a @Check[fortitude|dc:20] save. After using this ability, the d'ziriak loses its glow for 24 hours; during this time it can't use again.</p>\n<p>A creature that attempts this save is immune to all Dazzling Bursts for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and dazzled for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "light",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Cxm87AR1TJom2drt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Double Claw",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The d'ziriak makes two claw Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. This counts as two attacks for the d'ziriak's multiple attack penalty, and the penalty doesn't increase until after both attacks.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "D'ziriak",

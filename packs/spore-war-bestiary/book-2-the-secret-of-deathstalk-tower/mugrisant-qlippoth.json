@@ -4,339 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "KXlGTE9bjIMIv2YN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "35tO0ZODXhXP8hhx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CC4EepNFQdu9U3lX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>100 feet @Check[will|dc:33]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 100,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Wn4EcVgzwNwbjPA1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Imbed Tooth",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On a critical hit, a mugrisant's fired tooth embeds itself and begins to burrow, inflicting @Damage[3d6[persistent,piercing]] damage for the next 3 rounds.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wHMm0D0hP0el6ltt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Large, @Damage[(3d6+14)[bludgeoning],2d6[acid]], Rupture 25</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "traits": {
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7TiwmMwCN7QQ1fXF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Teratomatous Display",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mugrisant opens their central maw to display a roiling mass of teratomas. The bodies of those who view this revolting sight change of their own accord, sprouting teratomas of their own. Creatures in a @Template[type:emanation|distance:30] must attempt a @Check[will|dc:36] save, after which they are temporarily immune to further Teratomatous Displays for 1 minute. Tumors created from this ability vanish when the creature isn't sickened.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[piercing]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[piercing]] damage, is sickened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D3BwY3b1Gdpo1s06",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "P2psCzvxX95sFY5W",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "5fp1EMDgW475Zd4L": {
-                        "damage": "2d6",
-                        "damageType": "acid"
-                    },
-                    "j7ofAGbT61hDB0mn": {
-                        "damage": "3d8+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "uPWEPGl05b5IMdNT",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wing",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "5dZ35WSt8Vz0SN6c": {
-                        "damage": "3d8+15",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Q7p7uWCL4yg2rxBg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tooth",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "imbed-tooth"
-                    ]
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 36,
                     "value": 28
                 },
-                "damageRolls": {
-                    "uUKl0OM3Ozdl6qqc": {
-                        "damage": "3d10+14",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "occult"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concussive",
-                        "magical",
-                        "range-increment-60",
-                        "unholy"
-                    ]
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "XeV0mfMZo3D7sEb1",
@@ -345,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/duplicate-foe.webp",
             "name": "Duplicate Foe",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -411,7 +116,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -480,7 +185,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -544,7 +249,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -614,22 +319,31 @@
             "type": "spell"
         },
         {
-            "_id": "35tO0ZODXhXP8hhx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1400000,
+            "_id": "P2psCzvxX95sFY5W",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "5fp1EMDgW475Zd4L": {
+                        "damage": "2d6",
+                        "damageType": "acid"
+                    },
+                    "j7ofAGbT61hDB0mn": {
+                        "damage": "3d8+15",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -637,21 +351,307 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uPWEPGl05b5IMdNT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "5dZ35WSt8Vz0SN6c": {
+                        "damage": "3d8+15",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Q7p7uWCL4yg2rxBg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tooth",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "imbed-tooth"
+                    ]
+                },
+                "bonus": {
                     "value": 28
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "uUKl0OM3Ozdl6qqc": {
+                        "damage": "3d10+14",
+                        "damageType": "piercing"
+                    }
                 },
-                "traits": {}
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concussive",
+                        "magical",
+                        "range-increment-60",
+                        "unholy"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "KXlGTE9bjIMIv2YN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CC4EepNFQdu9U3lX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>100 feet @Check[will|dc:33]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Wn4EcVgzwNwbjPA1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Imbed Tooth",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit, a mugrisant's fired tooth embeds itself and begins to burrow, inflicting @Damage[3d6[persistent,piercing]] damage for the next 3 rounds.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wHMm0D0hP0el6ltt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, @Damage[(3d6+14)[bludgeoning],2d6[acid]], Rupture 25</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7TiwmMwCN7QQ1fXF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Teratomatous Display",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mugrisant opens their central maw to display a roiling mass of teratomas. The bodies of those who view this revolting sight change of their own accord, sprouting teratomas of their own. Creatures in a @Template[type:emanation|distance:30] must attempt a @Check[will|dc:36] save, after which they are temporarily immune to further Teratomatous Displays for 1 minute. Tumors created from this ability vanish when the creature isn't sickened.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[piercing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[piercing]] damage, is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[piercing]] damage, is sickened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D3BwY3b1Gdpo1s06",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Mugrisant Qlippoth",

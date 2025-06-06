@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cUtNYZ935fPsgj8x",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Brine Spit",
+            "_id": "n61gabHGuCegRfKD",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action</p>\n<hr />\n<p><strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes @Damage[3d6[acid]] damage (@Check[reflex|dc:26|basic] save). On a failure, the concentrate action is disrupted.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,347 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AjxhxqAsiBgHNq9P",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:24]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "URm0Bj51PHUjgnXS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon breathes a spray of acidic salt water that deals @Damage[9d6[acid]|options:area-damage] damage in an @Template[line|distance:80] (@Check[reflex|dc:26|basic|options:area-effect] save).</p>\n<p>They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qxkuhugvyoxDpt7N",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one wing Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GpD6rwvIzYFSvtUC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Draconic Momentum",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon recharges their Breath Weapon whenever they score a critical hit with a Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2SEpmpzrfI3iTOKV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "xlq29ypl6qencolcnnao": {
-                        "damage": "2d10+8",
-                        "damageType": "piercing"
-                    },
-                    "5ynt40jlbpfyndu2sv3v": {
-                        "damage": "2d4",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "5d1k1jwifXVc23o0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "muqsxekn2ss7fojjwpzl": {
-                        "damage": "2d8+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yl8CvIWxZx0c6fcn",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
                     "value": 18
                 },
-                "damageRolls": {
-                    "067ddys7zzd6btf8j2fu": {
-                        "damage": "2d12+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "5gLIoGOoPN1ReZMD",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wing",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "6h7n6tbed3gd3d3t2jqo": {
-                        "damage": "1d12+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "STIpeIAvCmYYma2a",
@@ -373,7 +50,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -437,7 +114,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -514,23 +191,32 @@
             "type": "spell"
         },
         {
-            "_id": "n61gabHGuCegRfKD",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1200000,
+            "_id": "2SEpmpzrfI3iTOKV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "xlq29ypl6qencolcnnao": {
+                        "damage": "2d10+8",
+                        "damageType": "piercing"
+                    },
+                    "5ynt40jlbpfyndu2sv3v": {
+                        "damage": "2d4",
+                        "damageType": "acid"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -538,21 +224,335 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "reach-10",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "5d1k1jwifXVc23o0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "muqsxekn2ss7fojjwpzl": {
+                        "damage": "2d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yl8CvIWxZx0c6fcn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "067ddys7zzd6btf8j2fu": {
+                        "damage": "2d12+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5gLIoGOoPN1ReZMD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "6h7n6tbed3gd3d3t2jqo": {
+                        "damage": "1d12+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cUtNYZ935fPsgj8x",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Brine Spit",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action</p>\n<hr />\n<p><strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes @Damage[3d6[acid]] damage (@Check[reflex|dc:26|basic] save). On a failure, the concentrate action is disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AjxhxqAsiBgHNq9P",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:24]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "URm0Bj51PHUjgnXS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon breathes a spray of acidic salt water that deals @Damage[9d6[acid]|options:area-damage] damage in an @Template[line|distance:80] (@Check[reflex|dc:26|basic|options:area-effect] save).</p>\n<p>They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qxkuhugvyoxDpt7N",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon makes two claw Strikes and one wing Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GpD6rwvIzYFSvtUC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Draconic Momentum",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon recharges their Breath Weapon whenever they score a critical hit with a Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Brine Dragon (Young)",

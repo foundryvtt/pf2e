@@ -3,232 +3,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JojW4TyiF3cPdVBJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Inspiring Display",
+            "_id": "QV2kVLiVJ2l0PVgq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The cavern mage's previous action was to Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> The cavern mage uses their magical display to inspire another kobold within 30 feet. That kobold gains 4 temporary Hit Points that last until the start of the cavern mage's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Inspiring Display]</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "lkJGworLlLUoPpox",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scamper",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The kobold cavern mage is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The kobold cavern mage Strides up to their Speed plus 5 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. They must end this movement in a space that's not adjacent to any enemy.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "scamper",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "scamper"
-                        ],
-                        "selector": "land-speed",
-                        "value": 5
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "scamper"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8LYUZymM9ZN8WDw9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "htq8qguyjhots13g6ppy": {
-                        "damage": "1d6+2",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "u6omxxhGcgdgLj6L",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wSAm9UZJkdz8zpWh"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Hammer",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "SklCyHPvMj76YuDm": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "light-hammer",
-                "traits": {
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PlhmgyPACVjDwLpA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wSAm9UZJkdz8zpWh"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Light Hammer",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "V2ZE3usdTrb1N2bY": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "light-hammer",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "oUgc5QYhUnV0vzhH",
@@ -237,7 +51,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -325,7 +139,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -392,7 +206,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,7 +269,7 @@
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -516,7 +330,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -713,7 +527,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know the Way",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -776,7 +590,7 @@
             },
             "img": "icons/magic/earth/projectiles-stone-salvo-gray.webp",
             "name": "Pummeling Rubble",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -864,7 +678,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-weapon.webp",
             "name": "Runic Weapon",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -927,7 +741,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -985,55 +799,13 @@
             "type": "spell"
         },
         {
-            "_id": "QV2kVLiVJ2l0PVgq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
-            "sort": 1500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "wSAm9UZJkdz8zpWh",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FibwLZ12EIEwLGhw"
             },
             "img": "icons/weapons/hammers/shorthammer-embossed-white.webp",
             "name": "Light Hammer",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "light-hammer",
                 "bonus": {
@@ -1112,6 +884,234 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "8LYUZymM9ZN8WDw9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "htq8qguyjhots13g6ppy": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "u6omxxhGcgdgLj6L",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wSAm9UZJkdz8zpWh"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Hammer",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "SklCyHPvMj76YuDm": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "light-hammer",
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PlhmgyPACVjDwLpA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wSAm9UZJkdz8zpWh"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Light Hammer",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "V2ZE3usdTrb1N2bY": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "light-hammer",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JojW4TyiF3cPdVBJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Inspiring Display",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The cavern mage's previous action was to Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> The cavern mage uses their magical display to inspire another kobold within 30 feet. That kobold gains 4 temporary Hit Points that last until the start of the cavern mage's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Inspiring Display]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lkJGworLlLUoPpox",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The kobold cavern mage is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The kobold cavern mage Strides up to their Speed plus 5 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. They must end this movement in a space that's not adjacent to any enemy.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "scamper",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kobold Cavern Mage",

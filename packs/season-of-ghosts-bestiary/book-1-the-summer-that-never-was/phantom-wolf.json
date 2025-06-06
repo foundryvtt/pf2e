@@ -4,185 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Zu7OCWAY7oZL41Am",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Walk the Ethereal Line",
+            "_id": "IfgRYpjy1kMxYZ7N",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The phantom walks the thin line between the Ethereal and Material Planes in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VMapQLoJPfFmzdaS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Susceptible to Death",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uXT3jSnb5vJSxw8K",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Vulnerable to Kindness",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Any creature within 30 feet that the phantom can see and hear can issue a calm and friendly greeting to it as a two-action activity with the auditory, concentrate, linguistic, and mental traits. A creature greeting the phantom in this manner must attempt a @Check[diplomacy|dc:17] check.</p>\n<hr />\n<p><strong>Critical Success</strong> The phantom takes @Damage[4d8[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Success</strong> The phantom takes @Damage[2d8[mental]] damage.</p>\n<p><strong>Failure</strong> The phantom takes @Damage[1d8[mental]] damage.</p>\n<p><strong>Critical Failure</strong> The phantom is unaffected, and is not affected by this weakness for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ca6itFjnu2oqsgQt",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pack Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The phantom wolf's Strikes deal an additional 1d4 damage to creatures within reach of at least one of its allies.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "pack-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "pack-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Phi18mvpdKJpQmql",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "force"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "force",
-                        "magical",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 14,
+                    "value": 6
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "BXwNW8Zaf8b7XyXX",
@@ -191,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -278,7 +137,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -359,7 +218,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -431,22 +290,29 @@
             "type": "spell"
         },
         {
-            "_id": "IfgRYpjy1kMxYZ7N",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 900000,
+            "_id": "Phi18mvpdKJpQmql",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "force"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -454,21 +320,155 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 14,
-                    "value": 6
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "force",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "Zu7OCWAY7oZL41Am",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Walk the Ethereal Line",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The phantom walks the thin line between the Ethereal and Material Planes in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VMapQLoJPfFmzdaS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Susceptible to Death",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uXT3jSnb5vJSxw8K",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vulnerable to Kindness",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Any creature within 30 feet that the phantom can see and hear can issue a calm and friendly greeting to it as a two-action activity with the auditory, concentrate, linguistic, and mental traits. A creature greeting the phantom in this manner must attempt a @Check[diplomacy|dc:17] check.</p>\n<hr />\n<p><strong>Critical Success</strong> The phantom takes @Damage[4d8[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Success</strong> The phantom takes @Damage[2d8[mental]] damage.</p>\n<p><strong>Failure</strong> The phantom takes @Damage[1d8[mental]] damage.</p>\n<p><strong>Critical Failure</strong> The phantom is unaffected, and is not affected by this weakness for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ca6itFjnu2oqsgQt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phantom wolf's Strikes deal an additional 1d4 damage to creatures within reach of at least one of its allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Phantom Wolf",

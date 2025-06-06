@@ -3,371 +3,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HJT0yc4Pajblr1YZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
+            "_id": "csBXQrxFqLKQBrPo",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ozg3kPXCLDVX4iV0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Reflection",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An opponent casts a spell that targets the manticore and requires a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The manticore gains a +4 circumstance bonus to the saving throw. If they critically succeed at the save, they can choose a creature within 30 feet that was not originally targeted by the spell. That creature becomes a new target of the spell, who must attempt its own save against the same DC.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "option": "spell-reflection",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:type:spell",
-                            "spell-reflection"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qxNa3P8uZnbHTER0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Arrange Scales",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The barded manticore flexes the muscles under their scales to temporarily gain better protection. The manticore gains a +2 circumstance bonus to AC and resistance 15 to their choice of bludgeoning, piercing, or slashing damage. These benefits last until the beginning of the manticore's next turn or they use Arrange Scales again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "arrange-scales",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitBludgeoning",
-                                "value": "bludgeoning"
-                            },
-                            {
-                                "label": "PF2E.TraitPiercing",
-                                "value": "piercing"
-                            },
-                            {
-                                "label": "PF2E.TraitSlashing",
-                                "value": "slashing"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "arrange-scales"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "arrange-scales"
-                        ],
-                        "type": "{item|flags.pf2e.rulesSelections.arrangeScales}",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RiXZj6oaa9kK9Som",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Metallic Coating",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A barded manticore's unarmed attacks (including spikes) count as adamantine, cold iron, dawnsilver, and silver.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "dawnsilver"
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "adamantine"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xOH25nEGFaWkOOeo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Paired Spikes",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The barded manticore flings two spikes from their tail, targeting up to two creatures within 20 feet of each other. They make a separate ranged Strike against each creature, which counts as a single Strike for the barded manticore's multiple attack penalty, and the penalty doesn't increase until they've made both Strikes. If the manticore targeted only one creature and hits, that creature takes normal damage for a single spike, but also gains weakness 15 to electricity damage until the spikes are removed with an Interact action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Paired Spikes]</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 40,
+                    "value": 35
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "29OqtXhRNq3km1WH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "FHcv8dVIQq8I1f8h": {
-                        "damage": "3d10+15",
-                        "damageType": "piercing"
-                    },
-                    "M1B87lWA4rD5NXYp": {
-                        "damage": "1d12",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RtmKtst46yPgfzpy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "s2JjYsFIGNZ0u70D": {
-                        "damage": "3d8+15",
-                        "damageType": "slashing"
-                    },
-                    "snph8nAKZwC3ycab": {
-                        "damage": "1d12",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "zVVyOSjfAgdEi7Dd",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spike",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "6TkQwWWw1WlIOPFJ": {
-                        "damage": "3d8+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "range-increment-40"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "jJt3CqWn57nL1Ono",
@@ -376,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/storm-lord.webp",
             "name": "Wrathful Storm",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -439,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -524,7 +197,7 @@
             },
             "img": "systems/pf2e/icons/spells/field-of-razors.webp",
             "name": "Field of Razors",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -612,7 +285,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -678,7 +351,7 @@
             },
             "img": "systems/pf2e/icons/spells/impaling-spike.webp",
             "name": "Impaling Spike (At-Will)",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -765,7 +438,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt (At-Will)",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -853,7 +526,7 @@
             },
             "img": "icons/magic/earth/strike-fist-stone-light.webp",
             "name": "One with Stone (At Will)",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -916,7 +589,7 @@
             },
             "img": "icons/commodities/metal/ingot-plain-steel.webp",
             "name": "Detect Metal",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -984,7 +657,7 @@
             },
             "img": "icons/magic/light/projectile-needles-salvo-white.webp",
             "name": "Needle Darts",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1124,7 +797,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1182,22 +855,32 @@
             "type": "spell"
         },
         {
-            "_id": "csBXQrxFqLKQBrPo",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1900000,
+            "_id": "29OqtXhRNq3km1WH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "FHcv8dVIQq8I1f8h": {
+                        "damage": "3d10+15",
+                        "damageType": "piercing"
+                    },
+                    "M1B87lWA4rD5NXYp": {
+                        "damage": "1d12",
+                        "damageType": "electricity"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1205,21 +888,338 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 40,
-                    "value": 35
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "RtmKtst46yPgfzpy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "s2JjYsFIGNZ0u70D": {
+                        "damage": "3d8+15",
+                        "damageType": "slashing"
+                    },
+                    "snph8nAKZwC3ycab": {
+                        "damage": "1d12",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zVVyOSjfAgdEi7Dd",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spike",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "6TkQwWWw1WlIOPFJ": {
+                        "damage": "3d8+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-increment-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HJT0yc4Pajblr1YZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ozg3kPXCLDVX4iV0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Reflection",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An opponent casts a spell that targets the manticore and requires a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The manticore gains a +4 circumstance bonus to the saving throw. If they critically succeed at the save, they can choose a creature within 30 feet that was not originally targeted by the spell. That creature becomes a new target of the spell, who must attempt its own save against the same DC.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "spell-reflection",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:type:spell",
+                            "spell-reflection"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qxNa3P8uZnbHTER0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Arrange Scales",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The barded manticore flexes the muscles under their scales to temporarily gain better protection. The manticore gains a +2 circumstance bonus to AC and resistance 15 to their choice of bludgeoning, piercing, or slashing damage. These benefits last until the beginning of the manticore's next turn or they use Arrange Scales again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arrange-scales",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "arrange-scales"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "arrange-scales"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.arrangeScales}",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RiXZj6oaa9kK9Som",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Metallic Coating",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A barded manticore's unarmed attacks (including spikes) count as adamantine, cold iron, dawnsilver, and silver.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "dawnsilver"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "adamantine"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xOH25nEGFaWkOOeo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Paired Spikes",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The barded manticore flings two spikes from their tail, targeting up to two creatures within 20 feet of each other. They make a separate ranged Strike against each creature, which counts as a single Strike for the barded manticore's multiple attack penalty, and the penalty doesn't increase until they've made both Strikes. If the manticore targeted only one creature and hits, that creature takes normal damage for a single spike, but also gains weakness 15 to electricity damage until the spikes are removed with an Interact action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Paired Spikes]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Barded Manticore",

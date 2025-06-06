@@ -4,263 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8g3k5NnFrDv41xIZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Acolyte's Defense",
+            "_id": "TL18KRjyPRf3r3Eg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The algriever is bonded with a shrine</p>\n<p><strong>Trigger</strong> A creature within sight of the algriever damages, desecrates, or defiles their bonded shrine</p>\n<hr />\n<p><strong>Effect</strong> The algriever Strides toward the creature; this movement doesn't trigger reactions. The algriever marks the creature as its enemy and gains a +2 status bonus to attack rolls against that enemy until they select a new enemy with Acolyte's Defense.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "acolytes-defense",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "acolytes-defense"
-                        ],
-                        "selector": "attack-roll",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "acolytes-defense",
-                "traits": {
-                    "value": [
-                        "attack",
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xON4ZEaAHMKDW6yf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shrine Bond",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The algriever bonds with a shrine after they spend 24 hours at the site. While bonded, the algriever gains a +2 circumstance bonus to Perception checks and skill checks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "shrine-bond",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shrine-bond"
-                        ],
-                        "selector": [
-                            "perception",
-                            "skill-check"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lujBmBqPwdAjHOw4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Algriever Venom",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[mental]]</p>\n<p><strong>Stage 2</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}</p>\n<p><strong>Stage 3</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CCdkNzjPvh93Kyik",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Pilgrim's Ward",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per month</p>\n<hr />\n<p><strong>Effect</strong> The algriever touches a willing creature and fills it with reverence for their bonded shrine. As long as the target creature obeys the edicts and anathemas of the algriever's bonded shrine, or until that algriever grants Pilgrim's Ward to a different creature, that creature gains a +1 status bonus to all Religion checks and Will saves.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pilgrim's Ward]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "P1M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GNtGKHLYqOVcNHdK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Web Trap",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by an algriever's web Strike is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and stuck to the nearest surface until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 28).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ntqI6s5O1lmP3R5t",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "algriever-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "cGuYmJq5isf4elmq": {
-                        "damage": "2d12+7",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WNuqp4Ou4TMblnmh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Web",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "web-trap"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -268,17 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "range-increment-30"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "value": 20
                 },
-                "weaponType": {
-                    "value": "ranged"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "EWOzykq7GEcNoPA8",
@@ -287,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/anathematic-reprisal.webp",
             "name": "Anathematic Reprisal",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -374,7 +134,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -478,22 +238,30 @@
             "type": "spell"
         },
         {
-            "_id": "TL18KRjyPRf3r3Eg",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1000000,
+            "_id": "ntqI6s5O1lmP3R5t",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "algriever-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "cGuYmJq5isf4elmq": {
+                        "damage": "2d12+7",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -501,18 +269,250 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 20
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "WNuqp4Ou4TMblnmh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Web",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "web-trap"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8g3k5NnFrDv41xIZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Acolyte's Defense",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The algriever is bonded with a shrine</p>\n<p><strong>Trigger</strong> A creature within sight of the algriever damages, desecrates, or defiles their bonded shrine</p>\n<hr />\n<p><strong>Effect</strong> The algriever Strides toward the creature; this movement doesn't trigger reactions. The algriever marks the creature as its enemy and gains a +2 status bonus to attack rolls against that enemy until they select a new enemy with Acolyte's Defense.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "acolytes-defense",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "acolytes-defense"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "acolytes-defense",
+                "traits": {
+                    "value": [
+                        "attack",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xON4ZEaAHMKDW6yf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shrine Bond",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The algriever bonds with a shrine after they spend 24 hours at the site. While bonded, the algriever gains a +2 circumstance bonus to Perception checks and skill checks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shrine-bond",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shrine-bond"
+                        ],
+                        "selector": [
+                            "perception",
+                            "skill-check"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lujBmBqPwdAjHOw4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Algriever Venom",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[mental]]</p>\n<p><strong>Stage 2</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}</p>\n<p><strong>Stage 3</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CCdkNzjPvh93Kyik",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pilgrim's Ward",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per month</p>\n<hr />\n<p><strong>Effect</strong> The algriever touches a willing creature and fills it with reverence for their bonded shrine. As long as the target creature obeys the edicts and anathemas of the algriever's bonded shrine, or until that algriever grants Pilgrim's Ward to a different creature, that creature gains a +1 status bonus to all Religion checks and Will saves.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pilgrim's Ward]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "P1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GNtGKHLYqOVcNHdK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Web Trap",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by an algriever's web Strike is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and stuck to the nearest surface until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 28).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Algriever",

@@ -3,182 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HhUe0MpfzNrigkps",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magic Sense",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A primordial envy can detect magical auras, items, and spellcasters within 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yM6vQmTRvxoXYPqj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-2 Status Vs. Evocation and Necromancy",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "evocation",
-                                    "necromancy"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": -2
-                    }
-                ],
-                "slug": "2-status-vs-evocation-and-necromancy",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fJ34aqwTiZbTv92E",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Confiscate Spell",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet that the primordial envy can sense Casts a Spell</p>\n<hr />\n<p><strong>Effect</strong> The primordial envy's surface shimmers with a kaleidoscope of color that shines out to illuminate the triggering creature. The primordial envy attempts to counter the spell, with a counteract modifier of [[/r 1d20+12 #Counteract]]{+12}. On a success, the spell is countered and the primordial envy gains [[/br 2d6 #Temp HP]] temporary Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FDCXS4bVC2F1PdGz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Drain",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The primordial envy attempts to drain magic from a spellcasting creature that it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The spellcasting creature must attempt a @Check[will|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Spell Drain for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the creature's uncast spells or unused spell slots is lost, as if they had cast it. The spell or slot lost is one of the highest-rank spells the creature can cast, determined randomly if multiple prepared spells are available. If a cantrip is drained, the spellcaster loses access to that cantrip for 10 minutes. The primordial envy becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 for 1 round, and can use the extra action to Stride or Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ii80pyHfCh7uKPOS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Kq8uzXECxifZXQ6b",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -224,6 +52,178 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "HhUe0MpfzNrigkps",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magic Sense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A primordial envy can detect magical auras, items, and spellcasters within 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yM6vQmTRvxoXYPqj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-2 Status Vs. Evocation and Necromancy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "evocation",
+                                    "necromancy"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": -2
+                    }
+                ],
+                "slug": "2-status-vs-evocation-and-necromancy",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fJ34aqwTiZbTv92E",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Confiscate Spell",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet that the primordial envy can sense Casts a Spell</p>\n<hr />\n<p><strong>Effect</strong> The primordial envy's surface shimmers with a kaleidoscope of color that shines out to illuminate the triggering creature. The primordial envy attempts to counter the spell, with a counteract modifier of [[/r 1d20+12 #Counteract]]{+12}. On a success, the spell is countered and the primordial envy gains [[/br 2d6 #Temp HP]] temporary Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FDCXS4bVC2F1PdGz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Drain",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The primordial envy attempts to drain magic from a spellcasting creature that it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The spellcasting creature must attempt a @Check[will|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Spell Drain for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the creature's uncast spells or unused spell slots is lost, as if they had cast it. The spell or slot lost is one of the highest-rank spells the creature can cast, determined randomly if multiple prepared spells are available. If a cantrip is drained, the spellcaster loses access to that cantrip for 10 minutes. The primordial envy becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 for 1 round, and can use the extra action to Stride or Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ii80pyHfCh7uKPOS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Primordial Envy",

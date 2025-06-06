@@ -4,224 +4,53 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NmGeqt2BxwfGod5Z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Form Up",
+            "_id": "1V0bOkV5Of2DUhoe",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
                     "value": 1
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "form-up",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AsbIVQDcJZfJhU4N",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Troop Defenses",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Thresholds</strong> 130 (3 segments), 65 (2 segments)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 3"
-                },
-                "rules": [],
-                "slug": "troop-defenses",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wWvqRgRb0u1JwCr6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Troop Movement",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever the troop Strides, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then moves up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the troop enters difficult terrain, the extra movement cost applies to the whole troop.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7cb3300PlOTebHcM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Troop Spellcasting",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the rancorous priesthood Casts a Spell, their constituent members combine their efforts into casting a more powerful version of the spell than any one member could achieve alone.</p>\n<p>When Casting a Spell that has an area of a burst, cone, or line and doesn't have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:area:type:burst",
-                            "item:duration:0",
-                            {
-                                "gte": [
-                                    "item:area:size",
-                                    10
-                                ]
-                            }
-                        ],
-                        "property": "area-size",
-                        "value": 5
+                "slots": {
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:duration:0",
-                            {
-                                "or": [
-                                    "item:area:type:cone",
-                                    "item:area:type:line"
-                                ]
-                            },
-                            {
-                                "lte": [
-                                    "item:area:size",
-                                    15
-                                ]
-                            }
-                        ],
-                        "priority": 110,
-                        "property": "area-size",
-                        "value": 5
-                    },
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:duration:0",
-                            {
-                                "or": [
-                                    "item:area:type:cone",
-                                    "item:area:type:line"
-                                ]
-                            },
-                            {
-                                "gt": [
-                                    "item:area:size",
-                                    15
-                                ]
-                            }
-                        ],
-                        "priority": 100,
-                        "property": "area-size",
-                        "value": 10
+                    "slot6": {
+                        "max": 2,
+                        "value": 2
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 27,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "ty02a1CedQJfgYkL",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Wild Swing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The members of the mob wildly swing their weapons-primarily greataxes-in a chaotic attack at each enemy adjacent to the troop (@Check[reflex|dc:27|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+2)[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+9)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+9)[slashing]] damage</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "uMpGqaiMkiEy14R0",
@@ -230,7 +59,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight (Doesn't Require Secondary Casters)",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -296,7 +125,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -385,7 +214,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -495,7 +324,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -582,7 +411,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -664,7 +493,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -752,7 +581,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -947,7 +776,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1009,7 +838,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1089,21 +918,210 @@
             "type": "spell"
         },
         {
-            "_id": "1V0bOkV5Of2DUhoe",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 1500000,
+            "_id": "NmGeqt2BxwfGod5Z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Form Up",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "form-up",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AsbIVQDcJZfJhU4N",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Thresholds</strong> 130 (3 segments), 65 (2 segments)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wWvqRgRb0u1JwCr6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the troop Strides, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then moves up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the troop enters difficult terrain, the extra movement cost applies to the whole troop.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7cb3300PlOTebHcM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Spellcasting",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the rancorous priesthood Casts a Spell, their constituent members combine their efforts into casting a more powerful version of the spell than any one member could achieve alone.</p>\n<p>When Casting a Spell that has an area of a burst, cone, or line and doesn't have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:area:type:burst",
+                            "item:duration:0",
+                            {
+                                "gte": [
+                                    "item:area:size",
+                                    10
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 110,
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 100,
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ty02a1CedQJfgYkL",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Wild Swing",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The members of the mob wildly swing their weapons-primarily greataxes-in a chaotic attack at each enemy adjacent to the troop (@Check[reflex|dc:27|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+2)[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+9)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+9)[slashing]] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
                     "value": 1
                 },
                 "publication": {
@@ -1112,30 +1130,12 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         }
     ],
     "name": "Rancorous Priesthood",

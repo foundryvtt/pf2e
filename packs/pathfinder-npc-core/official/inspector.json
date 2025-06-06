@@ -4,353 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "rDeSnWJM8Lgkk68J",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.Aktz95gNNzfAiTzk.Item.hHccWzh003xSa6dA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+3 to Sense Motive, Seek, or Search",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:sense-motive",
-                            "action:seek",
-                            "action:search"
-                        ],
-                        "selector": "perception",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pH7p1UOToVTey5ro",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Investigation Specialist",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving investigation, the inspector is a 5th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bG26LgL7q2FRJdZf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sense Demise",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The inspector can @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] on a corpse, learning about the creature in the moments before its death.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FX2hWDNJKU3geumm",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Unavoidable Question",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p><hr /><p><strong>Effect</strong> The inspector [[/act demoralize]]{Demoralizes} a creature and asks a question. On a success, the next Strike the inspector attempts against that target deals an additional 1d6 precision damage. If the target spends an action on their next turn to answer the question, either truthfully or by succeeding at a @Check[deception|dc:25] check, they are temporarily immune to the inspector's Unavoidable Question for 1 minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "turn"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "unavoidable-question",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "unavoidable-question"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "linguistic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jzRmcP3lAnHgTLUe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 500000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "8ZXpNww2MLMNFI7v",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ehhZWeILiMtz1Vpc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "SP4NWUkYryctwMh9"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "Jihr1k0Igj6lojXf": {
-                        "category": "precision",
-                        "damage": "1",
-                        "damageType": "piercing"
-                    },
-                    "YDSoheqFnntzuU15": {
-                        "damage": "1d6+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shortsword",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Lv5OmE8UqKiBaK5E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+4",
-                        "damageType": "bludgeoning"
-                    },
-                    "r5DasmmeBba4Hbqy": {
-                        "category": "precision",
-                        "damage": "1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "SP4NWUkYryctwMh9",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -429,6 +89,346 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "jzRmcP3lAnHgTLUe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ehhZWeILiMtz1Vpc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "SP4NWUkYryctwMh9"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "Jihr1k0Igj6lojXf": {
+                        "category": "precision",
+                        "damage": "1",
+                        "damageType": "piercing"
+                    },
+                    "YDSoheqFnntzuU15": {
+                        "damage": "1d6+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shortsword",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Lv5OmE8UqKiBaK5E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.HbYwSi428oXESdNh.Item.a6VT956imq0UeyhM"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+4",
+                        "damageType": "bludgeoning"
+                    },
+                    "r5DasmmeBba4Hbqy": {
+                        "category": "precision",
+                        "damage": "1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rDeSnWJM8Lgkk68J",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.Aktz95gNNzfAiTzk.Item.hHccWzh003xSa6dA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+3 to Sense Motive, Seek, or Search",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive",
+                            "action:seek",
+                            "action:search"
+                        ],
+                        "selector": "perception",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pH7p1UOToVTey5ro",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Investigation Specialist",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving investigation, the inspector is a 5th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bG26LgL7q2FRJdZf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sense Demise",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The inspector can @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] on a corpse, learning about the creature in the moments before its death.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FX2hWDNJKU3geumm",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Unavoidable Question",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per turn</p><hr /><p><strong>Effect</strong> The inspector [[/act demoralize]]{Demoralizes} a creature and asks a question. On a success, the next Strike the inspector attempts against that target deals an additional 1d6 precision damage. If the target spends an action on their next turn to answer the question, either truthfully or by succeeding at a @Check[deception|dc:25] check, they are temporarily immune to the inspector's Unavoidable Question for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "turn"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "unavoidable-question",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "unavoidable-question"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "linguistic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8ZXpNww2MLMNFI7v",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Inspector",

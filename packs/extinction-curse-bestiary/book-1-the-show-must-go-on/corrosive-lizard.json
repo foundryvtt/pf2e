@@ -4,119 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4BgQ2Qd9NVWa3Hw1",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Gnashing Bite",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the corrosive lizard's jaws fails a check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]</p>\n<hr />\n<p><strong>Effect</strong> The lizard's jaws deal @Damage[1d6[piercing],1d6[acid]]{1d6 piercing damage and 1d6 acid damage} to the triggering creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lDjbS8x4P6y41QbW",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gout of Acid",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The corrosive lizard vomits a gout of acid in a @Template[cone|distance:15]. Each creature in this area takes @Damage[3d6[acid]] damage (@Check[reflex|dc:20|basic] save).</p>\n<p>The lizard can't use Gout of Acid again for [[/gmr 1d4 #Recharge Gout of Acid]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eWqNIy4ejpF685wS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Lurching Charge",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The corrosive lizard Strides up to double its Speed and then makes a jaws Strike. If the lizard moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "lurching-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "lurching-charge"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ieZcxj746XMjV8LQ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -163,6 +54,115 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "4BgQ2Qd9NVWa3Hw1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gnashing Bite",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the corrosive lizard's jaws fails a check to @UUID[Compendium.pf2e.actionspf2e.Item.Escape]</p>\n<hr />\n<p><strong>Effect</strong> The lizard's jaws deal @Damage[1d6[piercing],1d6[acid]]{1d6 piercing damage and 1d6 acid damage} to the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lDjbS8x4P6y41QbW",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Gout of Acid",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corrosive lizard vomits a gout of acid in a @Template[cone|distance:15]. Each creature in this area takes @Damage[3d6[acid]] damage (@Check[reflex|dc:20|basic] save).</p>\n<p>The lizard can't use Gout of Acid again for [[/gmr 1d4 #Recharge Gout of Acid]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eWqNIy4ejpF685wS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Lurching Charge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The corrosive lizard Strides up to double its Speed and then makes a jaws Strike. If the lizard moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "lurching-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lurching-charge"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Corrosive Lizard",

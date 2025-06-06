@@ -4,186 +4,47 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cQTIij6l7HjJwqQW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "oNmHvve4Vcwj6IiO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mrDlLvogKvxJyJDE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pepIdjNqJtUTl9Wn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Endless Nightmare",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An animate dream's touch fills the victim's mind with terrifying visions</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>\n<p><strong>Stage 3</strong> The victim falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and can't be awakened as long as they remain at this stage (1 day).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "endless-nightmare",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dI8bgQvFLj1IW2i4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thematic Innate Spell",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>In addition to the occult innate spells, these living nightmares also have a 4th-rank thematic innate spell, chosen by you to match the themes and needs of the enemy the living nightmare embodies. For example, if the foe Nemesis is based on allied with will-o'-wisps, the living nightmares might have @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] or @UUID[Compendium.pf2e.spells-srd.Item.Thunderstrike] as their additional thematic innate spell, or if the foe Nemesis is based on allied with mind-manipulating creatures from the frozen north, the living nightmares might have @UUID[Compendium.pf2e.spells-srd.Item.Chilling Darkness] or @UUID[Compendium.pf2e.spells-srd.Item.Confusion] as their additional spell. Even though this spell is cast as an occult spell, you can pick a spell from another magical tradition if you wish.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AHglfvlj1P2w1uM8",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Nightmare Tendril",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "endless-nightmare"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d8",
-                        "damageType": "void"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 26,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ZaazeHLx0c4NnMWw",
@@ -192,7 +53,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -260,7 +121,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -332,7 +193,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -420,7 +281,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -501,7 +362,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -567,23 +428,27 @@
             "type": "spell"
         },
         {
-            "_id": "oNmHvve4Vcwj6IiO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1100000,
+            "_id": "AHglfvlj1P2w1uM8",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Nightmare Tendril",
+            "sort": 700000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "endless-nightmare"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8",
+                        "damageType": "void"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -591,23 +456,158 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "cQTIij6l7HjJwqQW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mrDlLvogKvxJyJDE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pepIdjNqJtUTl9Wn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Endless Nightmare",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An animate dream's touch fills the victim's mind with terrifying visions</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 2</strong> fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>\n<p><strong>Stage 3</strong> The victim falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and can't be awakened as long as they remain at this stage (1 day).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "endless-nightmare",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dI8bgQvFLj1IW2i4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thematic Innate Spell",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>In addition to the occult innate spells, these living nightmares also have a 4th-rank thematic innate spell, chosen by you to match the themes and needs of the enemy the living nightmare embodies. For example, if the foe Nemesis is based on allied with will-o'-wisps, the living nightmares might have @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] or @UUID[Compendium.pf2e.spells-srd.Item.Thunderstrike] as their additional thematic innate spell, or if the foe Nemesis is based on allied with mind-manipulating creatures from the frozen north, the living nightmares might have @UUID[Compendium.pf2e.spells-srd.Item.Chilling Darkness] or @UUID[Compendium.pf2e.spells-srd.Item.Confusion] as their additional spell. Even though this spell is cast as an occult spell, you can pick a spell from another magical tradition if you wish.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Living Nightmare",

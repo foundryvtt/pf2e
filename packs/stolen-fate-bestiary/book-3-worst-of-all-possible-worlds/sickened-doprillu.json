@@ -4,445 +4,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1lSOq5grKxoZhTWw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "Z487oTtboxJKexiF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "38cGo2E7vYZ2PNb5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status Bonus to Saves vs. Fear",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "vs Fear",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AJ6r1HXEEIIyvlnh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (Deactivated by Cold)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "cold"
-                        ],
-                        "key": "FastHealing",
-                        "predicate": [
-                            "mask-of-power"
-                        ],
-                        "type": "regeneration",
-                        "value": 20
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lWr6fzaJ1ya4uUVM",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Deflect Arrow",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The doprillu is the target of a physical ranged attack</p>\n<p><strong>Requirements</strong> The doprillu is aware of the attack, isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against it, and has a hand free</p>\n<hr />\n<p><strong>Effect</strong> The doprillu gains a +4 circumstance bonus to its AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "deflect-arrow",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "deflect-arrow",
-                            "item:damage:category:physical",
-                            "item:ranged",
-                            {
-                                "not": "self:condition:off-guard"
-                            }
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gkiQGmXDkxDHGY7j",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mask of Power",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A doprillu's unique wooden mask is the source of its power.</p>\n<p>A doprillu deprived of its mask loses its regeneration and its immunity to Enfeebled and @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and it immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. The Enfeebled value increases by 1 at the start of each of the doprillu's turns, to a maximum of Enfeebled 4. If the mask is put back on, the doprillu immediately regains its abilities and loses the Enfeebled condition.</p>\n<p>A creature can pull off the mask with a successful <span data-pf2-action=\"forceOpen\" data-pf2-dc=\"34\" data-pf2-glyph=\"A\" data-pf2-label=\"Mask of Power DC\" data-pf2-show-dc=\"gm\">Athletics</span> check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "mask-of-power",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "mask-of-power"
-                        ],
-                        "type": [
-                            "enfeebled",
-                            "slowed"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BIIDNJTjlW3lJ1b2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Volcanic Veins",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Fiery magma runs through the doprillu's veins. A creature that starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the doprillu takes @Damage[7d6[fire]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Cj8UIWLOhEQ5yNgA",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Body Strike",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The doprillu has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The doprillu swings the grabbed creature as a weapon. This Strike has a +30 attack modifier and deals @Damage[(3d8+16)[bludgeoning]] damage. The Strike is magical and has a reach of 10 feet. On a hit, the grabbed creature takes half the damage dealt to the target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XHAPOvUbe2eKOW7E",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Whirlwind Throw",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The doprillu has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The doprillu whirls the grabbed creature about, making a Body Strike against each creature in reach. After that Strike, the doprillu can hurl the grabbed creature up to 50 feet as a ranged Strike. This Strike has the same attack modifier and damage as Body Strike, but has the thrown 20 feet weapon trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "i0ue3QRUsYmGAJDm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hqsSLvinyw5boDE0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18"
-            },
-            "img": "systems/pf2e/icons/conditions/sickened.webp",
-            "name": "Sickened",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything-including elixirs and potions-while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a Fortitude save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
-                },
-                "duration": {
+                "proficiency": {
                     "value": 0
                 },
-                "group": null,
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "all",
-                        "slug": "sickened",
-                        "type": "status",
-                        "value": "-@item.badge.value"
-                    }
-                ],
-                "slug": "sickened",
-                "value": {
-                    "isValued": true,
-                    "value": 2
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "H7is94BX3CDB78hl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "sn7uj4903iczutt96f4s8b": {
-                        "damage": "3d8+16",
-                        "damageType": "bludgeoning"
-                    },
-                    "yrk56wwihlkhg0mhdquwen": {
-                        "damage": "2d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 28,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 18
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "5u6wc1mpLV2mconA",
@@ -451,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility (Constant)",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -507,23 +105,80 @@
             "type": "spell"
         },
         {
-            "_id": "Z487oTtboxJKexiF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1300000,
+            "_id": "hqsSLvinyw5boDE0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18"
+            },
+            "img": "systems/pf2e/icons/conditions/sickened.webp",
+            "name": "Sickened",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "description": {
+                    "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything-including elixirs and potions-while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a Fortitude save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": null,
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "all",
+                        "slug": "sickened",
+                        "type": "status",
+                        "value": "-@item.badge.value"
+                    }
+                ],
+                "slug": "sickened",
+                "value": {
+                    "isValued": true,
+                    "value": 2
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "H7is94BX3CDB78hl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "sn7uj4903iczutt96f4s8b": {
+                        "damage": "3d8+16",
+                        "damageType": "bludgeoning"
+                    },
+                    "yrk56wwihlkhg0mhdquwen": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -531,19 +186,364 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 18
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "1lSOq5grKxoZhTWw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "38cGo2E7vYZ2PNb5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status Bonus to Saves vs. Fear",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Fear",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AJ6r1HXEEIIyvlnh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 20 (Deactivated by Cold)",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            "mask-of-power"
+                        ],
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lWr6fzaJ1ya4uUVM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Deflect Arrow",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The doprillu is the target of a physical ranged attack</p>\n<p><strong>Requirements</strong> The doprillu is aware of the attack, isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against it, and has a hand free</p>\n<hr />\n<p><strong>Effect</strong> The doprillu gains a +4 circumstance bonus to its AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "deflect-arrow",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "deflect-arrow",
+                            "item:damage:category:physical",
+                            "item:ranged",
+                            {
+                                "not": "self:condition:off-guard"
+                            }
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gkiQGmXDkxDHGY7j",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mask of Power",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A doprillu's unique wooden mask is the source of its power.</p>\n<p>A doprillu deprived of its mask loses its regeneration and its immunity to Enfeebled and @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and it immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. The Enfeebled value increases by 1 at the start of each of the doprillu's turns, to a maximum of Enfeebled 4. If the mask is put back on, the doprillu immediately regains its abilities and loses the Enfeebled condition.</p>\n<p>A creature can pull off the mask with a successful <span data-pf2-action=\"forceOpen\" data-pf2-dc=\"34\" data-pf2-glyph=\"A\" data-pf2-label=\"Mask of Power DC\" data-pf2-show-dc=\"gm\">Athletics</span> check to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mask-of-power",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "mask-of-power"
+                        ],
+                        "type": [
+                            "enfeebled",
+                            "slowed"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BIIDNJTjlW3lJ1b2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Volcanic Veins",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Fiery magma runs through the doprillu's veins. A creature that starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the doprillu takes @Damage[7d6[fire]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Cj8UIWLOhEQ5yNgA",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Body Strike",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The doprillu has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The doprillu swings the grabbed creature as a weapon. This Strike has a +30 attack modifier and deals @Damage[(3d8+16)[bludgeoning]] damage. The Strike is magical and has a reach of 10 feet. On a hit, the grabbed creature takes half the damage dealt to the target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XHAPOvUbe2eKOW7E",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Whirlwind Throw",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The doprillu has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The doprillu whirls the grabbed creature about, making a Body Strike against each creature in reach. After that Strike, the doprillu can hurl the grabbed creature up to 50 feet as a ranged Strike. This Strike has the same attack modifier and damage as Body Strike, but has the thrown 20 feet weapon trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i0ue3QRUsYmGAJDm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sickened Doprillu",

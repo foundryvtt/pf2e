@@ -3,357 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "yLPvFv25zZNeeAXs",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Preserve Prey",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The zecui channels corrupt vitality into the triggering creature, which still goes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] but does not gain the dying condition. While that creature is unconscious, the residual energy attempts to counteract any vitality spell healing that creature with a [[/r 1d20+15 #Counteract]]{+15} counteract modifier.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing",
-                        "manipulate",
-                        "occult",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xzwBcprcmbh0IRzY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dual Stab",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The zecui makes two shortsword Strikes against an @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] or @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] target. These strikes count towards the zecui's multiple attack penalty, but it doesn't increase until after the second attack.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HNqdnWUXrupdarUM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harden Chitin",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The zecui fuses much of their chitin into a black metallic shell. They gain resistance 5 to all damage (except mental and spirit) until they next take a move action.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "harden-chitin",
-                        "toggleable": true
-                    },
-                    {
-                        "exceptions": [
-                            "mental",
-                            "spirit"
-                        ],
-                        "key": "Resistance",
-                        "predicate": [
-                            "harden-chitin"
-                        ],
-                        "type": "all-damage",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "73HgI0QpWEVw0nDe",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spit Mucus",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the zecui's spit attack is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the larva-infested mucus and stuck to the nearest surface until it [[/act escape dc=25]]{Escapes (DC 25)}. While that creature is immobilized, it is exposed to zecui larvae at the end of each of its turns.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BKL2zhQ7nn8sYC4b",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Zecui Larvae",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> visible lumps as the larvae move but no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} and controlled by the zecui larva (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies and the adult zecui can emerge from the corpse as an Interact action</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UNwOQlidkjFE1NlH",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "awMOBCUi5gHaRiSR"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "VlU4Pl3DS6ecOsZu": {
-                        "damage": "2d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shortsword",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WGTVgvcRVCR5pgFY",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mandibles",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "IefstvgUCEPs4sE5": {
-                        "damage": "2d8+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PLGOfhjM3R69ItqK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "BDWjzr7hR5ZZn56G": {
-                        "damage": "2d4+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8YZFgk6rwyBcdSrs",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spit",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "spit-mucus"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "range-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "awMOBCUi5gHaRiSR",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 1000000,
+            "sort": 100000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -432,6 +88,350 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "UNwOQlidkjFE1NlH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "awMOBCUi5gHaRiSR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "VlU4Pl3DS6ecOsZu": {
+                        "damage": "2d6+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shortsword",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WGTVgvcRVCR5pgFY",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mandibles",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "IefstvgUCEPs4sE5": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PLGOfhjM3R69ItqK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "BDWjzr7hR5ZZn56G": {
+                        "damage": "2d4+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8YZFgk6rwyBcdSrs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spit",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "spit-mucus"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yLPvFv25zZNeeAXs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Preserve Prey",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The zecui channels corrupt vitality into the triggering creature, which still goes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] but does not gain the dying condition. While that creature is unconscious, the residual energy attempts to counteract any vitality spell healing that creature with a [[/r 1d20+15 #Counteract]]{+15} counteract modifier.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "manipulate",
+                        "occult",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xzwBcprcmbh0IRzY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dual Stab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The zecui makes two shortsword Strikes against an @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] or @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] target. These strikes count towards the zecui's multiple attack penalty, but it doesn't increase until after the second attack.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HNqdnWUXrupdarUM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harden Chitin",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zecui fuses much of their chitin into a black metallic shell. They gain resistance 5 to all damage (except mental and spirit) until they next take a move action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "harden-chitin",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "mental",
+                            "spirit"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "harden-chitin"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "73HgI0QpWEVw0nDe",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spit Mucus",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the zecui's spit attack is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by the larva-infested mucus and stuck to the nearest surface until it [[/act escape dc=25]]{Escapes (DC 25)}. While that creature is immobilized, it is exposed to zecui larvae at the end of each of its turns.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BKL2zhQ7nn8sYC4b",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Zecui Larvae",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> visible lumps as the larvae move but no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} and controlled by the zecui larva (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies and the adult zecui can emerge from the corpse as an Interact action</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Zecui",

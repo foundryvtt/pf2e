@@ -4,140 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1CENtBTrhih9EKVU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fog Vision",
+            "_id": "qqFbimQkMmmxBV9V",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The air scamp ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from fog and mist.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sh5CdmNRuEnm3Trx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 2 (In Open Air)",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "details": "In Open Air",
-                        "key": "FastHealing",
-                        "value": 2
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yC1vWH3Q9V6GoICd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sirocco Breath",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The air scamp creates cutting winds in a @Template[cone|distance:15] that deal @Damage[(2d6-4)[slashing]|options:area-damage] damage to each creature within the area (@Check[reflex|dc:15|basic|options:area-effect] save). A creature that fails its save is also pushed back 10 feet.</p>\n<p>The air scamp can't use Sirocco Breath again for [[/gmr 1d4 #Recharge Sirocco Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "air",
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E9s0EguOmTjyEDD4",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "TQ2RaIo0LMOdw2S1": {
-                        "damage": "1d6-1",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 15,
+                    "value": 7
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "lB8ogfWSKxbKbYS1",
@@ -146,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -208,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -283,22 +187,25 @@
             "type": "spell"
         },
         {
-            "_id": "qqFbimQkMmmxBV9V",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 700000,
+            "_id": "E9s0EguOmTjyEDD4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "TQ2RaIo0LMOdw2S1": {
+                        "damage": "1d6-1",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -306,21 +213,114 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 15,
-                    "value": 7
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "1CENtBTrhih9EKVU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fog Vision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The air scamp ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from fog and mist.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sh5CdmNRuEnm3Trx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 2 (In Open Air)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "details": "In Open Air",
+                        "key": "FastHealing",
+                        "value": 2
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yC1vWH3Q9V6GoICd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sirocco Breath",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The air scamp creates cutting winds in a @Template[cone|distance:15] that deal @Damage[(2d6-4)[slashing]|options:area-damage] damage to each creature within the area (@Check[reflex|dc:15|basic|options:area-effect] save). A creature that fails its save is also pushed back 10 feet.</p>\n<p>The air scamp can't use Sirocco Breath again for [[/gmr 1d4 #Recharge Sirocco Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Weak Air Scamp",

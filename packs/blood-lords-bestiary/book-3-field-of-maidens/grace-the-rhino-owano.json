@@ -4,498 +4,81 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NgIzj5c3G3ZKA8C1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "dk95kwgwdycZXgIj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "2VjzSO1Lu2NfxSvA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Devastator",
+            "_id": "TEzQEJ8ewHlHI23c",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>Grace's Strikes ignore 10 points of a creature's resistance to physical damage.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g08HVYQyr4BtWYzK",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Celestial Rage",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Grace isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p><strong>Effect</strong> Grace unleashes her inner fury. She gains 20 temporary Hit Points that last until her Celestial Rage ends and she casts one divine innate spell or focus spell she knows. While raging, she gains weakness to unholy 10, gains a +10-foot status bonus to her Speed, and takes a -1 penalty to AC. She can't use actions with the concentrate trait unless they also have the rage trait. This Celestial Rage lasts for 1 minute, until there are no enemies Grace can perceive, or until she falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. When the Celestial Rage ends, Grace can't use Celestial Rage again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]{Effect: Celestial Rage}</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "flags.pf2e.rageTempHP",
-                        "phase": "beforeDerived",
-                        "value": 20
-                    },
-                    {
-                        "key": "Weakness",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "type": "unholy",
-                        "value": 10
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "land-speed",
-                        "type": "status",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "K2vHWqScxNJnWnUH",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Great Cleave",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Grace's melee Strike reduces a creature to 0 Hit Points, she can make a melee Strike against another foe adjacent to that creature. If that Strike also reduces the creature to 0 Hit Points, she can continue making melee Strikes until she makes a Strike that doesn't reduce a creature to 0 Hit Points, or until there are no creatures adjacent to the most recent creature she attacked while cleaving, whichever comes first.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "5nVE2Xaxc35lkDA5",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Rhino Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Grace Strides twice; if she ends her movement within melee reach of at least one enemy, she can make a melee Strike against that enemy. Grace can Fly instead of Stride if she has a fly speed (such as with @UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings]).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uKotJ3Vf7xE2csGr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "7EOTJaca1uUuMZEX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "B54lYjmZMb2wQdZC",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "WcO3N3EegSrZKRmf",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Ly1nfavSXV2D9LGa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatsword",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+11",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Jjnu9i4wH06rrbzq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "Ofx4Npae1xoHIt3p": {
-                        "damage": "2d6+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sqKiRLguy1oA2Jg5",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wwCaG5zCiZ9A4YZ7"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Longbow",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "EWvGeIfiiF2Q0jJ9": {
-                        "damage": "1d8+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "propulsive",
-                        "range-increment-100",
-                        "reload-0",
-                        "volley-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "a1kiyzVuwY5lYtLe",
@@ -504,7 +87,7 @@
             },
             "img": "icons/magic/fire/barrier-wall-flame-ring-yellow.webp",
             "name": "Celestial Brand",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -581,7 +164,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -670,7 +253,7 @@
             },
             "img": "systems/pf2e/icons/spells/angelic-wings.webp",
             "name": "Angelic Wings",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -730,7 +313,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -805,90 +388,13 @@
             "type": "spell"
         },
         {
-            "_id": "dk95kwgwdycZXgIj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "TEzQEJ8ewHlHI23c",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "wwCaG5zCiZ9A4YZ7",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
             },
             "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
             "name": "Composite Longbow",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "baseItem": "composite-longbow",
                 "bonus": {
@@ -975,7 +481,7 @@
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Greatsword",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "baseItem": "greatsword",
                 "bonus": {
@@ -1055,6 +561,500 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "uKotJ3Vf7xE2csGr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 900000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "7EOTJaca1uUuMZEX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "WcO3N3EegSrZKRmf",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Ly1nfavSXV2D9LGa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatsword",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+11",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Jjnu9i4wH06rrbzq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "Ofx4Npae1xoHIt3p": {
+                        "damage": "2d6+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sqKiRLguy1oA2Jg5",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wwCaG5zCiZ9A4YZ7"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Longbow",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "EWvGeIfiiF2Q0jJ9": {
+                        "damage": "1d8+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "range-increment-100",
+                        "reload-0",
+                        "volley-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NgIzj5c3G3ZKA8C1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2VjzSO1Lu2NfxSvA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Devastator",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Grace's Strikes ignore 10 points of a creature's resistance to physical damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g08HVYQyr4BtWYzK",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Celestial Rage",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Grace isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p><strong>Effect</strong> Grace unleashes her inner fury. She gains 20 temporary Hit Points that last until her Celestial Rage ends and she casts one divine innate spell or focus spell she knows. While raging, she gains weakness to unholy 10, gains a +10-foot status bonus to her Speed, and takes a -1 penalty to AC. She can't use actions with the concentrate trait unless they also have the rage trait. This Celestial Rage lasts for 1 minute, until there are no enemies Grace can perceive, or until she falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. When the Celestial Rage ends, Grace can't use Celestial Rage again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]{Effect: Celestial Rage}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.rageTempHP",
+                        "phase": "beforeDerived",
+                        "value": 20
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "type": "unholy",
+                        "value": 10
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K2vHWqScxNJnWnUH",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Great Cleave",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Grace's melee Strike reduces a creature to 0 Hit Points, she can make a melee Strike against another foe adjacent to that creature. If that Strike also reduces the creature to 0 Hit Points, she can continue making melee Strikes until she makes a Strike that doesn't reduce a creature to 0 Hit Points, or until there are no creatures adjacent to the most recent creature she attacked while cleaving, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5nVE2Xaxc35lkDA5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Rhino Charge",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Grace Strides twice; if she ends her movement within melee reach of at least one enemy, she can make a melee Strike against that enemy. Grace can Fly instead of Stride if she has a fly speed (such as with @UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B54lYjmZMb2wQdZC",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Grace \"The Rhino\" Owano",

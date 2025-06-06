@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Kt4KG0QuJD0Qf4kp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Climb Stone",
+            "_id": "rYCzNNJekAP07yuk",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>The dragon's climb speed functions only when climbing stone surfaces</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,403 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "m5n5I6Z3Upfe9pSe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0A47mfqDMbHBxJqs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:29]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wAitzoQtepFmPhqR",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Twisting Tail",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the copper dragon's tail uses a move action or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the triggering action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "twisting-tail",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "twisting-tail"
-                        ],
-                        "selector": "tail-attack",
-                        "type": "untyped",
-                        "value": -2
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "twisting-tail"
-                        ],
-                        "selector": "tail-attack",
-                        "text": "PF2E.AttackEffects.InterruptAction",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "deEbLCLRy4mZDvLo",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The copper dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p><ul><li><strong>Acid</strong> (acid, arcane) The dragon breathes acid in a @Template[line|distance:80] that deals @Damage[13d6[acid]|options:area-damage] damage (@Check[reflex|dc:32|basic|traits:arcane,acid|options:area-effect] save).</li><li><strong>Slowing Gas</strong> (arcane) The dragon breathes a @Template[line|distance:80] of slowing gas. Each creature in the area must succeed at a @Check[fortitude|dc:32|traits:arcane|options:area-effect] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</li></ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TYcAOZDcSQlHGVZx",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "enj0s2MOCB4NTllp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Draconic Momentum",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the dragon scores a critical hit with a Strike, it recharges Breath Weapon.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ESSGqodO4c5dPMOG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "qpgrqz2i88n27gn56xw2": {
-                        "damage": "3d8+12",
-                        "damageType": "piercing"
-                    },
-                    "o9icz27koiu8dvhrzj4x": {
-                        "damage": "2d8",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "jaws",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "jD38LrotmqVxwz0a",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "f9in2al6wjbjz5gg133t": {
-                        "damage": "3d8+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Qv3klzQNlAwTTmrJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "keudfk6g4dv1zp5ikuuz": {
-                        "damage": "2d8+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "GYywldqipfx3GlUl",
@@ -429,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -496,7 +117,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter (At Will)",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -564,7 +185,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease (At Will)",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -624,23 +245,33 @@
             "type": "spell"
         },
         {
-            "_id": "rYCzNNJekAP07yuk",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 1400000,
+            "_id": "ESSGqodO4c5dPMOG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "qpgrqz2i88n27gn56xw2": {
+                        "damage": "3d8+12",
+                        "damageType": "piercing"
+                    },
+                    "o9icz27koiu8dvhrzj4x": {
+                        "damage": "2d8",
+                        "damageType": "acid"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -648,21 +279,390 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "slug": "jaws",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
                 },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "jD38LrotmqVxwz0a",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "f9in2al6wjbjz5gg133t": {
+                        "damage": "3d8+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Qv3klzQNlAwTTmrJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "keudfk6g4dv1zp5ikuuz": {
+                        "damage": "2d8+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Kt4KG0QuJD0Qf4kp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Climb Stone",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The dragon's climb speed functions only when climbing stone surfaces</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m5n5I6Z3Upfe9pSe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0A47mfqDMbHBxJqs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:29]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wAitzoQtepFmPhqR",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Twisting Tail",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the copper dragon's tail uses a move action or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the triggering action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "twisting-tail",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "twisting-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "type": "untyped",
+                        "value": -2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "twisting-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "text": "PF2E.AttackEffects.InterruptAction",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "deEbLCLRy4mZDvLo",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The copper dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p><ul><li><strong>Acid</strong> (acid, arcane) The dragon breathes acid in a @Template[line|distance:80] that deals @Damage[13d6[acid]|options:area-damage] damage (@Check[reflex|dc:32|basic|traits:arcane,acid|options:area-effect] save).</li><li><strong>Slowing Gas</strong> (arcane) The dragon breathes a @Template[line|distance:80] of slowing gas. Each creature in the area must succeed at a @Check[fortitude|dc:32|traits:arcane|options:area-effect] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TYcAOZDcSQlHGVZx",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "enj0s2MOCB4NTllp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Draconic Momentum",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the dragon scores a critical hit with a Strike, it recharges Breath Weapon.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Copper Dragon (Adult)",

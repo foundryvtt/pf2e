@@ -4,496 +4,74 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lkrvzd7ky4JVJPRQ",
-            "_stats": {
-                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.9xXxlNwXM90sw8zk"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Doctor's Hand",
+            "_id": "Z2m3pHFZlVbXHBNf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When the peerless healer rolls a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], they get a failure instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:treat-wounds",
-                                    "action:treat-disease",
-                                    "action:treat-poison"
-                                ]
-                            }
-                        ],
-                        "selector": "medicine"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pPd7Ra9KB28EqOPx",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Healing Echo",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The peerless healer restores Hit Points to an ally using @UUID[Compendium.pf2e.spells-srd.Item.Heal]</p><hr /><p><strong>Effect</strong> One willing creature within 30 feet who didn't benefit from the triggering spell regains Hit Points equal to half the healing granted. The peerless healer can't use Healing Echo again for [[/gmr 1d4 #Recharge Healing Echo]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XrR1DIwISeYj4TFV",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Medical Specialist",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The peerless healer is a 17th-level challenge for contests of medicine.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HmwOSlHx8f9pqHwa",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status vs. Poison and Disease",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:trait:disease",
-                                    "item:trait:poison"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nDMiwe2QDX7JBSYX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Community Healer",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease]{Treating Disease} or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease]{Treating Wounds}, the humanitarian healer can treat up to eight targets. In addition, each time the peerless healer successfully Treats Wounds, they can also either reduce the value of one @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition affecting a single patient by 2 or cast a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Clear Mind], @UUID[Compendium.pf2e.spells-srd.Item.Sound Body], or @UUID[Compendium.pf2e.spells-srd.Item.Sure Footing] spell on one patient without expending a spell slot.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7os9NqqOuwo6EtBJ",
-            "_stats": {
-                "compendiumSource": "Actor.CvINEgHThcndEvmp.Item.ZtFKTs16yHUY48WF"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Healing Hands",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the peerless healer casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "dieSize": "d10"
-                        },
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "selector": "spell-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TNlYDgzMqUdPTBmT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
-            },
-            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
-            "name": "Breastplate",
-            "sort": 700000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "breastplate",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "breastplate",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "LqCuOzySaWAIpFgi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SGkOHFyBbzWdBk8D"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Toolkit (Expanded)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
+                "proficiency": {
                     "value": 1
                 },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Expanded healer's toolkits provide a +1 item bonus to such checks. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:administer-first-aid",
-                                    "action:treat-disease",
-                                    "action:treat-poison",
-                                    "action:treat-wounds"
-                                ]
-                            }
-                        ],
-                        "selector": "medicine",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "healers-toolkit-expanded",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MmSpUEaiUQK0G92h",
-            "_stats": {
-                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.DV9NQLrI4FouRCpe"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "OOs2CeoJ0b6QQtF5": {
-                        "damage": "1d4+9",
-                        "damageType": "bludgeoning"
-                    },
-                    "RxW6Qxy57wAjzzVK": {
-                        "damage": "4d8",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot7": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "SeUl9DhDs6NLH7lt",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "jNJweBqA0kn7XVbl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "73qc1jYgOMhXmMiL": {
-                        "damage": "2d4+9",
-                        "damageType": "bludgeoning"
-                    },
-                    "nsWSXRGkIwiTg1vA": {
-                        "damage": "4d8",
-                        "damageType": "vitality"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:type:spell",
-                            "item:slug:heal"
-                        ],
-                        "selector": "healing",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
-                "slug": "staff-of-healing-greater",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "HMZiezPqbM91DMzs",
@@ -502,7 +80,7 @@
             },
             "img": "systems/pf2e/icons/spells/moment-of-renewal.webp",
             "name": "Moment of Renewal",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -564,7 +142,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -627,7 +205,7 @@
             },
             "img": "icons/magic/life/heart-area-circle-red-green.webp",
             "name": "Field of Life",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -732,7 +310,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -811,7 +389,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -876,7 +454,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -939,7 +517,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1001,7 +579,7 @@
             },
             "img": "icons/commodities/wood/log-cut-cherry-brown.webp",
             "name": "Creation",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1062,7 +640,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1125,7 +703,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1191,7 +769,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1253,7 +831,7 @@
             },
             "img": "systems/pf2e/icons/spells/vital-beacon.webp",
             "name": "Vital Beacon",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1316,7 +894,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1378,7 +956,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1451,7 +1029,7 @@
             },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1524,7 +1102,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1595,7 +1173,7 @@
             },
             "img": "systems/pf2e/icons/spells/safe-passage.webp",
             "name": "Safe Passage",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1657,7 +1235,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1720,7 +1298,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind",
-            "sort": 2900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1784,7 +1362,7 @@
             },
             "img": "icons/magic/light/torch-fire-orange.webp",
             "name": "Everlight",
-            "sort": 3000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1848,7 +1426,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 3100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1926,7 +1504,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 3200000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1998,7 +1576,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield-other.webp",
             "name": "Share Life",
-            "sort": 3300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2058,7 +1636,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Sound Body",
-            "sort": 3400000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2122,7 +1700,7 @@
             },
             "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
             "name": "Sure Footing",
-            "sort": 3500000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2185,7 +1763,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 3600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2248,7 +1826,7 @@
             },
             "img": "systems/pf2e/icons/spells/air-bubble.webp",
             "name": "Air Bubble",
-            "sort": 3700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2310,7 +1888,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Cleanse Cuisine",
-            "sort": 3800000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2371,7 +1949,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 3900000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2434,7 +2012,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4000000,
+            "sort": 3100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2501,7 +2079,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 4100000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2583,7 +2161,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 4200000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2780,7 +2358,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 4300000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2977,7 +2555,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 4400000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3053,7 +2631,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 4500000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3114,7 +2692,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 4600000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3176,7 +2754,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 4700000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3233,83 +2811,13 @@
             "type": "spell"
         },
         {
-            "_id": "Z2m3pHFZlVbXHBNf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 4800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot7": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "jNJweBqA0kn7XVbl",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XSwEE8wjHr6UXzpw"
             },
             "img": "icons/weapons/staves/staff-ornate-gold-jeweled.webp",
             "name": "+1 Striking Staff of Healing (Greater)",
-            "sort": 4900000,
+            "sort": 3900000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -3410,6 +2918,498 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "TNlYDgzMqUdPTBmT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+            },
+            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+            "name": "Breastplate",
+            "sort": 4000000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "breastplate",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "breastplate",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "LqCuOzySaWAIpFgi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SGkOHFyBbzWdBk8D"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Toolkit (Expanded)",
+            "sort": 4100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Expanded healer's toolkits provide a +1 item bonus to such checks. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:administer-first-aid",
+                                    "action:treat-disease",
+                                    "action:treat-poison",
+                                    "action:treat-wounds"
+                                ]
+                            }
+                        ],
+                        "selector": "medicine",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "healers-toolkit-expanded",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "MmSpUEaiUQK0G92h",
+            "_stats": {
+                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.DV9NQLrI4FouRCpe"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 4200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "OOs2CeoJ0b6QQtF5": {
+                        "damage": "1d4+9",
+                        "damageType": "bludgeoning"
+                    },
+                    "RxW6Qxy57wAjzzVK": {
+                        "damage": "4d8",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SeUl9DhDs6NLH7lt",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "jNJweBqA0kn7XVbl"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 4300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "73qc1jYgOMhXmMiL": {
+                        "damage": "2d4+9",
+                        "damageType": "bludgeoning"
+                    },
+                    "nsWSXRGkIwiTg1vA": {
+                        "damage": "4d8",
+                        "damageType": "vitality"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:type:spell",
+                            "item:slug:heal"
+                        ],
+                        "selector": "healing",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": "staff-of-healing-greater",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lkrvzd7ky4JVJPRQ",
+            "_stats": {
+                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.9xXxlNwXM90sw8zk"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Doctor's Hand",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When the peerless healer rolls a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], they get a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:treat-wounds",
+                                    "action:treat-disease",
+                                    "action:treat-poison"
+                                ]
+                            }
+                        ],
+                        "selector": "medicine"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pPd7Ra9KB28EqOPx",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Healing Echo",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The peerless healer restores Hit Points to an ally using @UUID[Compendium.pf2e.spells-srd.Item.Heal]</p><hr /><p><strong>Effect</strong> One willing creature within 30 feet who didn't benefit from the triggering spell regains Hit Points equal to half the healing granted. The peerless healer can't use Healing Echo again for [[/gmr 1d4 #Recharge Healing Echo]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XrR1DIwISeYj4TFV",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Medical Specialist",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The peerless healer is a 17th-level challenge for contests of medicine.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HmwOSlHx8f9pqHwa",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.Yzt7iAgbGNFAn1NW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status vs. Poison and Disease",
+            "sort": 4700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:disease",
+                                    "item:trait:poison"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nDMiwe2QDX7JBSYX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Community Healer",
+            "sort": 4800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease]{Treating Disease} or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease]{Treating Wounds}, the humanitarian healer can treat up to eight targets. In addition, each time the peerless healer successfully Treats Wounds, they can also either reduce the value of one @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Drained], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition affecting a single patient by 2 or cast a 7th-rank @UUID[Compendium.pf2e.spells-srd.Item.Clear Mind], @UUID[Compendium.pf2e.spells-srd.Item.Sound Body], or @UUID[Compendium.pf2e.spells-srd.Item.Sure Footing] spell on one patient without expending a spell slot.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7os9NqqOuwo6EtBJ",
+            "_stats": {
+                "compendiumSource": "Actor.CvINEgHThcndEvmp.Item.ZtFKTs16yHUY48WF"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Healing Hands",
+            "sort": 4900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the peerless healer casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "selector": "spell-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Peerless Healer",

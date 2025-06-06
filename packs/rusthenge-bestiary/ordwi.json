@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "htliQ05jVKwfE22v",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Divine Font",
+            "_id": "byGy8WeeprOm4nwb",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,356 +27,83 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "v3LmIBb4HQpiKDtg"
+                            },
+                            {
+                                "id": "j1LalS1XgANCE491"
+                            },
+                            {
+                                "id": "yCN5vbIFoFQOtwDD"
+                            },
+                            {
+                                "id": "fz35P7gsZdhhCdXJ"
+                            },
+                            {
+                                "id": "PlbmKaRX84OVd7BY"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "favrQlUoHErC3KCl"
+                            },
+                            {
+                                "id": "5rZgScmhTb2oHDi5"
+                            },
+                            {
+                                "id": "5rZgScmhTb2oHDi5"
+                            },
+                            {
+                                "id": "5rZgScmhTb2oHDi5"
+                            },
+                            {
+                                "id": "5rZgScmhTb2oHDi5"
+                            },
+                            {
+                                "id": "AIJf0XcwzexNFxqt"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "UDhWMhJzdEJtykvO",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Healing Hands",
+            "_id": "kiCT3SIcgPIBLg7h",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>When Ordwi casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], she rolls 1d10s instead of d8s.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "spell-damage",
-                            "spell-healing"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "C7rt9frNIOpSJ6FG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
-            },
-            "img": "icons/equipment/chest/shirt-collared-pink.webp",
-            "name": "Explorer's Clothing",
-            "sort": 300000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": "explorers-clothing",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "unarmored",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor.</p>"
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "explorers-clothing",
-                "speedPenalty": 0,
-                "strength": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "kmzXulF3eDFPKBbJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Minor)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "1d8",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[1d8[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
+                "proficiency": {
                     "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-minor",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "pX5ZVU58hBa0MsKY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "rations",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 5,
-                    "value": 5
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "0rb0FqsjNt2Nyk86",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Iron Religious Symbol",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "G9G16E2ytvArWDU1",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "JR9rDE3OjVCSZCgv"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 4
-                },
-                "damageRolls": {
-                    "nhecaCkMfj89n6nu": {
-                        "damage": "1d6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -381,19 +111,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse"
-                    ]
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "favrQlUoHErC3KCl",
@@ -402,7 +131,7 @@
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -463,7 +192,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -550,7 +279,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -611,7 +340,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -807,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -871,7 +600,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -933,7 +662,7 @@
             },
             "img": "systems/pf2e/icons/spells/spirit-link.webp",
             "name": "Spirit Link",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1012,7 +741,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1075,7 +804,7 @@
             },
             "img": "icons/skills/movement/figure-running-gray.webp",
             "name": "Unimpeded Stride",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1127,135 +856,13 @@
             "type": "spell"
         },
         {
-            "_id": "byGy8WeeprOm4nwb",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "v3LmIBb4HQpiKDtg"
-                            },
-                            {
-                                "id": "j1LalS1XgANCE491"
-                            },
-                            {
-                                "id": "yCN5vbIFoFQOtwDD"
-                            },
-                            {
-                                "id": "fz35P7gsZdhhCdXJ"
-                            },
-                            {
-                                "id": "PlbmKaRX84OVd7BY"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "favrQlUoHErC3KCl"
-                            },
-                            {
-                                "id": "5rZgScmhTb2oHDi5"
-                            },
-                            {
-                                "id": "5rZgScmhTb2oHDi5"
-                            },
-                            {
-                                "id": "5rZgScmhTb2oHDi5"
-                            },
-                            {
-                                "id": "5rZgScmhTb2oHDi5"
-                            },
-                            {
-                                "id": "AIJf0XcwzexNFxqt"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "kiCT3SIcgPIBLg7h",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 1800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "JR9rDE3OjVCSZCgv",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -1334,6 +941,399 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "C7rt9frNIOpSJ6FG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB"
+            },
+            "img": "icons/equipment/chest/shirt-collared-pink.webp",
+            "name": "Explorer's Clothing",
+            "sort": 1300000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": "explorers-clothing",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "unarmored",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor.</p>"
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "explorers-clothing",
+                "speedPenalty": 0,
+                "strength": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "0rb0FqsjNt2Nyk86",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Iron Religious Symbol",
+            "sort": 1400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "kmzXulF3eDFPKBbJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[1d8[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "pX5ZVU58hBa0MsKY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 5,
+                    "value": 5
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "G9G16E2ytvArWDU1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JR9rDE3OjVCSZCgv"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 4
+                },
+                "damageRolls": {
+                    "nhecaCkMfj89n6nu": {
+                        "damage": "1d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "htliQ05jVKwfE22v",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Divine Font",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UDhWMhJzdEJtykvO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Healing Hands",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Ordwi casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], she rolls 1d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "spell-damage",
+                            "spell-healing"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ordwi",

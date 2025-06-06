@@ -4,180 +4,267 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tCB0OhxiJDPlXfQi",
+            "_id": "YW1vBoCGfZcVfMiP",
             "_stats": {
-                "compendiumSource": "Actor.4e4cdZuiaRmdbDvK.Item.c1mFMiLxJNswSZe0"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Expert Subsistence",
+            "img": "icons/weapons/bows/longbow-recurve-brown.webp",
+            "name": "Composite Longbow",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "composite-longbow",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "interaction",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p>While using Survival to [[/act subsist statistic=survival]], if the hunter rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 16 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
                 },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "to-success",
-                            "failure": "to-success"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "action:subsist"
-                        ],
-                        "selector": "survival"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
-                        "predicate": [
-                            "action:subsist"
-                        ],
-                        "selector": "survival",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": "expert-subsistence",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xeEI4dqDE4PmxOeA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Forest Walker",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The hunter ignores the effects of difficult terrain in a forest environment.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ws6ZIDinw21XxfKw",
-            "_stats": {
-                "compendiumSource": "Actor.RsIMCwlVdlu4Bd5M.Item.rTeH6wIQdfQpy5CH"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "On the Hunt",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "level": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hunter designates one creature they're observing or tracking as their prey.</p>\n<p>The hunter gains a +2 circumstance bonus to Perception checks to [[/act seek]] the prey and to Survival checks to [[/act track]] the prey.</p>\n<p>The first time the hunter hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": [
-                            "action:seek",
-                            "hunted-prey"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": [
-                            "action:track",
-                            "hunted-prey"
-                        ],
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": [
-                            "hunted-prey"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
-                        "option": "first-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "first-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": 100,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "composite-longbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
+                    "rarity": "common",
                     "value": [
-                        "concentrate"
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "vGlowKcuXsBeguQE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 200000,
+            "system": {
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "x0P85mlVkHFr6kml",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
+            },
+            "img": "icons/weapons/swords/sword-guard-purple.webp",
+            "name": "Shortsword",
+            "sort": 300000,
+            "system": {
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 9
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shortsword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "YRiwphZN8wQ77tEJ",
@@ -314,32 +401,6 @@
             "type": "consumable"
         },
         {
-            "_id": "o82vOevA36JTvcnU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "dYlvFC5F1daX6NF8",
             "flags": {
                 "pf2e": {
@@ -348,7 +409,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -389,7 +450,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -432,7 +493,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -475,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -513,267 +574,206 @@
             "type": "melee"
         },
         {
-            "_id": "YW1vBoCGfZcVfMiP",
+            "_id": "tCB0OhxiJDPlXfQi",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
+                "compendiumSource": "Actor.4e4cdZuiaRmdbDvK.Item.c1mFMiLxJNswSZe0"
             },
-            "img": "icons/weapons/bows/longbow-recurve-brown.webp",
-            "name": "Composite Longbow",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Expert Subsistence",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>While using Survival to [[/act subsist statistic=survival]], if the hunter rolls any result worse than a success, they get a success. On a success, they can provide subsistence living for themselves and 16 additional creatures, and on a critical success, they can take care of twice as many creatures as on a success.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:subsist"
+                        ],
+                        "selector": "survival"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "action:subsist"
+                        ],
+                        "selector": "survival",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "expert-subsistence",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xeEI4dqDE4PmxOeA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Forest Walker",
             "sort": 1100000,
             "system": {
-                "baseItem": "composite-longbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
+                    "value": "<p>The hunter ignores the effects of difficult terrain in a forest environment.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": 100,
-                "reload": {
-                    "value": "0"
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "composite-longbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "propulsive",
-                        "volley-30"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "vGlowKcuXsBeguQE",
+            "_id": "ws6ZIDinw21XxfKw",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+                "compendiumSource": "Actor.RsIMCwlVdlu4Bd5M.Item.rTeH6wIQdfQpy5CH"
             },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "On the Hunt",
             "sort": 1200000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 1
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
+                    "value": "<p>The hunter designates one creature they're observing or tracking as their prey.</p>\n<p>The hunter gains a +2 circumstance bonus to Perception checks to [[/act seek]] the prey and to Survival checks to [[/act track]] the prey.</p>\n<p>The first time the hunter hits the designated prey in a round, they deal an additional 1d4 precision damage. These effects last until the poacher uses On the Hunt again.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                        "option": "first-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "first-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
+                        "concentrate"
                     ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "x0P85mlVkHFr6kml",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
-            },
-            "img": "icons/weapons/swords/sword-guard-purple.webp",
-            "name": "Shortsword",
+            "_id": "o82vOevA36JTvcnU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
             "sort": 1300000,
             "system": {
-                "baseItem": "shortsword",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
                 "description": {
-                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                "mod": {
+                    "value": 13
                 },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficient": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 9
-                    }
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shortsword",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
+                "slug": null,
+                "traits": {}
             },
-            "type": "weapon"
+            "type": "lore"
         }
     ],
     "name": "Hunter",

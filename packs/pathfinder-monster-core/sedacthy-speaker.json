@@ -3,449 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PFfgCTnWRutUzMOD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sea Speech",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A sedacthy speaking Thalassic can be understood by any animal that has a swim Speed or the amphibious or aquatic trait. By spending a week regularly interacting with such an animal, the sedacthy can make it permanently helpful.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Fdy6HLhgD096Hzgr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.VdSMQ6yRZ3YXNXHL"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wavesense (Imprecise) 30 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "wavesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7WqmKOuf1bKUnKdR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Speaker's Privilege",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The sedacthy speaker takes damage</p>\n<p><strong>Requirements</strong> The sedacthy speaker has cover from an animal ally</p>\n<hr />\n<p><strong>Effect</strong> The animal takes the damage instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hHrQ4WSEOgLDG3sS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Animal Shield",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The sedacthy speaker is adjacent to a Large or larger animal ally</p>\n<hr />\n<p><strong>Effect</strong> The speaker gains cover until the start of their next turn or when they're no longer adjacent to the animal, whichever comes first.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ibcHqcbH6AzTkqNw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Exploit Weakness",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The speaker's Strikes deal 1d6 additional damage to creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Frightened] or @UUID[Compendium.pf2e.conditionitems.Item.Sickened].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:frightened",
-                            "target:condition:sickened"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ATKHBM0qbxjbsWcu",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Painful Cry",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sedacthy shrieks across a range of painfully high tones, dealing @Damage[3d6[sonic],1d6[mental]]{3d6 sonic damage and 1d6 mental damage} to all creatures in a @Template[cone|distance:30], with a @Check[fortitude|dc:23|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hULMhVeHFZ1ioUV5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shared Feast",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sedacthy makes a jaws Strike. If it hits, an ally of their choice can spend a reaction to make a jaws Strike against the same target. Allies with beaks or similar attacks can use those instead of jaws.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CMagHoZtQFJXiBkG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Swim Together",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The speaker is adjacent to an animal ally</p>\n<hr />\n<p><strong>Effect</strong> The speaker and the animal both Swim, ending their movement adjacent to one another.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XHfvFP7lVEq3yg4v",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "4SxI3880CDDNsaGY": {
-                        "damage": "1d6+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HkR8xZZIpeW3b4vm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "ORk4QU64r1gXr8cP": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    },
-                    "ywGnt2WTGNnh3Mur": {
-                        "damage": "1d6+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2qHaS9yXdzCCFoFJ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ItZFDj19IIXCx61c"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "YeVYLLm0Cd0fmyct": {
-                        "damage": "1d8+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "trident",
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "uIEP65rsETPj3GX3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ItZFDj19IIXCx61c"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "zYZAOepBlUiIL4VK": {
-                        "damage": "1d8+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "trident",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ItZFDj19IIXCx61c",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Trident",
-            "sort": 1300000,
+            "sort": 100000,
             "system": {
                 "baseItem": "trident",
                 "bonus": {
@@ -523,6 +87,442 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "XHfvFP7lVEq3yg4v",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "4SxI3880CDDNsaGY": {
+                        "damage": "1d6+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HkR8xZZIpeW3b4vm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "ORk4QU64r1gXr8cP": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    },
+                    "ywGnt2WTGNnh3Mur": {
+                        "damage": "1d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2qHaS9yXdzCCFoFJ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ItZFDj19IIXCx61c"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "YeVYLLm0Cd0fmyct": {
+                        "damage": "1d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "trident",
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uIEP65rsETPj3GX3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ItZFDj19IIXCx61c"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "zYZAOepBlUiIL4VK": {
+                        "damage": "1d8+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "trident",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PFfgCTnWRutUzMOD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sea Speech",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A sedacthy speaking Thalassic can be understood by any animal that has a swim Speed or the amphibious or aquatic trait. By spending a week regularly interacting with such an animal, the sedacthy can make it permanently helpful.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fdy6HLhgD096Hzgr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.VdSMQ6yRZ3YXNXHL"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wavesense (Imprecise) 30 feet",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "wavesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7WqmKOuf1bKUnKdR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Speaker's Privilege",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The sedacthy speaker takes damage</p>\n<p><strong>Requirements</strong> The sedacthy speaker has cover from an animal ally</p>\n<hr />\n<p><strong>Effect</strong> The animal takes the damage instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hHrQ4WSEOgLDG3sS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Animal Shield",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The sedacthy speaker is adjacent to a Large or larger animal ally</p>\n<hr />\n<p><strong>Effect</strong> The speaker gains cover until the start of their next turn or when they're no longer adjacent to the animal, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ibcHqcbH6AzTkqNw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Exploit Weakness",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The speaker's Strikes deal 1d6 additional damage to creatures that are @UUID[Compendium.pf2e.conditionitems.Item.Frightened] or @UUID[Compendium.pf2e.conditionitems.Item.Sickened].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:frightened",
+                            "target:condition:sickened"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ATKHBM0qbxjbsWcu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Painful Cry",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sedacthy shrieks across a range of painfully high tones, dealing @Damage[3d6[sonic],1d6[mental]]{3d6 sonic damage and 1d6 mental damage} to all creatures in a @Template[cone|distance:30], with a @Check[fortitude|dc:23|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hULMhVeHFZ1ioUV5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shared Feast",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sedacthy makes a jaws Strike. If it hits, an ally of their choice can spend a reaction to make a jaws Strike against the same target. Allies with beaks or similar attacks can use those instead of jaws.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CMagHoZtQFJXiBkG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swim Together",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The speaker is adjacent to an animal ally</p>\n<hr />\n<p><strong>Effect</strong> The speaker and the animal both Swim, ending their movement adjacent to one another.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sedacthy Speaker",

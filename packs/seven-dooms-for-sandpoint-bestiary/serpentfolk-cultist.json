@@ -3,148 +3,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GjmjXrm0BYOCXs5E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "tnNDPmIcvI7gDNNU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3c01H24sjgfJHyvI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o4iEKaEBIwAr18XF",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+4 Status to Will Saves vs. Mental",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "mental"
-                        ],
-                        "selector": "will",
-                        "type": "status",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VRDZl6y3aAge5VyP",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Raise Serpent",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The bone prophet animates corpses of snakes, serpentfolk, or similar serpentine creatures within a @Template[emanation|distance:30]. Any flesh on the bodies sloughs off, and they rise as skeletons. The bone prophet can raise one Large creature as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Giant] or up to three Medium creatures as @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Champion]{Skeletal Champions}; the equipment and attacks might be different depending on the corpses' possessions.</p>\n<p>These skeletons have the minion trait and are under the bone prophet's control; the bone prophet can give all these minions the same command with a single action that has the concentrate trait. Any skeletal minions that still remain after 10 minutes crumble to dust.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -153,234 +26,53 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pkqZFkDwe6SFvUXX",
-            "_stats": {
-                "compendiumSource": "Actor.acGApO7HwzXQVlTU.Item.pkqZFkDwe6SFvUXX"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Serpentfolk Venom",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d4[poison]] damage and enfeebled 1 (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "serpentfolk-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z9o0w0dnDFg7Nxqg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The creature's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HyVnK39Qbmr02ZZS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Ydersius",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "AGZBKBnJMkp5NrlX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "serpentfolk-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "sw9gfjvscvq9zhb41290": {
-                        "damage": "2d8+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "UDq6DQC7aa80MDDu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ZcALm783lAC8Cmhr"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 25,
                     "value": 17
                 },
-                "damageRolls": {
-                    "2H9NlYWq4ZhWdnZE": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "55nE5ly8P6bNoKsI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -388,20 +80,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "EOugCxxGO4w5wA2i",
@@ -410,7 +103,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -499,7 +192,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -579,7 +272,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -648,7 +341,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-food.webp",
             "name": "Create Food",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -710,7 +403,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +466,7 @@
             },
             "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
             "name": "Mirror Image (At Will)",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -836,7 +529,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Noise Blast",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -925,7 +618,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1006,7 +699,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1087,7 +780,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1167,7 +860,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1254,7 +947,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1336,7 +1029,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1403,7 +1096,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1484,7 +1177,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1679,7 +1372,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1876,7 +1569,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 2600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1939,7 +1632,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2015,7 +1708,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2077,7 +1770,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2140,7 +1833,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism (At Will)",
-            "sort": 3000000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2199,107 +1892,13 @@
             "type": "spell"
         },
         {
-            "_id": "tnNDPmIcvI7gDNNU",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 3100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "55nE5ly8P6bNoKsI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 3200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "ZcALm783lAC8Cmhr",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 3300000,
+            "sort": 2400000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -2380,6 +1979,407 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "HyVnK39Qbmr02ZZS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Ydersius",
+            "sort": 2500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "AGZBKBnJMkp5NrlX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "serpentfolk-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "sw9gfjvscvq9zhb41290": {
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UDq6DQC7aa80MDDu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ZcALm783lAC8Cmhr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "2H9NlYWq4ZhWdnZE": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GjmjXrm0BYOCXs5E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3c01H24sjgfJHyvI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o4iEKaEBIwAr18XF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 Status to Will Saves vs. Mental",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": "will",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VRDZl6y3aAge5VyP",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Raise Serpent",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The bone prophet animates corpses of snakes, serpentfolk, or similar serpentine creatures within a @Template[emanation|distance:30]. Any flesh on the bodies sloughs off, and they rise as skeletons. The bone prophet can raise one Large creature as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Giant] or up to three Medium creatures as @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Champion]{Skeletal Champions}; the equipment and attacks might be different depending on the corpses' possessions.</p>\n<p>These skeletons have the minion trait and are under the bone prophet's control; the bone prophet can give all these minions the same command with a single action that has the concentrate trait. Any skeletal minions that still remain after 10 minutes crumble to dust.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pkqZFkDwe6SFvUXX",
+            "_stats": {
+                "compendiumSource": "Actor.acGApO7HwzXQVlTU.Item.pkqZFkDwe6SFvUXX"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Serpentfolk Venom",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d4[poison]] damage and enfeebled 1 (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "serpentfolk-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z9o0w0dnDFg7Nxqg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The creature's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Serpentfolk Cultist",

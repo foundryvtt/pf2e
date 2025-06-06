@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "dM9C8lwWHWEBUxDR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wild Empathy",
+            "_id": "oQVUQYLZSbOzdbRx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>The corrupted priest can use <span data-pf2-action=\"makeAnImpression\">Diplomacy</span> to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on animals and to make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests} of them.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,378 +28,67 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KwKdT0U7saZ9u8qc",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Roiling Mind",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p>\n<hr />\n<p><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes @Damage[3d8[mental]] damage (@Check[will|dc:20|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "will",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
+                "slots": {
+                    "slot0": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "YFuvpXEpmgowoC5F"
+                            },
+                            {
+                                "id": "jhiv1bNGRWubfflR"
+                            },
+                            {
+                                "id": "pHsLPQ7PWAXdZLf9"
+                            },
+                            {
+                                "id": "QynkowS7kvXSsl9p"
+                            }
+                        ]
                     },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "mental"
-                        ],
-                        "selector": [
-                            "fortitude",
-                            "reflex"
-                        ],
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "i621hyfk7W2Zq4X5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Demonic Strength",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Corrupted priests deal an extra 1d8 damage with their tridents, and any trident gains the fatal d10 trait while the priest is using it (both the extra weapon damage die and the fatal trait have already been included above).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "item:base:trident"
-                        ],
-                        "selector": "strike-damage"
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "tJtsKScOiVbrJqmH"
+                            },
+                            {
+                                "id": "6hkhqIqTBYSyq9Sg"
+                            },
+                            {
+                                "id": "DvPGeEX2poysnmW7"
+                            },
+                            {
+                                "id": "l02OsgPUJoxeqA6a"
+                            }
+                        ]
                     },
-                    {
-                        "itemType": "weapon",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:base:trident"
-                        ],
-                        "property": "traits",
-                        "value": "fatal-d10"
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ZAv9TC7EZdiuTLln"
+                            },
+                            {
+                                "id": "WWPBVvECyz07iAjB"
+                            },
+                            {
+                                "id": "ji64kowzCOQ3gHGb"
+                            }
+                        ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "jTch23N9mdVr7n74",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "ROfK1SKRZK5bHSNe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Gozreh (Wooden, Defaced with Demonic Runes)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ZiFwoApOZ8V32uzv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ilbLQNy6TbBPW7sQ"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
-            "name": "Gray Robes",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "clothing-ordinary",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "1WyeUsZoxRGbP2Ad",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Gozreh Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "WgQCSrHux9sfsvj3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "UWKx90YU5DKUWJuT"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "817y9nq26svz371ubpw2": {
-                        "damage": "1d8+1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ZAv9TC7EZdiuTLln",
@@ -405,7 +97,7 @@
             },
             "img": "systems/pf2e/icons/spells/barkskin.webp",
             "name": "Barkskin",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -465,7 +157,7 @@
             },
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Flaming Sphere",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -549,7 +241,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-elemental.webp",
             "name": "Summon Elemental",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -609,7 +301,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -689,7 +381,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -885,7 +577,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -949,7 +641,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1030,7 +722,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +799,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1170,7 +862,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-animal.webp",
             "name": "Summon Animal",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1230,7 +922,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1287,100 +979,13 @@
             "type": "spell"
         },
         {
-            "_id": "oQVUQYLZSbOzdbRx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 2000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "YFuvpXEpmgowoC5F"
-                            },
-                            {
-                                "id": "jhiv1bNGRWubfflR"
-                            },
-                            {
-                                "id": "pHsLPQ7PWAXdZLf9"
-                            },
-                            {
-                                "id": "QynkowS7kvXSsl9p"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "tJtsKScOiVbrJqmH"
-                            },
-                            {
-                                "id": "6hkhqIqTBYSyq9Sg"
-                            },
-                            {
-                                "id": "DvPGeEX2poysnmW7"
-                            },
-                            {
-                                "id": "l02OsgPUJoxeqA6a"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ZAv9TC7EZdiuTLln"
-                            },
-                            {
-                                "id": "WWPBVvECyz07iAjB"
-                            },
-                            {
-                                "id": "ji64kowzCOQ3gHGb"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "UWKx90YU5DKUWJuT",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Trident",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "trident",
                 "bonus": {
@@ -1457,6 +1062,401 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "jTch23N9mdVr7n74",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 1400000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ROfK1SKRZK5bHSNe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Gozreh (Wooden, Defaced with Demonic Runes)",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ZiFwoApOZ8V32uzv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ilbLQNy6TbBPW7sQ"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
+            "name": "Gray Robes",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "clothing-ordinary",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "WgQCSrHux9sfsvj3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UWKx90YU5DKUWJuT"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "817y9nq26svz371ubpw2": {
+                        "damage": "1d8+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dM9C8lwWHWEBUxDR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wild Empathy",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The corrupted priest can use <span data-pf2-action=\"makeAnImpression\">Diplomacy</span> to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on animals and to make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests} of them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KwKdT0U7saZ9u8qc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Roiling Mind",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p>\n<hr />\n<p><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes @Damage[3d8[mental]] damage (@Check[will|dc:20|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "will",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": [
+                            "fortitude",
+                            "reflex"
+                        ],
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i621hyfk7W2Zq4X5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Demonic Strength",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Corrupted priests deal an extra 1d8 damage with their tridents, and any trident gains the fatal d10 trait while the priest is using it (both the extra weapon damage die and the fatal trait have already been included above).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:base:trident"
+                        ],
+                        "property": "traits",
+                        "value": "fatal-d10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1WyeUsZoxRGbP2Ad",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Gozreh Lore",
+            "sort": 2100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Corrupted Priest",

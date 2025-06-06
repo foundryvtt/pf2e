@@ -3,285 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "BIFXG8tlrggVbQZ0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
+            "_id": "ikfBxpjmTlocaUVu",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Harmed by cold and water (@Damage[5d8[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by acid (area @Damage[2d6[healing]] HP); slowed by earth</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "golem-golem-antimagic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qxmme69IDeE8LxLa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Stone to Flesh",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A @UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh] spell negates Cursebreaker's golem antimagic and its resistance to physical damage for 1 round.</p>\n<p>A @UUID[Compendium.pf2e.spells-srd.Item.Petrify] spell reverses this effect immediately.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "vulnerable-to-stone-to-flesh",
-                        "toggleable": true
-                    },
-                    {
-                        "exceptions": [
-                            "adamantine"
-                        ],
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "not": "vulnerable-to-stone-to-flesh"
-                            }
-                        ],
-                        "type": "physical",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vxR33jABpWbixKMb",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Impose Paralysis",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Cursebreaker hits a @UUID[Compendium.pf2e.conditionitems.Item.Slowed] creature</p>\n<hr />\n<p><strong>Effect</strong> The creature must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xoigCRlVfwponLe7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qt2exWwQTzoObKfW"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Inexorable March",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Check[fortitude|dc:32|traits:damaging-effect]</p>\n<p>On a critical success, the resisting creature takes no damage; otherwise it is damaged as if hit by Cursebreaker's fist.</p>\n<hr />\n<p>The golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a Fortitude save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "golem-inexorable-march",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6yEfEcRS7ayfG7nE",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Slowing Pulse",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:27|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p>Cursebreaker can't use Slowing Pulse again for [[/gmr 1d4 #Recharge Slowing Pulse]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rl2d3yDbUo9Wxxil",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Undo Curse",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Cursebreaker can cast a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] spell at will, targeting every resident of the city of Kibwe. Cursebreaker must be stationed in the upper level of the Archive of the Sun with its sun symbols activated to use this ability.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GVVKOsZuVemnbHBU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Kibwe Lore",
-            "sort": 700000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 12
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
                     "value": 0
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "PqRogFZRMSDSuBh2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "OzGRy5Q3gxjky0Q9",
@@ -290,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse (At Will) (See Undo Curse)",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -346,22 +104,28 @@
             "type": "spell"
         },
         {
-            "_id": "ikfBxpjmTlocaUVu",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 1000000,
+            "_id": "PqRogFZRMSDSuBh2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d10+10",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -369,20 +133,256 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 0,
-                    "value": 0
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "BIFXG8tlrggVbQZ0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by cold and water (@Damage[5d8[untyped]], @Damage[2d6[untyped]] from areas or persistent damage); healed by acid (area @Damage[2d6[healing]] HP); slowed by earth</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "golem-golem-antimagic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qxmme69IDeE8LxLa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Stone to Flesh",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A @UUID[Compendium.pf2e.spells-srd.Item.Stone to Flesh] spell negates Cursebreaker's golem antimagic and its resistance to physical damage for 1 round.</p>\n<p>A @UUID[Compendium.pf2e.spells-srd.Item.Petrify] spell reverses this effect immediately.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "vulnerable-to-stone-to-flesh",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "adamantine"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-to-stone-to-flesh"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vxR33jABpWbixKMb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Impose Paralysis",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Cursebreaker hits a @UUID[Compendium.pf2e.conditionitems.Item.Slowed] creature</p>\n<hr />\n<p><strong>Effect</strong> The creature must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xoigCRlVfwponLe7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.qt2exWwQTzoObKfW"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Inexorable March",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[fortitude|dc:32|traits:damaging-effect]</p>\n<p>On a critical success, the resisting creature takes no damage; otherwise it is damaged as if hit by Cursebreaker's fist.</p>\n<hr />\n<p>The golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a Fortitude save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "golem-inexorable-march",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6yEfEcRS7ayfG7nE",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Slowing Pulse",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each creature in a @Template[emanation|distance:10] must succeed at a @Check[fortitude|dc:27|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p>Cursebreaker can't use Slowing Pulse again for [[/gmr 1d4 #Recharge Slowing Pulse]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rl2d3yDbUo9Wxxil",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Undo Curse",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Cursebreaker can cast a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] spell at will, targeting every resident of the city of Kibwe. Cursebreaker must be stationed in the upper level of the Archive of the Sun with its sun symbols activated to use this ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GVVKOsZuVemnbHBU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Kibwe Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Cursebreaker",

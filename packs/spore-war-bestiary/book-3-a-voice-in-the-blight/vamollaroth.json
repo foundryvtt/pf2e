@@ -4,487 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7V9CRphWnj5Wbphk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "G28Pnn4HnVVFN1Jg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k3jP9yoeoKf0lxhX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cXcE5HUwD2KD7fgp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 30 (Deactivated by Acid, Cold, or Fire)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "acid",
-                            "cold",
-                            "fire"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 30
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S4RaTo05dVkCZyyf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Purity Vulnerability",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Vamollaroth revels in the foulness he exudes and becomes distraught when contaminations are purified. The first time in a round when a contamination is purified (such as via @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Cuisine]) or a toxin is counteracted (such as via @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]) with 30 feet of him, Vamollaroth takes @Damage[8d6[mental]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SnVSC6qmsNxHmPam",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Vamollaroth exudes an almost physical reek. A creature entering the aura or starting its turn in the aura must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a –2 circumstance penalty to saves against poison and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vamollaroth Stench]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": "stench",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YQs3tTvZeC9rNSZB",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Song of the Swamp",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mobogo unleashes a booming croak. All boggards and mobogos within @Template[emanation|distance:50]{50 feet} gain a +2 status bonus to damage rolls and saves against fear for 1 round. Other creatures in the area of effect must attempt a @Check[will|dc:44] save.</p><hr /><p><strong>Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #Duration Slowed]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for [[/gmr 1d4 #Duration Slowed]]{1d4 rounds}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Song of the Swamp]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zh48NJC2xlHL8Mm6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spew Pollution",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Vamollaroth spews a foul slurry of pollution and toxic sludge in a @Template[type:cone|distance:60]. Creatures in the area take @Damage[20d6[poison]] damage and must attempt a @Check[reflex|dc:44] save. Vamollaroth can't Spew Pollution again for [[/gmr 1d4 #Recharge Spew Pollution]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is exposed to a level 18 variant of brain worm.</p>\n<p><strong>Critical Failure</strong> As failure but double damage.</p><hr /><p><strong>Brain Worm</strong></p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:44|traits:disease,virulent|overrideTraits:true]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>\n<p><strong>Stage 2</strong> stupefied 2, and whenever you take damage, you must succeed at a Will save against the disease's DC or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and whenever you take damage, you must succeed at a Will save against the disease's DC or become confused for 1 minute (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} and confused, damage does not end the confused condition (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> death</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ad7v2ldIjRYpmP6V",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Hiuge, @Damage[(4d10+9)[bludgeoning]], Rupture 60</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "traits": {
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2BRmODyR3yH6ev3Q",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swamp Stride",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Vamollaroth ignores difficult terrain caused by swamp terrain features.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xPc5xxHX62bKWgkk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tongue Grab",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the mobogo's tongue becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the mobogo. The creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but it can't move beyond the reach of the mobogo's tongue.</p>\n<p>A creature can sever the tongue with a Strike against AC 43 that deals at least 30 slashing damage. This deals no damage to the mobogo but prevents it from using its tongue Strike until it regrows its tongue, which takes 1 round.</p>\n<p>The mobogo can move without ending the Grab as long as the creature remains within the tongue's reach.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tongue-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "phtWMfKuIsMCi5cE",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tongue Reposition",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mobogo attempts to move a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by its tongue. The mobogo rolls an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC.</p>\n<p>On a success, the mobogo moves the creature into any space within the tongue's reach. If it wishes, the mobogo can transfer the grabbed creature to its jaws.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tetpWKxbpwLYXdRP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jMQ5yo71IDbzIoiV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 39
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d10+18",
-                        "damageType": "piercing"
-                    },
-                    "hBwdyaO61G3YBmmF": {
-                        "damage": "2d6",
-                        "damageType": "poison"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "SgXWjRi0fOvCndJM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tongue",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "tongue-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 39
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d8+18",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -492,17 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-30",
-                        "unholy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 41,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "qL5O4dfSfEHFhKcH",
@@ -511,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/moment-of-renewal.webp",
             "name": "Moment of Renewal",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -573,7 +112,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 1600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -689,7 +228,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -755,7 +294,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1800000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -844,7 +383,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -916,7 +455,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 2000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -988,7 +527,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement (Constant)",
-            "sort": 2100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1050,7 +589,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 2200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1109,21 +648,301 @@
             "type": "spell"
         },
         {
-            "_id": "G28Pnn4HnVVFN1Jg",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2300000,
+            "_id": "jMQ5yo71IDbzIoiV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 39
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d10+18",
+                        "damageType": "piercing"
+                    },
+                    "hBwdyaO61G3YBmmF": {
+                        "damage": "2d6",
+                        "damageType": "poison"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SgXWjRi0fOvCndJM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "tongue-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 39
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8+18",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-30",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7V9CRphWnj5Wbphk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k3jP9yoeoKf0lxhX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cXcE5HUwD2KD7fgp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 30 (Deactivated by Acid, Cold, or Fire)",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "acid",
+                            "cold",
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S4RaTo05dVkCZyyf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Purity Vulnerability",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Vamollaroth revels in the foulness he exudes and becomes distraught when contaminations are purified. The first time in a round when a contamination is purified (such as via @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Cuisine]) or a toxin is counteracted (such as via @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]) with 30 feet of him, Vamollaroth takes @Damage[8d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SnVSC6qmsNxHmPam",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Vamollaroth exudes an almost physical reek. A creature entering the aura or starting its turn in the aura must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a –2 circumstance penalty to saves against poison and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vamollaroth Stench]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": "stench",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YQs3tTvZeC9rNSZB",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Song of the Swamp",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The mobogo unleashes a booming croak. All boggards and mobogos within @Template[emanation|distance:50]{50 feet} gain a +2 status bonus to damage rolls and saves against fear for 1 round. Other creatures in the area of effect must attempt a @Check[will|dc:44] save.</p><hr /><p><strong>Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #Duration Slowed]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for [[/gmr 1d4 #Duration Slowed]]{1d4 rounds}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Song of the Swamp]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M",
                     "value": 1
                 },
                 "publication": {
@@ -1132,21 +951,202 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental",
+                        "primal"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "zh48NJC2xlHL8Mm6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spew Pollution",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vamollaroth spews a foul slurry of pollution and toxic sludge in a @Template[type:cone|distance:60]. Creatures in the area take @Damage[20d6[poison]] damage and must attempt a @Check[reflex|dc:44] save. Vamollaroth can't Spew Pollution again for [[/gmr 1d4 #Recharge Spew Pollution]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is exposed to a level 18 variant of brain worm.</p>\n<p><strong>Critical Failure</strong> As failure but double damage.</p><hr /><p><strong>Brain Worm</strong></p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:44|traits:disease,virulent|overrideTraits:true]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 day)</p>\n<p><strong>Stage 2</strong> stupefied 2, and whenever you take damage, you must succeed at a Will save against the disease's DC or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and whenever you take damage, you must succeed at a Will save against the disease's DC or become confused for 1 minute (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} and confused, damage does not end the confused condition (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> death</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ad7v2ldIjRYpmP6V",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hiuge, @Damage[(4d10+9)[bludgeoning]], Rupture 60</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2BRmODyR3yH6ev3Q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swamp Stride",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vamollaroth ignores difficult terrain caused by swamp terrain features.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xPc5xxHX62bKWgkk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tongue Grab",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the mobogo's tongue becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the mobogo. The creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but it can't move beyond the reach of the mobogo's tongue.</p>\n<p>A creature can sever the tongue with a Strike against AC 43 that deals at least 30 slashing damage. This deals no damage to the mobogo but prevents it from using its tongue Strike until it regrows its tongue, which takes 1 round.</p>\n<p>The mobogo can move without ending the Grab as long as the creature remains within the tongue's reach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tongue-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "phtWMfKuIsMCi5cE",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tongue Reposition",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mobogo attempts to move a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by its tongue. The mobogo rolls an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC.</p>\n<p>On a success, the mobogo moves the creature into any space within the tongue's reach. If it wishes, the mobogo can transfer the grabbed creature to its jaws.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tetpWKxbpwLYXdRP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Vamollaroth",

@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1X408hyyFmK2UXyK",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Spell Punch",
+            "_id": "CMSkH2mq7FD8PZSt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The mage of many styles begins to Cast a Spell that targets at least 1 creature</p>\n<hr />\n<p><strong>Effect</strong> The mage channels the spell through their fist. The mage makes a fist Strike against a target within reach. If the Strike is successful, the target is subjected to the spell. If the spell required an attack roll, the target is hit automatically upon a successful Strike. If the spell required a saving throw, the target takes a -2 status penalty to its saving throw. If the spell could target multiple creatures, it targets only the creature the mage hit with their fist Strike.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,107 +27,40 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot7": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qZ8GPGa0XkQKz1Lc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor I",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 450
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bracers-of-armor-i",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornbracers"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "EWxwDD8Sjef1Ed2W",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Academia Lore",
-            "sort": 300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
                     "value": 26
                 },
-                "proficient": {
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "tTY6LIUTTZcgdkBY",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Prepared Arcane Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "prepared"
+                },
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -134,105 +69,135 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "z2kpa8D2ItSs1Qgk",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "1i5alegbwcy4rynycvqw": {
-                        "damage": "2d6+5",
-                        "damageType": "bludgeoning"
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "ut9LsV8q2Wj8otCc"
+                            },
+                            {
+                                "id": "Va2mlnR6NwZWTI5Z"
+                            },
+                            {
+                                "id": "XF12QDg65SkZINNw"
+                            },
+                            {
+                                "id": "bRUd8Lb6Y9GKNKUb"
+                            },
+                            {
+                                "id": "emb4tgrFeLCUxGZs"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "MQHiz8SkkuICv0rY"
+                            },
+                            {
+                                "id": "PSTQTKfWf5t4VR1M"
+                            },
+                            {
+                                "id": "NsOQqoFmC7MexXRT"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "wzTLXWHMCcGgtHYe"
+                            },
+                            {
+                                "id": "bWM60F1TE90aIMe4"
+                            },
+                            {
+                                "id": "v8dPDWGbDfSEVpbS"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "7mwrE4fBg62pMaOi"
+                            },
+                            {
+                                "id": "nWGf4DGjBuJ9GwIA"
+                            },
+                            {
+                                "id": "pQMUj3eQ1z7xptxd"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "BGpuEUYIknFguziS"
+                            },
+                            {
+                                "id": "xFy9mYG2r93is3rE"
+                            },
+                            {
+                                "id": "ZrV2IO2q3Ow8oBWw"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "hvduq5bkKcMQcWS6"
+                            },
+                            {
+                                "id": "3sTFIPu6GvlYHJln"
+                            },
+                            {
+                                "id": "5uP14KkPTqYVzBXC"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "W9OW7dW5l2fuJCeI"
+                            },
+                            {
+                                "id": "RurOG47jSyeBDYXT"
+                            },
+                            {
+                                "id": "iZNrUOF20DKBi9hz"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "hvduq5bkKcMQcWS6"
+                            },
+                            {
+                                "id": "oDPqFivg2PHXAGex"
+                            }
+                        ]
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 32,
+                    "mod": 0,
+                    "value": 26
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "aAgsA3dUefZ5fQa2",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "UoOCPoCfBTIEG1yX"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longsword",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "uj5k39zdm9a5j7sef2qm": {
-                        "damage": "2d8+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "L8T1AIUF8ATmVLtW",
@@ -241,7 +206,7 @@
             },
             "img": "systems/pf2e/icons/spells/physical-boost.webp",
             "name": "Physical Boost",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -299,7 +264,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-target.webp",
             "name": "True Target",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -360,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -443,7 +408,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -525,7 +490,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -613,7 +578,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -694,7 +659,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -754,7 +719,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -821,7 +786,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -882,7 +847,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -943,7 +908,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1600000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1029,7 +994,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 1700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1089,7 +1054,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1174,7 +1139,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 1900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1254,7 +1219,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 2000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1316,7 +1281,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 2100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1382,7 +1347,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 2200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1543,7 +1508,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1630,7 +1595,7 @@
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 2400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1690,7 +1655,7 @@
             },
             "img": "systems/pf2e/icons/spells/hand-of-the-apprentice.webp",
             "name": "Hand of the Apprentice",
-            "sort": 2500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1749,7 +1714,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 2600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1810,7 +1775,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1877,7 +1842,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1939,7 +1904,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 2900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2019,7 +1984,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 3000000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2082,7 +2047,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 3100000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2136,209 +2101,13 @@
             "type": "spell"
         },
         {
-            "_id": "CMSkH2mq7FD8PZSt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 3200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot7": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "tTY6LIUTTZcgdkBY",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Prepared Arcane Spells",
-            "sort": 3300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "ut9LsV8q2Wj8otCc"
-                            },
-                            {
-                                "id": "Va2mlnR6NwZWTI5Z"
-                            },
-                            {
-                                "id": "XF12QDg65SkZINNw"
-                            },
-                            {
-                                "id": "bRUd8Lb6Y9GKNKUb"
-                            },
-                            {
-                                "id": "emb4tgrFeLCUxGZs"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "MQHiz8SkkuICv0rY"
-                            },
-                            {
-                                "id": "PSTQTKfWf5t4VR1M"
-                            },
-                            {
-                                "id": "NsOQqoFmC7MexXRT"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "wzTLXWHMCcGgtHYe"
-                            },
-                            {
-                                "id": "bWM60F1TE90aIMe4"
-                            },
-                            {
-                                "id": "v8dPDWGbDfSEVpbS"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "7mwrE4fBg62pMaOi"
-                            },
-                            {
-                                "id": "nWGf4DGjBuJ9GwIA"
-                            },
-                            {
-                                "id": "pQMUj3eQ1z7xptxd"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "BGpuEUYIknFguziS"
-                            },
-                            {
-                                "id": "xFy9mYG2r93is3rE"
-                            },
-                            {
-                                "id": "ZrV2IO2q3Ow8oBWw"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "hvduq5bkKcMQcWS6"
-                            },
-                            {
-                                "id": "3sTFIPu6GvlYHJln"
-                            },
-                            {
-                                "id": "5uP14KkPTqYVzBXC"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "W9OW7dW5l2fuJCeI"
-                            },
-                            {
-                                "id": "RurOG47jSyeBDYXT"
-                            },
-                            {
-                                "id": "iZNrUOF20DKBi9hz"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "hvduq5bkKcMQcWS6"
-                            },
-                            {
-                                "id": "oDPqFivg2PHXAGex"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "mod": 0,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "UoOCPoCfBTIEG1yX",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
             },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "Longsword",
-            "sort": 3400000,
+            "sort": 2900000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -2423,7 +2192,7 @@
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+1 Striking Handwraps of Mighty Blows",
-            "sort": 3500000,
+            "sort": 3000000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -2506,6 +2275,237 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "qZ8GPGa0XkQKz1Lc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bracers of Armor I",
+            "sort": 3100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 450
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bracers-of-armor-i",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornbracers"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "z2kpa8D2ItSs1Qgk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 3200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "1i5alegbwcy4rynycvqw": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aAgsA3dUefZ5fQa2",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "UoOCPoCfBTIEG1yX"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 3300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "uj5k39zdm9a5j7sef2qm": {
+                        "damage": "2d8+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1X408hyyFmK2UXyK",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Spell Punch",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The mage of many styles begins to Cast a Spell that targets at least 1 creature</p>\n<hr />\n<p><strong>Effect</strong> The mage channels the spell through their fist. The mage makes a fist Strike against a target within reach. If the Strike is successful, the target is subjected to the spell. If the spell required an attack roll, the target is hit automatically upon a successful Strike. If the spell required a saving throw, the target takes a -2 status penalty to its saving throw. If the spell could target multiple creatures, it targets only the creature the mage hit with their fist Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EWxwDD8Sjef1Ed2W",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Academia Lore",
+            "sort": 3500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Mage of Many Styles",

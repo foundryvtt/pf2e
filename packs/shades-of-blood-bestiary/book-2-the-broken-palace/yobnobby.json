@@ -4,188 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bff2Jh99zQPqG6QH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Expert Overdrive",
+            "_id": "5rP5cz0JHgxkYHIF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Yobnobby attempts a @Check[crafting|dc:18] check.</p><hr /><p><strong>Critical Success</strong> Yobnobby's Strikes deal an additional 5 damage for 1 minute. After this effect ends, Yobnobby can't use Expert Overdrive for 1 minute.</p>\n<p><strong>Success</strong> As critical success, but only an additional 3 damage.</p>\n<p><strong>Failure</strong> Nothing happens.</p>\n<p><strong>Critical Failure</strong> Yobnobby's gizmos catch on fire! She takes @Damage[3[fire]] damage and can't use Expert Overdrive again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Yobnobby Overdrive]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dawIHmBmwwLU1WVg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Explode",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Yobnobby causes her armor to belch fire in a @Template[type:emanation|distance:5]. Creatures in this area (other than Yobnobby) take @Damage[3d6[fire]] damage (@Check[reflex|dc:19|basic] save), after which Yobnobby must attempt a @Check[flat|dc:17].</p>\n<p><strong>Success</strong> Yobnobby's armor is unharmed by the explosion.</p>\n<p><strong>Failure</strong> Yobnobby's armor emits a loud grinding sound and belches plumes of rancid-smelling smoke. She can't use Explode again until she takes 10 minutes to repair her armor.</p>\n<p><strong>Critical Failure</strong> As failure, but Yobnobby also takes @Damage[3[fire]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "manipulate",
-                        "unstable"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Zb8K4VcpBvIelQv0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Extend Claws",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Yobnobby causes her tekko-kagis to extend on armatures from her hands, granting her reach 10 feet with the weapons until the end of her turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "extend-claws",
-                        "toggleable": true
-                    },
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "extend-claws"
-                        ],
-                        "property": "traits",
-                        "value": "reach-10"
-                    },
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "remove",
-                        "predicate": [
-                            "extend-claws"
-                        ],
-                        "property": "traits",
-                        "value": "reach-0"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oObpBdGWzojxRdfS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Yobnobby deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fHam88iT0r3U5tcl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tinker",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A group of six jinkins can work together for an hour to imbue an item with a curse at a range of 60 feet. While this process is lengthy, it's also unobtrusive and can be performed while @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hiding}. Jinkins prefer to use this ability on magic items. The curse makes the item unreliable (@Check[flat|dc:5] check or waste any action to Interact with or Activate the item), adds a bizarre requirement to use the item, or imparts some other curse of a similar caliber.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -193,164 +28,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "Shu2zixdfijXIA2G",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Yobnobby's Armor",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Yobnobby's armor grants resistance 4 to acid and electricity damage. This resistance increases to 6 when she successfully activates Expert Overdrive.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "self:effect:yobnobbys-overdrive"
-                        ],
-                        "type": [
-                            "acid",
-                            "electricity"
-                        ],
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s1pEYkYD45YTcM8g",
-            "img": "icons/equipment/chest/breastplate-banded-steel-grey.webp",
-            "name": "Yobnobby's Armor",
-            "sort": 700000,
-            "system": {
-                "acBonus": 0,
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "light",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "dexCap": 5,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": null,
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": null,
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "Po8uQbzvBnFvOafc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "HvvMxJlTELE0J4Zk"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tekko-Kagi",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "KsMh1W2Bpx6qopNM": {
-                        "damage": "1d4+2",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tekko-kagi",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "disarm",
-                        "finesse",
-                        "free-hand",
-                        "monk",
-                        "parry",
-                        "reach-0"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "iqKvwR33VgnA6XRV",
@@ -359,7 +52,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -416,55 +109,13 @@
             "type": "spell"
         },
         {
-            "_id": "5rP5cz0JHgxkYHIF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "HvvMxJlTELE0J4Zk",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vsJ0zvYZzduP7rtD"
             },
             "img": "icons/weapons/fist/claw-grey-black.webp",
             "name": "Tekko-Kagi",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "baseItem": "tekko-kagi",
                 "bonus": {
@@ -546,6 +197,355 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "s1pEYkYD45YTcM8g",
+            "img": "icons/equipment/chest/breastplate-banded-steel-grey.webp",
+            "name": "Yobnobby's Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 0,
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "dexCap": 5,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": null,
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "Po8uQbzvBnFvOafc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "HvvMxJlTELE0J4Zk"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tekko-Kagi",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "KsMh1W2Bpx6qopNM": {
+                        "damage": "1d4+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tekko-kagi",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "disarm",
+                        "finesse",
+                        "free-hand",
+                        "monk",
+                        "parry",
+                        "reach-0"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bff2Jh99zQPqG6QH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Expert Overdrive",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Yobnobby attempts a @Check[crafting|dc:18] check.</p><hr /><p><strong>Critical Success</strong> Yobnobby's Strikes deal an additional 5 damage for 1 minute. After this effect ends, Yobnobby can't use Expert Overdrive for 1 minute.</p>\n<p><strong>Success</strong> As critical success, but only an additional 3 damage.</p>\n<p><strong>Failure</strong> Nothing happens.</p>\n<p><strong>Critical Failure</strong> Yobnobby's gizmos catch on fire! She takes @Damage[3[fire]] damage and can't use Expert Overdrive again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Yobnobby Overdrive]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dawIHmBmwwLU1WVg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Explode",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yobnobby causes her armor to belch fire in a @Template[type:emanation|distance:5]. Creatures in this area (other than Yobnobby) take @Damage[3d6[fire]] damage (@Check[reflex|dc:19|basic] save), after which Yobnobby must attempt a @Check[flat|dc:17].</p>\n<p><strong>Success</strong> Yobnobby's armor is unharmed by the explosion.</p>\n<p><strong>Failure</strong> Yobnobby's armor emits a loud grinding sound and belches plumes of rancid-smelling smoke. She can't use Explode again until she takes 10 minutes to repair her armor.</p>\n<p><strong>Critical Failure</strong> As failure, but Yobnobby also takes @Damage[3[fire]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "manipulate",
+                        "unstable"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zb8K4VcpBvIelQv0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Extend Claws",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yobnobby causes her tekko-kagis to extend on armatures from her hands, granting her reach 10 feet with the weapons until the end of her turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "extend-claws",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "extend-claws"
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "extend-claws"
+                        ],
+                        "property": "traits",
+                        "value": "reach-0"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oObpBdGWzojxRdfS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yobnobby deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fHam88iT0r3U5tcl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tinker",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A group of six jinkins can work together for an hour to imbue an item with a curse at a range of 60 feet. While this process is lengthy, it's also unobtrusive and can be performed while @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hiding}. Jinkins prefer to use this ability on magic items. The curse makes the item unreliable (@Check[flat|dc:5] check or waste any action to Interact with or Activate the item), adds a bizarre requirement to use the item, or imparts some other curse of a similar caliber.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Shu2zixdfijXIA2G",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Yobnobby's Armor",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Yobnobby's armor grants resistance 4 to acid and electricity damage. This resistance increases to 6 when she successfully activates Expert Overdrive.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "self:effect:yobnobbys-overdrive"
+                        ],
+                        "type": [
+                            "acid",
+                            "electricity"
+                        ],
+                        "value": 6
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Yobnobby",

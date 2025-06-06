@@ -4,208 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "WGBYwG2C4eElCrPd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Collaborative Thievery",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The urchin gains a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] or @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object] while within 10 feet of an ally who has the pickpocket ability.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "collaborative-thievery",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "collaborative-thievery",
-                            {
-                                "or": [
-                                    "action:steal",
-                                    "action:palm-an-object"
-                                ]
-                            }
-                        ],
-                        "selector": "thievery",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lC7KFntiTwd1FRo7",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pickpocket",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>For an urchin, the DC to [[/act steal]] or [[/act palm-an-object]] isn't increased by 5 for an item that's closely guarded. They can Steal objects that would be extremely noticeable or time-consuming to remove (like worn shoes, armor, or actively wielded objects).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3CtPYZLeE2j7fIME",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ZMcT1sMmOY8rwe3w"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shiv",
-            "sort": 300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "y2kdllgwotri2m2m0n10dq": {
-                        "damage": "1d4-1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "IAFE4UVaYTfZgp3J",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "ztl54weablzd45nihlztn": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2pNLHufgvxymiXGj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "bjbn5pl6dlsr235c02ocv": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ZMcT1sMmOY8rwe3w",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Shiv",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -285,6 +90,201 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "3CtPYZLeE2j7fIME",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ZMcT1sMmOY8rwe3w"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shiv",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "y2kdllgwotri2m2m0n10dq": {
+                        "damage": "1d4-1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IAFE4UVaYTfZgp3J",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "ztl54weablzd45nihlztn": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2pNLHufgvxymiXGj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "bjbn5pl6dlsr235c02ocv": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WGBYwG2C4eElCrPd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Collaborative Thievery",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The urchin gains a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] or @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object] while within 10 feet of an ally who has the pickpocket ability.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "collaborative-thievery",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "collaborative-thievery",
+                            {
+                                "or": [
+                                    "action:steal",
+                                    "action:palm-an-object"
+                                ]
+                            }
+                        ],
+                        "selector": "thievery",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lC7KFntiTwd1FRo7",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pickpocket",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>For an urchin, the DC to [[/act steal]] or [[/act palm-an-object]] isn't increased by 5 for an item that's closely guarded. They can Steal objects that would be extremely noticeable or time-consuming to remove (like worn shoes, armor, or actively wielded objects).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Urchin",

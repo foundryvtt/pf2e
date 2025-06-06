@@ -4,615 +4,80 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "mvXjjQkWwvMJZSer",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "FK02FgrkiyUcMuJp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 37,
+                    "mod": 0,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "l7wT4LDdfJXJETHf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Clockwork Brain",
+            "_id": "uVoFX3A8pbUaPYi4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Rituals",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>A second brain, made of clockwork, is implanted in the Inkmaster's skull. Any time he makes a Will save, he rolls twice and takes the higher result.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EbuMoQ5idyQJDEXD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralyzing Gaze",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A non-evil creature that ends its turn in the aura must attempt a @Check[fortitude|dc:35] save. If it fails, it's slowed 1 for 1 round, and if it critically fails, it is instead paralyzed for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "paralyzing-gaze",
-                        "traits": [
-                            "divine",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Tk7abWUpvDDV6Qg0",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Succor Vulnerability",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A shemhazian's mutilation is a part of them, and they can't bear to see it reversed. The first time each round that a creature heals from damage the shemhazian dealt on their last turn, the demon takes @Damage[3d6[mental]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4TtLSpRhmqV1Dvp1",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Tail Whip",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the shemhazian's tail leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The shemhazian attempts to Trip the triggering creature. On a success, the creature also takes damage as if the shemhazian had hit with a tail Strike, and if the creature was flying, it falls 30 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AsXbDxRSKFmiQ6jb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Enfeebling Bite",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the shemhazian's jaws Strike damages a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}. The target can attempt a @Check[fortitude|dc:37] save to reduce this to @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or be unaffected on a critical success).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "enfeebling-bite",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aqwHyoUR6cj9y6s8",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focused Gaze",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The shemhazian focuses their gaze on a non-evil creature they can see within 30 feet. If that creature isn't already slowed by the shemhazian's paralyzing gaze, it must attempt a save against the shemhazian's paralyzing gaze. If that creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed], it must succeed at a @Check[fortitude|dc:35] save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. A shemhazian can't use this ability against the same creature more than once per round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "incapacitation",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XbpdSS6FXHoqmiIy",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Kfw3xJtFTIHlmDoM",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<hr />\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lWhkuPfJ5dAS9a2j",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Gearblade",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
+                "proficiency": {
                     "value": 0
                 },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "size": "med",
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 36,
+                    "mod": 0,
+                    "value": 26
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "equipment"
-        },
-        {
-            "_id": "oEHHDWURCYEb1t7W",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "enfeebling-bite"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "qr8ctfuijiip3nf5a9xp": {
-                        "damage": "3d12+17",
-                        "damageType": "piercing"
-                    },
-                    "depzh1fgwxrahrewytxi": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-20",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "AHGv0wFC9jb2bwlQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "tqhu4mzmfxo0qu9yftxx": {
-                        "damage": "3d8+17",
-                        "damageType": "slashing"
-                    },
-                    "bcuk4qd11pr2vtv0rnlz": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-20",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "GGJBUd4JmwxnZtYj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pincer",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "omrvt2gb6cpyxk0ouukx": {
-                        "damage": "3d8+17",
-                        "damageType": "bludgeoning"
-                    },
-                    "4snvmmtrnd95ldzq1ptl": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "evil",
-                        "magical",
-                        "reach-20",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RI07SPUsr3EfIXQX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "wyqsoo0t2nra7l50lnk8": {
-                        "damage": "3d6+17",
-                        "damageType": "slashing"
-                    },
-                    "jg9m8cuil3szx4v26ach": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "evil",
-                        "magical",
-                        "reach-20",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "UX4F0eelHvADT40O",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Gearblade",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "4oaegfsbdfom7n5dg0zjhk": {
-                        "damage": "3d12+17",
-                        "damageType": "slashing"
-                    },
-                    "z4l85219k7qdm21c07d1g": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "magical",
-                        "unholy",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "3v8f0JkFJDvCKYXc",
@@ -621,7 +86,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 1600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -708,7 +173,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -769,7 +234,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -832,7 +297,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -897,7 +362,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 2000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -963,7 +428,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 2100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1026,7 +491,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1086,7 +551,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Abyssal Pact",
-            "sort": 2300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1143,61 +608,87 @@
             "type": "spell"
         },
         {
-            "_id": "FK02FgrkiyUcMuJp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2400000,
+            "_id": "lWhkuPfJ5dAS9a2j",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Gearblade",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
                 },
+                "containerId": null,
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
                 },
-                "proficiency": {
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
                     "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "quantity": 1,
                 "rules": [],
-                "slots": {},
+                "size": "med",
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 27
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
-                "tradition": {
-                    "value": "divine"
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "equipment"
         },
         {
-            "_id": "uVoFX3A8pbUaPYi4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Rituals",
-            "sort": 2500000,
+            "_id": "oEHHDWURCYEb1t7W",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "enfeebling-bite"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "qr8ctfuijiip3nf5a9xp": {
+                        "damage": "3d12+17",
+                        "damageType": "piercing"
+                    },
+                    "depzh1fgwxrahrewytxi": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1205,18 +696,527 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "mod": 0,
-                    "value": 26
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-20",
+                        "unarmed",
+                        "unholy"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "AHGv0wFC9jb2bwlQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "tqhu4mzmfxo0qu9yftxx": {
+                        "damage": "3d8+17",
+                        "damageType": "slashing"
+                    },
+                    "bcuk4qd11pr2vtv0rnlz": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-20",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GGJBUd4JmwxnZtYj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pincer",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "omrvt2gb6cpyxk0ouukx": {
+                        "damage": "3d8+17",
+                        "damageType": "bludgeoning"
+                    },
+                    "4snvmmtrnd95ldzq1ptl": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evil",
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RI07SPUsr3EfIXQX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "wyqsoo0t2nra7l50lnk8": {
+                        "damage": "3d6+17",
+                        "damageType": "slashing"
+                    },
+                    "jg9m8cuil3szx4v26ach": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "evil",
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UX4F0eelHvADT40O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Gearblade",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "4oaegfsbdfom7n5dg0zjhk": {
+                        "damage": "3d12+17",
+                        "damageType": "slashing"
+                    },
+                    "z4l85219k7qdm21c07d1g": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "magical",
+                        "unholy",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "mvXjjQkWwvMJZSer",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l7wT4LDdfJXJETHf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clockwork Brain",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A second brain, made of clockwork, is implanted in the Inkmaster's skull. Any time he makes a Will save, he rolls twice and takes the higher result.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EbuMoQ5idyQJDEXD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralyzing Gaze",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A non-evil creature that ends its turn in the aura must attempt a @Check[fortitude|dc:35] save. If it fails, it's slowed 1 for 1 round, and if it critically fails, it is instead paralyzed for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "paralyzing-gaze",
+                        "traits": [
+                            "divine",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Tk7abWUpvDDV6Qg0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Succor Vulnerability",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A shemhazian's mutilation is a part of them, and they can't bear to see it reversed. The first time each round that a creature heals from damage the shemhazian dealt on their last turn, the demon takes @Damage[3d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4TtLSpRhmqV1Dvp1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tail Whip",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the shemhazian's tail leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The shemhazian attempts to Trip the triggering creature. On a success, the creature also takes damage as if the shemhazian had hit with a tail Strike, and if the creature was flying, it falls 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AsXbDxRSKFmiQ6jb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Enfeebling Bite",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the shemhazian's jaws Strike damages a creature, the target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}. The target can attempt a @Check[fortitude|dc:37] save to reduce this to @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (or be unaffected on a critical success).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "enfeebling-bite",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aqwHyoUR6cj9y6s8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focused Gaze",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shemhazian focuses their gaze on a non-evil creature they can see within 30 feet. If that creature isn't already slowed by the shemhazian's paralyzing gaze, it must attempt a save against the shemhazian's paralyzing gaze. If that creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed], it must succeed at a @Check[fortitude|dc:35] save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. A shemhazian can't use this ability against the same creature more than once per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "incapacitation",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XbpdSS6FXHoqmiIy",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kfw3xJtFTIHlmDoM",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<hr />\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "The Inkmaster",

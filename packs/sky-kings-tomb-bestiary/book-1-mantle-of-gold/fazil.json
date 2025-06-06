@@ -4,109 +4,174 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0qvSsLdTulsncbsi",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hurried Retreat",
+            "_id": "5IzoN6IwHOIwWFf6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
+            "name": "Crossbow",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "baseItem": "crossbow",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kobold scout is adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> The kobold scout Strides up to its Speed plus 5 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. It must end this movement in a space that's not adjacent to any enemy.</p>"
+                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "group": "crossbow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "hurried-retreat",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hurried-retreat"
-                        ],
-                        "selector": "land-speed",
-                        "value": 5
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hurried-retreat"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": 120,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "crossbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "MO9W8NpBALoHHtTS",
+            "_id": "mAdLAm3BwhJOTVkd",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "img": "icons/weapons/swords/sword-guard-purple.webp",
+            "name": "Shortsword",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>The kobold scout deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 9
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shortsword",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "xnnMUctqBMDEdLtB",
@@ -176,13 +241,71 @@
             "type": "armor"
         },
         {
+            "_id": "S8GCm7k7WeFJ7VPZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h7gsRKv6rORYgsv0"
+            },
+            "img": "icons/containers/boxes/crate-worn-brown.webp",
+            "name": "Snare Kit",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 2
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit contains tools and materials for creating snares. A snare kit allows you to Craft snares using the Crafting skill.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "snare-kit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
             "_id": "kiScwKTHJeIoNHIA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -240,64 +363,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "S8GCm7k7WeFJ7VPZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h7gsRKv6rORYgsv0"
-            },
-            "img": "icons/containers/boxes/crate-worn-brown.webp",
-            "name": "Snare Kit",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 2
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit contains tools and materials for creating snares. A snare kit allows you to Craft snares using the Crafting skill.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "snare-kit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
         },
         {
             "_id": "vTjkwNzpCJmsbg6R",
@@ -401,174 +466,109 @@
             "type": "melee"
         },
         {
-            "_id": "5IzoN6IwHOIwWFf6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
-            "name": "Crossbow",
+            "_id": "0qvSsLdTulsncbsi",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hurried Retreat",
             "sort": 800000,
             "system": {
-                "baseItem": "crossbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
-                    "invested": null
-                },
-                "group": "crossbow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": "<p><strong>Requirements</strong> The kobold scout is adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> The kobold scout Strides up to its Speed plus 5 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. It must end this movement in a space that's not adjacent to any enemy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 120,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "crossbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "hurried-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "mAdLAm3BwhJOTVkd",
+            "_id": "MO9W8NpBALoHHtTS",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
             },
-            "img": "icons/weapons/swords/sword-guard-purple.webp",
-            "name": "Shortsword",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
             "sort": 900000,
             "system": {
-                "baseItem": "shortsword",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 9
-                    }
+                    "value": "<p>The kobold scout deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": "Pathfinder Bestiary"
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shortsword",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Fazil",

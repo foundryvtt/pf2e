@@ -4,217 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "dWphYFgVjZP3oKOy",
+            "_id": "i8gV0kPbFPG7OdEG",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Zr4PwTEuBLE30kkn"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
+            "img": "icons/weapons/axes/shortaxe-engraved-green.webp",
+            "name": "Tool",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
+                "containerId": null,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>This entry is a catchall for basic hand tools that don't have a specific adventuring purpose. A hoe, shovel, or sledgehammer is a long tool, and a hand drill, ice hook, or trowel is a short tool. A tool can usually be used as an improvised weapon, dealing 1d4 damage. The GM determines the damage type that's appropriate or adjusts the damage if needed.</p>"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
                     }
-                ],
-                "slug": "negative-healing",
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "tool-short",
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "CHKrjbjG2iuM6dGa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Black Apoxia",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The target can't recover from the fatigued condition caused by black apoxia until the disease is cured</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zTFuXpu6BuPdbg6N",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brawling Critical",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the kurobozu scores a critical hit with an unarmed attack, the target must succeed at a @Check[fortitude|dc:23] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "fist-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gzZaUElRwVXoDLly",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sagebane",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the kurobozu damages a living creature with an unarmed Strike, the target must succeed at a @Check[fortitude|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. Further damage dealt by the kurobozu resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "sagebane",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BurQSnXk9enXhVZH",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Steal Breath",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The kurobozu is adjacent to a living creature that is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:23] save. Regardless of the result, the creature is exposed to black apoxia and its breath reeks of carrion for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and begins suffocating.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lcGPZQiY2GFPXOVQ",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stunning Flurry",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:23|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
+            "type": "equipment"
         },
         {
             "_id": "lljQfJf8JNzP9amd",
@@ -223,7 +68,7 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/oils/oil-of-unlife.webp",
             "name": "Oil of Unlife (Lesser)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -296,7 +141,7 @@
             },
             "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
             "name": "Wand of Animate Dead (Level 5)",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -423,94 +268,10 @@
             "type": "consumable"
         },
         {
-            "_id": "i8gV0kPbFPG7OdEG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Zr4PwTEuBLE30kkn"
-            },
-            "img": "icons/weapons/axes/shortaxe-engraved-green.webp",
-            "name": "Tool",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This entry is a catchall for basic hand tools that don't have a specific adventuring purpose. A hoe, shovel, or sledgehammer is a long tool, and a hand drill, ice hook, or trowel is a short tool. A tool can usually be used as an improvised weapon, dealing 1d4 damage. The GM determines the damage type that's appropriate or adjusts the damage if needed.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "tool-short",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "nOiQxEVLn3tVCv9I",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Monastic Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "a2FJlFGOGuTMTLOI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -557,6 +318,245 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "dWphYFgVjZP3oKOy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CHKrjbjG2iuM6dGa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Black Apoxia",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The target can't recover from the fatigued condition caused by black apoxia until the disease is cured</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zTFuXpu6BuPdbg6N",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Brawling Critical",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the kurobozu scores a critical hit with an unarmed attack, the target must succeed at a @Check[fortitude|dc:23] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "fist-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gzZaUElRwVXoDLly",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sagebane",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the kurobozu damages a living creature with an unarmed Strike, the target must succeed at a @Check[fortitude|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. Further damage dealt by the kurobozu resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sagebane",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BurQSnXk9enXhVZH",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Steal Breath",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The kurobozu is adjacent to a living creature that is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:23] save. Regardless of the result, the creature is exposed to black apoxia and its breath reeks of carrion for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and begins suffocating.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lcGPZQiY2GFPXOVQ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stunning Flurry",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:23|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nOiQxEVLn3tVCv9I",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Monastic Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Ghessa (5-6)",

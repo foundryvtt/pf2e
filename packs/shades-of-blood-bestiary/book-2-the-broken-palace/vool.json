@@ -4,408 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "H2rT9wdiejx3F1b0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "G412UtVloe7PIpa4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Disease and Poison",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "disease",
-                                    "poison"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JpHoOTWWwTjBq2XP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mobility",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When Vool Strides or Climbs and moves half his speed or less, he doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oaI2jLEPM9E92FUe",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Vampires are Everywhere!",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Vool is convinced there are vampires everywhere and is constantly @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. His frightened condition can be removed via magic like clear mind, if someone eases his fears by Lying to him with a successful @Check[deception|dc:18] check, or by giving him something else to fear by Coercing him with a @Check[intimidation|dc:18] check. Once his frightened condition is removed, Vool becomes particularly brave for 10 minutes and gains a +2 status bonus on saving throws against fear effects. After this time (or earlier, if he sees a vampire), he becomes frightened 1 again. Vool loses this trait while in full sunlight, as that triggers his Light Blindness. (It's tough being a morlock in a vampire's world!)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3vycv9ThXOQbgNBf",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Instinctual Tinker",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a @Check[crafting|defense:fortitude] check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's.</p><hr /><p><strong>Critical Success</strong> The target gains @Damage[4d6[healing]] Hit Points and a +1 circumstance bonus to attack rolls for 1 minute.</p>\n<p><strong>Success</strong> The target gains @Damage[2d6[healing]] Hit Points.</p>\n<p><strong>Critical Failure</strong> The morlock injures itself, taking @Damage[2d6] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Instinctual Tinker (Critical Success)]</p><hr /><p>Vool can also use this to repair a broken wooden stake pick with a @Check[crafting|dc:20] check.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HaYQ8Cd4C0hYSFdc",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Leap Attack",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The morlock Strides up to twice its Speed, during which it attempts a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or a @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>\n<p>The morlock then can't use Leap Attack for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NXk6QjCfO8eW6Txp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Vool deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y6Rqq2ahFM07WKRm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swarming Stance",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>\n<p>Vool can't use this ability if he's frightened (because the other morlock he could share a space with might be a vampire).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "swarming-stance",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "swarming-stance"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IOckVWRp45SLUPJu",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Wooden Stake Pick",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Vool's \"pick\" consists of a femur with a wooden stake lashed to one end. This weapon functions as a light pick that also has the versatile bludgeoning trait. If Vool critically fails a Strike with the janky weapon, it breaks and becomes useless until he repairs it. If he critically hits a vampire with the weapon, the vampire must succeed at a @Check[fortitude|dc:21] save or the stake is driven into its heart, reducing the vampire to 0 Hit Points. Despite his best efforts, Vool can't teach anyone to use the otherwise awkward weapon, although anyone can wield it as a normal +1 light pick with a head made of wood.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ofz49oiBkargWzh6",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wtCyVDGoLvwmfdHy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wooden Stake Pick",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "gNaERh3IiqnjOiZQ": {
-                        "damage": "1d6+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "pick",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "fatal-d8",
-                        "magical",
-                        "versatile-b"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "W0bSHtjL45X0hkdK",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.RbM4HvPyrZ4YJxRc"
             },
             "img": "systems/pf2e/icons/equipment/weapons/light-pick.webp",
             "name": "+1 Wooden Stake Pick",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "light-pick",
                 "bonus": {
@@ -483,6 +88,401 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ofz49oiBkargWzh6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wtCyVDGoLvwmfdHy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wooden Stake Pick",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "gNaERh3IiqnjOiZQ": {
+                        "damage": "1d6+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "pick",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "fatal-d8",
+                        "magical",
+                        "versatile-b"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "H2rT9wdiejx3F1b0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G412UtVloe7PIpa4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Disease and Poison",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "disease",
+                                    "poison"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JpHoOTWWwTjBq2XP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mobility",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Vool Strides or Climbs and moves half his speed or less, he doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oaI2jLEPM9E92FUe",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vampires are Everywhere!",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Vool is convinced there are vampires everywhere and is constantly @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. His frightened condition can be removed via magic like clear mind, if someone eases his fears by Lying to him with a successful @Check[deception|dc:18] check, or by giving him something else to fear by Coercing him with a @Check[intimidation|dc:18] check. Once his frightened condition is removed, Vool becomes particularly brave for 10 minutes and gains a +2 status bonus on saving throws against fear effects. After this time (or earlier, if he sees a vampire), he becomes frightened 1 again. Vool loses this trait while in full sunlight, as that triggers his Light Blindness. (It's tough being a morlock in a vampire's world!)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3vycv9ThXOQbgNBf",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Instinctual Tinker",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a @Check[crafting|defense:fortitude] check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's.</p><hr /><p><strong>Critical Success</strong> The target gains @Damage[4d6[healing]] Hit Points and a +1 circumstance bonus to attack rolls for 1 minute.</p>\n<p><strong>Success</strong> The target gains @Damage[2d6[healing]] Hit Points.</p>\n<p><strong>Critical Failure</strong> The morlock injures itself, taking @Damage[2d6] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Instinctual Tinker (Critical Success)]</p><hr /><p>Vool can also use this to repair a broken wooden stake pick with a @Check[crafting|dc:20] check.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HaYQ8Cd4C0hYSFdc",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Leap Attack",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The morlock Strides up to twice its Speed, during which it attempts a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or a @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>\n<p>The morlock then can't use Leap Attack for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NXk6QjCfO8eW6Txp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vool deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y6Rqq2ahFM07WKRm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarming Stance",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>\n<p>Vool can't use this ability if he's frightened (because the other morlock he could share a space with might be a vampire).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "swarming-stance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "swarming-stance"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IOckVWRp45SLUPJu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wooden Stake Pick",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Vool's \"pick\" consists of a femur with a wooden stake lashed to one end. This weapon functions as a light pick that also has the versatile bludgeoning trait. If Vool critically fails a Strike with the janky weapon, it breaks and becomes useless until he repairs it. If he critically hits a vampire with the weapon, the vampire must succeed at a @Check[fortitude|dc:21] save or the stake is driven into its heart, reducing the vampire to 0 Hit Points. Despite his best efforts, Vool can't teach anyone to use the otherwise awkward weapon, although anyone can wield it as a normal +1 light pick with a head made of wood.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Vool",

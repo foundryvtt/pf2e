@@ -3,208 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "fOwVEwaZPmB4enaL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Perfect Orienteering",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3STgLL5iZEI8pSTn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Axe Swipe",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The minotaur makes two Strikes with its greataxe against two adjacent enemies, both of whom are within its reach. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bQRnxgh1VHMUoffw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Powerful Charge",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If the moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10 piercing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "powerful-charge",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "predicate": [
-                            "powerful-charge"
-                        ],
-                        "selector": "horn-damage"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "powerful-charge"
-                        ],
-                        "selector": "horn-damage",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZbGvfggdVHs60uHl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greataxe",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "R8YtfHw4MR7NI1US": {
-                        "damage": "1d12+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "reach-10",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XeNTu8WZ9m4UcS8c",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Horn",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "84l7c3jVY7Nw8tXD": {
-                        "damage": "1d8+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "6BFWEsQhdXfrdnwm",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": "greataxe",
                 "bonus": {
@@ -281,6 +86,201 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ZbGvfggdVHs60uHl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greataxe",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "R8YtfHw4MR7NI1US": {
+                        "damage": "1d12+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XeNTu8WZ9m4UcS8c",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "84l7c3jVY7Nw8tXD": {
+                        "damage": "1d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fOwVEwaZPmB4enaL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Perfect Orienteering",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3STgLL5iZEI8pSTn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Axe Swipe",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The minotaur makes two Strikes with its greataxe against two adjacent enemies, both of whom are within its reach. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bQRnxgh1VHMUoffw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Powerful Charge",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If the moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10 piercing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "powerful-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horn-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horn-damage",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Minotaur Hunter (BB)",

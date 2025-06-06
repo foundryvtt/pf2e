@@ -4,270 +4,45 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4LeRt1l6t3cdOZzq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
+            "_id": "BLTyiuij8gNf2j5P",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uLKGOD24rA4zKuVY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Otherworldly Mind",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Whenever a creature targets the pup with a mental effect, that creature takes @Damage[2d6[mental]] damage (@Check[will|dc:20|basic] save). On a critical failure, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "N3LEi8X040wdsdnY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ripping Gaze",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>15 feet. The pup of Tindalos's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes @Damage[1d8[slashing]] damage (@Check[fortitude|dc:20|basic] save). A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 15,
-                        "slug": "ripping-gaze",
-                        "traits": [
-                            "occult",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "occult",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DieNPV4rufI5UUlU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Curved Space",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a pup of Tindalos is not adjacent to a structural angle of 90° (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the pup is again adjacent to a suitable angle.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vulnerable to Curved Space]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            {
-                                "not": "self:effect:vulnerable-to-curved-space"
-                            }
-                        ],
-                        "type": "physical",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "I7JAhXDrXyaw9v8N",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Angled Entry",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The pup of Tindalos casts a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Translocate] spell, but it must transport itself into a space adjacent to an angle of 90º (or more acute) in the structure or environment around it. For example, it could teleport to a space adjacent to a wall (using the angle between the wall and floor) or a corner in a room, or adjacent to a sizable tree growing straight up out of the ground, but not to a flat plain or a room with only curved corners and edges.</p>\n<p>Once per day, the pup of Tindalos can use this ability to plane shift to or from the Dimension of Time, with the same restrictions on what angles it can appear next to.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "70nRrwjGQIjajKDm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "j9qn272pr5drymysqxqv": {
-                        "damage": "1d10+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "OEaUzzWYoef2lIuM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "sxg7cgudtxvg7k2nub17": {
-                        "damage": "1d8+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "SBRfSFQZjzDNhEJY",
@@ -276,7 +51,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (Self Only)",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,23 +106,28 @@
             "type": "spell"
         },
         {
-            "_id": "BLTyiuij8gNf2j5P",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 900000,
+            "_id": "70nRrwjGQIjajKDm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "j9qn272pr5drymysqxqv": {
+                        "damage": "1d10+5",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -355,21 +135,241 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "OEaUzzWYoef2lIuM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "sxg7cgudtxvg7k2nub17": {
+                        "damage": "1d8+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4LeRt1l6t3cdOZzq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uLKGOD24rA4zKuVY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Otherworldly Mind",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever a creature targets the pup with a mental effect, that creature takes @Damage[2d6[mental]] damage (@Check[will|dc:20|basic] save). On a critical failure, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "N3LEi8X040wdsdnY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ripping Gaze",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. The pup of Tindalos's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes @Damage[1d8[slashing]] damage (@Check[fortitude|dc:20|basic] save). A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "ripping-gaze",
+                        "traits": [
+                            "occult",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DieNPV4rufI5UUlU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Curved Space",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a pup of Tindalos is not adjacent to a structural angle of 90° (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the pup is again adjacent to a suitable angle.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vulnerable to Curved Space]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:vulnerable-to-curved-space"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I7JAhXDrXyaw9v8N",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Angled Entry",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The pup of Tindalos casts a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Translocate] spell, but it must transport itself into a space adjacent to an angle of 90º (or more acute) in the structure or environment around it. For example, it could teleport to a space adjacent to a wall (using the angle between the wall and floor) or a corner in a room, or adjacent to a sizable tree growing straight up out of the ground, but not to a flat plain or a room with only curved corners and edges.</p>\n<p>Once per day, the pup of Tindalos can use this ability to plane shift to or from the Dimension of Time, with the same restrictions on what angles it can appear next to.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Pup of Tindalos",

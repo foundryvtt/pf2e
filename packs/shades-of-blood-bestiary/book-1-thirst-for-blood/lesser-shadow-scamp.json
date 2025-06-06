@@ -4,143 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "sh5CdmNRuEnm3Trx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 2 (In Shadow)",
+            "_id": "qqFbimQkMmmxBV9V",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "value": 2
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yC1vWH3Q9V6GoICd",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shade Breath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The shadow scamp creates a blast of clinging shadows in a @Template[type:cone|distance:15] that deal @Damage[2d4[void]] damage to each creature within the area (@Check[reflex|dc:16|basic] save). A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The shadow scamp can't use Shade Breath again for [[/gmr 1d4 #Recharge Shade Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DTtYOI269qQ8pe2a",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shadow Jump",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shadow scamp is in dim light or darkness</p><hr /><p><strong>Effect</strong> The shadow scamp recedes into darkness and instantly teleports to a square of dim light or darkness within 60 feet. This movement doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "shadow",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "E9s0EguOmTjyEDD4",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "TQ2RaIo0LMOdw2S1": {
-                        "damage": "1d6",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 16,
+                    "value": 8
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "x1m501Y8VLrNnNVx",
@@ -149,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -215,7 +116,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -297,22 +198,25 @@
             "type": "spell"
         },
         {
-            "_id": "qqFbimQkMmmxBV9V",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 700000,
+            "_id": "E9s0EguOmTjyEDD4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "TQ2RaIo0LMOdw2S1": {
+                        "damage": "1d6",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -320,21 +224,117 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "sh5CdmNRuEnm3Trx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fJSNOw4zHGbIm4bZ"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 2 (In Shadow)",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "value": 2
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yC1vWH3Q9V6GoICd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shade Breath",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shadow scamp creates a blast of clinging shadows in a @Template[type:cone|distance:15] that deal @Damage[2d4[void]] damage to each creature within the area (@Check[reflex|dc:16|basic] save). A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The shadow scamp can't use Shade Breath again for [[/gmr 1d4 #Recharge Shade Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DTtYOI269qQ8pe2a",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shadow Jump",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shadow scamp is in dim light or darkness</p><hr /><p><strong>Effect</strong> The shadow scamp recedes into darkness and instantly teleports to a square of dim light or darkness within 60 feet. This movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "shadow",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Lesser Shadow Scamp",

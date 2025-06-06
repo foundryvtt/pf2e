@@ -3,94 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PjBdBCA31o7FcQvI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "SPkIUm3665kXInNU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V8J7D9aK5N4MpaBI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 120 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q0VRtsqm6etoZxCa",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shadow Doubles",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>(1 to 3 actions)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> For each action spent to use this ability, the ankou creates one shadowy duplicate of themself anywhere within 60 feet of themself. Shadow doubles have the same statistics as an ankou, but they have the summoned trait, have 110 Hit Points, can't use Shadow Doubles or innate spells, and have an attack bonus of +27 for their Strikes. A shadow double that attempts a saving throw against a light effect can't get a result better than failure. Each double remains for 1 round, until it's reduced to 0 Hit Points, or until it moves further than 120 feet from the ankou, whichever comes first. Each round thereafter, the ankou can spend a single action that has the concentrate trait to extend the duration of surviving duplicates by 1 round, to a maximum duration of 1 minute. The ankou can see through the eyes of all of the shadow doubles at once. A character who @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} can identify an ankou as real or a shadow double with a successful @Check[perception|dc:43] check.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -98,164 +27,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "light",
-                        "occult",
-                        "shadow",
-                        "summoned"
-                    ]
+                "spelldc": {
+                    "dc": 38,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "Bpm9xvzcp3dBpCvp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An ankou's Strikes deal an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IvFL4oT7wjrxQZqw",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+16",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "cold-iron",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JdsDXPVL1v4JEQt5",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wing",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+16",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "2d6",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cold-iron",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "AvhAAK5unuOI6E09",
@@ -264,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -363,7 +150,7 @@
             },
             "img": "icons/environment/settlement/watchtower-cliff.webp",
             "name": "Discern Location",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -425,7 +212,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -489,7 +276,7 @@
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -550,7 +337,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -613,7 +400,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -680,7 +467,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -747,7 +534,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -808,7 +595,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -870,23 +657,28 @@
             "type": "spell"
         },
         {
-            "_id": "SPkIUm3665kXInNU",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1600000,
+            "_id": "IvFL4oT7wjrxQZqw",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+16",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -894,22 +686,230 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 30
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "cold-iron",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "JdsDXPVL1v4JEQt5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+16",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold-iron",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PjBdBCA31o7FcQvI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "V8J7D9aK5N4MpaBI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 120 feet",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q0VRtsqm6etoZxCa",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Doubles",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>(1 to 3 actions)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> For each action spent to use this ability, the ankou creates one shadowy duplicate of themself anywhere within 60 feet of themself. Shadow doubles have the same statistics as an ankou, but they have the summoned trait, have 110 Hit Points, can't use Shadow Doubles or innate spells, and have an attack bonus of +27 for their Strikes. A shadow double that attempts a saving throw against a light effect can't get a result better than failure. Each double remains for 1 round, until it's reduced to 0 Hit Points, or until it moves further than 120 feet from the ankou, whichever comes first. Each round thereafter, the ankou can spend a single action that has the concentrate trait to extend the duration of surviving duplicates by 1 round, to a maximum duration of 1 minute. The ankou can see through the eyes of all of the shadow doubles at once. A character who @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} can identify an ankou as real or a shadow double with a successful @Check[perception|dc:43] check.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "light",
+                        "occult",
+                        "shadow",
+                        "summoned"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Bpm9xvzcp3dBpCvp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An ankou's Strikes deal an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ankou Assassin",

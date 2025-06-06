@@ -4,182 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZbNsjTdTl9JRvGxk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bullyrag Beatdown",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever the gang tough makes a successful melee Strike against a frightened creature, the Strike deals an extra weapon die of damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "bullyrag-beatdown",
-                                    "target:condition:frightened"
-                                ]
-                            },
-                            {
-                                "not": "ranged"
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target is frightened",
-                        "option": "bullyrag-beatdown",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aZvRC9a03MwZf7rr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightening Critical",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eapXoUtrhnFlcZ2a",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Gang Lore",
-            "sort": 300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "s7QApXyE5DjGF9aY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "AhneRV8i356zRma8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Morningstar",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "AhneRV8i356zRma8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5fu6dCtqhdBnHNqh"
             },
             "img": "icons/weapons/maces/mace-round-spiked-black.webp",
             "name": "+1 Morningstar",
-            "sort": 500000,
+            "sort": 100000,
             "system": {
                 "baseItem": "morningstar",
                 "bonus": {
@@ -256,6 +87,175 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "s7QApXyE5DjGF9aY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "AhneRV8i356zRma8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Morningstar",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZbNsjTdTl9JRvGxk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bullyrag Beatdown",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the gang tough makes a successful melee Strike against a frightened creature, the Strike deals an extra weapon die of damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "bullyrag-beatdown",
+                                    "target:condition:frightened"
+                                ]
+                            },
+                            {
+                                "not": "ranged"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Target is frightened",
+                        "option": "bullyrag-beatdown",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aZvRC9a03MwZf7rr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightening Critical",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eapXoUtrhnFlcZ2a",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Gang Lore",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Gang Tough",

@@ -3,56 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Jspfa7SNI6gNhPK4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
+            "_id": "ZCOJIf8Nr9RxA4Pj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>A spirit naga adds @UUID[Compendium.pf2e.spells-srd.Item.Hallucination], @UUID[Compendium.pf2e.spells-srd.Item.Mind Probe], and @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": "coven",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QTnEqxIt2MaL0WlZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spirit Naga Venom",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -60,42 +27,61 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "spirit-naga-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1BD5jRohvhbGdDwq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "spirit-naga-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "hvk7aysgwgt6m9xnf40r": {
-                        "damage": "2d8+9",
-                        "damageType": "piercing"
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "DOihMsQlvxGBJLxK",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Coven Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -103,19 +89,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 23,
+                    "mod": 0,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "onlDGyordoKV4Kdf",
@@ -124,7 +112,7 @@
             },
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
             "name": "Control Weather",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -187,7 +175,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -255,7 +243,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -337,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -420,7 +408,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -488,7 +476,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -556,7 +544,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Prying Eye",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -619,7 +607,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -682,7 +670,7 @@
             },
             "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
             "name": "Subconscious Suggestion",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -762,7 +750,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -824,7 +812,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -886,7 +874,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -964,7 +952,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1026,7 +1014,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1098,7 +1086,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1177,7 +1165,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1243,7 +1231,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1305,7 +1293,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1378,7 +1366,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1451,7 +1439,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1519,7 +1507,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1597,7 +1585,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1683,7 +1671,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1745,7 +1733,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1808,7 +1796,7 @@
             },
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
             "name": "Humanoid Form",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1871,7 +1859,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1936,7 +1924,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1999,7 +1987,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2062,7 +2050,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2142,7 +2130,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2222,7 +2210,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2302,7 +2290,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2389,7 +2377,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2456,7 +2444,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -2544,7 +2532,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2607,7 +2595,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2688,7 +2676,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2767,7 +2755,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2830,7 +2818,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2885,85 +2873,31 @@
             "type": "spell"
         },
         {
-            "_id": "ZCOJIf8Nr9RxA4Pj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 4300000,
+            "_id": "1BD5jRohvhbGdDwq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 4200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "spirit-naga-venom"
+                    ]
                 },
-                "proficiency": {
-                    "value": 1
+                "bonus": {
+                    "value": 19
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
+                "damageRolls": {
+                    "hvk7aysgwgt6m9xnf40r": {
+                        "damage": "2d8+9",
+                        "damageType": "piercing"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "DOihMsQlvxGBJLxK",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Coven Spells",
-            "sort": 4400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2971,21 +2905,87 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "mod": 0,
-                    "value": 15
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "Jspfa7SNI6gNhPK4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.52CdldlWMiVTZk1F"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A spirit naga adds @UUID[Compendium.pf2e.spells-srd.Item.Hallucination], @UUID[Compendium.pf2e.spells-srd.Item.Mind Probe], and @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "coven",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QTnEqxIt2MaL0WlZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spirit Naga Venom",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:28]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "spirit-naga-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Spirit Naga",

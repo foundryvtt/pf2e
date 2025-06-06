@@ -3,299 +3,45 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "uzTaJDrIHuQpGZCH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
+            "_id": "opNwYrwABCLTV4vZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VLQ2Vi92N8KogGpN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sMQewzNATahHc65F",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Implosion",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the caligni slayer dies, their body implodes violently into nothingness, dealing @Damage[3d10[sonic]] damage to creatures in a @Template[emanation|distance:10]. Each creature in the area must attempt a @Check[fortitude|dc:20|traits:damaging-effect] save.</p>\n<p>The slayer's gear and treasure are unaffected by the implosion and are left in a pile where they died.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is deafened for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s7GGq81IzCx73D2B",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Call to Blood",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each caligni within 30 feet gains a +2 status bonus to attack rolls against @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. This bonus lasts for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Call to Blood]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WtPKkX18bEjTQBFy",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Soul Harvest",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The caligni slayer deals an additional @Damage[2d6[void]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "void",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SO2jaHTafmBJ8DGi",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.cTBmQgWUyf50x3dY"
-            },
-            "img": "icons/consumables/potions/potion-flask-corked-tied-necklace-teal.webp",
-            "name": "Black Smear Poison",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Many calignis use a debilitating poison crafted from subterranean fungi.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:16]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> As stage 1</p>\n<p><strong>Stage 3</strong> @Damage[1d6[poison]] damage, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
                 },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "black-smear-poison",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "injury",
-                        "poison"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "eUBZ8xXpWH2Gvg39",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "JCt4Rcga5mbhfwPx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Kukri",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "black-smear-poison"
-                    ]
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "9ojmzf0ma9smuor9raee": {
-                        "damage": "1d6+3",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "trip"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "rcWb1X7tL04A2SNN",
@@ -304,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -371,7 +117,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -438,7 +184,7 @@
             },
             "img": "systems/pf2e/icons/spells/spectral-hand.webp",
             "name": "Spectral Hand",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -499,7 +245,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -585,7 +331,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -672,7 +418,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -739,7 +485,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -825,7 +571,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -881,54 +627,13 @@
             "type": "spell"
         },
         {
-            "_id": "opNwYrwABCLTV4vZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "JCt4Rcga5mbhfwPx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.TDrO7Xdyn7juFy3c"
             },
             "img": "systems/pf2e/icons/equipment/weapons/kukri.webp",
             "name": "Kukri",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "kukri",
                 "bonus": {
@@ -1007,6 +712,301 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "SO2jaHTafmBJ8DGi",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.cTBmQgWUyf50x3dY"
+            },
+            "img": "icons/consumables/potions/potion-flask-corked-tied-necklace-teal.webp",
+            "name": "Black Smear Poison",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Many calignis use a debilitating poison crafted from subterranean fungi.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:16]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> As stage 1</p>\n<p><strong>Stage 3</strong> @Damage[1d6[poison]] damage, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "black-smear-poison",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "eUBZ8xXpWH2Gvg39",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JCt4Rcga5mbhfwPx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Kukri",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "black-smear-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "9ojmzf0ma9smuor9raee": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uzTaJDrIHuQpGZCH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VLQ2Vi92N8KogGpN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sMQewzNATahHc65F",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Implosion",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the caligni slayer dies, their body implodes violently into nothingness, dealing @Damage[3d10[sonic]] damage to creatures in a @Template[emanation|distance:10]. Each creature in the area must attempt a @Check[fortitude|dc:20|traits:damaging-effect] save.</p>\n<p>The slayer's gear and treasure are unaffected by the implosion and are left in a pile where they died.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is deafened for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s7GGq81IzCx73D2B",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Call to Blood",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each caligni within 30 feet gains a +2 status bonus to attack rolls against @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. This bonus lasts for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Call to Blood]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WtPKkX18bEjTQBFy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Soul Harvest",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The caligni slayer deals an additional @Damage[2d6[void]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "void",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Caligni Slayer",

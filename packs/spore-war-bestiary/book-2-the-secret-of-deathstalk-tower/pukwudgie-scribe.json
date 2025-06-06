@@ -4,189 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JQcN49zNIu4wTuSg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Defensive Quills",
+            "_id": "gsYEOO3U28MOf6zQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A creature that hits a pukwudgie with an unarmed Strike or a non-reach melee Strike takes @Damage[6d6[piercing]] damage (@Check[reflex|dc:33|basic] save). On a critical failure, the creature also takes @Damage[2d6[persistent,poison]] from the poisoned quills.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e81mjeZGp9mKBDKv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The pukwudgie takes on the physical form of a giant porcupine or resumes their natural form. In porcupine form, their size changes to Medium, they lose their weapon Strikes, and they gain a quill Strike (+27 for 3d10+11 piercing plus 2d8 persistent poison).</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "pukwudgie",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Pukwudgie",
-                                "value": "pukwudgie"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.PorcupineGiant",
-                                "value": "porcupine-giant"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "CreatureSize",
-                        "predicate": [
-                            "change-shape:porcupine-giant"
-                        ],
-                        "value": "medium"
-                    },
-                    {
-                        "attackModifier": 27,
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 3,
-                                "die": "d10",
-                                "modifier": 11
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "PF2E.BattleForm.Attack.Quill",
-                        "predicate": [
-                            "change-shape:porcupine-giant"
-                        ],
-                        "replaceAll": true,
-                        "slug": "quill",
-                        "traits": []
-                    },
-                    {
-                        "category": "persistent",
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "PF2E.BattleForm.Attack.Quill",
-                        "selector": "quill-damage"
-                    }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lV8lCapoUOFDMPz8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pukwudgie Poison",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:36]</p><hr /><p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Confused], and stupefied 2 (1 round)</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "pukwudgie-poison",
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t6jDWd2ugfdQo2h9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "nSpV4jbD2doSqh9S"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greataxe",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "LgISzGTr2bCwrt1M": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    },
-                    "tWNduQq3RRgSq5BA": {
-                        "damage": "3d12+12",
-                        "damageType": "slashing"
-                    },
-                    "z3NxMza795t0j4Jp": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    }
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -194,15 +28,247 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "greataxe",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "sweep"
-                    ]
-                }
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "5QBFrhytN7SDoUt0"
+                            },
+                            {
+                                "id": "NwI8uzULtbbnW6Iv"
+                            },
+                            {
+                                "id": "TXcd5wBfUZarf8U8"
+                            },
+                            {
+                                "id": "vydZUiPIDbhStZTS"
+                            },
+                            {
+                                "id": "DwQZphDbHJqZ67Ow"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "RxL0Hxh6ic86aGRX"
+                            },
+                            {
+                                "id": "DF1lv14DF9bVWXrn"
+                            },
+                            {
+                                "id": "vLQ6DSa7mEJGaizj"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "dG0RNSFNbHZ7pyHv"
+                            },
+                            {
+                                "id": "Qu5Y3UdaaZJoQQFT"
+                            },
+                            {
+                                "id": "5dglIpVAM2S6v6hX"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "JSTNOqUxAoxjetEK"
+                            },
+                            {
+                                "id": "9WdZkvVBfSprCofl"
+                            },
+                            {
+                                "id": "2nyBEbFeqBTsPjB2"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "dG0RNSFNbHZ7pyHv"
+                            },
+                            {
+                                "id": "GmLQDLEFfZiWBIV6"
+                            },
+                            {
+                                "id": "B4TnfgqQbFYACXc0"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "RxL0Hxh6ic86aGRX"
+                            },
+                            {
+                                "id": "uioTdlnQYUr6gb4D"
+                            },
+                            {
+                                "id": "2nyBEbFeqBTsPjB2"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "WXoh4iEZG0XK3la3"
+                            },
+                            {
+                                "id": "QMLuMYRKns6IpKfz"
+                            },
+                            {
+                                "id": "0y6G97YHxSIWlbFA"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "XlZnsUoNAyr61Zsb"
+                            },
+                            {
+                                "id": "QMLuMYRKns6IpKfz"
+                            },
+                            {
+                                "id": "RDCl3DTACMUdq5Tx"
+                            }
+                        ]
+                    },
+                    "slot8": {
+                        "max": 8,
+                        "prepared": [
+                            {
+                                "id": "XdZQjr6H0a7aZzCB"
+                            },
+                            {
+                                "id": "cdakx6BPZp7ye7ay"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": "jz45VoZpomANGWnH"
+                            },
+                            {
+                                "id": null
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "hzAD0q71nN1lkiVO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "kJSB7xk9wVIUzSgp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "validItems": "",
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
         },
         {
             "_id": "XlZnsUoNAyr61Zsb",
@@ -211,7 +277,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -298,7 +364,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -360,7 +426,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -428,7 +494,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -491,7 +557,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -580,7 +646,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -642,7 +708,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -730,7 +796,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -792,7 +858,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -858,7 +924,7 @@
             },
             "img": "systems/pf2e/icons/spells/shared-nightmare.webp",
             "name": "Shared Nightmare",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -925,7 +991,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -990,7 +1056,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1052,7 +1118,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1120,7 +1186,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1206,7 +1272,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1287,7 +1353,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1371,7 +1437,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will, Self Only)",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1433,7 +1499,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1495,7 +1561,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Translate",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1566,7 +1632,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1645,7 +1711,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1732,7 +1798,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1814,7 +1880,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1880,7 +1946,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1960,7 +2026,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2154,7 +2220,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2350,7 +2416,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2414,7 +2480,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2493,7 +2559,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2553,7 +2619,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2615,7 +2681,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-striped-web-red.webp",
             "name": "Waking Nightmare",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2676,280 +2742,13 @@
             "type": "spell"
         },
         {
-            "_id": "gsYEOO3U28MOf6zQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 3600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "5QBFrhytN7SDoUt0"
-                            },
-                            {
-                                "id": "NwI8uzULtbbnW6Iv"
-                            },
-                            {
-                                "id": "TXcd5wBfUZarf8U8"
-                            },
-                            {
-                                "id": "vydZUiPIDbhStZTS"
-                            },
-                            {
-                                "id": "DwQZphDbHJqZ67Ow"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "RxL0Hxh6ic86aGRX"
-                            },
-                            {
-                                "id": "DF1lv14DF9bVWXrn"
-                            },
-                            {
-                                "id": "vLQ6DSa7mEJGaizj"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "dG0RNSFNbHZ7pyHv"
-                            },
-                            {
-                                "id": "Qu5Y3UdaaZJoQQFT"
-                            },
-                            {
-                                "id": "5dglIpVAM2S6v6hX"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "JSTNOqUxAoxjetEK"
-                            },
-                            {
-                                "id": "9WdZkvVBfSprCofl"
-                            },
-                            {
-                                "id": "2nyBEbFeqBTsPjB2"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "dG0RNSFNbHZ7pyHv"
-                            },
-                            {
-                                "id": "GmLQDLEFfZiWBIV6"
-                            },
-                            {
-                                "id": "B4TnfgqQbFYACXc0"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "RxL0Hxh6ic86aGRX"
-                            },
-                            {
-                                "id": "uioTdlnQYUr6gb4D"
-                            },
-                            {
-                                "id": "2nyBEbFeqBTsPjB2"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "WXoh4iEZG0XK3la3"
-                            },
-                            {
-                                "id": "QMLuMYRKns6IpKfz"
-                            },
-                            {
-                                "id": "0y6G97YHxSIWlbFA"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "XlZnsUoNAyr61Zsb"
-                            },
-                            {
-                                "id": "QMLuMYRKns6IpKfz"
-                            },
-                            {
-                                "id": "RDCl3DTACMUdq5Tx"
-                            }
-                        ]
-                    },
-                    "slot8": {
-                        "max": 8,
-                        "prepared": [
-                            {
-                                "id": "XdZQjr6H0a7aZzCB"
-                            },
-                            {
-                                "id": "cdakx6BPZp7ye7ay"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": "jz45VoZpomANGWnH"
-                            },
-                            {
-                                "id": null
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "hzAD0q71nN1lkiVO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 3700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "kJSB7xk9wVIUzSgp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 3800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "validItems": "",
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "nSpV4jbD2doSqh9S",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
-            "sort": 3900000,
+            "sort": 3500000,
             "system": {
                 "baseItem": "greataxe",
                 "bonus": {
@@ -3029,6 +2828,207 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "t6jDWd2ugfdQo2h9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "nSpV4jbD2doSqh9S"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greataxe",
+            "sort": 3600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "LgISzGTr2bCwrt1M": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "tWNduQq3RRgSq5BA": {
+                        "damage": "3d12+12",
+                        "damageType": "slashing"
+                    },
+                    "z3NxMza795t0j4Jp": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "greataxe",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "sweep"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JQcN49zNIu4wTuSg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Defensive Quills",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature that hits a pukwudgie with an unarmed Strike or a non-reach melee Strike takes @Damage[6d6[piercing]] damage (@Check[reflex|dc:33|basic] save). On a critical failure, the creature also takes @Damage[2d6[persistent,poison]] from the poisoned quills.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e81mjeZGp9mKBDKv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The pukwudgie takes on the physical form of a giant porcupine or resumes their natural form. In porcupine form, their size changes to Medium, they lose their weapon Strikes, and they gain a quill Strike (+27 for 3d10+11 piercing plus 2d8 persistent poison).</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "pukwudgie",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Pukwudgie",
+                                "value": "pukwudgie"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.PorcupineGiant",
+                                "value": "porcupine-giant"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:porcupine-giant"
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "attackModifier": 27,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 11
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Quill",
+                        "predicate": [
+                            "change-shape:porcupine-giant"
+                        ],
+                        "replaceAll": true,
+                        "slug": "quill",
+                        "traits": []
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "label": "PF2E.BattleForm.Attack.Quill",
+                        "selector": "quill-damage"
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lV8lCapoUOFDMPz8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pukwudgie Poison",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:36]</p><hr /><p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Confused], and stupefied 2 (1 round)</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "pukwudgie-poison",
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Pukwudgie Scribe",

@@ -4,506 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VYqmsfhYCU6ak1bm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 to Sense Motive",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Sense Motive",
-                        "predicate": [
-                            "action:sense-motive"
-                        ],
-                        "selector": "perception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t9t9UyZUzYGkBBPE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.bzRxQ0Z317yeCUE5.Item.jCd90kV3C9iAbsbt"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Insightful",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When the accuser agent succeeds at a Perception check, they critically succeed instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "to-critical-success"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "perception"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZSCvVtnwBBsaHEPX",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Objection!",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet takes an action with the linguistic trait</p><hr /><p><strong>Effect</strong> The triggering creature must succeed a @Check[will|dc:28] saving throw or their action is disrupted.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "linguistic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pEleFpfQhh9d9z1I",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Debilitating Sneak Attack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The accuser agent's Strikes deal an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. A target who takes this additional precision damage also either becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or takes a –10-foot status penalty to its Speeds until the end of the agent's next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "attack-damage",
-                        "text": "The accuser agent's Strikes deal an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. A target who takes this additional precision damage also either becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or takes a –10-foot status penalty to its Speeds until the end of the agent's next turn."
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "V6Q1gcyKbOk1tIjT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hywANJCzT7hMgWna"
-            },
-            "img": "icons/sundries/books/book-open-turquoise.webp",
-            "name": "Scholarly Journal",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Scholarly journals are uncommon. Each scholarly journal is a folio on a very specific topic, such as vampires or the history of a single town or neighborhood of a city. If you spend 1 minute referencing an academic journal before attempting a skill check to Recall Knowledge about the subject, you gain a +1 item bonus to the check. A compendium of journals costs five times as much as a single journal and requires both hands to use; each compendium contains several journals and grants its bonus on a broader topic, such as all undead or a whole city. The GM determines what scholarly journals are available in any location.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scholarly-journal",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "qnfHO5oEMbR24eVr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH"
-            },
-            "img": "icons/tools/scribal/ink-quill-red.webp",
-            "name": "Writing Set",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "writing-set",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "4oDuqPcw52k5QIvR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BKpUsI3mLhP4a5Gb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.uUISfTBeVRNhnN9u"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sHl7niNLzijcQUTA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ksttUx2x67sqDiGz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "j8ZkE6tsFDKQPH2f": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-d6",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "nJIG2utSOOfFVcnI",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ksttUx2x67sqDiGz"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "e1IwOM4QGqsaPSoB": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-d6",
-                        "finesse",
-                        "magical",
-                        "thrown-20",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bQcDt11DEzCJhAgu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "grwmDUG5jq2KVN6u"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sword Cane",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "z2svytb5CSMtu34f": {
-                        "damage": "2d8+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "sword-cane",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "concealable",
-                        "finesse",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ksttUx2x67sqDiGz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -592,7 +99,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/sword-cane.webp",
             "name": "Sword Cane",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "baseItem": "sword-cane",
                 "bonus": {
@@ -671,6 +178,499 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "V6Q1gcyKbOk1tIjT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hywANJCzT7hMgWna"
+            },
+            "img": "icons/sundries/books/book-open-turquoise.webp",
+            "name": "Scholarly Journal",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Scholarly journals are uncommon. Each scholarly journal is a folio on a very specific topic, such as vampires or the history of a single town or neighborhood of a city. If you spend 1 minute referencing an academic journal before attempting a skill check to Recall Knowledge about the subject, you gain a +1 item bonus to the check. A compendium of journals costs five times as much as a single journal and requires both hands to use; each compendium contains several journals and grants its bonus on a broader topic, such as all undead or a whole city. The GM determines what scholarly journals are available in any location.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scholarly-journal",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qnfHO5oEMbR24eVr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH"
+            },
+            "img": "icons/tools/scribal/ink-quill-red.webp",
+            "name": "Writing Set",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "writing-set",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "BKpUsI3mLhP4a5Gb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.uUISfTBeVRNhnN9u"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sHl7niNLzijcQUTA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ksttUx2x67sqDiGz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "j8ZkE6tsFDKQPH2f": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nJIG2utSOOfFVcnI",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ksttUx2x67sqDiGz"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "e1IwOM4QGqsaPSoB": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "finesse",
+                        "magical",
+                        "thrown-20",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bQcDt11DEzCJhAgu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "grwmDUG5jq2KVN6u"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sword Cane",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "z2svytb5CSMtu34f": {
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sword-cane",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "concealable",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VYqmsfhYCU6ak1bm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.vfFB2za4zaQnXYIa.Item.BpD2byfrbMItSgfy"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 to Sense Motive",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Sense Motive",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t9t9UyZUzYGkBBPE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.bzRxQ0Z317yeCUE5.Item.jCd90kV3C9iAbsbt"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Insightful",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When the accuser agent succeeds at a Perception check, they critically succeed instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "perception"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZSCvVtnwBBsaHEPX",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Objection!",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet takes an action with the linguistic trait</p><hr /><p><strong>Effect</strong> The triggering creature must succeed a @Check[will|dc:28] saving throw or their action is disrupted.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "linguistic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pEleFpfQhh9d9z1I",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Debilitating Sneak Attack",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The accuser agent's Strikes deal an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. A target who takes this additional precision damage also either becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or takes a –10-foot status penalty to its Speeds until the end of the agent's next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "attack-damage",
+                        "text": "The accuser agent's Strikes deal an extra 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures. A target who takes this additional precision damage also either becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} or takes a –10-foot status penalty to its Speeds until the end of the agent's next turn."
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4oDuqPcw52k5QIvR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Accuser Agent",

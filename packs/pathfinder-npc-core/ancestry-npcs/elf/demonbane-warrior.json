@@ -4,423 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jTml2T3Yz1vQAlls",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sin Sense",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A demonbane warrior automatically learns all weaknesses of a demon they've identified by @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]{Recalling Knowledge}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uY2zTpA8ouzRf9Jr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Demonbane",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A demonbane warrior gains a +1 circumstance bonus to damage rolls against demons. If their actions force a demon to take damage from its sin vulnerability, increase the damage from the vulnerability by 2.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "demonbane-sin-vulnerability",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "target:trait:demon"
-                        ],
-                        "selector": "attack-damage",
-                        "slug": "demonbane-bonus",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "demonbane-sin-vulnerability"
-                        ],
-                        "selector": "attack-damage",
-                        "slug": "demonbane-bonus",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kaeprYU0kP8mJHhl",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Imbue Righteousness",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The warrior imbues a weapon they wield with holy energy. Until the start of their next turn, their Strikes with that weapon gain the holy trait and deal an additional 1d6 spirit damage to unholy creatures.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Imbue Righteousness",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Imbue Righteousness"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "holy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mjztxCrLU7rjejJZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
-            "sort": 400000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-shirt",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "VsUvWZVUki1Ff9gs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
-            "name": "Arrows",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "UD7h5CwA75TPl5Jy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Demon Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8lUltOwD0gpQzbda",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "tXSC6LgIzvUOB7wD"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Cold Iron Elven Branched Spear",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "h9SCRkG2vjZn3dEV": {
-                        "damage": "1d6+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "elven-branched-spear",
-                "traits": {
-                    "value": [
-                        "cold-iron",
-                        "deadly-d8",
-                        "finesse",
-                        "reach"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PM8TiIi3ipnD8136",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "ThYtQVETYDu1LjsX": {
-                        "damage": "1d4+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "e7COyGWqb7xSqBSR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "vJlaS1pmgw5iYOwS"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Shortbow",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "dC1ym3FZs4xbgc7Q": {
-                        "damage": "1d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "composite-shortbow",
-                "traits": {
-                    "value": [
-                        "deadly-d10",
-                        "propulsive",
-                        "range-increment-60",
-                        "reload-0"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "vJlaS1pmgw5iYOwS",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
             },
             "img": "icons/weapons/bows/shortbow-recurve-bone.webp",
             "name": "Composite Shortbow",
-            "sort": 1000000,
+            "sort": 100000,
             "system": {
                 "baseItem": "composite-shortbow",
                 "bonus": {
@@ -506,7 +96,7 @@
             },
             "img": "icons/weapons/polearms/spear-ornate-gold.webp",
             "name": "Elven Branched Spear",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "baseItem": "elven-branched-spear",
                 "bonus": {
@@ -586,6 +176,416 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "mjztxCrLU7rjejJZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
+            "name": "Chain Shirt",
+            "sort": 300000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "chain-shirt",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-shirt",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "VsUvWZVUki1Ff9gs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "8lUltOwD0gpQzbda",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "tXSC6LgIzvUOB7wD"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cold Iron Elven Branched Spear",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "h9SCRkG2vjZn3dEV": {
+                        "damage": "1d6+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "elven-branched-spear",
+                "traits": {
+                    "value": [
+                        "cold-iron",
+                        "deadly-d8",
+                        "finesse",
+                        "reach"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PM8TiIi3ipnD8136",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "ThYtQVETYDu1LjsX": {
+                        "damage": "1d4+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "e7COyGWqb7xSqBSR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "vJlaS1pmgw5iYOwS"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Shortbow",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "dC1ym3FZs4xbgc7Q": {
+                        "damage": "1d6+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "composite-shortbow",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "range-increment-60",
+                        "reload-0"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jTml2T3Yz1vQAlls",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sin Sense",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A demonbane warrior automatically learns all weaknesses of a demon they've identified by @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]{Recalling Knowledge}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uY2zTpA8ouzRf9Jr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Demonbane",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A demonbane warrior gains a +1 circumstance bonus to damage rolls against demons. If their actions force a demon to take damage from its sin vulnerability, increase the damage from the vulnerability by 2.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "demonbane-sin-vulnerability",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:trait:demon"
+                        ],
+                        "selector": "attack-damage",
+                        "slug": "demonbane-bonus",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "demonbane-sin-vulnerability"
+                        ],
+                        "selector": "attack-damage",
+                        "slug": "demonbane-bonus",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kaeprYU0kP8mJHhl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Imbue Righteousness",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The warrior imbues a weapon they wield with holy energy. Until the start of their next turn, their Strikes with that weapon gain the holy trait and deal an additional 1d6 spirit damage to unholy creatures.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Imbue Righteousness",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Imbue Righteousness"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UD7h5CwA75TPl5Jy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Demon Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Demonbane Warrior",

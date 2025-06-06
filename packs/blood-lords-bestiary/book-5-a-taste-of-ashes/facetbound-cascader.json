@@ -4,389 +4,73 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jUR7Ydda63BBMAlR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Implanted Stone",
+            "_id": "8FjfApMjKiijwosA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A cascader's <em>aeon stone</em> can't be Disarmed or removed until the cascader is destroyed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XTn4FwWPKK9n9MMq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LAA0XJePYKC5IgZv",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Energy Ward",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The facetbound cascader would take acid, cold, electricity, fire, or poison damage</p>\n<hr />\n<p><strong>Effect</strong> The cascader gains resistance 15 to the triggering damage, replacing any other resistance gained from this ability. Most facetbound cascaders begin combat with resistance 15 to cold.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "energy-ward",
-                        "selection": "cold",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAcid",
-                                "value": "acid"
-                            },
-                            {
-                                "label": "PF2E.TraitCold",
-                                "value": "cold"
-                            },
-                            {
-                                "label": "PF2E.TraitElectricity",
-                                "value": "electricity"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitPoison",
-                                "value": "poison"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "key": "Resistance",
-                        "type": "{item|flags.pf2e.rulesSelections.energyWard}",
-                        "value": 15
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.energyWard}",
-                        "diceNumber": "4",
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "label": "PF2E.NPCAbility.FacetboundCascader.EnergyCharge",
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iR8i2JeM3fL97FdW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FvCV25pS2ksjpkOt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Energy Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cascader's melee Strikes deal an additional 4d10 damage of the type resisted by its Energy Ward.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DEFEGOYbazU1avTn",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Energy Shift",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cascader can alter its spell damage. If the next action it uses is to Cast a Spell that deals acid, cold, electricity, fire, or poison damage, the cascader can change the damage type to match its Energy Ward instead of the spell's normal damage type (replacing the spell's corresponding trait).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s8jEzCeq6O9XCDFP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MO8J2IcBhiTnm9D8"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aeon-stone-orange-prism.webp",
-            "name": "Aeon Stone (Orange Prism)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>An <em>orange prism aeon stone</em> must be activated to provide a benefit. The resonant power grants you a +2 item bonus to Arcana, Nature, Occultism, or Religion checks-whichever corresponds to the tradition of the last spell you enhanced with this <em>aeon stone</em>.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> envision</p>\n<p><strong>Effect</strong> If your next action is to Cast a Spell, that spell's rank is 1 higher (maximum 10th rank) for the purposes of counteracting and being counteracted.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone Resonance (Amplifying)]{Effect: Aeon Stone Resonance (Orange Prism)}</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 16
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 9750
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "aeon-stone-orange-prism",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "CNFD4tonE37F5Jn1",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QP9y3IvYtv25BjBp"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "energy-charge"
-                    ]
-                },
-                "bonus": {
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
                     "value": 30
                 },
-                "damageRolls": {
-                    "kublv9rAh44nUw7K": {
-                        "damage": "1d4+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "TEYvlA6oo2sskb8l",
@@ -395,7 +79,7 @@
             },
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Horrid Wilting",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -479,7 +163,7 @@
             },
             "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
             "name": "Polar Ray",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -559,7 +243,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-stun.webp",
             "name": "Power Word Stun",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -620,7 +304,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-blind.webp",
             "name": "Power Word Blind",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -681,7 +365,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -746,7 +430,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -831,7 +515,7 @@
             },
             "img": "systems/pf2e/icons/spells/disintegrate.webp",
             "name": "Disintegrate",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -915,7 +599,7 @@
             },
             "img": "systems/pf2e/icons/spells/spellwrack.webp",
             "name": "Spellwrack",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -984,7 +668,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1073,7 +757,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1160,7 +844,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1222,7 +906,7 @@
             },
             "img": "icons/magic/unholy/orb-beam-pink.webp",
             "name": "Resilient Sphere",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1284,7 +968,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1350,7 +1034,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1438,7 +1122,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Stinking Cloud",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1508,7 +1192,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1570,7 +1254,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1651,7 +1335,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 2600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1714,7 +1398,7 @@
             },
             "img": "icons/magic/light/torch-fire-orange.webp",
             "name": "Continual Flame",
-            "sort": 2700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1778,7 +1462,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 2800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1841,7 +1525,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 2900000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1913,7 +1597,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3000000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1980,7 +1664,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 3100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2065,7 +1749,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 3200000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -2135,7 +1819,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 3300000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2209,7 +1893,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 3400000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2290,7 +1974,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 3500000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2371,7 +2055,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3600000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2433,7 +2117,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 3700000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2488,82 +2172,13 @@
             "type": "spell"
         },
         {
-            "_id": "8FjfApMjKiijwosA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 3800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "QP9y3IvYtv25BjBp",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 3900000,
+            "sort": 3100000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -2638,6 +2253,391 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "s8jEzCeq6O9XCDFP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MO8J2IcBhiTnm9D8"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aeon-stone-orange-prism.webp",
+            "name": "Aeon Stone (Orange Prism)",
+            "sort": 3200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>An <em>orange prism aeon stone</em> must be activated to provide a benefit. The resonant power grants you a +2 item bonus to Arcana, Nature, Occultism, or Religion checks-whichever corresponds to the tradition of the last spell you enhanced with this <em>aeon stone</em>.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> envision</p>\n<p><strong>Effect</strong> If your next action is to Cast a Spell, that spell's rank is 1 higher (maximum 10th rank) for the purposes of counteracting and being counteracted.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Aeon Stone Resonance (Amplifying)]{Effect: Aeon Stone Resonance (Orange Prism)}</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 16
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 9750
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "aeon-stone-orange-prism",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "CNFD4tonE37F5Jn1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QP9y3IvYtv25BjBp"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 3300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "energy-charge"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "kublv9rAh44nUw7K": {
+                        "damage": "1d4+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jUR7Ydda63BBMAlR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Implanted Stone",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A cascader's <em>aeon stone</em> can't be Disarmed or removed until the cascader is destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XTn4FwWPKK9n9MMq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LAA0XJePYKC5IgZv",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Energy Ward",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The facetbound cascader would take acid, cold, electricity, fire, or poison damage</p>\n<hr />\n<p><strong>Effect</strong> The cascader gains resistance 15 to the triggering damage, replacing any other resistance gained from this ability. Most facetbound cascaders begin combat with resistance 15 to cold.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "energy-ward",
+                        "selection": "cold",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.energyWard}",
+                        "value": 15
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.energyWard}",
+                        "diceNumber": "4",
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "label": "PF2E.NPCAbility.FacetboundCascader.EnergyCharge",
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iR8i2JeM3fL97FdW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FvCV25pS2ksjpkOt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Energy Charge",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cascader's melee Strikes deal an additional 4d10 damage of the type resisted by its Energy Ward.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DEFEGOYbazU1avTn",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Energy Shift",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cascader can alter its spell damage. If the next action it uses is to Cast a Spell that deals acid, cold, electricity, fire, or poison damage, the cascader can change the damage type to match its Energy Ward instead of the spell's normal damage type (replacing the spell's corresponding trait).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Facetbound Cascader",

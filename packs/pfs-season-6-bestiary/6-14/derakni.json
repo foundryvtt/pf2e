@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "QfNrL6zigLO2I2bc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Abyssal Poison",
+            "_id": "00YHgnuhGBBxFzaO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:23]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d10[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 round)</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,44 +27,94 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 23,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "b4ifDWvVrCkuR9IA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Droning Flyby",
+            "_id": "tiaDIWgLcrq2cznj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "folder": "7cyoYPoPYA01mErU",
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Translocate",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>The drone of the derakni's wings mesmerizes listeners. The derakni Flies. All creatures within 20 feet of the derakni at any point during this movement must attempt a @Check[will|dc:23] saving throw. On a failure, the target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (3 rounds on a critical failure); on a success, the target is immune for 1 minute.</p>"
+                    "value": "<p>You instantly transport yourself and any items you're wearing and holding from your current space to an unoccupied space within range you can see. If this would bring another creature with you—even if you're carrying it in an extradimensional container—the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are then temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "00YHgnuhGBBxFzaO"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "translocate",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
                     "value": [
-                        "auditory",
-                        "mental"
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
             "_id": "FpGFz0q5ErighHTf",
@@ -144,95 +196,20 @@
             "type": "melee"
         },
         {
-            "_id": "tiaDIWgLcrq2cznj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "folder": "7cyoYPoPYA01mErU",
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Translocate",
+            "_id": "QfNrL6zigLO2I2bc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Abyssal Poison",
             "sort": 500000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You instantly transport yourself and any items you're wearing and holding from your current space to an unoccupied space within range you can see. If this would bring another creature with you—even if you're carrying it in an extradimensional container—the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are then temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "levels": {
-                        "5": {
-                            "range": {
-                                "value": "1 mile"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "00YHgnuhGBBxFzaO"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "translocate",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "00YHgnuhGBBxFzaO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 600000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:23]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d8[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d10[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -240,21 +217,44 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 23,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "b4ifDWvVrCkuR9IA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Droning Flyby",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The drone of the derakni's wings mesmerizes listeners. The derakni Flies. All creatures within 20 feet of the derakni at any point during this movement must attempt a @Check[will|dc:23] saving throw. On a failure, the target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (3 rounds on a critical failure); on a success, the target is immune for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Derakni",

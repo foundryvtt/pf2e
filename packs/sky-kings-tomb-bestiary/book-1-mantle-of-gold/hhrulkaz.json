@@ -4,451 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wzqHVKr5hbItJ7l9",
-            "_stats": {
-                "compendiumSource": "Actor.G7RxS2VvwZDZs0fa.Item.sXbsdhvyWSPKHCCv"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Stench",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[fortitude|dc:21] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, the creature also takes a –5 status penalty to its Speeds for 1 round. While within the aura, the creature takes a –2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths stenches for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Xulgath Stench]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Dw7I6KE6oVtzaX0I",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+2 Status To Saves Vs. Petrifying Gaze",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:petrifying-gaze"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Uh6MrOOuDNSd86zP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Far-Reaching Fear",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The range at which Hhrulkaz can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] creatures increases to 60 feet, and she doesn't take a penalty if the creature doesn't understand her language.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CITZi6HKFgJCaKzQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Predator's Decree",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Hhrulkaz is within 60 feet of a frightened creature or a creature she successfully hit with a shattering chant this turn</p>\n<hr />\n<p><strong>Effect</strong> Hhrulkaz condemns the creature to be eaten. The creature must make a @Check[will|dc:20] save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target gains weakness 2 to all damage for 3 rounds. At the end of each of its turns, the target can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<p><strong>Critical Failure</strong> As failure, but the target gains weakness 4 to all damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3CYHFpoLrjZ81c7d",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sacrificial Takedown",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Hhrulkaz attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a creature. If she succeeds, she then makes a melee Strike against the target, granting her weapon the fatal d10 trait until the end of her turn. Both attacks count toward her multiple attack penalty, but the penalty doesn't increase until after she makes both attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "sacrificial-takedown",
-                        "toggleable": true
-                    },
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "sacrificial-takedown",
-                            "item:slug:clan-dagger"
-                        ],
-                        "property": "traits",
-                        "value": "fatal-d10"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6G1CiUHpmIKlQc71",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Create Food (2nd-level)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Create Food]</p>\n<hr />\n<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-2nd-level-spell",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "XFVtWZA9GM79NYS9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lIwXM8xeF96q3UbL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Clan Dagger",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "LrPBDXBdcGCPNeMx": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "clan-dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "dwarf",
-                        "parry",
-                        "versatile-b"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "U6EpdKFcKcXvH1ZP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "yyxeiqluo9rmvF4j": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "dFa7prCbIKjDHNyQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "73Xo8ECukSq877gD": {
-                        "damage": "1d6+3",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8su10iQbGBMQ8V4s",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shattering Chant",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "12DVGVZ6vYCCUSmO": {
-                        "damage": "2d6+4",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "range-increment-30",
-                        "sonic"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "2T5kHuOmvlEVrFbH",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Dbd5W6G8U2vzWolN"
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -516,7 +78,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
             "name": "Skysunder",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "baseItem": "clan-dagger",
                 "bonus": {
@@ -595,6 +157,444 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "6G1CiUHpmIKlQc71",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
+            },
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Create Food (2nd-level)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Create Food]</p>\n<hr />\n<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-2nd-level-spell",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "scroll"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "XFVtWZA9GM79NYS9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lIwXM8xeF96q3UbL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Clan Dagger",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "LrPBDXBdcGCPNeMx": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "clan-dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "dwarf",
+                        "parry",
+                        "versatile-b"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "U6EpdKFcKcXvH1ZP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "yyxeiqluo9rmvF4j": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dFa7prCbIKjDHNyQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "73Xo8ECukSq877gD": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8su10iQbGBMQ8V4s",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shattering Chant",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "12DVGVZ6vYCCUSmO": {
+                        "damage": "2d6+4",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-30",
+                        "sonic"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wzqHVKr5hbItJ7l9",
+            "_stats": {
+                "compendiumSource": "Actor.G7RxS2VvwZDZs0fa.Item.sXbsdhvyWSPKHCCv"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Stench",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[fortitude|dc:21] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and on a critical failure, the creature also takes a –5 status penalty to its Speeds for 1 round. While within the aura, the creature takes a –2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths stenches for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Xulgath Stench]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Dw7I6KE6oVtzaX0I",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 Status To Saves Vs. Petrifying Gaze",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:petrifying-gaze"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Uh6MrOOuDNSd86zP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Far-Reaching Fear",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The range at which Hhrulkaz can @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] creatures increases to 60 feet, and she doesn't take a penalty if the creature doesn't understand her language.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CITZi6HKFgJCaKzQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Predator's Decree",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Hhrulkaz is within 60 feet of a frightened creature or a creature she successfully hit with a shattering chant this turn</p>\n<hr />\n<p><strong>Effect</strong> Hhrulkaz condemns the creature to be eaten. The creature must make a @Check[will|dc:20] save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target gains weakness 2 to all damage for 3 rounds. At the end of each of its turns, the target can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<p><strong>Critical Failure</strong> As failure, but the target gains weakness 4 to all damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3CYHFpoLrjZ81c7d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sacrificial Takedown",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hhrulkaz attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a creature. If she succeeds, she then makes a melee Strike against the target, granting her weapon the fatal d10 trait until the end of her turn. Both attacks count toward her multiple attack penalty, but the penalty doesn't increase until after she makes both attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sacrificial-takedown",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "sacrificial-takedown",
+                            "item:slug:clan-dagger"
+                        ],
+                        "property": "traits",
+                        "value": "fatal-d10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Hhrulkaz",

@@ -4,426 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "22bQQFTutgQ4Lzfs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
+            "_id": "7BAOIxzz6HjTn8I0",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Divine Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3J4Relkg61T0rQHh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "P2qlThkgF3vcu6WY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-1 status penalty to all saves vs. death effects",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "death"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": -1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ODKdeMrBIixZslBl",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Deflecting Gale",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The kirin is targeted with a ranged Strike</p>\n<hr />\n<p><strong>Effect</strong> The kirin intensifies the wind around themself, gaining a +4 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "deflecting-gale",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "deflecting-gale"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "snlcqNZrBsBXRzfl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Peaceful Aura",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Creatures within Cloudsplitter's peaceful aura attempting to use a hostile action must first attempt a @Check[will|dc:39] save; on a failure, the hostile action is disrupted.</p>\n<p>If a creature in the aura successfully uses a hostile action, it's temporarily immune to peaceful aura for 24 hours, and while it's temporarily immune, other creatures in the Cloudsplitter's peaceful aura can perform hostile actions toward it without needing to attempt a Will save.</p>\n<p>Cloudsplitter can select creatures within their aura that can use hostile actions without needing to attempt a Will save.</p>\n<p>Cloudsplitter allows anyone involved in the player character's bout with Jin-Hae to use hostile actions without a Will save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "peaceful-aura",
-                        "traits": [
-                            "divine",
-                            "emotion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jDpoqTSr86nC9yxa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Susceptible to Death",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bhAx6MavTdZqYdPK",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Cloudsplitter breathes fire in a @Template[cone|distance:30], dealing @Damage[18d6[fire]] damage (@Check[reflex|dc:40|basic] save). Cloudsplitter can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uETiNlCErr5xSR48",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Rearing Thrust",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Cloudsplitter rushes forward, rears up on their hind legs, and descends upon their target with their horn. Cloudsplitter Strides and makes a horn Strike. If this Strike hits, it deals an additional [[/r 2d8]] damage, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "rearing-thrust",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "rearing-thrust"
-                        ],
-                        "selector": "phantom-horn-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
-                        "predicate": [
-                            "rearing-thrust"
-                        ],
-                        "selector": "phantom-horn-attack",
-                        "text": "PF2E.AttackEffects.KnockProne",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "46YTtTZStJ8YJ4JO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Medium or smaller, phantom hoof, @Check[reflex|dc:40|basic] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9L5mgOkf2d5MOUDu",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Phantom Hoof",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "niovmh2t5vq1kry4yp8x": {
-                        "damage": "4d10+15",
-                        "damageType": "force"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "TiUvmFYeNiH2iMiP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Phantom Horn",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "su4tcfow3xep9jh6z6jz": {
-                        "damage": "4d8+15",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -431,20 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "force",
-                        "magical"
-                    ]
+                "spelldc": {
+                    "dc": 41,
+                    "mod": 0,
+                    "value": 33
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "uq0h4m9aMeFmWhpc",
@@ -453,7 +47,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -514,7 +108,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm Emotions (At Will)",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -585,7 +179,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "line",
@@ -658,7 +252,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-blue-grey.webp",
             "name": "Punishing Winds",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +312,7 @@
             },
             "img": "icons/magic/control/energy-stream-link-teal.webp",
             "name": "Spirit Link (with Jin-Hae only)",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -779,7 +373,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will)",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -843,7 +437,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1044,7 +638,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1900000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1102,22 +696,28 @@
             "type": "spell"
         },
         {
-            "_id": "7BAOIxzz6HjTn8I0",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Divine Spells",
-            "sort": 2000000,
+            "_id": "9L5mgOkf2d5MOUDu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Phantom Hoof",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "niovmh2t5vq1kry4yp8x": {
+                        "damage": "4d10+15",
+                        "damageType": "force"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1125,18 +725,418 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "mod": 0,
-                    "value": 33
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "TiUvmFYeNiH2iMiP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Phantom Horn",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "su4tcfow3xep9jh6z6jz": {
+                        "damage": "4d8+15",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "force",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "22bQQFTutgQ4Lzfs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3J4Relkg61T0rQHh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "P2qlThkgF3vcu6WY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-1 status penalty to all saves vs. death effects",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ODKdeMrBIixZslBl",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Deflecting Gale",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The kirin is targeted with a ranged Strike</p>\n<hr />\n<p><strong>Effect</strong> The kirin intensifies the wind around themself, gaining a +4 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "deflecting-gale",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "deflecting-gale"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "snlcqNZrBsBXRzfl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Peaceful Aura",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Creatures within Cloudsplitter's peaceful aura attempting to use a hostile action must first attempt a @Check[will|dc:39] save; on a failure, the hostile action is disrupted.</p>\n<p>If a creature in the aura successfully uses a hostile action, it's temporarily immune to peaceful aura for 24 hours, and while it's temporarily immune, other creatures in the Cloudsplitter's peaceful aura can perform hostile actions toward it without needing to attempt a Will save.</p>\n<p>Cloudsplitter can select creatures within their aura that can use hostile actions without needing to attempt a Will save.</p>\n<p>Cloudsplitter allows anyone involved in the player character's bout with Jin-Hae to use hostile actions without a Will save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "peaceful-aura",
+                        "traits": [
+                            "divine",
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jDpoqTSr86nC9yxa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Susceptible to Death",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.</p>\n<p>A phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like @UUID[Compendium.pf2e.spells-srd.Item.Execute]) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bhAx6MavTdZqYdPK",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Cloudsplitter breathes fire in a @Template[cone|distance:30], dealing @Damage[18d6[fire]] damage (@Check[reflex|dc:40|basic] save). Cloudsplitter can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uETiNlCErr5xSR48",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Rearing Thrust",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Cloudsplitter rushes forward, rears up on their hind legs, and descends upon their target with their horn. Cloudsplitter Strides and makes a horn Strike. If this Strike hits, it deals an additional [[/r 2d8]] damage, and the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rearing-thrust",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "rearing-thrust"
+                        ],
+                        "selector": "phantom-horn-attack",
+                        "text": "PF2E.AttackEffects.KnockProne",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "46YTtTZStJ8YJ4JO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium or smaller, phantom hoof, @Check[reflex|dc:40|basic] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Cloudsplitter",

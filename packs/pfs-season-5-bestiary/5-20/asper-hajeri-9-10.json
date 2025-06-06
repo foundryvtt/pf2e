@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iGRCXWOQsL9DxC6I",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Elemental Aura",
+            "_id": "bUU1KfxXXO7HYdvq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Asper surrounds herself with the power of one of the elements under her control (air, fire, or water). If air, she gains resistance 10 to electricity damage and doubles her speed. If fire, she gains resistance 10 to fire damage. Any creature within 30 feet of her who receives fire damage receives an extra @Damage[2d10[persistent,fire]] damage. If water, she gains resistance 10 to cold damage and fast healing 20. This aura persists until she is knocked @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], she dismisses the aura, or she releases it via Elemental Burst.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,188 +27,56 @@
                     "title": ""
                 },
                 "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Asper's Elemental Aura",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Asper's Elemental Aura"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lRmVdj1U5aoLQ0M6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Elemental Burst",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Asper releases the elemental aura she currently holds, dealing @Damage[2d8[electricity]] (if air), @Damage[2d8[fire]], or @Damage[2d8[cold]] (if water) damage. She cannot use elemental aura again for that element for 2 rounds.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hk3t9IFJMAaZmzJB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.eTkMiedmXpSsnaod"
-            },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Smoke Veil",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p><em>Smoke veils</em> are wigs or headdresses made of flame and ash, giving the wearer a burning coil of fiery hair and concealing their face behind a smoldering, omnipresent haze of smoke and sparking embers. You can use the veil to go unrecognized by hiding your face so that you can attempt Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] without needing a disguise kit. When you do so, it takes you only 1 minute to create the disguise, and you gain a +1 item bonus to the check. You still need a disguise kit and the full time if you're using cosmetics and other props to change other aspects of your disguise, or if Impersonating a specific person.</p>\n<hr />\n<p><strong>Activate—Blazing Stare</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> You dealt fire damage to a target you can see within 30 feet with your most recent action this turn</p>\n<p><strong>Effect</strong> You set your fiery gaze on your target, eyes burning within a cloud of ash and cinder. Roll an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target. Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty when you attempt to Demoralize a creature that doesn't understand your language.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": true,
-                    "title": "Pathfinder Rage of Elements"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "smoke-veil",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornheadwear"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "tYR9gfiJZBLeNE2T",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "M6nqkhtZfpXl3tFG"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wish Knife",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "slug": null,
+                "spelldc": {
+                    "dc": 34,
                     "value": 26
                 },
-                "damageRolls": {
-                    "TxW1SRoB7laYYSt6": {
-                        "damage": "3d6+10",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "primal"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "wish-knife",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "disarm",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "tl3tEX7ci82DdAvK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
+            "_id": "0mhlaoQXJ6cYacbt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "KT2TfU2LsVbgSCzv": {
-                        "damage": "3d8+10",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -214,54 +84,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 34,
+                    "value": 26
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "wpMh2SYwPGReqUCb",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "24n5cqBM1YsKEntq": {
-                        "damage": "3d10+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "vdA6gG9gdppX6l0W",
@@ -270,7 +107,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -357,7 +194,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
             "name": "Wall of Ice",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -438,7 +275,7 @@
             },
             "img": "systems/pf2e/icons/spells/grasp-of-the-deep.webp",
             "name": "Grasp of the Deep",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -527,7 +364,7 @@
             },
             "img": "systems/pf2e/icons/spells/solid-fog.webp",
             "name": "Solid Fog",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -592,7 +429,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -672,7 +509,7 @@
             },
             "img": "icons/magic/water/pseudopod-swirl-blue.webp",
             "name": "Crashing Wave",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -760,7 +597,7 @@
             },
             "img": "systems/pf2e/icons/spells/dive-and-breach.webp",
             "name": "Dive and Breach (At Will)",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -847,7 +684,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -935,7 +772,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -997,7 +834,7 @@
             },
             "img": "systems/pf2e/icons/spells/dragon-breath.webp",
             "name": "Breathe Fire",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1085,7 +922,7 @@
             },
             "img": "icons/magic/death/skull-fire-white-yellow.webp",
             "name": "Dehydrate",
-            "sort": 1700000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1247,7 +1084,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1314,7 +1151,7 @@
             },
             "img": "systems/pf2e/icons/spells/draw-moisture.webp",
             "name": "Draw Moisture",
-            "sort": 1900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1377,7 +1214,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 2000000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1458,7 +1295,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 2100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1539,7 +1376,7 @@
             },
             "img": "icons/magic/air/air-wave-gust-blue.webp",
             "name": "Slashing Gust",
-            "sort": 2200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1620,7 +1457,7 @@
             },
             "img": "icons/magic/fire/beam-jet-stream-blue.webp",
             "name": "Spout",
-            "sort": 2300000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1701,110 +1538,13 @@
             "type": "spell"
         },
         {
-            "_id": "bUU1KfxXXO7HYdvq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "0mhlaoQXJ6cYacbt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "M6nqkhtZfpXl3tFG",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.1Uvz5xJpE5UvOFjJ"
             },
             "img": "icons/weapons/daggers/dagger-curved-purple.webp",
             "name": "Wish Knife",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "wish-knife",
                 "bonus": {
@@ -1886,6 +1626,266 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "hk3t9IFJMAaZmzJB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.eTkMiedmXpSsnaod"
+            },
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Smoke Veil",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><em>Smoke veils</em> are wigs or headdresses made of flame and ash, giving the wearer a burning coil of fiery hair and concealing their face behind a smoldering, omnipresent haze of smoke and sparking embers. You can use the veil to go unrecognized by hiding your face so that you can attempt Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] without needing a disguise kit. When you do so, it takes you only 1 minute to create the disguise, and you gain a +1 item bonus to the check. You still need a disguise kit and the full time if you're using cosmetics and other props to change other aspects of your disguise, or if Impersonating a specific person.</p>\n<hr />\n<p><strong>Activate—Blazing Stare</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> You dealt fire damage to a target you can see within 30 feet with your most recent action this turn</p>\n<p><strong>Effect</strong> You set your fiery gaze on your target, eyes burning within a cloud of ash and cinder. Roll an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the target. Demoralize loses the auditory trait and gains the visual trait, and you don't take a penalty when you attempt to Demoralize a creature that doesn't understand your language.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "smoke-veil",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornheadwear"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "tYR9gfiJZBLeNE2T",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "M6nqkhtZfpXl3tFG"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wish Knife",
+            "sort": 2200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "TxW1SRoB7laYYSt6": {
+                        "damage": "3d6+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "wish-knife",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "disarm",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tl3tEX7ci82DdAvK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "KT2TfU2LsVbgSCzv": {
+                        "damage": "3d8+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wpMh2SYwPGReqUCb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "24n5cqBM1YsKEntq": {
+                        "damage": "3d10+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iGRCXWOQsL9DxC6I",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elemental Aura",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Asper surrounds herself with the power of one of the elements under her control (air, fire, or water). If air, she gains resistance 10 to electricity damage and doubles her speed. If fire, she gains resistance 10 to fire damage. Any creature within 30 feet of her who receives fire damage receives an extra @Damage[2d10[persistent,fire]] damage. If water, she gains resistance 10 to cold damage and fast healing 20. This aura persists until she is knocked @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], she dismisses the aura, or she releases it via Elemental Burst.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Asper's Elemental Aura",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Asper's Elemental Aura"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lRmVdj1U5aoLQ0M6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elemental Burst",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Asper releases the elemental aura she currently holds, dealing @Damage[2d8[electricity]] (if air), @Damage[2d8[fire]], or @Damage[2d8[cold]] (if water) damage. She cannot use elemental aura again for that element for 2 rounds.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Asper Hajeri (9–10)",

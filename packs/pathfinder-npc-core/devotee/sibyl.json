@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ykoQZJpT2fydsLY4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Induce Awe",
+            "_id": "8FmqlOR60cpDaNqn",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>The sibyl can use Religion instead of Intimidation to [[/act coerce skill=religion]] or [[/act demoralize skill=religion]].</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -25,297 +27,64 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "E0NCiPy7YnRwRSKb",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Foresight",
+            "_id": "VWbRUZ6KQl8KfQrp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Oracle Focus Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The sibyl becomes the target of a spell with the detection, prediction, revelation, or scrying trait</p><hr /><p><strong>Effect</strong> The sibyl's oracular awareness alerts them to danger. They gain a +2 circumstance bonus to their saving throw or AC against the spell.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:type:spell",
-                            {
-                                "or": [
-                                    "item:trait:detection",
-                                    "item:trait:prediction",
-                                    "item:trait:revelation",
-                                    "item:trait:scrying"
-                                ]
-                            }
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4oPCy2fCIKMYlypf",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Divine Frenzy",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The sibyl isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or in a frenzy</p><hr /><p><strong>Effect</strong> The sibyl enters into a divine frenzy that lasts 1 minute. The sibyl can't voluntarily stop frenzying. While in a divine frenzy, the sibyl takes a –2 penalty to Perception checks and Will saves and gains a +2 status bonus to their spell DC and spell attack modifier. During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking. The frenzy lasts for 1 minute, until the sibyl falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or the encounter ends, whichever comes first. The sibyl can't voluntarily end the frenzy.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Divine Frenzy",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Divine Frenzy"
-                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "LXbnYGAQLI0b1XQO",
-            "img": "icons/consumables/plants/herb-tied-bundle-dried-yellow.webp",
-            "name": "Bundle of Herbs",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "B4padp3FEaGEF2i3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8Ao8ntCvD4KeFNUP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "BRSQmqqIKk6sRUBb": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    },
-                    "w3OpBOjQ7c7i4zBP": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Dbzx46pANARJg5wD",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8Ao8ntCvD4KeFNUP"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "2beYZzGujbMvdUBR": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    },
-                    "WKdQDeTy7g4YNk0T": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "XnpqvLymO3PKjAp9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "IVME0RJHRopRcCBS": {
-                        "damage": "1d4+4",
-                        "damageType": "bludgeoning"
-                    },
-                    "t30s1La86bLBxlFx": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "HMIktlzoagLUyus2",
@@ -324,7 +93,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +154,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -452,7 +221,7 @@
             },
             "img": "icons/magic/acid/dissolve-bone-white.webp",
             "name": "Sudden Blight",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -540,7 +309,7 @@
             },
             "img": "systems/pf2e/icons/spells/brain-drain.webp",
             "name": "Brain Drain",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -623,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -702,7 +471,7 @@
             },
             "img": "icons/magic/sonic/explosion-shock-sound-wave.webp",
             "name": "Concordant Choir",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -869,7 +638,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -936,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1018,7 +787,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1098,7 +867,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1159,7 +928,7 @@
             },
             "img": "icons/commodities/tech/antenna-powered-purple.webp",
             "name": "Haunting Hymn",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1248,7 +1017,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know the Way",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1311,7 +1080,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1366,96 +1135,13 @@
             "type": "spell"
         },
         {
-            "_id": "8FmqlOR60cpDaNqn",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "VWbRUZ6KQl8KfQrp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Oracle Focus Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "8Ao8ntCvD4KeFNUP",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1536,6 +1222,320 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "LXbnYGAQLI0b1XQO",
+            "img": "icons/consumables/plants/herb-tied-bundle-dried-yellow.webp",
+            "name": "Bundle of Herbs",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "B4padp3FEaGEF2i3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8Ao8ntCvD4KeFNUP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "BRSQmqqIKk6sRUBb": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    },
+                    "w3OpBOjQ7c7i4zBP": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Dbzx46pANARJg5wD",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8Ao8ntCvD4KeFNUP"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "2beYZzGujbMvdUBR": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    },
+                    "WKdQDeTy7g4YNk0T": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XnpqvLymO3PKjAp9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "IVME0RJHRopRcCBS": {
+                        "damage": "1d4+4",
+                        "damageType": "bludgeoning"
+                    },
+                    "t30s1La86bLBxlFx": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ykoQZJpT2fydsLY4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Induce Awe",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The sibyl can use Religion instead of Intimidation to [[/act coerce skill=religion]] or [[/act demoralize skill=religion]].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "E0NCiPy7YnRwRSKb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Foresight",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The sibyl becomes the target of a spell with the detection, prediction, revelation, or scrying trait</p><hr /><p><strong>Effect</strong> The sibyl's oracular awareness alerts them to danger. They gain a +2 circumstance bonus to their saving throw or AC against the spell.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:type:spell",
+                            {
+                                "or": [
+                                    "item:trait:detection",
+                                    "item:trait:prediction",
+                                    "item:trait:revelation",
+                                    "item:trait:scrying"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4oPCy2fCIKMYlypf",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Divine Frenzy",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The sibyl isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or in a frenzy</p><hr /><p><strong>Effect</strong> The sibyl enters into a divine frenzy that lasts 1 minute. The sibyl can't voluntarily stop frenzying. While in a divine frenzy, the sibyl takes a –2 penalty to Perception checks and Will saves and gains a +2 status bonus to their spell DC and spell attack modifier. During a divine frenzy, the sibyl can't use actions with the concentrate trait unless they're Casting a Spell or Seeking. The frenzy lasts for 1 minute, until the sibyl falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or the encounter ends, whichever comes first. The sibyl can't voluntarily end the frenzy.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Divine Frenzy",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Divine Frenzy"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sibyl",

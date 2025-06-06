@@ -4,274 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZCzPBKxNur5jivst",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Prehensile Tail",
+            "_id": "x9y5lzgXl4AElBeG",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Vanara can use their long, flexible tail to perform Interact actions requiring a free hand, even if both hands are otherwise occupied. Their tail can't perform actions that require fingers or significant manual dexterity, including any action that would require a check to accomplish, and they can't use it to hold items.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UdVP0KaTSvScgjK7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Go With the Flow",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Vivatu is targeted by a physical attack and can see the attacker</p>\n<hr />\n<p><strong>Effect</strong> The targeted part of Vivatu's body turns into flowing water to hamper the blow. She gains a +2 circumstance bonus to AC against the triggering attack. If she takes electricity damage, she can't use this again for [[/gmr 1d4 #Recharge this]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "go-with-the-flow",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "go-with-the-flow"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "go-with-the-flow",
-                "traits": {
-                    "value": [
-                        "primal",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ndCZ0sqPRYuXLZcS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Flurry of Blows",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Vivatu makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 13,
+                    "value": 5
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "1FPzV1P8qvmciUKK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spring Up",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Vivatu is @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>\n<hr />\n<p><strong>Effect</strong> Vivatu Stands, then can immediately Step twice. The Stand action doesn't trigger reactions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kBoyabfRG9Wf7YtJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "V8haWpDBP994ckhD": {
-                        "damage": "1d6+1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "byjkI6bvw6CDiGSX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bo Staff",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 4
-                },
-                "damageRolls": {
-                    "b1iBOOJRfFUGNPEx": {
-                        "damage": "1d8+1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "bo-staff",
-                "traits": {
-                    "value": [
-                        "parry",
-                        "reach-10",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ZD8f72XSo6GlWXIG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Javelin",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "Lm2pK5ej9BcbMsdO": {
-                        "damage": "1d6+1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "javelin",
-                "traits": {
-                    "value": [
-                        "thrown-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "mTtenwgFxl2lXClU",
@@ -280,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/pest-form.webp",
             "name": "Pest Form (Monkey Only)",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -336,22 +106,28 @@
             "type": "spell"
         },
         {
-            "_id": "x9y5lzgXl4AElBeG",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 900000,
+            "_id": "kBoyabfRG9Wf7YtJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "V8haWpDBP994ckhD": {
+                        "damage": "1d6+1",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -359,21 +135,245 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 13,
-                    "value": 5
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "byjkI6bvw6CDiGSX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bo Staff",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 4
+                },
+                "damageRolls": {
+                    "b1iBOOJRfFUGNPEx": {
+                        "damage": "1d8+1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "bo-staff",
+                "traits": {
+                    "value": [
+                        "parry",
+                        "reach-10",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZD8f72XSo6GlWXIG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Javelin",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "Lm2pK5ej9BcbMsdO": {
+                        "damage": "1d6+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "javelin",
+                "traits": {
+                    "value": [
+                        "thrown-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZCzPBKxNur5jivst",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Prehensile Tail",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Vanara can use their long, flexible tail to perform Interact actions requiring a free hand, even if both hands are otherwise occupied. Their tail can't perform actions that require fingers or significant manual dexterity, including any action that would require a check to accomplish, and they can't use it to hold items.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UdVP0KaTSvScgjK7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Go With the Flow",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Vivatu is targeted by a physical attack and can see the attacker</p>\n<hr />\n<p><strong>Effect</strong> The targeted part of Vivatu's body turns into flowing water to hamper the blow. She gains a +2 circumstance bonus to AC against the triggering attack. If she takes electricity damage, she can't use this again for [[/gmr 1d4 #Recharge this]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "go-with-the-flow",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "go-with-the-flow"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "go-with-the-flow",
+                "traits": {
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ndCZ0sqPRYuXLZcS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flurry of Blows",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Vivatu makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1FPzV1P8qvmciUKK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spring Up",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Vivatu is @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>\n<hr />\n<p><strong>Effect</strong> Vivatu Stands, then can immediately Step twice. The Stand action doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Younger Sister Vivatu",

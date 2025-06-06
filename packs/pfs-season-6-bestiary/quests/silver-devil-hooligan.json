@@ -4,86 +4,177 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tzydi1Wnb5t5NOq4",
+            "_id": "kNnA6G5WeqMJ5Q2a",
             "_stats": {
-                "compendiumSource": "Actor.jE6BL7VEUpclMR1R.Item.dlhm2yJ4EUGym0CG"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Gang Up",
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
                 "description": {
-                    "value": "<p>Silver Devil hooligans benefit from flanking a creature as long as at least two other Silver Devil hooligans are adjacent to that creature.</p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "DyXTFnUImaBRP7NF",
+            "_id": "wR68khd1aiIpq9hx",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c58wczIzH2gzeXQL"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "img": "icons/weapons/clubs/club-banded-brown.webp",
+            "name": "Club",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "club",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>A Silver Devil hooligan deals 1d6 additional damage to an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] opponent.</p>"
+                    "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "club",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "thrown-10"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "nXSfcKxJyJpQw08S",
@@ -280,177 +371,86 @@
             "type": "melee"
         },
         {
-            "_id": "kNnA6G5WeqMJ5Q2a",
+            "_id": "tzydi1Wnb5t5NOq4",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+                "compendiumSource": "Actor.jE6BL7VEUpclMR1R.Item.dlhm2yJ4EUGym0CG"
             },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Gang Up",
             "sort": 700000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
+                    "value": "<p>Silver Devil hooligans benefit from flanking a creature as long as at least two other Silver Devil hooligans are adjacent to that creature.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "wR68khd1aiIpq9hx",
+            "_id": "DyXTFnUImaBRP7NF",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.c58wczIzH2gzeXQL"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
             },
-            "img": "icons/weapons/clubs/club-banded-brown.webp",
-            "name": "Club",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
             "sort": 800000,
             "system": {
-                "baseItem": "club",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "club",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": "<p>A Silver Devil hooligan deals 1d6 additional damage to an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] opponent.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "club",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-10"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Silver Devil Hooligan",

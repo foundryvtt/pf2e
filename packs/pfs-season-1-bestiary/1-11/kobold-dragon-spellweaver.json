@@ -4,108 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kBRpg0IxVDPQTeRW",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Illusory Retreat",
+            "_id": "idrxPD2oG0Af2yHS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The kobold dragon spellweaver is adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> The dragon spellweaver creates an illusion of itself in its square and then becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] (with the effects of a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell) for [[/gmr 1d4+2 #Duration Illusory Retreat]]{1d4+2 rounds}. The dragon mage can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies.</p>\n<p>This is a 2nd-rank spell that requires a somatic component.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "illusion",
-                        "manipulate",
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5xJ16r5aoLZNAJRO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon spellweaver deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z0PwpFXIKDbO6Bvo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dragon Lore",
-            "sort": 300000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 12
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -114,123 +28,31 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oIuyQYtSdN860807",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "iqu5lrarr1aga84xdrd7": {
-                        "damage": "1d6-1",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "eCsWtcHZ3YEv9CWR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zuBuN8P7asAkffRx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "25mqf6eu03kqdjrw": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "value": 5
                     },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
                     }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "mod": 0,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "4phbdBIsSGvJkO01",
@@ -239,7 +61,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -320,7 +142,7 @@
             },
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Flaming Sphere",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -404,7 +226,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -467,7 +289,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -534,7 +356,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -619,7 +441,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -690,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -753,7 +575,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -819,7 +641,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -880,7 +702,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -952,7 +774,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1009,64 +831,13 @@
             "type": "spell"
         },
         {
-            "_id": "idrxPD2oG0Af2yHS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "value": 5
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "zuBuN8P7asAkffRx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1141,6 +912,235 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "oIuyQYtSdN860807",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "iqu5lrarr1aga84xdrd7": {
+                        "damage": "1d6-1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eCsWtcHZ3YEv9CWR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zuBuN8P7asAkffRx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "25mqf6eu03kqdjrw": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kBRpg0IxVDPQTeRW",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Illusory Retreat",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The kobold dragon spellweaver is adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> The dragon spellweaver creates an illusion of itself in its square and then becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] (with the effects of a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell) for [[/gmr 1d4+2 #Duration Illusory Retreat]]{1d4+2 rounds}. The dragon mage can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies.</p>\n<p>This is a 2nd-rank spell that requires a somatic component.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "illusion",
+                        "manipulate",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5xJ16r5aoLZNAJRO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon spellweaver deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z0PwpFXIKDbO6Bvo",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dragon Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Kobold Dragon Spellweaver",

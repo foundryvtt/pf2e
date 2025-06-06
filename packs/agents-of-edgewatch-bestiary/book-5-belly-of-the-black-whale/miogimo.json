@@ -4,20 +4,25 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "5qAf1qV6aq6q3pQl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Little Favors",
+            "_id": "Gqv7Fk6y6KrpOB3W",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Each time a creature willingly performs a service, quest, or task for the zealborn, the creature takes a cumulative -1 status penalty to saving throws against the zealborn's mental spells and abilities (maximum -4).</p>"
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "prepared": {
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,295 +30,62 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CcCVlFjqLYk2DTlc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to Will Saves vs. Mental",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "mental"
+                "slots": {
+                    "slot6": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "It1HwFlAcFmWZqI0"
+                            },
+                            {
+                                "id": "lda26rmzUtOO1MUY"
+                            }
                         ],
-                        "selector": "will",
-                        "type": "status",
+                        "value": 2
+                    },
+                    "slot7": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "BKVriOM4vPXRDs6r"
+                            }
+                        ],
                         "value": 1
                     }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 31
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "7kep2BZKcI8m29QV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
+            "_id": "XrNCDIzaEOy3x2U7",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When Miogimo is destroyed, he re-forms, fully healed, near a follower of his choice in [[/gmr 1d10 #Rejuvenation]]{1d10 days}. For the purposes of rejuvenation, a follower is defined as an intelligent creature who's well acquainted with Miogimo and is a true believer in Miogimo's mission, not merely a lukewarm supporter. Miogimo can be permanently destroyed only if he has no current followers or can be convinced to end his own life.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mNgkZuWHNH6FJsSb",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Trickster's Ace",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An effect would cause Miogimo to become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] or would slow his movement</p>\n<hr />\n<p><strong>Effect</strong> Miogimo casts @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement] on himself.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZoDu12928nPzUoAD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Zealous Restoration",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Miogimo can't regain Hit Points through resting or void healing; he feeds only on the idealism of his supporters, regaining 10 Hit Points per day for each creature under the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Geas] cast by Miogimo. Creatures under Miogimo's <em>geas</em> have their maximum HP reduced by 10 each day until they are burned away to a husk and perish. After 24 hours, such creatures rise as zeal-damned ghouls under Miogimo's control. Zeal-damned ghouls eat only the flesh of evil or chaotic creatures and deal an additional 1d6 spirit and 1d6 void damage with their attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "63422RZgKHyF8wVz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "Nw1QQjrp4miis9h8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.y2nb4D6iQOoc5LEX"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/miogimos-mask.webp",
-            "name": "Miogimo's Mask",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>The crime lord Miogimo almost always appears with this special mask, crafted with a piece of his soul.</p>\n<p>It has two forms. In its first form, the mask depicts a silvery and angelic face; while wearing the mask in this form, your alignment appears as lawful good to creatures attempting to detect your alignment. In its second form, the mask depicts a gold-skinned demonic face; while wearing the mask in this form, your alignment appears as chaotic evil to creatures attempting to detect your alignment. If you die while wearing the mask, a fragment of your soul is trapped in the mask, forming a life link. If there was already a soul fragment in the mask when this happens, you roll a @Check[will] save against the Will DC of the person who left the previous fragment. If you succeed, your soul fragment replaces the old one. On a failure, you die normally.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<hr />\n<p><strong>Effect</strong> You switch the mask to its other form.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith] (@Check[will|dc:34|name:Crisis of Faith|traits:divine,enchantment,mental]), targeting up to four creatures within 30 feet. If the mask is in its angelic form, you can target only evil and neutral creatures. If the mask is in its demonic form, you can target only good and neutral creatures.</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (command, envision, Interact)</p>\n<p><strong>Requirements</strong> A soul fragment is in the mask</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse] on the soul fragment, except you communicate telepathically and don't require the fragment's body to speak.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 16
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 9500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #161: Belly of the Black Whale"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "miogimos-mask",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornmask"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "tZ9QMTStg7ZyDCGS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underworld Lore",
-            "sort": 800000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 28
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -322,149 +94,22 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "46OKgjftfLLd55Dz",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xrbkCxRQw572x4E9"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Katana",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "jubiewgde5m4lygwmtok": {
-                        "damage": "3d6+13",
-                        "damageType": "slashing"
-                    },
-                    "m5vpu62whg84eizv0ng7": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "h267y7pazrlhyjiot6fy": {
-                        "damage": "2d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-2d8",
-                        "disarm",
-                        "magical",
-                        "two-hand-d10",
-                        "versatile-p"
-                    ]
+                "spelldc": {
+                    "dc": 41,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 33
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "W5xPRbSycfvcG1bj",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9TJMWpAJP61nNTdt"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "53o4ileivxmej36sc2ki": {
-                        "damage": "1d4+11",
-                        "damageType": "piercing"
-                    },
-                    "6zydj6d6sh47urfo5u0n": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "spy5xe8v3hunkmj3btke": {
-                        "damage": "2d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "b1CstPwRIaw0NKpY",
@@ -473,7 +118,7 @@
             },
             "img": "systems/pf2e/icons/spells/gravitational-pull.webp",
             "name": "Unfettered Mark",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -536,7 +181,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -618,7 +263,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -686,7 +331,7 @@
             },
             "img": "systems/pf2e/icons/spells/mislead.webp",
             "name": "Mislead",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -747,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
             "name": "Zealous Conviction",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -810,7 +455,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -878,7 +523,7 @@
             },
             "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
             "name": "Subconscious Suggestion",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +603,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1019,7 +664,7 @@
             },
             "img": "systems/pf2e/icons/spells/veil.webp",
             "name": "Veil",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1082,7 +727,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1150,7 +795,7 @@
             },
             "img": "icons/equipment/head/mask-carved-wood-brown.webp",
             "name": "Geas",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1216,7 +861,7 @@
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature (At Will)",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1275,121 +920,13 @@
             "type": "spell"
         },
         {
-            "_id": "Gqv7Fk6y6KrpOB3W",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "prepared": {
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot6": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "It1HwFlAcFmWZqI0"
-                            },
-                            {
-                                "id": "lda26rmzUtOO1MUY"
-                            }
-                        ],
-                        "value": 2
-                    },
-                    "slot7": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "BKVriOM4vPXRDs6r"
-                            }
-                        ],
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 39,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 31
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "XrNCDIzaEOy3x2U7",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "9TJMWpAJP61nNTdt",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Tt4Qw64fwrxhr5gT"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 2500000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -1475,7 +1012,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/katana.webp",
             "name": "Katana",
-            "sort": 2600000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "katana",
                 "bonus": {
@@ -1554,6 +1091,469 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "63422RZgKHyF8wVz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 1700000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "Nw1QQjrp4miis9h8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.y2nb4D6iQOoc5LEX"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/miogimos-mask.webp",
+            "name": "Miogimo's Mask",
+            "sort": 1800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>The crime lord Miogimo almost always appears with this special mask, crafted with a piece of his soul.</p>\n<p>It has two forms. In its first form, the mask depicts a silvery and angelic face; while wearing the mask in this form, your alignment appears as lawful good to creatures attempting to detect your alignment. In its second form, the mask depicts a gold-skinned demonic face; while wearing the mask in this form, your alignment appears as chaotic evil to creatures attempting to detect your alignment. If you die while wearing the mask, a fragment of your soul is trapped in the mask, forming a life link. If there was already a soul fragment in the mask when this happens, you roll a @Check[will] save against the Will DC of the person who left the previous fragment. If you succeed, your soul fragment replaces the old one. On a failure, you die normally.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<hr />\n<p><strong>Effect</strong> You switch the mask to its other form.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith] (@Check[will|dc:34|name:Crisis of Faith|traits:divine,enchantment,mental]), targeting up to four creatures within 30 feet. If the mask is in its angelic form, you can target only evil and neutral creatures. If the mask is in its demonic form, you can target only good and neutral creatures.</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (command, envision, Interact)</p>\n<p><strong>Requirements</strong> A soul fragment is in the mask</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse] on the soul fragment, except you communicate telepathically and don't require the fragment's body to speak.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 16
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 9500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #161: Belly of the Black Whale"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "miogimos-mask",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornmask"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "46OKgjftfLLd55Dz",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xrbkCxRQw572x4E9"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Katana",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "jubiewgde5m4lygwmtok": {
+                        "damage": "3d6+13",
+                        "damageType": "slashing"
+                    },
+                    "m5vpu62whg84eizv0ng7": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    },
+                    "h267y7pazrlhyjiot6fy": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-2d8",
+                        "disarm",
+                        "magical",
+                        "two-hand-d10",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "W5xPRbSycfvcG1bj",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9TJMWpAJP61nNTdt"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "53o4ileivxmej36sc2ki": {
+                        "damage": "1d4+11",
+                        "damageType": "piercing"
+                    },
+                    "6zydj6d6sh47urfo5u0n": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    },
+                    "spy5xe8v3hunkmj3btke": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5qAf1qV6aq6q3pQl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Little Favors",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Each time a creature willingly performs a service, quest, or task for the zealborn, the creature takes a cumulative -1 status penalty to saving throws against the zealborn's mental spells and abilities (maximum -4).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CcCVlFjqLYk2DTlc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to Will Saves vs. Mental",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": "will",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7kep2BZKcI8m29QV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When Miogimo is destroyed, he re-forms, fully healed, near a follower of his choice in [[/gmr 1d10 #Rejuvenation]]{1d10 days}. For the purposes of rejuvenation, a follower is defined as an intelligent creature who's well acquainted with Miogimo and is a true believer in Miogimo's mission, not merely a lukewarm supporter. Miogimo can be permanently destroyed only if he has no current followers or can be convinced to end his own life.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mNgkZuWHNH6FJsSb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Trickster's Ace",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An effect would cause Miogimo to become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] or would slow his movement</p>\n<hr />\n<p><strong>Effect</strong> Miogimo casts @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement] on himself.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZoDu12928nPzUoAD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Zealous Restoration",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Miogimo can't regain Hit Points through resting or void healing; he feeds only on the idealism of his supporters, regaining 10 Hit Points per day for each creature under the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Geas] cast by Miogimo. Creatures under Miogimo's <em>geas</em> have their maximum HP reduced by 10 each day until they are burned away to a husk and perish. After 24 hours, such creatures rise as zeal-damned ghouls under Miogimo's control. Zeal-damned ghouls eat only the flesh of evil or chaotic creatures and deal an additional 1d6 spirit and 1d6 void damage with their attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tZ9QMTStg7ZyDCGS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 2600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Miogimo",

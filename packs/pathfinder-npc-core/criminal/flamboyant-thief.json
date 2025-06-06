@@ -4,899 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hCwfJTcBjN8WoLif",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Flamboyant Performance",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A flamboyant thief's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] don't automatically fail even if a creature is in combat or on guard. While being observed, the thief gains a +2 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] or [[/act feint]] and to Thievery checks to [[/act palm-an-object]] or [[/act steal]]. However, they are compelled to leave a tangible sign of their presence, such as a calling card or symbol—often in place of a stolen item.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "flamboyant-performance",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:create-a-diversion",
-                                    "action:feint",
-                                    "action:palm-an-object",
-                                    "action:steal"
-                                ]
-                            }
-                        ],
-                        "selector": [
-                            "thievery",
-                            "deception"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y8OcBYjxfpIyrzVu",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Vanishing Act",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The flamboyant thief can [[/act hide]] and [[/act sneak]] even without having cover or being @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "G3GWsBGc2YCHf7oJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dramatic Entrance",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The flamboyant thief rolls initiative</p><hr /><p><strong>Effect</strong> The flamboyant thief draws all eyes to them. They attempt a @Check[performance|defense:will] check, comparing the result against the Will DC of any number of creatures within 120 feet. Each creature the thief succeeds against is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the thief until the end of the thief's next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|description}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KuGIBA2MsSUgCODF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "I Say When I'm Here",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When any detection, revelation, or scrying magic would reveal the flamboyant thief, the thief becomes aware of it and can attempt to counteract the magic with a counteract rank of 8th level and using their Stealth as their counteract modifier.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2QybfIWuFFyqMTcf",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Nimble Dodge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The flamboyant thief is targeted with a melee or ranged attack by an attacker it can see.</p><hr /><p><strong>Effect</strong> The flamboyant thief gains a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "nimble-dodge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "nimble-dodge"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KjWzrAticX5PTqya",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dancing Dagger",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The flamboyant thief can Step, attempt a melee dagger Strike, and attempt a ranged dagger Strike, taking the actions in any order. Both Strikes count toward the thief's multiple attack penalty, but it doesn't increase until after both attacks.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HL4OnnB0LnV2IciP",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dramatic Exit",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The flamboyant thief throws down their smoke ball, then [[/act hide]]{Hides}, then [[/act sneak]]{Sneaks} up to three times with a +2 circumstance bonus to their Stealth checks.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "dramatic-exit",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:hide",
-                                    "action:sneak"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "U0Gh274bqBZw2hvV",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spectacular Attack",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>All the flamboyant thief's Strikes deal an additional 3d6 precision damage or 6d6 if the target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the thief. After the thief Strikes a creature, that creature becomes fascinated with the thief until the end of the thief's next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "target:condition:fascinated",
-                            "damage:category:precision"
-                        ],
-                        "property": "dice-number",
-                        "selectors": [
-                            "strike-damage"
-                        ],
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MwgD67DA34nHZogR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 900000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "ob3RIwE9yxwlWnwH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
-            "name": "Potion of Flying (Standard)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "potion-of-flying-standard",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "dafYYgYun8cbDkob",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ehss8yPTXxiUdVlJ"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/smokestick.webp",
-            "name": "Smoke Ball (Greater)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<hr />\n<p>Upon smashing this ball on the ground, you instantly create a screen of thick, opaque smoke in a @Template[burst|distance:20] centered on one corner of your space. All creatures within that area are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 53
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "smoke-ball-greater",
-                "traits": {
-                    "otherTags": [
-                        "alchemical-tool"
-                    ],
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "GWofr5kCQqt0aNsx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YhkomhtKBK3i9C7Q"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit-elite.webp",
-            "name": "Disguise Kit (Elite)",
-            "sort": 1200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. An elite disguise kit adds a +1 item bonus to relevant checks. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit. You can draw and replace a worn disguise kit as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 40
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Elite Disguise Kit (Impersonate)",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "disguise-kit-elite",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "RmkSr7UZJSELtGcB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
-            },
-            "img": "icons/equipment/chest/breastplate-purple.webp",
-            "name": "Clothing (Fine)",
-            "sort": 1300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "clothing-fine",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "8PD2k5hqII0mEISb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6nrCxNQFycUVFOV2"
-            },
-            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
-            "name": "Thieves' Toolkit (Infiltrator)",
-            "sort": 1400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need a thieves' toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill. An infiltrator thieves' toolkit add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' toolkit is broken, you can repair it by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' toolkit, you can draw and replace it as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:disable-a-device",
-                                    "action:pick-a-lock"
-                                ]
-                            }
-                        ],
-                        "selector": "thievery",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "thieves-toolkit-infiltrator",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "dYYoUwUBjiZyqIfz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underworld Lore",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bSy0mziCB8C0Ha54",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xoXfxFi6IBuAuidb"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1600000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "spectacular-attack"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "Wnv2V50HC1pvzAuO": {
-                        "damage": "2d4+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CJ5XNh7I8Zc9mCGd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xoXfxFi6IBuAuidb"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1700000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "spectacular-attack"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "uDNVEW3n9SmYLfyS": {
-                        "damage": "2d4+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8XGqAJbGOsULu2Dn",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1800000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "spectacular-attack"
-                    ]
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "6Gl57ksYNOxzt8qt": {
-                        "damage": "1d4+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "xoXfxFi6IBuAuidb",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -979,6 +93,892 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "MwgD67DA34nHZogR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "GWofr5kCQqt0aNsx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YhkomhtKBK3i9C7Q"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit-elite.webp",
+            "name": "Disguise Kit (Elite)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. An elite disguise kit adds a +1 item bonus to relevant checks. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit. You can draw and replace a worn disguise kit as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 40
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Elite Disguise Kit (Impersonate)",
+                        "predicate": [
+                            "action:impersonate"
+                        ],
+                        "selector": "deception",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "disguise-kit-elite",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "RmkSr7UZJSELtGcB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
+            },
+            "img": "icons/equipment/chest/breastplate-purple.webp",
+            "name": "Clothing (Fine)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "clothing-fine",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8PD2k5hqII0mEISb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6nrCxNQFycUVFOV2"
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Toolkit (Infiltrator)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need a thieves' toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill. An infiltrator thieves' toolkit add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' toolkit is broken, you can repair it by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-a-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
+                        "selector": "thievery",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "thieves-toolkit-infiltrator",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ob3RIwE9yxwlWnwH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.KlJSw919hpN6V9oK"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-flying.webp",
+            "name": "Potion of Flying (Standard)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potion of Flying (Standard)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "potion-of-flying-standard",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "dafYYgYun8cbDkob",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ehss8yPTXxiUdVlJ"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/smokestick.webp",
+            "name": "Smoke Ball (Greater)",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<hr />\n<p>Upon smashing this ball on the ground, you instantly create a screen of thick, opaque smoke in a @Template[burst|distance:20] centered on one corner of your space. All creatures within that area are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all other creatures are concealed to them. The smoke lasts for 1 minute or until dispersed by a strong wind.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 53
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "smoke-ball-greater",
+                "traits": {
+                    "otherTags": [
+                        "alchemical-tool"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "bSy0mziCB8C0Ha54",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xoXfxFi6IBuAuidb"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "spectacular-attack"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "Wnv2V50HC1pvzAuO": {
+                        "damage": "2d4+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CJ5XNh7I8Zc9mCGd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xoXfxFi6IBuAuidb"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "spectacular-attack"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "uDNVEW3n9SmYLfyS": {
+                        "damage": "2d4+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8XGqAJbGOsULu2Dn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "spectacular-attack"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "6Gl57ksYNOxzt8qt": {
+                        "damage": "1d4+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hCwfJTcBjN8WoLif",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flamboyant Performance",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A flamboyant thief's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] don't automatically fail even if a creature is in combat or on guard. While being observed, the thief gains a +2 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] or [[/act feint]] and to Thievery checks to [[/act palm-an-object]] or [[/act steal]]. However, they are compelled to leave a tangible sign of their presence, such as a calling card or symbol—often in place of a stolen item.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "flamboyant-performance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:create-a-diversion",
+                                    "action:feint",
+                                    "action:palm-an-object",
+                                    "action:steal"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "thievery",
+                            "deception"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y8OcBYjxfpIyrzVu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vanishing Act",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The flamboyant thief can [[/act hide]] and [[/act sneak]] even without having cover or being @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G3GWsBGc2YCHf7oJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dramatic Entrance",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The flamboyant thief rolls initiative</p><hr /><p><strong>Effect</strong> The flamboyant thief draws all eyes to them. They attempt a @Check[performance|defense:will] check, comparing the result against the Will DC of any number of creatures within 120 feet. Each creature the thief succeeds against is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the thief until the end of the thief's next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KuGIBA2MsSUgCODF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "I Say When I'm Here",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When any detection, revelation, or scrying magic would reveal the flamboyant thief, the thief becomes aware of it and can attempt to counteract the magic with a counteract rank of 8th level and using their Stealth as their counteract modifier.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2QybfIWuFFyqMTcf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Nimble Dodge",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The flamboyant thief is targeted with a melee or ranged attack by an attacker it can see.</p><hr /><p><strong>Effect</strong> The flamboyant thief gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KjWzrAticX5PTqya",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dancing Dagger",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flamboyant thief can Step, attempt a melee dagger Strike, and attempt a ranged dagger Strike, taking the actions in any order. Both Strikes count toward the thief's multiple attack penalty, but it doesn't increase until after both attacks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HL4OnnB0LnV2IciP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dramatic Exit",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The flamboyant thief throws down their smoke ball, then [[/act hide]]{Hides}, then [[/act sneak]]{Sneaks} up to three times with a +2 circumstance bonus to their Stealth checks.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "dramatic-exit",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:hide",
+                                    "action:sneak"
+                                ]
+                            }
+                        ],
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U0Gh274bqBZw2hvV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spectacular Attack",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>All the flamboyant thief's Strikes deal an additional 3d6 precision damage or 6d6 if the target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the thief. After the thief Strikes a creature, that creature becomes fascinated with the thief until the end of the thief's next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "target:condition:fascinated",
+                            "damage:category:precision"
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": 6
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dYYoUwUBjiZyqIfz",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 1900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Flamboyant Thief",

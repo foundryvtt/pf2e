@@ -3,232 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PVl8sc8qtB79eDiU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bean Panic",
+            "_id": "lxsWZN09WFvanWVx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Oni are curiously afraid of beans, especially as the seasons begin to change. If a creature Interacts to throw a handful of beans at the oni, the oni becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. While frightened this way, their weakness to spirit damage is increased by 5. The oni then becomes immune to bean panic for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "bean-panic",
-                        "toggleable": true
-                    },
-                    {
-                        "definition": [
-                            "bean-panic"
-                        ],
-                        "key": "Weakness",
-                        "type": "custom",
-                        "value": 1
-                    },
-                    {
-                        "key": "Weakness",
-                        "predicate": [
-                            "bean-panic"
-                        ],
-                        "type": "spirit",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Qfrugsr5o7w29pqO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jBHuj3372sKbbNz0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mountain oni can take on the appearance of any Medium or Large humanoid creature. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "oni",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Oni",
-                                "value": "oni"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
-                                "value": "humanoid-medium"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidLarge",
-                                "value": "humanoid-large"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "CreatureSize",
-                        "predicate": [
-                            "change-shape:humanoid-medium"
-                        ],
-                        "value": "medium"
-                    }
-                ],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m5UYSTpePcNsLonC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thundering Iron",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The oni lifts their tetsubo and brings it down in a deafening peal. They make a tetsubo Strike. On a success, the target takes an additional 1d10 sonic damage.</p>\n<p>Each creature in a @Template[emanation|distance:10] around the target, other than the oni, take this damage as well and is pushed 5 feet away from the target.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "thundering-iron",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "sonic",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "thundering-iron"
-                        ],
-                        "selector": "tetsubo-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "px9Ml061hOZWBjpS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "L5iNoIZBVbe6alfA": {
-                        "damage": "2d6+9",
-                        "damageType": "piercing"
-                    },
-                    "S4C0rMvMjMJVaF7P": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -236,70 +27,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "p198oSgaXJCztW9z",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mKVyY1k9OA5mszpA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tetsubo",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "9MvS7nt6IC6szKjy": {
-                        "damage": "2d10+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tetsubo",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "razing",
-                        "reach-10",
-                        "shove",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "xeOeSKB1tB0nwsCm",
@@ -308,7 +51,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will, Self Only)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -364,55 +107,13 @@
             "type": "spell"
         },
         {
-            "_id": "lxsWZN09WFvanWVx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "mKVyY1k9OA5mszpA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FjeKuljhpaIiDTI7"
             },
             "img": "systems/pf2e/icons/equipment/weapons/aklys.webp",
             "name": "Tetsubo",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "baseItem": "tetsubo",
                 "bonus": {
@@ -491,6 +192,305 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "px9Ml061hOZWBjpS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "L5iNoIZBVbe6alfA": {
+                        "damage": "2d6+9",
+                        "damageType": "piercing"
+                    },
+                    "S4C0rMvMjMJVaF7P": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "p198oSgaXJCztW9z",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mKVyY1k9OA5mszpA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tetsubo",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "9MvS7nt6IC6szKjy": {
+                        "damage": "2d10+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tetsubo",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "razing",
+                        "reach-10",
+                        "shove",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PVl8sc8qtB79eDiU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bean Panic",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Oni are curiously afraid of beans, especially as the seasons begin to change. If a creature Interacts to throw a handful of beans at the oni, the oni becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. While frightened this way, their weakness to spirit damage is increased by 5. The oni then becomes immune to bean panic for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bean-panic",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "bean-panic"
+                        ],
+                        "key": "Weakness",
+                        "type": "custom",
+                        "value": 1
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "bean-panic"
+                        ],
+                        "type": "spirit",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Qfrugsr5o7w29pqO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jBHuj3372sKbbNz0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mountain oni can take on the appearance of any Medium or Large humanoid creature. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "oni",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Oni",
+                                "value": "oni"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidLarge",
+                                "value": "humanoid-large"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:humanoid-medium"
+                        ],
+                        "value": "medium"
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m5UYSTpePcNsLonC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thundering Iron",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The oni lifts their tetsubo and brings it down in a deafening peal. They make a tetsubo Strike. On a success, the target takes an additional 1d10 sonic damage.</p>\n<p>Each creature in a @Template[emanation|distance:10] around the target, other than the oni, take this damage as well and is pushed 5 feet away from the target.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "thundering-iron",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "sonic",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "thundering-iron"
+                        ],
+                        "selector": "tetsubo-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Mountain Oni",

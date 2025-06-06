@@ -4,418 +4,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OofTe2WDiLiEdYTm",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Halfling Luck",
+            "_id": "zehVjK1f2C0jpnAB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Occult Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The Rabbit Prince fails a skill check or a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The Rabbit Prince rerolls the triggering check, but he must use the new result, even if it's worse.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CgEMdYYlkqnUPBfB",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Perfect Will",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If the Rabbit Prince rolls a success on a Will save, he gets a critical success instead, and if he rolls a critical failure, he gets a failure instead.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "will"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cg0RVhBfO8MxjPpI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Superior Senses",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The Rabbit Prince automatically critically succeeds at Seek actions to find hidden or undetected creatures within 30 feet and at flat checks to target creatures within 30 feet that are concealed or hidden from him.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9KEf9z8ZVsw7qXJg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bloody Jab",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever the Rabbit Prince deals piercing damage, he also deals 2d10 persistent bleed damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "bleed",
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "item:damage:type:piercing"
-                        ],
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s4YFi2Scm3NoZSHU",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Darting Flurry",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Rabbit Prince Strides and makes a <em>blade of the Rabbit Prince</em> Strike and a <em>harrow card</em> Strike at any point during the Stride. His multiple attack penalty increases only after both attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4CShIdKgZz5cAVsW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Occult Rituals",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>DC 38; <em>imprisonment</em>, <em>inveigle</em></p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2EL49f3yp855RUpq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Quick Movements",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Rabbit Prince doesn't trigger reactions with his movement or with any use of the Thievery skill.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rfWEXR6igt2DS6gk",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Tin Crown",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "size": "med",
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "NeqCKB9myPD8TeNF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Harrow Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "spelldc": {
+                    "dc": 38,
+                    "item": 0,
+                    "mod": 0,
                     "value": 28
                 },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xaK2BOT4rtFista9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "2A9TNsqY3jsY4TNh"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Blade of the Rabbit Prince",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "LWnz2t8s48aN2oK3",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Harrow Card",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d4+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "deadly-d10",
-                        "magical",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "BE5vr2cYeoHS2XXj",
@@ -424,7 +49,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -511,7 +136,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -576,7 +201,7 @@
             },
             "img": "icons/sundries/misc/key-short-red.webp",
             "name": "Imprisonment",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -639,7 +264,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -701,7 +326,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph (At Will)",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -768,7 +393,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement (Constant)",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -829,7 +454,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -888,49 +513,10 @@
             "type": "spell"
         },
         {
-            "_id": "zehVjK1f2C0jpnAB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
-            "sort": 1900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 28
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "2A9TNsqY3jsY4TNh",
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "Blade of the Rabbit Prince",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -1017,7 +603,7 @@
             "_id": "8dOcRUbCXfwb7Scp",
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "Hardened Harrow Deck",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -1096,6 +682,420 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "rfWEXR6igt2DS6gk",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Tin Crown",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "xaK2BOT4rtFista9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2A9TNsqY3jsY4TNh"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blade of the Rabbit Prince",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LWnz2t8s48aN2oK3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Harrow Card",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d4+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-d10",
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OofTe2WDiLiEdYTm",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Halfling Luck",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The Rabbit Prince fails a skill check or a saving throw</p>\n<hr />\n<p><strong>Effect</strong> The Rabbit Prince rerolls the triggering check, but he must use the new result, even if it's worse.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CgEMdYYlkqnUPBfB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Perfect Will",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the Rabbit Prince rolls a success on a Will save, he gets a critical success instead, and if he rolls a critical failure, he gets a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cg0RVhBfO8MxjPpI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Superior Senses",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Rabbit Prince automatically critically succeeds at Seek actions to find hidden or undetected creatures within 30 feet and at flat checks to target creatures within 30 feet that are concealed or hidden from him.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9KEf9z8ZVsw7qXJg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloody Jab",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the Rabbit Prince deals piercing damage, he also deals 2d10 persistent bleed damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:damage:type:piercing"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s4YFi2Scm3NoZSHU",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Darting Flurry",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Rabbit Prince Strides and makes a <em>blade of the Rabbit Prince</em> Strike and a <em>harrow card</em> Strike at any point during the Stride. His multiple attack penalty increases only after both attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4CShIdKgZz5cAVsW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Occult Rituals",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>DC 38; <em>imprisonment</em>, <em>inveigle</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2EL49f3yp855RUpq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Quick Movements",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Rabbit Prince doesn't trigger reactions with his movement or with any use of the Thievery skill.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NeqCKB9myPD8TeNF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Harrow Lore",
+            "sort": 2100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 28
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "The Rabbit Prince",

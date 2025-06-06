@@ -4,182 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "leRq7itJeoKXnRFG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.yR9VLXIjJ2iOX77z"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ice Climb 20 feet",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The blackfrost dead can climb on ice as though it had the listed climb Speed. It ignores difficult terrain and greater difficult terrain from ice and snow and doesn't risk falling when crossing ice.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7YZS94VFfcWYhjPK",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Opportune Bite",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike within 10 feet of the blackfrost zombie</p>\n<hr />\n<p><strong>Effect</strong> The blackfrost zombie Steps toward the triggering creature, then makes a jaws Strike against that creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7G9f7Yjr5sHcnTBg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Zc2TMUpwMkP1rQUZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kLQ0eq18SvKEvggc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blackfrost",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This affliction can't be reduced below stage 1, nor the damage from it healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as a normal disease. A creature that dies from cold damage while cursed with blackfrost rises as a blackfrost dead after 24 hours. Blackfrost has a counteract rank of 10.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:27]</p>\n<p><strong>Stage 1</strong> @Damage[4d6[cold]] (1 minute)</p>\n<p><strong>Stage 2</strong> weakness to cold 5 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> weakness to cold 10 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "cold",
-                        "curse",
-                        "disease",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IvIlW7FkYi43G0fB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ydrDZ7lqioLPWRlB"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Blackfrost Breath",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The blackfrost dead gasps sharply, then exhales a mist of dark-blue blackfrost particles in a @Template[emanation|distance:5]. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. The mist persists for 1 minute. A creature that ends its turn in the mist is exposed to blackfrost. The blackfrost dead can't use Blackfrost Breath again for [[/gmr 1d4 #Recharge Blackfrost Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "xo4AF1ZjQgmc2YQV",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -225,7 +53,7 @@
             "_id": "7wdWq7UcpVeOknEY",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -269,6 +97,178 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "leRq7itJeoKXnRFG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.yR9VLXIjJ2iOX77z"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ice Climb 20 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The blackfrost dead can climb on ice as though it had the listed climb Speed. It ignores difficult terrain and greater difficult terrain from ice and snow and doesn't risk falling when crossing ice.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7YZS94VFfcWYhjPK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opportune Bite",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a Strike within 10 feet of the blackfrost zombie</p>\n<hr />\n<p><strong>Effect</strong> The blackfrost zombie Steps toward the triggering creature, then makes a jaws Strike against that creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7G9f7Yjr5sHcnTBg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zc2TMUpwMkP1rQUZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kLQ0eq18SvKEvggc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blackfrost",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This affliction can't be reduced below stage 1, nor the damage from it healed, until successfully treated with @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or a similar effect; the affliction can then be removed as a normal disease. A creature that dies from cold damage while cursed with blackfrost rises as a blackfrost dead after 24 hours. Blackfrost has a counteract rank of 10.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:27]</p>\n<p><strong>Stage 1</strong> @Damage[4d6[cold]] (1 minute)</p>\n<p><strong>Stage 2</strong> weakness to cold 5 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> weakness to cold 10 and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "curse",
+                        "disease",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IvIlW7FkYi43G0fB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ydrDZ7lqioLPWRlB"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Blackfrost Breath",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blackfrost dead gasps sharply, then exhales a mist of dark-blue blackfrost particles in a @Template[emanation|distance:5]. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. The mist persists for 1 minute. A creature that ends its turn in the mist is exposed to blackfrost. The blackfrost dead can't use Blackfrost Breath again for [[/gmr 1d4 #Recharge Blackfrost Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #189: Dreamers of the Nameless Spires"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Blackfrost Zombie",

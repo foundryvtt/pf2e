@@ -4,1982 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "J5YebMKHKiZiug9E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "131TjCXfzJb09ssm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zl9dx6km7pIVqu26",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Qgr6aPoWv3z40lCF",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Claim Trophy",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Shianshi claims the soul of a creature she killed within the last minute. This works like @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], except that no black sapphire is required and the soul is turned into a glowing blue light called a soul trophy. Anyone who kills Shianshi can then free the soul from any soul trophy by touching it and speaking the word for \"freedom\" in any language.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cygg7o7z0toswl57",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Huntblade Brutality",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Shianshi's greatsword Strikes have the death trait and deal an additional 2d8 damage to @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], or @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "target:condition:drained",
-                                    "target:condition:frightened",
-                                    "target:condition:off-guard"
-                                ]
-                            }
-                        ],
-                        "selector": "greatsword-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2ydazja8ihmn5gye",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hunter's Leap",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Shianshi kills a creature</p>\n<hr />\n<p><strong>Effect</strong> Shianshi teleports up to 30 feet and makes a greatsword Strike; on a hit, the target of the Strike is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical hit).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y9l0m6fta3rgdp17",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Whip Drain",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Shianshi has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with her shadow whip</p>\n<hr />\n<p><strong>Effect</strong> The grabbed creature must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} on a critical failure). If the creature is already drained, this increases its drained value instead, to a maximum of drained 4.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "death"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8FiHZkupTCZdg1C5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "679rb2dqvxyxdoaa",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "zL8guzyzzPURFARa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatsword",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "huntblade-brutality"
-                    ]
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "QNbynaW8Sjdh9PIG": {
-                        "damage": "3d12+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hjm2smgzyij36lk0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shadow Whip",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "374vk4brvNGAnWhm": {
-                        "damage": "3d4+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "death",
-                        "disarm",
-                        "finesse",
-                        "magical",
-                        "reach-10",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "01tBpaiS5UDwW1bT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qsNeG9KZpODSACMq"
-            },
-            "img": "icons/magic/perception/orb-eye-scrying.webp",
-            "name": "Foresight",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You gain a sixth sense that warns you of danger that might befall the target of the spell. If you choose a creature other than yourself as the target, you create a psychic link through which you can inform the target of danger. This link is a mental effect. Due to the amount of information this spell requires you to process, you can't have more than one foresight spell in effect at a time. Casting foresight again ends the previous foresight. While foresight is in effect, the target gains a +2 status bonus to initiative rolls and isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures or when flanked. In addition, you gain the following reaction: @UUID[Compendium.pf2e.actionspf2e.Item.Foresight]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "foresight",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "prediction"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "2HXIDwJOZr6g1WMY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ItZgGznUBhgWBwFG"
-            },
-            "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
-            "name": "Telepathic Demand",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You send the target a message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer. Your message is insidious and has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], with the message substituting for the spoken suggestion. On a successful save, the target is temporarily immune for 1 day, and on a critical success, the target is temporarily immune for 1 month. You can target a creature only if you have previously been in telepathic contact with it before, such as via the telepathy spell.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "planetary"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "telepathic-demand",
-                "target": {
-                    "value": "1 creature you've telepathically contacted before"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "linguistic",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "aPzAL1RA1ZrAv3cf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2CNqkt2s2IYkVnv6"
-            },
-            "img": "icons/sundries/misc/key-short-red.webp",
-            "name": "Imprisonment",
-            "sort": 1300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": "reagents to construct the magical prison worth a total value of 800 gp × the target's level"
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @UUID[Compendium.pf2e.spells-srd.Item.Freedom]. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell rank, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @UUID[Compendium.pf2e.spells-srd.Item.Wish] can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Freedom] ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] or @UUID[Compendium.pf2e.spells-srd.Item.Haste] spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell rank, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.</p>\n<p><strong>Success</strong> You imprison the target.</p>\n<p><strong>Failure</strong> You fail to imprison the target.</p>\n<p><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.</p>\n<p><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": null
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "10 feet"
-                },
-                "requirements": "",
-                "ritual": {
-                    "primary": {
-                        "check": "Arcana (legendary) or Occultism (legendary)"
-                    },
-                    "secondary": {
-                        "casters": 6,
-                        "checks": "Crafting, Society"
-                    }
-                },
-                "rules": [],
-                "slug": "imprisonment",
-                "target": {
-                    "value": "1 creature of up to 16th level"
-                },
-                "time": {
-                    "value": "1 day"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ktAzcLhVv3UKHv5e",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
-            },
-            "img": "systems/pf2e/icons/spells/maze.webp",
-            "name": "Maze",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><p><strong>Critical Success</strong> The target escapes and the spell ends.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "maze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "extradimensional",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "YS9CnOnJyU7K1pu7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.y2cQYLr5mljDSu1G"
-            },
-            "img": "icons/commodities/treasure/crystal-ball-blue-purple.webp",
-            "name": "Unrelenting Observation",
-            "sort": 1500000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>This spell grants perfect sight based on scrying, allowing several willing targets to track the exact movements or position of one creature or object. Choose one target creature or object in the area to be tracked. It becomes the sensor for the spell. Up to five willing creatures of your choice in the area can see a ghostly image of this creature or object when it's out of their sight. They can perceive the creature or object perfectly, allowing them to ignore the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Invisible] condition, though physical barriers still provide cover.</p>\n<p>The tracking creatures can see the tracked creature or object through all barriers other than lead or running water, which block their vision. Distance doesn't matter, though the creature or object might move so far away it becomes too small to perceive. The tracking creatures don't see any of the environment around the target, though they do see any gear a creature is wearing or holding, and they can tell if it removes objects from its person.</p>\n<p>If the target to be tracked is willing, the duration is 1 hour. If you try to track an unwilling creature, the target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature or object is unaffected.</p>\n<p><strong>Success</strong> As described, and the duration is 1 minute.</p>\n<p><strong>Failure</strong> As described, and the duration is 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "100 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "unrelenting-observation",
-                "target": {
-                    "value": "1 creature or object tracked and up to 5 other willing creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "scrying"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "LNBq0fFDaXAoct9I",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XZE4BawIlTf88Yl9"
-            },
-            "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
-            "name": "Dimensional Lock",
-            "sort": 1600000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create a shimmering barrier that attempts to counteract teleportation effects and planar travel into or out of the area, including items that allow access to extradimensional spaces (such as a bag of holding). Dimensional lock tries to counteract any attempt to summon a creature into the area but doesn't stop the creature from departing when the summoning ends.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 day"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimensional-lock",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "DU4gugxW2Di2voD0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0jadeyQIItIuRgeH"
-            },
-            "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
-            "name": "Eclipse Burst",
-            "sort": 1700000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 60
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "8d10",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "cold"
-                    },
-                    "v1pnjhfu6e9akqe0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "8d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus 8d4 additional void damage to living creatures. Each creature in the area must attempt a Reflex save. If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d10",
-                        "v1pnjhfu6e9akqe0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "eclipse-burst",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "cold",
-                        "concentrate",
-                        "darkness",
-                        "manipulate",
-                        "void"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "NGSt9QdctFMP6muy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
-            },
-            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
-            "name": "Plane Shift",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "plane-shift",
-                "target": {
-                    "value": "1 willing creature, or up to 8 willing creatures joining hands"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "vse0qPLHFlnN6Yts",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AlbpWWN87yGegoAF"
-            },
-            "img": "systems/pf2e/icons/spells/true-target.webp",
-            "name": "True Target",
-            "sort": 1900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during <em>true target</em>'s duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: True Target]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the start of your next turn"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "true-target",
-                "target": {
-                    "value": "4 creatures"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fortune",
-                        "prediction"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "AgKUT0xSk64ORrXZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.c3XygMbzrZMgV1y3"
-            },
-            "img": "systems/pf2e/icons/spells/collective-transposition.webp",
-            "name": "Collective Transposition",
-            "sort": 2000000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You teleport the targets to new positions within the area. The creatures must each be able to fit in their new space, and their positions must be unoccupied, entirely within the area, and in your line of sight. Unwilling creatures can attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target can teleport if it wants, but it chooses the destination within range.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> You teleport the target and choose its destination.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of targets increases by 1.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "collective-transposition",
-                "target": {
-                    "value": "up to 2 creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "4GUPii5ObhzFSrtN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r7ihOgKv19eJQnik"
-            },
-            "img": "systems/pf2e/icons/spells/disintegrate.webp",
-            "name": "Disintegrate",
-            "sort": 2100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "12d10",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d10"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "disintegrate",
-                "target": {
-                    "value": "1 creature or unattended object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane"
-                    ],
-                    "value": [
-                        "attack",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "CeQojjqmE85mp4on",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.69L70wKfGDY66Mk9"
-            },
-            "img": "systems/pf2e/icons/spells/teleport.webp",
-            "name": "Teleport",
-            "sort": 2200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-rank version, but you and the other targets can travel to any planet within the same galaxy.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "100 miles"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "teleport",
-                "target": {
-                    "value": "you and up to 4 targets touched, either willing creatures or objects roughly the size of a creature."
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "kAcKZ4FAmgJ9pcLQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.R9xqCBblkS5KE4y7"
-            },
-            "img": "systems/pf2e/icons/spells/sending.webp",
-            "name": "Sending",
-            "sort": 2300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You send the creature a mental message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "planetary"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sending",
-                "target": {
-                    "value": "1 creature you know well"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "LGzIeAc8kpiShoTs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rxvS7EMJ7qmexAyA"
-            },
-            "img": "icons/creatures/mammals/bat-giant-tattered-purple.webp",
-            "name": "Shadow Walk",
-            "sort": 2400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You access the Shadow Plane, using its warped nature to spread your travels. The targets enter the edge of the Shadow Plane where it borders the Material Plane. Targets can't see the Material Plane while on the Shadow Plane (although elements of that plane can sometimes be a hazy reflection of the Material Plane). While on the Shadow Plane, the targets are exposed to potential encounters with that plane's denizens. The shadows on the border between the planes bend space, speeding up your movement with respect to the Material Plane. Every 3 minutes the targets travel along this border, they move as far as they would through the Material Plane in 1 hour. At any point, a target can Dismiss the spell's effects, although this affects only that target. The shadow bending is inexact, so when the spell ends, the targets appear roughly 1 mile from their intended location on the Material Plane (though those who are traveling together and Dismiss the spell at the same point on the Plane of Shadow appear together).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "8 hours"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "shadow-walk",
-                "target": {
-                    "value": "you and up to 9 willing creatures touched"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "shadow",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "tYaEk0ySxDkJs5pv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door",
-            "sort": 2500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "MwtewvVVwaJqVIqy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H"
-            },
-            "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
-            "name": "Earthbind",
-            "sort": 2600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "x9jDKef1dr9r6dSA"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "earthbind",
-                "target": {
-                    "value": "1 flying creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "60EhdMtmTw8cENsM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4GE2ZdODgIQtg51c"
-            },
-            "img": "systems/pf2e/icons/spells/darkness.webp",
-            "name": "Darkness",
-            "sort": 2700000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 4,
-                    "value": "x9jDKef1dr9r6dSA"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "darkness",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "darkness",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "qqb2LVfCw8hAxjMp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
-            },
-            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
-            "name": "Dispel Magic",
-            "sort": 2800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dispel-magic",
-                "target": {
-                    "value": "1 spell effect or unattended magic item"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "QJ19f4ttCw9Yoxha",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 2900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "0",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "daze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "amRzfwI7JhrxDW4S",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-            },
-            "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
-            "sort": 3000000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "detect-magic",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "JrP62Hczt8k9BYLf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
-            },
-            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
-            "name": "Electric Arc",
-            "sort": 3100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "electric-arc",
-                "target": {
-                    "value": "1 or 2 creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xPT8ppzD91wYAuZP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
-            },
-            "img": "icons/magic/fire/flame-burning-earth-orange.webp",
-            "name": "Produce Flame",
-            "sort": 3200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "fire"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "produce-flame",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "fire",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "eOz6V9QhOJFUPzLt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
-            },
-            "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
-            "name": "Read Aura",
-            "sort": 3300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "YKsUKIxs7FqXZZaG"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "read-aura",
-                "target": {
-                    "value": "1 object"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "YKsUKIxs7FqXZZaG",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Prepared Spells",
-            "sort": 3400000,
+            "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
                     "value": null
@@ -2111,7 +139,7 @@
             "_id": "x9jDKef1dr9r6dSA",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
-            "sort": 3500000,
+            "sort": 200000,
             "system": {
                 "autoHeightenLevel": {
                     "value": null
@@ -2149,13 +177,1599 @@
             "type": "spellcastingEntry"
         },
         {
+            "_id": "01tBpaiS5UDwW1bT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qsNeG9KZpODSACMq"
+            },
+            "img": "icons/magic/perception/orb-eye-scrying.webp",
+            "name": "Foresight",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You gain a sixth sense that warns you of danger that might befall the target of the spell. If you choose a creature other than yourself as the target, you create a psychic link through which you can inform the target of danger. This link is a mental effect. Due to the amount of information this spell requires you to process, you can't have more than one foresight spell in effect at a time. Casting foresight again ends the previous foresight. While foresight is in effect, the target gains a +2 status bonus to initiative rolls and isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures or when flanked. In addition, you gain the following reaction: @UUID[Compendium.pf2e.actionspf2e.Item.Foresight]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "foresight",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "prediction"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "2HXIDwJOZr6g1WMY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ItZgGznUBhgWBwFG"
+            },
+            "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
+            "name": "Telepathic Demand",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You send the target a message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer. Your message is insidious and has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], with the message substituting for the spoken suggestion. On a successful save, the target is temporarily immune for 1 day, and on a critical success, the target is temporarily immune for 1 month. You can target a creature only if you have previously been in telepathic contact with it before, such as via the telepathy spell.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "planetary"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "telepathic-demand",
+                "target": {
+                    "value": "1 creature you've telepathically contacted before"
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "linguistic",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "aPzAL1RA1ZrAv3cf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.2CNqkt2s2IYkVnv6"
+            },
+            "img": "icons/sundries/misc/key-short-red.webp",
+            "name": "Imprisonment",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": "reagents to construct the magical prison worth a total value of 800 gp × the target's level"
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @UUID[Compendium.pf2e.spells-srd.Item.Freedom]. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell rank, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @UUID[Compendium.pf2e.spells-srd.Item.Wish] can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-rank @UUID[Compendium.pf2e.spells-srd.Item.Freedom] ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] or @UUID[Compendium.pf2e.spells-srd.Item.Haste] spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell rank, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.</p>\n<p><strong>Success</strong> You imprison the target.</p>\n<p><strong>Failure</strong> You fail to imprison the target.</p>\n<p><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.</p>\n<p><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": null
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Arcana (legendary) or Occultism (legendary)"
+                    },
+                    "secondary": {
+                        "casters": 6,
+                        "checks": "Crafting, Society"
+                    }
+                },
+                "rules": [],
+                "slug": "imprisonment",
+                "target": {
+                    "value": "1 creature of up to 16th level"
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": []
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "ktAzcLhVv3UKHv5e",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
+            },
+            "img": "systems/pf2e/icons/spells/maze.webp",
+            "name": "Maze",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><p><strong>Critical Success</strong> The target escapes and the spell ends.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "maze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "extradimensional",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "YS9CnOnJyU7K1pu7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.y2cQYLr5mljDSu1G"
+            },
+            "img": "icons/commodities/treasure/crystal-ball-blue-purple.webp",
+            "name": "Unrelenting Observation",
+            "sort": 700000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>This spell grants perfect sight based on scrying, allowing several willing targets to track the exact movements or position of one creature or object. Choose one target creature or object in the area to be tracked. It becomes the sensor for the spell. Up to five willing creatures of your choice in the area can see a ghostly image of this creature or object when it's out of their sight. They can perceive the creature or object perfectly, allowing them to ignore the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Invisible] condition, though physical barriers still provide cover.</p>\n<p>The tracking creatures can see the tracked creature or object through all barriers other than lead or running water, which block their vision. Distance doesn't matter, though the creature or object might move so far away it becomes too small to perceive. The tracking creatures don't see any of the environment around the target, though they do see any gear a creature is wearing or holding, and they can tell if it removes objects from its person.</p>\n<p>If the target to be tracked is willing, the duration is 1 hour. If you try to track an unwilling creature, the target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature or object is unaffected.</p>\n<p><strong>Success</strong> As described, and the duration is 1 minute.</p>\n<p><strong>Failure</strong> As described, and the duration is 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "unrelenting-observation",
+                "target": {
+                    "value": "1 creature or object tracked and up to 5 other willing creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "scrying"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "LNBq0fFDaXAoct9I",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XZE4BawIlTf88Yl9"
+            },
+            "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
+            "name": "Dimensional Lock",
+            "sort": 800000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create a shimmering barrier that attempts to counteract teleportation effects and planar travel into or out of the area, including items that allow access to extradimensional spaces (such as a bag of holding). Dimensional lock tries to counteract any attempt to summon a creature into the area but doesn't stop the creature from departing when the summoning ends.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 day"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dimensional-lock",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "DU4gugxW2Di2voD0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0jadeyQIItIuRgeH"
+            },
+            "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
+            "name": "Eclipse Burst",
+            "sort": 900000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
+                    },
+                    "v1pnjhfu6e9akqe0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus 8d4 additional void damage to living creatures. Each creature in the area must attempt a Reflex save. If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Blinded] by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the void damage against the living increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10",
+                        "v1pnjhfu6e9akqe0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "eclipse-burst",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "cold",
+                        "concentrate",
+                        "darkness",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "NGSt9QdctFMP6muy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ"
+            },
+            "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
+            "name": "Plane Shift",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Netherworld, or the Outer Rifts. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "plane-shift",
+                "target": {
+                    "value": "1 willing creature, or up to 8 willing creatures joining hands"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "vse0qPLHFlnN6Yts",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AlbpWWN87yGegoAF"
+            },
+            "img": "systems/pf2e/icons/spells/true-target.webp",
+            "name": "True Target",
+            "sort": 1100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during <em>true target</em>'s duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: True Target]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the start of your next turn"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "true-target",
+                "target": {
+                    "value": "4 creatures"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fortune",
+                        "prediction"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "AgKUT0xSk64ORrXZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.c3XygMbzrZMgV1y3"
+            },
+            "img": "systems/pf2e/icons/spells/collective-transposition.webp",
+            "name": "Collective Transposition",
+            "sort": 1200000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You teleport the targets to new positions within the area. The creatures must each be able to fit in their new space, and their positions must be unoccupied, entirely within the area, and in your line of sight. Unwilling creatures can attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target can teleport if it wants, but it chooses the destination within range.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> You teleport the target and choose its destination.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of targets increases by 1.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "collective-transposition",
+                "target": {
+                    "value": "up to 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "4GUPii5ObhzFSrtN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r7ihOgKv19eJQnik"
+            },
+            "img": "systems/pf2e/icons/spells/disintegrate.webp",
+            "name": "Disintegrate",
+            "sort": 1300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "12d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "disintegrate",
+                "target": {
+                    "value": "1 creature or unattended object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "CeQojjqmE85mp4on",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.69L70wKfGDY66Mk9"
+            },
+            "img": "systems/pf2e/icons/spells/teleport.webp",
+            "name": "Teleport",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-rank version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "100 miles"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "teleport",
+                "target": {
+                    "value": "you and up to 4 targets touched, either willing creatures or objects roughly the size of a creature."
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "kAcKZ4FAmgJ9pcLQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.R9xqCBblkS5KE4y7"
+            },
+            "img": "systems/pf2e/icons/spells/sending.webp",
+            "name": "Sending",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You send the creature a mental message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "planetary"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sending",
+                "target": {
+                    "value": "1 creature you know well"
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "LGzIeAc8kpiShoTs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rxvS7EMJ7qmexAyA"
+            },
+            "img": "icons/creatures/mammals/bat-giant-tattered-purple.webp",
+            "name": "Shadow Walk",
+            "sort": 1600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You access the Shadow Plane, using its warped nature to spread your travels. The targets enter the edge of the Shadow Plane where it borders the Material Plane. Targets can't see the Material Plane while on the Shadow Plane (although elements of that plane can sometimes be a hazy reflection of the Material Plane). While on the Shadow Plane, the targets are exposed to potential encounters with that plane's denizens. The shadows on the border between the planes bend space, speeding up your movement with respect to the Material Plane. Every 3 minutes the targets travel along this border, they move as far as they would through the Material Plane in 1 hour. At any point, a target can Dismiss the spell's effects, although this affects only that target. The shadow bending is inexact, so when the spell ends, the targets appear roughly 1 mile from their intended location on the Material Plane (though those who are traveling together and Dismiss the spell at the same point on the Plane of Shadow appear together).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "8 hours"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "shadow-walk",
+                "target": {
+                    "value": "you and up to 9 willing creatures touched"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "shadow",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "tYaEk0ySxDkJs5pv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door",
+            "sort": 1700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "MwtewvVVwaJqVIqy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H"
+            },
+            "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
+            "name": "Earthbind",
+            "sort": 1800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "x9jDKef1dr9r6dSA"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "earthbind",
+                "target": {
+                    "value": "1 flying creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "60EhdMtmTw8cENsM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4GE2ZdODgIQtg51c"
+            },
+            "img": "systems/pf2e/icons/spells/darkness.webp",
+            "name": "Darkness",
+            "sort": 1900000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "x9jDKef1dr9r6dSA"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "darkness",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "darkness",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qqb2LVfCw8hAxjMp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
+            },
+            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
+            "name": "Dispel Magic",
+            "sort": 2000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dispel-magic",
+                "target": {
+                    "value": "1 spell effect or unattended magic item"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "QJ19f4ttCw9Yoxha",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 2100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "0",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "amRzfwI7JhrxDW4S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "sort": 2200000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "detect-magic",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "JrP62Hczt8k9BYLf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
+            },
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+            "name": "Electric Arc",
+            "sort": 2300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "electric-arc",
+                "target": {
+                    "value": "1 or 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "xPT8ppzD91wYAuZP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O9w7r4BKgPogYDDe"
+            },
+            "img": "icons/magic/fire/flame-burning-earth-orange.webp",
+            "name": "Produce Flame",
+            "sort": 2400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "produce-flame",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "eOz6V9QhOJFUPzLt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
+            },
+            "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+            "name": "Read Aura",
+            "sort": 2500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "YKsUKIxs7FqXZZaG"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "read-aura",
+                "target": {
+                    "value": "1 object"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "zL8guzyzzPURFARa",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UX71GkWBL9g41VwM"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Greatsword",
-            "sort": 3600000,
+            "sort": 2600000,
             "system": {
                 "baseItem": "greatsword",
                 "bonus": {
@@ -2232,6 +1846,392 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "679rb2dqvxyxdoaa",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zL8guzyzzPURFARa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatsword",
+            "sort": 2700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "huntblade-brutality"
+                    ]
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "QNbynaW8Sjdh9PIG": {
+                        "damage": "3d12+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hjm2smgzyij36lk0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Whip",
+            "sort": 2800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "374vk4brvNGAnWhm": {
+                        "damage": "3d4+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "death",
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "reach-10",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "J5YebMKHKiZiug9E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "131TjCXfzJb09ssm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zl9dx6km7pIVqu26",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Qgr6aPoWv3z40lCF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Claim Trophy",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Shianshi claims the soul of a creature she killed within the last minute. This works like @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], except that no black sapphire is required and the soul is turned into a glowing blue light called a soul trophy. Anyone who kills Shianshi can then free the soul from any soul trophy by touching it and speaking the word for \"freedom\" in any language.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cygg7o7z0toswl57",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Huntblade Brutality",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Shianshi's greatsword Strikes have the death trait and deal an additional 2d8 damage to @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], or @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:drained",
+                                    "target:condition:frightened",
+                                    "target:condition:off-guard"
+                                ]
+                            }
+                        ],
+                        "selector": "greatsword-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ydazja8ihmn5gye",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hunter's Leap",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Shianshi kills a creature</p>\n<hr />\n<p><strong>Effect</strong> Shianshi teleports up to 30 feet and makes a greatsword Strike; on a hit, the target of the Strike is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} on a critical hit).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "y9l0m6fta3rgdp17",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Whip Drain",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Shianshi has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with her shadow whip</p>\n<hr />\n<p><strong>Effect</strong> The grabbed creature must succeed at a @Check[fortitude|dc:41] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} on a critical failure). If the creature is already drained, this increases its drained value instead, to a maximum of drained 4.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "death"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8FiHZkupTCZdg1C5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Shianshi Waymaker",

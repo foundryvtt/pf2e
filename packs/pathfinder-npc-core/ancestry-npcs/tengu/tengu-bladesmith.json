@@ -4,311 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zEydcQi8EQL0kJOl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AO1PwYAxRUtQbDo7",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Feinting Failure",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The tengu bladesmith's previous action this turn was a Strike that failed or critically failed</p><hr /><p><strong>Effect</strong> The tengu bladesmith Strikes the same target, who is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against this attack. On a hit, the bladesmith deals 1d6 additional precision damage.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "feinting-failure",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "feinting-failure"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "feinting-failure"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BYGJVc968SkiMPhL",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swirling Blade",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tengu bladesmith Interacts to draw a weapon in the sword group, then attempts to [[/act disarm]] a weapon held by a foe within reach. The weapon the tengu bladesmith draws gains the disarm trait for this attempt.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YQ3599eExuznUZiS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Tengu Lore",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jIRyzpa65dOnqA9T",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "RWtqNllnilTwAuZJ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Cold Iron Wakizashi",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "apzNH3LAZiUNmmkX": {
-                        "damage": "1d4+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "wakizashi",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "cold-iron",
-                        "deadly-d8",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xDi4CaD3QS1Erzc2",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "JxXRQTG2V0xIGuwo"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Katana",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "8LOTu7rLEio3Ht2U": {
-                        "damage": "1d6+7",
-                        "damageType": "slashing"
-                    },
-                    "kAevVfqnRUCgVvTO": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": "katana",
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "magical",
-                        "two-hand-d10",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "0CE4ny72Tnai6nN9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "ImXwVUp2xboS0joV": {
-                        "damage": "1d6+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "RWtqNllnilTwAuZJ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YOpopjoWgU7bkmwh"
             },
             "img": "systems/pf2e/icons/equipment/weapons/wakizashi.webp",
             "name": "Wakizashi",
-            "sort": 800000,
+            "sort": 100000,
             "system": {
                 "baseItem": "wakizashi",
                 "bonus": {
@@ -396,7 +98,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/katana.webp",
             "name": "Katana",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "baseItem": "katana",
                 "bonus": {
@@ -475,6 +177,304 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "jIRyzpa65dOnqA9T",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "RWtqNllnilTwAuZJ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cold Iron Wakizashi",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "apzNH3LAZiUNmmkX": {
+                        "damage": "1d4+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "wakizashi",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "cold-iron",
+                        "deadly-d8",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xDi4CaD3QS1Erzc2",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "JxXRQTG2V0xIGuwo"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Katana",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "8LOTu7rLEio3Ht2U": {
+                        "damage": "1d6+7",
+                        "damageType": "slashing"
+                    },
+                    "kAevVfqnRUCgVvTO": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": "katana",
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "magical",
+                        "two-hand-d10",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0CE4ny72Tnai6nN9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "ImXwVUp2xboS0joV": {
+                        "damage": "1d6+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zEydcQi8EQL0kJOl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AO1PwYAxRUtQbDo7",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feinting Failure",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The tengu bladesmith's previous action this turn was a Strike that failed or critically failed</p><hr /><p><strong>Effect</strong> The tengu bladesmith Strikes the same target, who is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against this attack. On a hit, the bladesmith deals 1d6 additional precision damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "feinting-failure",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "feinting-failure"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "feinting-failure"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BYGJVc968SkiMPhL",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swirling Blade",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tengu bladesmith Interacts to draw a weapon in the sword group, then attempts to [[/act disarm]] a weapon held by a foe within reach. The weapon the tengu bladesmith draws gains the disarm trait for this attempt.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YQ3599eExuznUZiS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Tengu Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Tengu Bladesmith",

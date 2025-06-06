@@ -3,85 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wqhHoIIgE3jfAgCx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The cinder rat ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from smoke.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vhcrEIRKkfTwrwDs",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fetid Fumes",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A cloud of smoke surrounds the cinder rat. All creatures within @Template[emanation|distance:5]{5 feet}, including the cinder rat, gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from this smoke. A creature that comes within 5 feet of the cinder rat or begins its turn within 5 feet must succeed at a @Check[fortitude|dc:22] save or take a -1 status penalty to all checks and DCs for 1 round <em>(Use @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1})</em>.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Fetid Fumes"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 5,
-                        "slug": "fetid-fumes"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "SNb64KWDBMrTorTI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -126,6 +51,81 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "wqhHoIIgE3jfAgCx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The cinder rat ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vhcrEIRKkfTwrwDs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fetid Fumes",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A cloud of smoke surrounds the cinder rat. All creatures within @Template[emanation|distance:5]{5 feet}, including the cinder rat, gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from this smoke. A creature that comes within 5 feet of the cinder rat or begins its turn within 5 feet must succeed at a @Check[fortitude|dc:22] save or take a -1 status penalty to all checks and DCs for 1 round <em>(Use @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1})</em>.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Fetid Fumes"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "fetid-fumes"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Cinder Rat (BB)",

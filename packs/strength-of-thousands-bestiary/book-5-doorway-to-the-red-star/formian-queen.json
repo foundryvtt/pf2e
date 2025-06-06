@@ -4,294 +4,45 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "54koOduuPe7xXqNK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense 60 feet",
+            "_id": "GE64XWsRu5TiGzlB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qSDQgoXAtXlxB9Ul",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 200 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PBnBKdkwgtJuoqSr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hive Mind",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Formians operate from a shared hive intelligence that allows them to communicate nearly instantaneously. While within telepathic range of at least one other formian from the same hive mind, a formian worker gains a +2 circumstance bonus to initiative checks, Perception checks, and saving throws against mental effects. If one formian is aware of a combatant, all members of the hive mind within range are aware of it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Within Telepathic Range of Another Formian",
-                        "option": "hive-mind",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hive-mind"
-                        ],
-                        "selector": "initiative",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hive-mind"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hive-mind",
-                            "mental"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ajrz8xii0qhpqvla",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hive Frenzy",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The formian queen stirs all formians within range of her telepathy into a frenzy. Each affected formian gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition for 1 minute, and can use the extra action each round only to Strike or Stride.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vtu09hkvrs6w8zly",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Possess Formian",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A formian queen transfers her consciousness to the body of any formian within range of her telepathy to whom she has a line of effect. As long as the queen's consciousness is outside her body, her body is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (though she is aware if any damage is dealt to it).</p>\n<p>An unwilling target can attempt a @Check[will|dc:38] saving throw to resist being possessed, but the queen's offspring are part of her hive mind and thus are almost always willing. The queen receives all sensory input from the target creature; she can speak through it, and she can use her own modifier for Intelligence-, Wisdom-, and Charisma-based skill checks.</p>\n<p>If the target creature is slain or moves to a different plane from the queen's body, the queen returns to her own body immediately and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; otherwise, she can return to her own body as a free action, ending the possession effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "mental",
-                        "possession",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jx5bqzn2y2c4u481",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Telepathic Feedback",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The formian queen unleashes a blast of debilitating telepathic feedback, targeting as many creatures as she wishes within range of her telepathy and to whom she has a line of effect. Targeted creatures must attempt a @Check[will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Telepathic Feedback for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[mental]] damage, @Damage[1d6[persistent,mental]], and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[mental]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[mental]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}. Upon recovering from the stunned condition, the creature becomes sickened 2.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b7598mb5v2o8l0eg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "X9WyePOgBFLxDcSS": {
-                        "damage": "3d12+12",
-                        "damageType": "slashing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 38,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "nUt1OGq13RmPwP9K",
@@ -300,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/disapperance.webp",
             "name": "Disappearance",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -361,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -430,7 +181,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
             "name": "Repulsion",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -499,7 +250,7 @@
             },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -561,7 +312,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -648,7 +399,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -716,7 +467,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile (At Will)",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,23 +534,29 @@
             "type": "spell"
         },
         {
-            "_id": "GE64XWsRu5TiGzlB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1500000,
+            "_id": "b7598mb5v2o8l0eg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "X9WyePOgBFLxDcSS": {
+                        "damage": "3d12+12",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -807,21 +564,264 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "mod": 0,
-                    "value": 30
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "54koOduuPe7xXqNK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense 60 feet",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qSDQgoXAtXlxB9Ul",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 200 feet",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PBnBKdkwgtJuoqSr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hive Mind",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Formians operate from a shared hive intelligence that allows them to communicate nearly instantaneously. While within telepathic range of at least one other formian from the same hive mind, a formian worker gains a +2 circumstance bonus to initiative checks, Perception checks, and saving throws against mental effects. If one formian is aware of a combatant, all members of the hive mind within range are aware of it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Within Telepathic Range of Another Formian",
+                        "option": "hive-mind",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hive-mind"
+                        ],
+                        "selector": "initiative",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hive-mind"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hive-mind",
+                            "mental"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ajrz8xii0qhpqvla",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hive Frenzy",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The formian queen stirs all formians within range of her telepathy into a frenzy. Each affected formian gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition for 1 minute, and can use the extra action each round only to Strike or Stride.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vtu09hkvrs6w8zly",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Possess Formian",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A formian queen transfers her consciousness to the body of any formian within range of her telepathy to whom she has a line of effect. As long as the queen's consciousness is outside her body, her body is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (though she is aware if any damage is dealt to it).</p>\n<p>An unwilling target can attempt a @Check[will|dc:38] saving throw to resist being possessed, but the queen's offspring are part of her hive mind and thus are almost always willing. The queen receives all sensory input from the target creature; she can speak through it, and she can use her own modifier for Intelligence-, Wisdom-, and Charisma-based skill checks.</p>\n<p>If the target creature is slain or moves to a different plane from the queen's body, the queen returns to her own body immediately and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}; otherwise, she can return to her own body as a free action, ending the possession effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "possession",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jx5bqzn2y2c4u481",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Telepathic Feedback",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The formian queen unleashes a blast of debilitating telepathic feedback, targeting as many creatures as she wishes within range of her telepathy and to whom she has a line of effect. Targeted creatures must attempt a @Check[will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Telepathic Feedback for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[mental]] damage, @Damage[1d6[persistent,mental]], and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[6d6[mental]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[12d6[mental]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}. Upon recovering from the stunned condition, the creature becomes sickened 2.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Formian Queen",

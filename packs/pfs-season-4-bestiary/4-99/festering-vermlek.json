@@ -4,254 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aNQI6UJBZemWiBCa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "RqsjlbJfjDXjttuD",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w0dYEWonOyaFT97T",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Recoil from Wasted Opportunities",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0eCHhLgu7JC3do8q",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Abandon Body",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The worm demon is Inhabiting a Body</p>\n<hr />\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining @Damage[10[healing]] Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yVbYX4gSvL0pm4Py",
-            "_stats": {
-                "compendiumSource": "Actor.OQRaBwlV8ZgkZPrY.Item.yVbYX4gSvL0pm4Py"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Inhabit Body",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to <span data-pf2-action=\"impersonate\">Deception</span> checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "inhabit-body",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "inhabit-body"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WmQ1U0HMX7ayTqMC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unsettling Movement",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:16] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XUhIXiVMEs1bgrP7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "ax6dpin3rufoi3n9ccn1": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "EHoVL9UXHlhPng6e",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "geatkrzyyo6k1glugoxm": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -259,68 +28,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed",
-                        "unholy"
-                    ]
+                "spelldc": {
+                    "dc": 16,
+                    "mod": 0,
+                    "value": 8
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "DyrdnebJqKjP4urA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "y9T6AUJsrw91454E"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mace",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "6S0E198b3ZzFvii4": {
-                        "damage": "1d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "shove",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "JEyKz1i0fdKEqqap",
@@ -329,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -409,7 +131,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -597,54 +319,13 @@
             "type": "spell"
         },
         {
-            "_id": "RqsjlbJfjDXjttuD",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "y9T6AUJsrw91454E",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.9iDqOLNFKxiTcFKE"
             },
             "img": "systems/pf2e/icons/equipment/weapons/mace.webp",
             "name": "Mace",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "baseItem": "mace",
                 "bonus": {
@@ -721,6 +402,325 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "XUhIXiVMEs1bgrP7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "ax6dpin3rufoi3n9ccn1": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EHoVL9UXHlhPng6e",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "geatkrzyyo6k1glugoxm": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DyrdnebJqKjP4urA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "y9T6AUJsrw91454E"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mace",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "6S0E198b3ZzFvii4": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "shove",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aNQI6UJBZemWiBCa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w0dYEWonOyaFT97T",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Recoil from Wasted Opportunities",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0eCHhLgu7JC3do8q",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Abandon Body",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The worm demon is Inhabiting a Body</p>\n<hr />\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining @Damage[10[healing]] Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yVbYX4gSvL0pm4Py",
+            "_stats": {
+                "compendiumSource": "Actor.OQRaBwlV8ZgkZPrY.Item.yVbYX4gSvL0pm4Py"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Inhabit Body",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to <span data-pf2-action=\"impersonate\">Deception</span> checks to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "inhabit-body",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "inhabit-body"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WmQ1U0HMX7ayTqMC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unsettling Movement",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:16] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Festering Vermlek",

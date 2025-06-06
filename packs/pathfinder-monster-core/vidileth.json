@@ -3,501 +3,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "brUiOs09BE3PG1k1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Numbing Lights",
+            "_id": "XOwjMA9su0qNYXD0",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>30 feet.</p>\n<p>The vidileth exudes dim light. Creatures within the light must attempt a @Check[will|dc:34] save each round, becoming @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} on a failure (or increase their stupefied value from numbing lights by 1, to a maximum of 4).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "aura",
-                            "light",
-                            "visual"
-                        ]
-                    },
-                    {
-                        "key": "TokenLight",
-                        "value": {
-                            "alpha": 0.1,
-                            "animation": {
-                                "type": "flame"
-                            },
-                            "color": "#CCE3EB",
-                            "dim": 30
-                        }
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "light",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FtQATmD9TKhRQwoZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "d574MMQ1MIrxdW3F",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m4OYTMe2y8AC2h0q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> A vidileth takes on the appearance of a humanoid of Large, Medium, or Small size or resumes its true form. While in humanoid form, the vidileth's Speed is 30 feet, and it loses its numbing lights aura and swim Speed. If the humanoid form assumed lacks the aquatic trait, the vidileth loses its own aquatic trait as well. In humanoid form, the vidileth can use weapons or make Strikes that work like its tentacle attack but use the reach of its current form. If the form has fangs or claws, the vidileth can also make such Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Rb3kYVDp0MTzNbDM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Consume Memories",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the vidileth hits with a fangs Strike, the target must succeed at a @Check[will|dc:34] save or take @Damage[3d6[mental]] damage. The vidileth gains temporary Hit Points equal to the damage dealt and learns some of the creature's memories (subject to the GM's discretion).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Icuugsc11PPZ9qBc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Delayed Suggestion",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a vidileth successfully casts @UUID[Compendium.pf2e.spells-srd.Item.Dominate] on a creature, a @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] spell triggers when the <em>dominate</em> spell ends. This <em>suggestion</em> usually causes the target to return to the vidileth, so the creature can cast <em>dominate</em> again, but a vidileth can set the <em>suggestion</em> to different orders if it wishes.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2ptgmxQgkaL3QGYF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shape Flesh",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The vidileth's last action was a success with a claw Strike</p>\n<hr />\n<p><strong>Effect</strong> The vidileth sloppily modifies the target's flesh. They must succeed at a @Check[fortitude|dc:34] save or permanently receive the veiled master's choice of @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, or a –10 status penalty to Speed.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "manipulate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xLIK76W9FgfePVBM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tentacle Flurry",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vidileth makes a tentacle Strike against each creature within its reach. Make only one attack roll, and roll damage once for all targets.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BbUXSiJXBUESesfr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thoughtlance",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature touched by the vidileth's tentacles must attempt a @Check[will|dc:34] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a failure or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure. Each time the affected creature ends its turn, its slowed value decreases by 1.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ofZG0kDOYskLWahT",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (any one subcategory)",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "spelldc": {
+                    "dc": 37,
                     "value": 29
                 },
-                "proficient": {
-                    "value": 0
+                "tradition": {
+                    "value": "occult"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "7ZZXXt4mJ5JwYsKh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "shape-flesh"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "7t5idrmhqb4c35d3ltj4": {
-                        "damage": "3d10+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "iDCc02ZuFBClDhnt",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "consume-memories"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "e65caxi26l8rp0j670ao": {
-                        "damage": "3d8+12",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "jfGKdhMjdkxsNHCf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "thoughtlance"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "e5eg4hgpis14kip5o47y": {
-                        "damage": "7d6",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "electricity",
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "sawofkjVYYksb0iv",
@@ -506,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/project-image.webp",
             "name": "Project Image (At Will)",
-            "sort": 1400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -569,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -642,7 +185,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene (At Will)",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -710,7 +253,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending (At Will)",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -773,7 +316,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -835,7 +378,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage (At Will)",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -901,7 +444,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -985,7 +528,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1061,7 +604,7 @@
             },
             "img": "icons/equipment/head/mask-carved-wood-brown.webp",
             "name": "Geas",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1127,7 +670,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotize (At Will)",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1198,7 +741,7 @@
             },
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate (At Will)",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1259,7 +802,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading (At Will)",
-            "sort": 2500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1327,7 +870,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing (At Will)",
-            "sort": 2600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1390,7 +933,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 2700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1453,7 +996,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object (At Will)",
-            "sort": 2800000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1513,22 +1056,31 @@
             "type": "spell"
         },
         {
-            "_id": "XOwjMA9su0qNYXD0",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2900000,
+            "_id": "7ZZXXt4mJ5JwYsKh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1700000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "shape-flesh"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "7t5idrmhqb4c35d3ltj4": {
+                        "damage": "3d10+12",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -1536,21 +1088,469 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iDCc02ZuFBClDhnt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "consume-memories"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "e65caxi26l8rp0j670ao": {
+                        "damage": "3d8+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jfGKdhMjdkxsNHCf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "thoughtlance"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "e5eg4hgpis14kip5o47y": {
+                        "damage": "7d6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "electricity",
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "brUiOs09BE3PG1k1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Numbing Lights",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>30 feet.</p>\n<p>The vidileth exudes dim light. Creatures within the light must attempt a @Check[will|dc:34] save each round, becoming @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} on a failure (or increase their stupefied value from numbing lights by 1, to a maximum of 4).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "aura",
+                            "light",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "alpha": 0.1,
+                            "animation": {
+                                "type": "flame"
+                            },
+                            "color": "#CCE3EB",
+                            "dim": 30
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FtQATmD9TKhRQwoZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "d574MMQ1MIrxdW3F",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m4OYTMe2y8AC2h0q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Change Shape",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> A vidileth takes on the appearance of a humanoid of Large, Medium, or Small size or resumes its true form. While in humanoid form, the vidileth's Speed is 30 feet, and it loses its numbing lights aura and swim Speed. If the humanoid form assumed lacks the aquatic trait, the vidileth loses its own aquatic trait as well. In humanoid form, the vidileth can use weapons or make Strikes that work like its tentacle attack but use the reach of its current form. If the form has fangs or claws, the vidileth can also make such Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rb3kYVDp0MTzNbDM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Consume Memories",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the vidileth hits with a fangs Strike, the target must succeed at a @Check[will|dc:34] save or take @Damage[3d6[mental]] damage. The vidileth gains temporary Hit Points equal to the damage dealt and learns some of the creature's memories (subject to the GM's discretion).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Icuugsc11PPZ9qBc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Delayed Suggestion",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a vidileth successfully casts @UUID[Compendium.pf2e.spells-srd.Item.Dominate] on a creature, a @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] spell triggers when the <em>dominate</em> spell ends. This <em>suggestion</em> usually causes the target to return to the vidileth, so the creature can cast <em>dominate</em> again, but a vidileth can set the <em>suggestion</em> to different orders if it wishes.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ptgmxQgkaL3QGYF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shape Flesh",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The vidileth's last action was a success with a claw Strike</p>\n<hr />\n<p><strong>Effect</strong> The vidileth sloppily modifies the target's flesh. They must succeed at a @Check[fortitude|dc:34] save or permanently receive the veiled master's choice of @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, or a –10 status penalty to Speed.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "manipulate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xLIK76W9FgfePVBM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tentacle Flurry",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vidileth makes a tentacle Strike against each creature within its reach. Make only one attack roll, and roll damage once for all targets.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BbUXSiJXBUESesfr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thoughtlance",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature touched by the vidileth's tentacles must attempt a @Check[will|dc:34] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a failure or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure. Each time the affected creature ends its turn, its slowed value decreases by 1.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ofZG0kDOYskLWahT",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (any one subcategory)",
+            "sort": 2900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 29
                 },
-                "tradition": {
-                    "value": "occult"
+                "proficient": {
+                    "value": 0
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Vidileth",

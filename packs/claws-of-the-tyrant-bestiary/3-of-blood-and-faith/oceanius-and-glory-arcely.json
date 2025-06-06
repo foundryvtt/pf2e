@@ -4,270 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ClJ1Zcs6Fp8WQbMC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "2Ac0vnTgNET69sFd",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jjAHglMsBrrFB0b4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (Deactivated by Unholy)",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "unholy"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 20
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hdOF983PEuaXtZwt",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Righteousness",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Allies in the angel's aura gain a +2 status bonus to AC against unholy creatures and a +2 status bonus to damage rolls against unholy creatures. The area in the aura is difficult terrain for unholy creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "allies",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Righteousness"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "aura-of-righteousness",
-                        "traits": [
-                            "divine",
-                            "holy"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "holy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "faDKl9UwirYBxLrT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The angel takes on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4TAFC5ce0v0be9zc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Holy Armaments",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any weapon gains the effect of a holy property rune while the angel wields it.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "holy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 41,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "kNke6kqtvIqqYfyR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5aQ2787nIOyYWb1p"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Holy Greatsword",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "DYzz2bBJPnHDcyAJ": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    },
-                    "s6H4oUlVQ3QvLN3D": {
-                        "damage": "3d12+19",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "target:trait:unholy",
-                            "dice:damage:type:spirit"
-                        ],
-                        "property": "dice-number",
-                        "selectors": [
-                            "greatsword-damage"
-                        ],
-                        "value": 1
-                    }
-                ],
-                "slug": "greatsword",
-                "traits": {
-                    "value": [
-                        "holy",
-                        "magical",
-                        "versatile-p"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "7xoPTEUsalSP6PhJ",
@@ -276,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Earthquake",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -372,7 +146,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -460,7 +234,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Interplanar Teleport",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -524,7 +298,7 @@
             },
             "img": "systems/pf2e/icons/spells/sunburst.webp",
             "name": "Sunburst",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -615,7 +389,7 @@
             },
             "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
             "name": "Blessed Boundary",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -704,7 +478,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,7 +557,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -846,7 +620,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -911,7 +685,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -972,7 +746,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1062,7 +836,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1124,7 +898,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1191,7 +965,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind (At Will)",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1255,7 +1029,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1318,7 +1092,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic (At Will)",
-            "sort": 2100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1381,7 +1155,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will; Self Only)",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1443,7 +1217,7 @@
             },
             "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
             "name": "Sure Footing",
-            "sort": 2300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1506,7 +1280,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1587,7 +1361,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1778,53 +1552,13 @@
             "type": "spell"
         },
         {
-            "_id": "2Ac0vnTgNET69sFd",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "5aQ2787nIOyYWb1p",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UX71GkWBL9g41VwM"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Greatsword",
-            "sort": 2700000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "greatsword",
                 "bonus": {
@@ -1901,6 +1635,272 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "kNke6kqtvIqqYfyR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5aQ2787nIOyYWb1p"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Holy Greatsword",
+            "sort": 2200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "DYzz2bBJPnHDcyAJ": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    },
+                    "s6H4oUlVQ3QvLN3D": {
+                        "damage": "3d12+19",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "target:trait:unholy",
+                            "dice:damage:type:spirit"
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "greatsword-damage"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": "greatsword",
+                "traits": {
+                    "value": [
+                        "holy",
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ClJ1Zcs6Fp8WQbMC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jjAHglMsBrrFB0b4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 20 (Deactivated by Unholy)",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "unholy"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 20
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hdOF983PEuaXtZwt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Righteousness",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Allies in the angel's aura gain a +2 status bonus to AC against unholy creatures and a +2 status bonus to damage rolls against unholy creatures. The area in the aura is difficult terrain for unholy creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Righteousness"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "aura-of-righteousness",
+                        "traits": [
+                            "divine",
+                            "holy"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "faDKl9UwirYBxLrT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The angel takes on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4TAFC5ce0v0be9zc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Holy Armaments",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any weapon gains the effect of a holy property rune while the angel wields it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Oceanius and Glory Arcely",

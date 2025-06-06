@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ufgd9Y89ScN3I9Do",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Storm Born",
+            "_id": "ZXmXu3fpEwzcnU1m",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Vengeant Thorn has an innate connection to storms. He does not take circumstance penalties to ranged spell attacks or Perception checks caused by weather, and his targeted spells ignore concealment caused by weather (such as fog).</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,13 +28,769 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "5WvfWVJiUmaI6JDN"
+                            },
+                            {
+                                "id": "g7lDgJySBVPuXRVL"
+                            },
+                            {
+                                "id": "JHTeZ0YCR27OiN2k"
+                            },
+                            {
+                                "id": "TYEhkI6SxmJ97AsE"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "2u16Wxty1pNHvwLK"
+                            },
+                            {
+                                "id": "aK1WKmlsUZKo9yUq"
+                            },
+                            {
+                                "expended": true,
+                                "id": "xgFlPi76nAG3IOGC"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 16,
+                    "mod": 0,
+                    "value": 8
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "PfWq2Lg2EbHVklOV",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Druid Order Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 16,
+                    "mod": 0,
+                    "value": 8
+                },
+                "tradition": {
+                    "value": "primal"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "5WvfWVJiUmaI6JDN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
+            },
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+            "name": "Electric Arc",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "electric-arc",
+                "target": {
+                    "value": "1 or 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "2u16Wxty1pNHvwLK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "aK1WKmlsUZKo9yUq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f"
+            },
+            "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
+            "name": "Hydraulic Push",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "3d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bludgeoning"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "hydraulic-push",
+                "target": {
+                    "value": "1 creature or unattended object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "manipulate",
+                        "water"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "g7lDgJySBVPuXRVL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tXa5vOu5giBNCjdR"
+            },
+            "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
+            "name": "Know Direction",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "know-direction",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "xgFlPi76nAG3IOGC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zlnXpME1T2uvn8Lr"
+            },
+            "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
+            "name": "Pass Without Trace",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You obscure the tracks you leave behind and make it harder for others to find you. The DC of checks to Track you gains a +4 status bonus or is equal to your spell DC, whichever results in a higher DC. You can benefit from only one pass without trace spell at a time.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The duration increases to 8 hours.</p>\n<p><strong>Heightened (4th)</strong> The duration increases to 8 hours. The spell has a range of 20 feet and an area of a 20-foot-emanation, affecting up to 10 creatures of your choice within that area.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "emanation",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "20 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "pass-without-trace",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "JHTeZ0YCR27OiN2k",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
+            },
+            "img": "systems/pf2e/icons/spells/sigil.webp",
+            "name": "Sigil",
+            "sort": 800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "unlimited"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sigil",
+                "target": {
+                    "value": "1 creature or object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "TYEhkI6SxmJ97AsE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
+            },
+            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
+            "name": "Tanglefoot",
+            "sort": 900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ZXmXu3fpEwzcnU1m"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "tanglefoot",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "plant"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "nKNQd9T92uZTt5pT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ho1jSoYKrHUNnM90"
+            },
+            "img": "icons/magic/lightning/bolt-strike-cloud-gray.webp",
+            "name": "Tempest Surge",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "1d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 round and takes @Damage[1[persistent,electricity]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "PfWq2Lg2EbHVklOV"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "tempest-surge",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "air",
+                        "concentrate",
+                        "druid",
+                        "electricity",
+                        "focus",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "lVzsruIZLD0wG83E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
+            },
+            "img": "icons/weapons/staves/staff-simple.webp",
+            "name": "Staff",
+            "sort": 1100000,
+            "system": {
+                "baseItem": "staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "lg",
+                "slug": "staff",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "xEc4b4WAOpc9I8eZ",
@@ -40,7 +799,7 @@
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
-            "sort": 200000,
+            "sort": 1200000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
@@ -100,13 +859,146 @@
             "type": "armor"
         },
         {
+            "_id": "gYfK8Y2iRHW77kcN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZEqAx8jEc6zhX3V1"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/trackers-goggles.webp",
+            "name": "Tracker's Goggles",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These lenses of forest-green glass are bound in rough leather stitched with crude twine.</p>\n<p>While wearing these goggles, you gain a +1 bonus to Survival checks to Sense Direction and Track.</p>\n<p>If you fail a check to Track, you can try again after 30 minutes rather than an hour.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Tracker's Goggles (Sense Direction & Track)",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-direction",
+                                    "action:track"
+                                ]
+                            }
+                        ],
+                        "selector": "survival",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "lg",
+                "slug": "trackers-goggles",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worneyepiece"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "PgG4XvZ7HgZ8JGVJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QbOlqr4lSkeOEfty"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/holly-and-mistletoe.webp",
+            "name": "Holly and Mistletoe",
+            "sort": 1400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plants of supernatural significance provide a primal focus for primal spellcasters, such as druids, when using certain abilities and casting some spells. A bundle of holly and mistletoe must be held in one hand to use it. Other primal foci exist for druids focused on other aspects of nature.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "holly-and-mistletoe",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
             "_id": "SflYlBvdk3oHOdvW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Entangle (Level 2)",
-            "sort": 300000,
+            "sort": 1500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -240,143 +1132,10 @@
             "type": "consumable"
         },
         {
-            "_id": "gYfK8Y2iRHW77kcN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZEqAx8jEc6zhX3V1"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/trackers-goggles.webp",
-            "name": "Tracker's Goggles",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These lenses of forest-green glass are bound in rough leather stitched with crude twine.</p>\n<p>While wearing these goggles, you gain a +1 bonus to Survival checks to Sense Direction and Track.</p>\n<p>If you fail a check to Track, you can try again after 30 minutes rather than an hour.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Tracker's Goggles (Sense Direction & Track)",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:sense-direction",
-                                    "action:track"
-                                ]
-                            }
-                        ],
-                        "selector": "survival",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "lg",
-                "slug": "trackers-goggles",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worneyepiece"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "PgG4XvZ7HgZ8JGVJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QbOlqr4lSkeOEfty"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/holly-and-mistletoe.webp",
-            "name": "Holly and Mistletoe",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plants of supernatural significance provide a primal focus for primal spellcasters, such as druids, when using certain abilities and casting some spells. A bundle of holly and mistletoe must be held in one hand to use it. Other primal foci exist for druids focused on other aspects of nature.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "lg",
-                "slug": "holly-and-mistletoe",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "IwBG6f9SqJZb0F9f",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 600000,
+            "sort": 1600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -424,7 +1183,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
-            "sort": 700000,
+            "sort": 1700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -485,793 +1244,34 @@
             "type": "melee"
         },
         {
-            "_id": "5WvfWVJiUmaI6JDN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
-            },
-            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
-            "name": "Electric Arc",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d4",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "electric-arc",
-                "target": {
-                    "value": "1 or 2 creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "2u16Wxty1pNHvwLK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "fear",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "fear",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "aK1WKmlsUZKo9yUq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f"
-            },
-            "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
-            "name": "Hydraulic Push",
-            "sort": 1000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "3d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "bludgeoning"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "hydraulic-push",
-                "target": {
-                    "value": "1 creature or unattended object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "concentrate",
-                        "manipulate",
-                        "water"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "g7lDgJySBVPuXRVL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tXa5vOu5giBNCjdR"
-            },
-            "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
-            "name": "Know Direction",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "know-direction",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xgFlPi76nAG3IOGC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zlnXpME1T2uvn8Lr"
-            },
-            "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
-            "name": "Pass Without Trace",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You obscure the tracks you leave behind and make it harder for others to find you. The DC of checks to Track you gains a +4 status bonus or is equal to your spell DC, whichever results in a higher DC. You can benefit from only one pass without trace spell at a time.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The duration increases to 8 hours.</p>\n<p><strong>Heightened (4th)</strong> The duration increases to 8 hours. The spell has a range of 20 feet and an area of a 20-foot-emanation, affecting up to 10 creatures of your choice within that area.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "heightening": {
-                    "levels": {
-                        "4": {
-                            "area": {
-                                "areaType": "emanation",
-                                "value": "20"
-                            },
-                            "range": {
-                                "value": "20 feet"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "pass-without-trace",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "JHTeZ0YCR27OiN2k",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.AUctDF2fqPZN2w4W"
-            },
-            "img": "systems/pf2e/icons/spells/sigil.webp",
-            "name": "Sigil",
-            "sort": 1300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "unlimited"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sigil",
-                "target": {
-                    "value": "1 creature or object"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "TYEhkI6SxmJ97AsE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
-            },
-            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
-            "name": "Tanglefoot",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ZXmXu3fpEwzcnU1m"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "tanglefoot",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "plant"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "nKNQd9T92uZTt5pT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.ho1jSoYKrHUNnM90"
-            },
-            "img": "icons/magic/lightning/bolt-strike-cloud-gray.webp",
-            "name": "Tempest Surge",
-            "sort": 1500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "1d12",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 round and takes @Damage[1[persistent,electricity]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "PfWq2Lg2EbHVklOV"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "tempest-surge",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "air",
-                        "concentrate",
-                        "druid",
-                        "electricity",
-                        "focus",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ZXmXu3fpEwzcnU1m",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "5WvfWVJiUmaI6JDN"
-                            },
-                            {
-                                "id": "g7lDgJySBVPuXRVL"
-                            },
-                            {
-                                "id": "JHTeZ0YCR27OiN2k"
-                            },
-                            {
-                                "id": "TYEhkI6SxmJ97AsE"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "2u16Wxty1pNHvwLK"
-                            },
-                            {
-                                "id": "aK1WKmlsUZKo9yUq"
-                            },
-                            {
-                                "expended": true,
-                                "id": "xgFlPi76nAG3IOGC"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "PfWq2Lg2EbHVklOV",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Druid Order Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "lVzsruIZLD0wG83E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
-            },
-            "img": "icons/weapons/staves/staff-simple.webp",
-            "name": "Staff",
+            "_id": "Ufgd9Y89ScN3I9Do",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Storm Born",
             "sort": 1800000,
             "system": {
-                "baseItem": "staff",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "club",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": "<p>Vengeant Thorn has an innate connection to storms. He does not take circumstance penalties to ranged spell attacks or Perception checks caused by weather, and his targeted spells ignore concealment caused by weather (such as fog).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "lg",
-                "slug": "staff",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Vengeant Thorn (1-2)",

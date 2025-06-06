@@ -4,129 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kgOx9c22i9ZSZt40",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
+            "_id": "VTneIxzjqMPtSAZp",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2sSVjsfJJNodprfg",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Change of Luck",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature within 30 feet of the bone croupier attempts a check that uses a d20, but hasn't rolled yet</p>\n<hr />\n<p><strong>Effect</strong> The bone croupier pulls on the threads of luck that bind all things. Instead of rolling its check, the target automatically gets a failure.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "misfortune",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JrRQ3eTuGR50kL6B",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Roll the Bones",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bone croupier targets an adjacent creature that is @UUID[Compendium.pf2e.conditionitems.Item.Dying]. That creature can either increase its dying value by 1 or roll a [[/r 1d4]]. On a 4, the creature is no longer dying and is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 HP. On a 1, 2, or 3, however, the creature increases its dying value by that amount. Regardless, the creature is temporarily immune for the next 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NTyx5yZkxCxGwJBJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Gambling Lore",
-            "sort": 400000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 12
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -135,54 +28,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "7jGgiwswo0feOhqx",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 22,
+                    "mod": 0,
                     "value": 14
                 },
-                "damageRolls": {
-                    "zrbsmq7wkvso7aesmecb": {
-                        "damage": "2d8+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "d2zKcTptBh3CaKz8",
@@ -191,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -255,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -323,7 +180,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -386,7 +243,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -443,22 +300,174 @@
             "type": "spell"
         },
         {
-            "_id": "VTneIxzjqMPtSAZp",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1000000,
+            "_id": "7jGgiwswo0feOhqx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "zrbsmq7wkvso7aesmecb": {
+                        "damage": "2d8+5",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kgOx9c22i9ZSZt40",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2sSVjsfJJNodprfg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Change of Luck",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature within 30 feet of the bone croupier attempts a check that uses a d20, but hasn't rolled yet</p>\n<hr />\n<p><strong>Effect</strong> The bone croupier pulls on the threads of luck that bind all things. Instead of rolling its check, the target automatically gets a failure.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "misfortune",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JrRQ3eTuGR50kL6B",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Roll the Bones",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bone croupier targets an adjacent creature that is @UUID[Compendium.pf2e.conditionitems.Item.Dying]. That creature can either increase its dying value by 1 or roll a [[/r 1d4]]. On a 4, the creature is no longer dying and is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 HP. On a 1, 2, or 3, however, the creature increases its dying value by that amount. Regardless, the creature is temporarily immune for the next 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NTyx5yZkxCxGwJBJ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Gambling Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -467,18 +476,9 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "mod": 0,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Bone Croupier",

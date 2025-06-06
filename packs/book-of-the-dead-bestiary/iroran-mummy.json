@@ -3,145 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "rat6z2dx8o2ocr0x",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Peace",
+            "_id": "i3b5R0drNc9jYAxQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Monk Ki Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. When a creature enters or starts its turn in the aura, it's affected by @UUID[Compendium.pf2e.spells-srd.Item.Calm] for 1 minute, with a @Check[will|dc:27] save. A creature that succeeds at the save is temporarily immune for 24 hours. If the Iroran mummy takes a hostile action, the aura of peace is suppressed and its effects end for anyone already affected. The Iroran mummy must spend 10 minutes in meditation to restore the aura.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "aura-of-peace",
-                        "traits": [
-                            "divine",
-                            "emotion",
-                            "incapacitation",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8t3kp7gfpp7qfl7q",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Robe Tangle",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature misses the Iroran mummy with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The mummy swaps positions with the attacker, and the attacker becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the mummy's animated sash. The Escape DC is 29, the Force Open DC is 27, and a creature can sever the sash by hitting AC 27 and dealing at least 20 slashing damage. The mummy can't use this reaction again until they've Interacted to reclaim the sash.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rsHuZ4AV9kbemHYN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0xaci6r10kc1q6hz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stunning Flurry",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The Iroran mummy makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:29|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or stunned 3 on a critical failure); this save has the incapacitation trait.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -150,136 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "dj6gpzc5rcds6hc4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Irori Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5lklhb6x3xhg0lri",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "VDJrbsIzOmiof06b": {
-                        "damage": "2d10+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "oramesvya495nwdm",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "APlEPXARsPqzLzte"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shuriken",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "brg74uxepHLBCrBE": {
-                        "damage": "2d4+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "hG8z2wrOoFyCYbvI",
@@ -288,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/wind-jump.webp",
             "name": "Wind Jump",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -347,7 +106,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-blast.webp",
             "name": "Ki Blast",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -433,7 +192,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -491,7 +250,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -561,51 +320,13 @@
             "type": "spell"
         },
         {
-            "_id": "i3b5R0drNc9jYAxQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Ki Spells",
-            "sort": 1200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "APlEPXARsPqzLzte",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fjkwYZ0hRmBztwBG"
             },
             "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
             "name": "Shuriken",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "baseItem": "shuriken",
                 "bonus": {
@@ -686,6 +407,285 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "5lklhb6x3xhg0lri",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "VDJrbsIzOmiof06b": {
+                        "damage": "2d10+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oramesvya495nwdm",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "APlEPXARsPqzLzte"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shuriken",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "brg74uxepHLBCrBE": {
+                        "damage": "2d4+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rat6z2dx8o2ocr0x",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Peace",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a creature enters or starts its turn in the aura, it's affected by @UUID[Compendium.pf2e.spells-srd.Item.Calm] for 1 minute, with a @Check[will|dc:27] save. A creature that succeeds at the save is temporarily immune for 24 hours. If the Iroran mummy takes a hostile action, the aura of peace is suppressed and its effects end for anyone already affected. The Iroran mummy must spend 10 minutes in meditation to restore the aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "aura-of-peace",
+                        "traits": [
+                            "divine",
+                            "emotion",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8t3kp7gfpp7qfl7q",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Robe Tangle",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An adjacent creature misses the Iroran mummy with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The mummy swaps positions with the attacker, and the attacker becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the mummy's animated sash. The Escape DC is 29, the Force Open DC is 27, and a creature can sever the sash by hitting AC 27 and dealing at least 20 slashing damage. The mummy can't use this reaction again until they've Interacted to reclaim the sash.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rsHuZ4AV9kbemHYN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0xaci6r10kc1q6hz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stunning Flurry",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The Iroran mummy makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:29|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or stunned 3 on a critical failure); this save has the incapacitation trait.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dj6gpzc5rcds6hc4",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Irori Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Iroran Mummy",

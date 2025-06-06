@@ -4,399 +4,163 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Wv12g7WLBxUzhH4D",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Path of the Faithful",
+            "_id": "pcZBfywrMTOuNtg9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The pilgrim can evangelize their religious teachings to use their Religion modifier instead of Diplomacy to [[/act gather-information skill=religion]] or [[/act make-an-impression skill=religion]].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NwYXRTRz4u3c8CRl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Traveler's Lesson",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Creatures that engage in conversation with the traveling priest gain a +2 circumstance bonus to all @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] checks and @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] checks for 4 hours related to any topics discussed with the traveling priest.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sbODhq6ru4G0BMKx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Messenger's Amnesty",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A traveling priest with a message to deliver is continually protected by a DC 25 @UUID[Compendium.pf2e.spells-srd.Item.Sanctuary] spell. If the traveling priest breaks the <em>sanctuary</em>, the effect returns if the traveling priest ceases hostility for 10 minutes.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kaQx4K3e8zNsbEu3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blessing of Travel",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the traveling priest takes an action with the move trait, their Strikes deal an extra 2d8 spirit damage until the end of their turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "blessing-of-travel",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "spirit",
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "blessing-of-travel"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bUHgJ0FaXbtGl6H4",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Zealous Rush",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The traveling priest casts a spell that takes 1 or more actions and affects only them</p><hr /><p><strong>Effect</strong> The traveling priest Strides up to 10 feet, or up to their full Speed if the triggering spell took 2 actions or more to cast.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TP8mQt1qXxwUDZwm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YVtXlsEWb3NIkDyy"
-            },
-            "img": "icons/commodities/treasure/brooch-jewel-gold-blue.webp",
-            "name": "Shining Symbol",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>If you worship a deity, this golden amulet transforms into your deity's religious symbol when you invest it. You gain a +1 item bonus to Religion. The symbol casts dim light in a @Template[emanation|distance:20].</p>\n<hr />\n<p><strong>Activate—Spiritual Light</strong> <span class=\"action-glyph\">2</span> (concentrate, light, revelation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The light cast by the symbol becomes bright light for 10 minutes and shines through bodies to reveal hints of the spirits within. Creatures in the light receive a –1 status penalty to Deception and Stealth checks.</p>\n<p>You can Dismiss this activation.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Aura: Shining Symbol]</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must be holy or unholy.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 55
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "religion",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            {
-                                "not": "self:effect:aura-shining-symbol"
-                            }
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 2,
-                                "speed": 1,
-                                "type": "starlight"
-                            },
-                            "color": "#bfbfbf",
-                            "dim": 20
-                        }
-                    },
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "self:effect:aura-shining-symbol"
-                        ],
-                        "value": {
-                            "animation": {
-                                "intensity": 2,
-                                "speed": 1,
-                                "type": "starlight"
-                            },
-                            "bright": 20,
-                            "color": "#bfbfbf"
-                        }
-                    },
-                    {
-                        "key": "TokenEffectIcon",
-                        "predicate": [
-                            {
-                                "not": "self:effect:aura-shining-symbol"
-                            }
-                        ],
-                        "value": "icons/commodities/treasure/brooch-jewel-gold-blue.webp"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.shiningSymbolPenalty",
-                        "value": -1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.shiningSymbolWeakness",
-                        "value": 0
-                    }
-                ],
-                "size": "med",
-                "slug": "shining-symbol",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "invested",
-                        "light"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ibx8xhXEmfox2gCq",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8ynO8tHBNILN23QH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Starknife",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "iOYX53kZteWORxJJ": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
-                "slug": "starknife",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-d6",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ii91xbxG1TGO7Fvp",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8ynO8tHBNILN23QH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Starknife",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "wIdCEB81k3NSyzLK": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "ATAVSQBmlxuotTqV"
+                            },
+                            {
+                                "id": "MBMj1x2aJ52AyKWq"
+                            },
+                            {
+                                "id": "lXv5koImVaHz1umm"
+                            },
+                            {
+                                "id": "7tq5Xa0kECyww2p3"
+                            },
+                            {
+                                "id": "IZ5Pc4RCBA4tKukf"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "1PpI9DhhDqetlJ0C"
+                            },
+                            {
+                                "id": "DsgGo7ulP8ehG0UM"
+                            },
+                            {
+                                "id": "gyY4DPjWeRNkBEvn"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "SZVlSN6xxZtiwQhg"
+                            },
+                            {
+                                "id": "R2JMlRbYyY2XN7zi"
+                            },
+                            {
+                                "id": "NonUitM8vjnEwPa7"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "POzaYhFjuvyejRYZ"
+                            },
+                            {
+                                "id": "OS8PTcri7yaTKpzo"
+                            },
+                            {
+                                "id": "LOSkktEutzDD33xs"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ojTbTUgZ69HYSwsJ"
+                            },
+                            {
+                                "id": "W5kvNT6seRN2x20K"
+                            },
+                            {
+                                "id": "f36vg6FvRNmu5qWL"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 7,
+                        "prepared": [
+                            {
+                                "id": "I5mGhPMEpZySbxOU"
+                            },
+                            {
+                                "id": "I5mGhPMEpZySbxOU"
+                            },
+                            {
+                                "id": "I5mGhPMEpZySbxOU"
+                            },
+                            {
+                                "id": "I5mGhPMEpZySbxOU"
+                            },
+                            {
+                                "id": "I5mGhPMEpZySbxOU"
+                            },
+                            {
+                                "id": "yP6IRqrmWxlOYTDx"
+                            },
+                            {
+                                "id": "Np4U9Xb7aiximKd7"
+                            }
+                        ]
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "starknife",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-d6",
-                        "magical",
-                        "thrown-20",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WocMqx8l40ROrNqT",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "slug": null,
+                "spelldc": {
+                    "dc": 27,
                     "value": 19
                 },
-                "damageRolls": {
-                    "OqQ6W12oJEELvuPj": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "nFd6xRb37GIPw9o4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -404,17 +168,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 27,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Np4U9Xb7aiximKd7",
@@ -423,7 +188,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -485,7 +250,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -556,7 +321,7 @@
             },
             "img": "systems/pf2e/icons/spells/travelers-transit.webp",
             "name": "Traveler's Transit",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -615,7 +380,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +441,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -748,7 +513,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Holy Light",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -841,7 +606,7 @@
             },
             "img": "systems/pf2e/icons/spells/safe-passage.webp",
             "name": "Safe Passage",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -902,7 +667,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-food.webp",
             "name": "Create Food",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -963,7 +728,7 @@
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
             "name": "Environmental Endurance",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1024,7 +789,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1085,7 +850,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1236,7 +1001,7 @@
             },
             "img": "systems/pf2e/icons/spells/agile-feet.webp",
             "name": "Agile Feet",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1294,7 +1059,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1359,7 +1124,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1421,7 +1186,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1488,7 +1253,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1570,7 +1335,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1766,7 +1531,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know the Way",
-            "sort": 2700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1829,7 +1594,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2800000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1893,7 +1658,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2900000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1972,7 +1737,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 3000000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2043,7 +1808,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 3100000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2101,191 +1866,13 @@
             "type": "spell"
         },
         {
-            "_id": "pcZBfywrMTOuNtg9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 3200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "ATAVSQBmlxuotTqV"
-                            },
-                            {
-                                "id": "MBMj1x2aJ52AyKWq"
-                            },
-                            {
-                                "id": "lXv5koImVaHz1umm"
-                            },
-                            {
-                                "id": "7tq5Xa0kECyww2p3"
-                            },
-                            {
-                                "id": "IZ5Pc4RCBA4tKukf"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "1PpI9DhhDqetlJ0C"
-                            },
-                            {
-                                "id": "DsgGo7ulP8ehG0UM"
-                            },
-                            {
-                                "id": "gyY4DPjWeRNkBEvn"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "SZVlSN6xxZtiwQhg"
-                            },
-                            {
-                                "id": "R2JMlRbYyY2XN7zi"
-                            },
-                            {
-                                "id": "NonUitM8vjnEwPa7"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "POzaYhFjuvyejRYZ"
-                            },
-                            {
-                                "id": "OS8PTcri7yaTKpzo"
-                            },
-                            {
-                                "id": "LOSkktEutzDD33xs"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ojTbTUgZ69HYSwsJ"
-                            },
-                            {
-                                "id": "W5kvNT6seRN2x20K"
-                            },
-                            {
-                                "id": "f36vg6FvRNmu5qWL"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 7,
-                        "prepared": [
-                            {
-                                "id": "I5mGhPMEpZySbxOU"
-                            },
-                            {
-                                "id": "I5mGhPMEpZySbxOU"
-                            },
-                            {
-                                "id": "I5mGhPMEpZySbxOU"
-                            },
-                            {
-                                "id": "I5mGhPMEpZySbxOU"
-                            },
-                            {
-                                "id": "I5mGhPMEpZySbxOU"
-                            },
-                            {
-                                "id": "yP6IRqrmWxlOYTDx"
-                            },
-                            {
-                                "id": "Np4U9Xb7aiximKd7"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "nFd6xRb37GIPw9o4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 3300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "8ynO8tHBNILN23QH",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Mv2I6M70bagbaBPn"
             },
             "img": "icons/weapons/thrown/shuriken-triple-purple.webp",
             "name": "Starknife",
-            "sort": 3400000,
+            "sort": 2500000,
             "system": {
                 "baseItem": "starknife",
                 "bonus": {
@@ -2367,6 +1954,419 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "TP8mQt1qXxwUDZwm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YVtXlsEWb3NIkDyy"
+            },
+            "img": "icons/commodities/treasure/brooch-jewel-gold-blue.webp",
+            "name": "Shining Symbol",
+            "sort": 2600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>If you worship a deity, this golden amulet transforms into your deity's religious symbol when you invest it. You gain a +1 item bonus to Religion. The symbol casts dim light in a @Template[emanation|distance:20].</p>\n<hr />\n<p><strong>Activate—Spiritual Light</strong> <span class=\"action-glyph\">2</span> (concentrate, light, revelation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The light cast by the symbol becomes bright light for 10 minutes and shines through bodies to reveal hints of the spirits within. Creatures in the light receive a –1 status penalty to Deception and Stealth checks.</p>\n<p>You can Dismiss this activation.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Aura: Shining Symbol]</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must be holy or unholy.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 55
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "religion",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "self:effect:aura-shining-symbol"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 2,
+                                "speed": 1,
+                                "type": "starlight"
+                            },
+                            "color": "#bfbfbf",
+                            "dim": 20
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "self:effect:aura-shining-symbol"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 2,
+                                "speed": 1,
+                                "type": "starlight"
+                            },
+                            "bright": 20,
+                            "color": "#bfbfbf"
+                        }
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            {
+                                "not": "self:effect:aura-shining-symbol"
+                            }
+                        ],
+                        "value": "icons/commodities/treasure/brooch-jewel-gold-blue.webp"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.shiningSymbolPenalty",
+                        "value": -1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.shiningSymbolWeakness",
+                        "value": 0
+                    }
+                ],
+                "size": "med",
+                "slug": "shining-symbol",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "invested",
+                        "light"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ibx8xhXEmfox2gCq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8ynO8tHBNILN23QH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Starknife",
+            "sort": 2700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "iOYX53kZteWORxJJ": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "starknife",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ii91xbxG1TGO7Fvp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8ynO8tHBNILN23QH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Starknife",
+            "sort": 2800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "wIdCEB81k3NSyzLK": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "starknife",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "magical",
+                        "thrown-20",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WocMqx8l40ROrNqT",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "OqQ6W12oJEELvuPj": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Wv12g7WLBxUzhH4D",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Path of the Faithful",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The pilgrim can evangelize their religious teachings to use their Religion modifier instead of Diplomacy to [[/act gather-information skill=religion]] or [[/act make-an-impression skill=religion]].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NwYXRTRz4u3c8CRl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Traveler's Lesson",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Creatures that engage in conversation with the traveling priest gain a +2 circumstance bonus to all @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] checks and @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] checks for 4 hours related to any topics discussed with the traveling priest.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sbODhq6ru4G0BMKx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Messenger's Amnesty",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A traveling priest with a message to deliver is continually protected by a DC 25 @UUID[Compendium.pf2e.spells-srd.Item.Sanctuary] spell. If the traveling priest breaks the <em>sanctuary</em>, the effect returns if the traveling priest ceases hostility for 10 minutes.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kaQx4K3e8zNsbEu3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blessing of Travel",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the traveling priest takes an action with the move trait, their Strikes deal an extra 2d8 spirit damage until the end of their turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "blessing-of-travel",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "blessing-of-travel"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bUHgJ0FaXbtGl6H4",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Zealous Rush",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The traveling priest casts a spell that takes 1 or more actions and affects only them</p><hr /><p><strong>Effect</strong> The traveling priest Strides up to 10 feet, or up to their full Speed if the triggering spell took 2 actions or more to cast.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Traveling Priest of Desna",

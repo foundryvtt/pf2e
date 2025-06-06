@@ -3,329 +3,42 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XFo44PTU8F1rJam8",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Destructive Vengeance",
+            "_id": "YEsqZ1pmCAbdEHfI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin</p>\n<hr />\n<p><strong>Effect</strong> The antipaladin increases the amount of damage they take by [[/r 2d6]] and deals 2d6 to the triggering enemy, choosing @Damage[2d6[spirit]] or @Damage[2d6[void]] damage. In addition, the antipaladin deals 2 extra damage of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's next turn.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "destructive-vengeance",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitSpirit",
-                                "value": "spirit"
-                            },
-                            {
-                                "label": "PF2E.TraitVoid",
-                                "value": "void"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.destructiveVengeance}",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "destructive-vengeance"
-                        ],
-                        "selector": "strike-damage",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "traits",
-                        "value": "unholy"
-                    }
-                ],
-                "slug": "destructive-vengeance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iWiQjH6UZGPhap8G",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Intimidating Strike",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The antipaladin makes a melee Strike. If they hit and deal damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8YBoViifj7UjajwS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pRoikbRo5HFW6YUB"
-            },
-            "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
-            "name": "Half Plate",
-            "sort": 300000,
-            "system": {
-                "acBonus": 5,
-                "baseItem": "half-plate",
-                "bulk": {
-                    "value": 3
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
                 },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 18
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "half-plate",
-                "speedPenalty": -10,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "jzYOlfnOgSpmNWoF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tyt6rFtv32MZ4DT9"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cheetahs-elixir.webp",
-            "name": "Cheetah's Elixir (Lesser)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cheetah's Elixir (Lesser)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "cheetahs-elixir-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "ZcVfcVHFVcJZhIQI",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ZjgPLpEe5iol2515"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greataxe",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d12+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "087PGXgVjLNGs7lG",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fY3wdBhx9wOA7Sim"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Javelin",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
                     "value": 12
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "4OFNlh90eUu8uq1T",
@@ -334,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
             "name": "Touch of Corruption",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -448,51 +161,13 @@
             "type": "spell"
         },
         {
-            "_id": "YEsqZ1pmCAbdEHfI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Champion Devotion Spells",
-            "sort": 800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "ZjgPLpEe5iol2515",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8COlYvHe6hKCXY8x"
             },
             "img": "icons/weapons/axes/axe-double-engraved.webp",
             "name": "Greataxe",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "baseItem": "greataxe",
                 "bonus": {
@@ -577,7 +252,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
             "name": "Javelin",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "baseItem": "javelin",
                 "bonus": {
@@ -654,6 +329,331 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "8YBoViifj7UjajwS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.pRoikbRo5HFW6YUB"
+            },
+            "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
+            "name": "Half Plate",
+            "sort": 500000,
+            "system": {
+                "acBonus": 5,
+                "baseItem": "half-plate",
+                "bulk": {
+                    "value": 3
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 18
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "half-plate",
+                "speedPenalty": -10,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "jzYOlfnOgSpmNWoF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tyt6rFtv32MZ4DT9"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cheetahs-elixir.webp",
+            "name": "Cheetah's Elixir (Lesser)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Cheetah's Elixir (Lesser)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "cheetahs-elixir-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ZcVfcVHFVcJZhIQI",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ZjgPLpEe5iol2515"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greataxe",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d12+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "087PGXgVjLNGs7lG",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fY3wdBhx9wOA7Sim"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Javelin",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XFo44PTU8F1rJam8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Destructive Vengeance",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin</p>\n<hr />\n<p><strong>Effect</strong> The antipaladin increases the amount of damage they take by [[/r 2d6]] and deals 2d6 to the triggering enemy, choosing @Damage[2d6[spirit]] or @Damage[2d6[void]] damage. In addition, the antipaladin deals 2 extra damage of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "destructive-vengeance",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitSpirit",
+                                "value": "spirit"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.destructiveVengeance}",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "destructive-vengeance"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "unholy"
+                    }
+                ],
+                "slug": "destructive-vengeance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iWiQjH6UZGPhap8G",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Intimidating Strike",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The antipaladin makes a melee Strike. If they hit and deal damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Antipaladin",

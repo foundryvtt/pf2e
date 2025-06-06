@@ -4,165 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ii2lTXB3bATG8qu5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Bonus on Perception to Notice Ailments",
+            "_id": "zGfkkDs5NKknCLRw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Toolkit",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
+                "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "notice-ailments"
-                        ],
-                        "selector": "perception",
-                        "value": 2
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
                     }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qOhRxpDdOg4c6aNs",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bedside Manner",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A physician has a +4 circumstance bonus to Diplomacy checks to [[/act make-an-impression options=bedside-manner]] on or make a [[/act request options=bedside-manner]] of a diseased, poisoned, or wounded creature.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "bedside-manner",
-                            {
-                                "or": [
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "diplomacy",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9xXxlNwXM90sw8zk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Doctor's Hand",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When the physician rolls a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], they get a failure instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:treat-wounds",
-                                    "action:treat-disease",
-                                    "action:treat-poison"
-                                ]
-                            }
-                        ],
-                        "selector": "medicine"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7dXGGEgb4iUrzH3c",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Medical Specialist",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>For medical matters, the physician is a 4th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
+                "quantity": 1,
                 "rules": [],
-                "slug": null,
+                "size": "med",
+                "slug": "healers-toolkit",
                 "traits": {
+                    "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "other"
                 }
             },
-            "type": "action"
+            "type": "equipment"
         },
         {
             "_id": "UvYsCkLfY3VxKPWR",
@@ -171,7 +68,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
             "name": "Elixir of Life (Minor)",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -238,147 +135,13 @@
             "type": "consumable"
         },
         {
-            "_id": "zGfkkDs5NKknCLRw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Toolkit",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healers-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "DV9NQLrI4FouRCpe",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "OOs2CeoJ0b6QQtF5": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "oAhc8baMBkq1f865",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Medical Textbook",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "QSaxBQ3NAPNwp6gf": {
-                        "damage": "1d4-1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "nonlethal",
-                        "thrown-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "BIreghuAVYAZ0WoG",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G5WuYX1ghrZcJ1J1"
             },
             "img": "icons/sundries/books/book-backed-blue-gold.webp",
             "name": "Medical Textbook",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -424,6 +187,243 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "DV9NQLrI4FouRCpe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "OOs2CeoJ0b6QQtF5": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oAhc8baMBkq1f865",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Medical Textbook",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "QSaxBQ3NAPNwp6gf": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "nonlethal",
+                        "thrown-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ii2lTXB3bATG8qu5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Notice Ailments",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "notice-ailments"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qOhRxpDdOg4c6aNs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bedside Manner",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A physician has a +4 circumstance bonus to Diplomacy checks to [[/act make-an-impression options=bedside-manner]] on or make a [[/act request options=bedside-manner]] of a diseased, poisoned, or wounded creature.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bedside-manner",
+                            {
+                                "or": [
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
+                        "selector": "diplomacy",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9xXxlNwXM90sw8zk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Doctor's Hand",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When the physician rolls a critical failure on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], they get a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:treat-wounds",
+                                    "action:treat-disease",
+                                    "action:treat-poison"
+                                ]
+                            }
+                        ],
+                        "selector": "medicine"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7dXGGEgb4iUrzH3c",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Medical Specialist",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>For medical matters, the physician is a 4th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Physician",

@@ -4,111 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OkAkqlgDi1isALeF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Breathe Pollen",
+            "_id": "ONbbKBz8XLOfPTIO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The wood scamp breathes choking pollen in a @Template[cone|distance:15] that deals @Damage[(2d6-4)[poison]|options:area-damage] damage to each creature within the area (@Check[reflex|dc:15|basic|options:area-effect] save; creatures who don't need to breathe are immune). The wood scamp can't Breathe Pollen again for [[/gmr 1d4 #Recharge Breathe Pollen]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "plant"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cDhKXGyP6SctggAU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thorn Puncture",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The wood scamp breaks off one of its thorn-like claws in the target's skin, dealing 1 persistent bleed damage until the thorn is removed, which requires an Interact action. This damage is cumulative with each thorn caught in a creature's skin.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "damageCategory": "persistent",
-                        "damageType": "bleed",
-                        "key": "FlatModifier",
-                        "selector": "claw-damage",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VMcDoO79nsaFBA6p",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "thorn-puncture"
-                    ]
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "l3JSDggJ9jN7SNSx": {
-                        "damage": "1d6-2",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 13,
+                    "value": 5
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "SZn8BegpLbsP2pGA",
@@ -117,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/barkskin.webp",
             "name": "Oaken Resilience (Self Only)",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -180,7 +113,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -244,7 +177,7 @@
             },
             "img": "icons/consumables/plants/grass-leaves-green.webp",
             "name": "Verdant Sprout",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -299,22 +232,27 @@
             "type": "spell"
         },
         {
-            "_id": "ONbbKBz8XLOfPTIO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 700000,
+            "_id": "VMcDoO79nsaFBA6p",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "thorn-puncture"
+                    ]
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "l3JSDggJ9jN7SNSx": {
+                        "damage": "1d6-2",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -322,21 +260,83 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 13,
-                    "value": 5
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "OkAkqlgDi1isALeF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Breathe Pollen",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wood scamp breathes choking pollen in a @Template[cone|distance:15] that deals @Damage[(2d6-4)[poison]|options:area-damage] damage to each creature within the area (@Check[reflex|dc:15|basic|options:area-effect] save; creatures who don't need to breathe are immune). The wood scamp can't Breathe Pollen again for [[/gmr 1d4 #Recharge Breathe Pollen]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "plant"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cDhKXGyP6SctggAU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thorn Puncture",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wood scamp breaks off one of its thorn-like claws in the target's skin, dealing 1 persistent bleed damage until the thorn is removed, which requires an Interact action. This damage is cumulative with each thorn caught in a creature's skin.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "bleed",
+                        "key": "FlatModifier",
+                        "selector": "claw-damage",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Weak Wood Scamp",

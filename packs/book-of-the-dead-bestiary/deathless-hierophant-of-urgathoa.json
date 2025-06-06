@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v0q9b81a0anjrpfc",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Chastise Heretic",
+            "_id": "lj7qJagCUYgoGe76",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who the deathless hierophant can see and who doesn't worship Urgathoa casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> The deathless hierophant attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 4. If the spell is counteracted, the caster takes @Damage[1d10[persistent,void]] damage. If the deathless hierophant fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,202 +27,123 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h305evdhewgfdv8w",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Field of Undeath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>40 feet. Allies within the aura who have void healing gain fast healing 4. When a creature within the aura would receive vitality healing, it must succeed at a @Check[flat|dc:5] or receive no healing from the effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.fieldOfUndeathFastHealing",
-                        "value": 4
-                    },
-                    {
-                        "effects": [
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "affects": "allies",
-                                "includesSelf": false,
-                                "predicate": [
-                                    "target:negative-healing"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Undeath"
+                                "id": "TvHu5Jeqyy70eS6A"
+                            },
+                            {
+                                "id": "tGCGUCDClJ71AAwl"
+                            },
+                            {
+                                "id": "iSOaVNNlQR7aVWh8"
+                            },
+                            {
+                                "id": "DNwDp0O8RbhU5T90"
+                            },
+                            {
+                                "id": "bo1wXEOarphncjnq"
                             }
-                        ],
-                        "key": "Aura",
-                        "radius": 40,
-                        "slug": "field-of-undeath",
-                        "traits": [
-                            "divine"
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "0espzEB6r5aDJCvh"
+                            },
+                            {
+                                "id": "v56jcPsl7oIFD5xB"
+                            },
+                            {
+                                "id": "YzKkmDNZcDYVUxsS"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "TTtBCMpOs5X84EvA"
+                            },
+                            {
+                                "id": "UG4mMtmcbbZdEA5O"
+                            },
+                            {
+                                "id": "iPD9cv7OVn2z4Qzk"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "rjsF9ABTngSaKsf2"
+                            },
+                            {
+                                "id": "x1ye9aaU4RqooybH"
+                            },
+                            {
+                                "id": "x1ye9aaU4RqooybH"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "CED24GIbcL8Nf02O"
+                            },
+                            {
+                                "id": "DZvGpxELijnR8Ll7"
+                            },
+                            {
+                                "id": "DZvGpxELijnR8Ll7"
+                            },
+                            {
+                                "id": "DZvGpxELijnR8Ll7"
+                            },
+                            {
+                                "id": "DZvGpxELijnR8Ll7"
+                            },
+                            {
+                                "id": "DZvGpxELijnR8Ll7"
+                            }
                         ]
                     }
-                ],
-                "slug": "field-of-undeath",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "n8a2azRJSqQCGbOL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
+            "_id": "FUCaE5JHQFv1Gc0a",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WciUktftb9XKpzo5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol of Urgathoa",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "eih755f7z0quy1bu",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4i9LmwMyEPvNox7y"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scythe",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "5gz2vsUBcxL8WnP7": {
-                        "damage": "1d10+8",
-                        "damageType": "slashing"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -227,20 +151,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "magical",
-                        "trip"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "CED24GIbcL8Nf02O",
@@ -249,7 +171,7 @@
             },
             "img": "systems/pf2e/icons/spells/anathematic-reprisal.webp",
             "name": "Anathematic Reprisal",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -331,7 +253,7 @@
             },
             "img": "systems/pf2e/icons/spells/malignant-sustenance.webp",
             "name": "Malignant Sustenance",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -391,7 +313,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +381,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -544,7 +466,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -604,7 +526,7 @@
             },
             "img": "icons/creatures/fish/fish-fangtooth-skeletal-green.webp",
             "name": "Ghoulish Cravings",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -671,7 +593,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -751,7 +673,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1300000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -820,7 +742,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -906,7 +828,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1500000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -973,7 +895,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1054,7 +976,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1124,7 +1046,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 1800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1185,7 +1107,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Goblin Pox",
-            "sort": 1900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1251,7 +1173,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1445,7 +1367,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1507,7 +1429,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-undeath.webp",
             "name": "Touch of Undeath",
-            "sort": 2200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1582,175 +1504,13 @@
             "type": "spell"
         },
         {
-            "_id": "lj7qJagCUYgoGe76",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "TvHu5Jeqyy70eS6A"
-                            },
-                            {
-                                "id": "tGCGUCDClJ71AAwl"
-                            },
-                            {
-                                "id": "iSOaVNNlQR7aVWh8"
-                            },
-                            {
-                                "id": "DNwDp0O8RbhU5T90"
-                            },
-                            {
-                                "id": "bo1wXEOarphncjnq"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "0espzEB6r5aDJCvh"
-                            },
-                            {
-                                "id": "v56jcPsl7oIFD5xB"
-                            },
-                            {
-                                "id": "YzKkmDNZcDYVUxsS"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "TTtBCMpOs5X84EvA"
-                            },
-                            {
-                                "id": "UG4mMtmcbbZdEA5O"
-                            },
-                            {
-                                "id": "iPD9cv7OVn2z4Qzk"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "rjsF9ABTngSaKsf2"
-                            },
-                            {
-                                "id": "x1ye9aaU4RqooybH"
-                            },
-                            {
-                                "id": "x1ye9aaU4RqooybH"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "CED24GIbcL8Nf02O"
-                            },
-                            {
-                                "id": "DZvGpxELijnR8Ll7"
-                            },
-                            {
-                                "id": "DZvGpxELijnR8Ll7"
-                            },
-                            {
-                                "id": "DZvGpxELijnR8Ll7"
-                            },
-                            {
-                                "id": "DZvGpxELijnR8Ll7"
-                            },
-                            {
-                                "id": "DZvGpxELijnR8Ll7"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "FUCaE5JHQFv1Gc0a",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "4i9LmwMyEPvNox7y",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.H74vYwHJ8XT4qOPI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
             "name": "Scythe",
-            "sort": 2500000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "scythe",
                 "bonus": {
@@ -1828,6 +1588,246 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "WciUktftb9XKpzo5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol of Urgathoa",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "eih755f7z0quy1bu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4i9LmwMyEPvNox7y"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scythe",
+            "sort": 2200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "5gz2vsUBcxL8WnP7": {
+                        "damage": "1d10+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "v0q9b81a0anjrpfc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Chastise Heretic",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who the deathless hierophant can see and who doesn't worship Urgathoa casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> The deathless hierophant attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 4. If the spell is counteracted, the caster takes @Damage[1d10[persistent,void]] damage. If the deathless hierophant fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h305evdhewgfdv8w",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Field of Undeath",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>40 feet. Allies within the aura who have void healing gain fast healing 4. When a creature within the aura would receive vitality healing, it must succeed at a @Check[flat|dc:5] or receive no healing from the effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.fieldOfUndeathFastHealing",
+                        "value": 4
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:negative-healing"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Undeath"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "field-of-undeath",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": "field-of-undeath",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n8a2azRJSqQCGbOL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Deathless Hierophant Of Urgathoa",

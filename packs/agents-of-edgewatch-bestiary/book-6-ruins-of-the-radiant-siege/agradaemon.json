@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "K287MomJCMfPXPLf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
+            "_id": "9jJY47nOXFMztxEo",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Smoke doesn't impair an agradaemon's vision; it ignores the concealed condition from smoke.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,204 +28,378 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 41,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "SDGB0XLwXRcTWroq",
+            "_id": "ISPwI38E07yEA3SH",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "img": "systems/pf2e/icons/spells/massacre.webp",
+            "name": "Massacre",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
+                "area": null,
+                "cost": {
                     "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "category": null,
+                        "formula": "9d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each living creature of 19th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy violently explodes back toward you, dealing an additional 30 void damage to every living creature in the line (even those above 19th level) and 30 void damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 10d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 115 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 10
+                },
+                "location": {
+                    "value": "9jJY47nOXFMztxEo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "massacre",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "GZQV926XjVkLi7Ji",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
+            },
+            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
+            "name": "Volcanic Eruption",
+            "sort": 300000,
+            "system": {
+                "area": {
+                    "type": "cylinder",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "14d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "value": "9jJY47nOXFMztxEo"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n9d7kqBHgMv3tOmv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Choking Smog",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "range": {
+                    "value": "120 feet"
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>100 feet. The agradaemon is surrounded by ashy smoke. Creatures within the aura are concealed, and creatures outside of it are concealed to creatures within it. Non-daemon creatures can't breathe in the aura and must hold their breath or suffocate.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 100,
-                        "slug": "choking-smog",
-                        "traits": [
-                            "air",
-                            "fire"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "aura",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fC6dc9AdYYKBeuWn",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Daemonic Pledge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The agradaemon designates a single willing mortal as a pledged fanatic. That creature gains resistance to fire equal to its level, immunity to the agradaemon's choking smog aura, and smoke vision.</p>\n<p>The agradaemon can have up to 10 pledged fanatics at one time and can remove the status from any number of pledged fanatics as a free action with the concentrate trait. The status can also be removed with an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "volcanic-eruption",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "divine",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pnx6alHWYJ3kLnBW",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Proven Devotion",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The agradaemon regains @Damage[15[untyped]] Hit Points, and a pledged fanatic of the agradaemon's choice that it can see loses 15 Hit Points (no effects apply that would decrease this Hit Point loss).</p>\n<p>A pledged creature that dies in this way explodes and deals @Damage[9d10[fire]] damage in a @Template[emanation|distance:20] (@Check[reflex|dc:41|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
-                        "evil",
-                        "fire"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "JNMs0qEBFo57y0tr",
+            "_id": "iQcx2fN9o92Zwsh3",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 600000,
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door",
+            "sort": 400000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "9jJY47nOXFMztxEo"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
+                "range": {
+                    "value": "1 mile"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "rend",
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "X8cGGECu7Z03n3qr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
+            },
+            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
+            "name": "Dimension Door (At Will)",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "9jJY47nOXFMztxEo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dimension-door",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "GxUTTFPLkoN92z94",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
+            },
+            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
+            "name": "Detect Alignment (At Will) (Good Only)",
+            "sort": 600000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "9jJY47nOXFMztxEo"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "detect-alignment",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
         },
         {
             "_id": "6pcwqNViNq5cqn8U",
@@ -337,378 +514,141 @@
             "type": "melee"
         },
         {
-            "_id": "ISPwI38E07yEA3SH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1"
-            },
-            "img": "systems/pf2e/icons/spells/massacre.webp",
-            "name": "Massacre",
+            "_id": "K287MomJCMfPXPLf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
             "sort": 900000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "9d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
+                "actions": {
+                    "value": null
                 },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each living creature of 19th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the void energy violently explodes back toward you, dealing an additional 30 void damage to every living creature in the line (even those above 19th level) and 30 void damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 10d6 void damage.</p>\n<p><strong>Failure</strong> The creature takes 115 void damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 10
-                },
-                "location": {
-                    "value": "9jJY47nOXFMztxEo"
+                    "value": "<p>Smoke doesn't impair an agradaemon's vision; it ignores the concealed condition from smoke.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "massacre",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "death",
-                        "manipulate",
-                        "void"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "GZQV926XjVkLi7Ji",
+            "_id": "SDGB0XLwXRcTWroq",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
-            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
-            "name": "Volcanic Eruption",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 1000000,
             "system": {
-                "area": {
-                    "type": "cylinder",
-                    "value": 5
+                "actionType": {
+                    "value": "passive"
                 },
-                "cost": {
-                    "value": ""
+                "actions": {
+                    "value": null
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "14d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "fire"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 8,
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "9jJY47nOXFMztxEo"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Pathfinder Monster Core"
                 },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "volcanic-eruption",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
                 "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "manipulate"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "iQcx2fN9o92Zwsh3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door",
+            "_id": "n9d7kqBHgMv3tOmv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Choking Smog",
             "sort": 1100000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "9jJY47nOXFMztxEo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "1 mile"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "X8cGGECu7Z03n3qr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8"
-            },
-            "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
-            "name": "Dimension Door (At Will)",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "9jJY47nOXFMztxEo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dimension-door",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "GxUTTFPLkoN92z94",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.QnTtGCAvdWRU4spv"
-            },
-            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment (At Will) (Good Only)",
-            "sort": 1300000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "9jJY47nOXFMztxEo"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "detect-alignment",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "9jJY47nOXFMztxEo",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>100 feet. The agradaemon is surrounded by ashy smoke. Creatures within the aura are concealed, and creatures outside of it are concealed to creatures within it. Non-daemon creatures can't breathe in the aura and must hold their breath or suffocate.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 0
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "choking-smog",
+                        "traits": [
+                            "air",
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fC6dc9AdYYKBeuWn",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Daemonic Pledge",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The agradaemon designates a single willing mortal as a pledged fanatic. That creature gains resistance to fire equal to its level, immunity to the agradaemon's choking smog aura, and smoke vision.</p>\n<p>The agradaemon can have up to 10 pledged fanatics at one time and can remove the status from any number of pledged fanatics as a free action with the concentrate trait. The status can also be removed with an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -716,23 +656,83 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "healing"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "pnx6alHWYJ3kLnBW",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Proven Devotion",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The agradaemon regains @Damage[15[untyped]] Hit Points, and a pledged fanatic of the agradaemon's choice that it can see loses 15 Hit Points (no effects apply that would decrease this Hit Point loss).</p>\n<p>A pledged creature that dies in this way explodes and deals @Damage[9d10[fire]] damage in a @Template[emanation|distance:20] (@Check[reflex|dc:41|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "evil",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JNMs0qEBFo57y0tr",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Agradaemon",

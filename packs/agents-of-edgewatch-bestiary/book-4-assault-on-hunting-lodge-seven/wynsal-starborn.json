@@ -4,522 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "345q6v1fOXwCpJpM",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0UpmO63mWa667Q99",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tactical Aura",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Allies of lower level than Wynsal in the aura gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity] reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "tactical-aura",
-                        "traits": []
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VVMmL1VxeAzF1IBI",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Demanding Orders",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Wynsal commands his allies to take action. Allies within 120 feet who hear and understand his order are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 round and can use this extra action to Stride, Strike, or Step.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "linguistic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mYdklqhaT2LcRlN3",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Determination",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract rank 17th, counteract check [[/r 1d20+30 #Counteract]]{+30}). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YNkhegfdFfE7yfGn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Formation Attack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Wynsal deals 3d8 extra damage to any creature that's within reach of at least two of his allies.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "formation-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 3,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "formation-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6Nu42xqROJzl0XrC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hampering Strike",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A foe that takes damage from Wynsal's melee Strike is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. If it's already slowed, the value of the slowed condition increases by 1.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess",
-                            "success"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": "hampering-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nUbnbXqOAEtycKyP",
-            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "+2 Resilient Full Plate",
-            "sort": 700000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": null,
-                "bulk": {
-                    "value": 4
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor (see below) and a pair of gauntlets.</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": null,
-                "speedPenalty": -10,
-                "strength": 4,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bulwark"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "91SKDS1GriJwurmK",
-            "img": "systems/pf2e/icons/default-icons/consumable.svg",
-            "name": "Whisper Briolette",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "talisman",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Envision</p>\n<p><strong>Requirements</strong> You are an expert in Stealth</p>\n<hr />\n<p>This teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to you, but you can't do so to @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 55
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "mental",
-                        "talisman"
-                    ]
-                },
-                "usage": {
-                    "value": "affixed-to-armor"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "pAwCMXVf5PQVy8mJ",
-            "img": "icons/equipment/finger/ring-band-engraved-teal.webp",
-            "name": "Ring of Sustenance",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This polished wooden ring constantly refreshes your body and mind. You don't need to eat or drink while wearing it, and you need only 2 hours of sleep per day to gain the benefits of 8 hours of sleep. A ring of sustenance doesn't function until it's been worn and invested continuously for a week. Removing it resets this interval.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 325
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornring"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Ts4PjUT1udov76YX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Absalom Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Vlw7l0vJKqGsX2Ig",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "IfCbrxEtWCoJCOgv",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ycb3x5FbTCDnmeGO"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longsword",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+13",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ycb3x5FbTCDnmeGO",
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "+2 Greater Striking Longsword",
-            "sort": 1300000,
+            "sort": 100000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -596,6 +84,518 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "nUbnbXqOAEtycKyP",
+            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+            "name": "+2 Resilient Full Plate",
+            "sort": 200000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": null,
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor (see below) and a pair of gauntlets.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": null,
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "pAwCMXVf5PQVy8mJ",
+            "img": "icons/equipment/finger/ring-band-engraved-teal.webp",
+            "name": "Ring of Sustenance",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This polished wooden ring constantly refreshes your body and mind. You don't need to eat or drink while wearing it, and you need only 2 hours of sleep per day to gain the benefits of 8 hours of sleep. A ring of sustenance doesn't function until it's been worn and invested continuously for a week. Removing it resets this interval.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": false
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 325
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornring"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "91SKDS1GriJwurmK",
+            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "name": "Whisper Briolette",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Envision</p>\n<p><strong>Requirements</strong> You are an expert in Stealth</p>\n<hr />\n<p>This teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to you, but you can't do so to @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 55
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "mental",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "IfCbrxEtWCoJCOgv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ycb3x5FbTCDnmeGO"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+13",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "345q6v1fOXwCpJpM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0UpmO63mWa667Q99",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tactical Aura",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Allies of lower level than Wynsal in the aura gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity] reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "tactical-aura",
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VVMmL1VxeAzF1IBI",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Demanding Orders",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Wynsal commands his allies to take action. Allies within 120 feet who hear and understand his order are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 round and can use this extra action to Stride, Strike, or Step.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "linguistic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mYdklqhaT2LcRlN3",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Determination",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract rank 17th, counteract check [[/r 1d20+30 #Counteract]]{+30}). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YNkhegfdFfE7yfGn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Formation Attack",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Wynsal deals 3d8 extra damage to any creature that's within reach of at least two of his allies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "formation-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "formation-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6Nu42xqROJzl0XrC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hampering Strike",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A foe that takes damage from Wynsal's melee Strike is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. If it's already slowed, the value of the slowed condition increases by 1.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "hampering-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ts4PjUT1udov76YX",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Absalom Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Vlw7l0vJKqGsX2Ig",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Wynsal Starborn",

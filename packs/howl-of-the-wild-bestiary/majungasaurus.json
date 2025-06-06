@@ -3,122 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "prvIYvpPajDhdKWU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frightened Prey",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to a majungasaurus.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "target:condition:frightened"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "19Hk9yB4fksq7w1P",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Startling Roar",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When the majungasaurus rolls initiative using Stealth, it can attempt to [[/act demoralize]] each creature within @Template[emanation|distance:30]{30 feet} as a free action. Regardless of the effect, each creature is then temporarily immune for 1 hour.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "check:statistic:base:stealth"
-                        ],
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "saTF5z3Vo6RIF4hX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Crack Bones",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The majungasaurus has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its jaws</p><hr /><p><strong>Effect</strong> The majungasaurus deals that creature @Damage[3d8[bludgeoning]] damage (@Check[fortitude|dc:24|basic] save). A creature that fails this save is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until it recovers to full Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "QsoK6ikMwruuDxoU",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -163,7 +51,7 @@
             "_id": "SXAJ0LMHbQon3HLb",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Foot",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -201,6 +89,118 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "prvIYvpPajDhdKWU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Frightened Prey",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to a majungasaurus.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "target:condition:frightened"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "19Hk9yB4fksq7w1P",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Startling Roar",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When the majungasaurus rolls initiative using Stealth, it can attempt to [[/act demoralize]] each creature within @Template[emanation|distance:30]{30 feet} as a free action. Regardless of the effect, each creature is then temporarily immune for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "check:statistic:base:stealth"
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "saTF5z3Vo6RIF4hX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Crack Bones",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The majungasaurus has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its jaws</p><hr /><p><strong>Effect</strong> The majungasaurus deals that creature @Damage[3d8[bludgeoning]] damage (@Check[fortitude|dc:24|basic] save). A creature that fails this save is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until it recovers to full Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Majungasaurus",

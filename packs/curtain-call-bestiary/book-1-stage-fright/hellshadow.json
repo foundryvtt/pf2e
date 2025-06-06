@@ -4,164 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XCDH0IIZL7LR1PoN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Brimstone Cloak",
+            "_id": "Xf3pOZgEpdZKcnvV",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>10 feet. The hellshadow constantly exudes a cloud of smoke that scorches flesh but leaves other materials unharmed. Living creatures who start their turn in this aura take @Damage[2d6[fire]] damage (DC 30 basic Reflex). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "traits": [
-                            "divine",
-                            "fire"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "fire",
-                        "sanctified"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wPZApPbh6NHgttGd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uKG2GCW6xq0NiXhF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Clinging Smoke",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature that takes damage from the hellshadow's brimstone tendrils Strike has coils of the creature's smoke solidify around their body, impeding movement. The creature must attempt a @Check[reflex|dc:33] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The smoke solidifies as it coils around their limbs, imposing a –5-foot status penalty to all Speeds until the end of the creature's next turn.</p>\n<p><strong>Failure</strong> As success, except –10 feet to speed and the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of their next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aNlze0ca7em5uEFF",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Brimstone Tendrils",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "clinging-smoke"
-                    ]
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "NJ6dq7GKtBbT3Dwb": {
-                        "damage": "3d8+6",
-                        "damageType": "fire"
-                    },
-                    "Rz9X1gyZBhSOqbCg": {
-                        "damage": "2d6",
-                        "damageType": "void"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "fire",
-                        "reach-15",
-                        "sanctified"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "7DlH2icDIauKDM2n",
@@ -170,7 +50,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -258,7 +138,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -347,7 +227,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast (Fire or Spirit only)",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -457,7 +337,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -567,7 +447,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -649,7 +529,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -729,22 +609,31 @@
             "type": "spell"
         },
         {
-            "_id": "Xf3pOZgEpdZKcnvV",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1100000,
+            "_id": "aNlze0ca7em5uEFF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Brimstone Tendrils",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "clinging-smoke"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "NJ6dq7GKtBbT3Dwb": {
+                        "damage": "3d8+6",
+                        "damageType": "fire"
+                    },
+                    "Rz9X1gyZBhSOqbCg": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -752,21 +641,132 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "fire",
+                        "reach-15",
+                        "sanctified"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "XCDH0IIZL7LR1PoN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Brimstone Cloak",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>10 feet. The hellshadow constantly exudes a cloud of smoke that scorches flesh but leaves other materials unharmed. Living creatures who start their turn in this aura take @Damage[2d6[fire]] damage (DC 30 basic Reflex). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": [
+                            "divine",
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "fire",
+                        "sanctified"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wPZApPbh6NHgttGd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uKG2GCW6xq0NiXhF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Clinging Smoke",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes damage from the hellshadow's brimstone tendrils Strike has coils of the creature's smoke solidify around their body, impeding movement. The creature must attempt a @Check[reflex|dc:33] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The smoke solidifies as it coils around their limbs, imposing a –5-foot status penalty to all Speeds until the end of the creature's next turn.</p>\n<p><strong>Failure</strong> As success, except –10 feet to speed and the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Hellshadow",

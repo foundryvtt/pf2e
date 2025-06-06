@@ -3,20 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AyJLn3Nhlv3NipOn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spell Sight",
+            "_id": "Ato9TlsXs5ZZrvM9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>A zoog's eyes shed bright light in a @Template[cone|distance:15] (and dim light in the next 15 feet). Any magic effect in this area glows faintly. A zoog can quell or renew this light as a free action on its turn.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,144 +26,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "YXiyd6hN6psjhVvs",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Otherworldly Touch",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A zoog's claw Strike can damage incorporeal creatures, as if they were enhanced by a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:claw"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "ghost-touch"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MqMQXPinikiAvTn0",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "8TbdyvWRtVZjoxRV": {
-                        "damage": "1d8+1",
-                        "damageType": "piercing"
-                    },
-                    "GEmW6ItBoEMyrb4N": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "95w2cPRAbJySeRFv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "A3R0nHgLAETj6cD8": {
-                        "damage": "1d6+1",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "kNZoHpqisoRqFTy6",
@@ -170,7 +49,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (At Will)",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -229,7 +108,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -290,22 +169,33 @@
             "type": "spell"
         },
         {
-            "_id": "Ato9TlsXs5ZZrvM9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 700000,
+            "_id": "MqMQXPinikiAvTn0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "8TbdyvWRtVZjoxRV": {
+                        "damage": "1d8+1",
+                        "damageType": "piercing"
+                    },
+                    "GEmW6ItBoEMyrb4N": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -313,21 +203,131 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "95w2cPRAbJySeRFv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "A3R0nHgLAETj6cD8": {
+                        "damage": "1d6+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AyJLn3Nhlv3NipOn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spell Sight",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A zoog's eyes shed bright light in a @Template[cone|distance:15] (and dim light in the next 15 feet). Any magic effect in this area glows faintly. A zoog can quell or renew this light as a free action on its turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YXiyd6hN6psjhVvs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Otherworldly Touch",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A zoog's claw Strike can damage incorporeal creatures, as if they were enhanced by a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:claw"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Zoog",

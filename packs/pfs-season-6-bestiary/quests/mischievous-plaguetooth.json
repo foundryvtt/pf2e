@@ -4,158 +4,41 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "04WUnuVaMwggkQxr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Plaque Burst",
+            "_id": "4ZK6UkKCERwU9jVd",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "deathNote": true,
                 "description": {
-                    "value": "<p>When killed, a tooth fairy bursts into sticky, foul-smelling white dust. Each creature in a @Template[emanation|distance:5] must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2kSrspDPmUktGvBB",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tooth Tug",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The tooth fairy's last action was a successful pliers Strike against a creature with teeth</p><hr /><p><strong>Effect</strong> The tooth fairy attempts a @Check[thievery|defense:fortitude] check against the creature's Fortitude DC, dealing @Damage[2[bleed]] damage on any result but a critical failure. On a critical success, it also pulls out one of the target's teeth.</p>\n<p>If the creature loses a tooth, it takes a –1 status penalty to Charisma-based skill checks and must succeed at a @Check[flat|dc:5] to Cast a Spell unless that spell has the subtle trait. These effects last for 1 day, or until the stolen tooth is returned and the target regains at least 1 Hit Point.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Tooth Tug]</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "tooth-tug",
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xKAa1bclabyOkPCJ",
-            "img": "systems/pf2e/icons/equipment/held-items/extendable-pincer.webp",
-            "name": "Pliers",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "tiny",
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 15,
+                    "value": 7
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "equipment"
-        },
-        {
-            "_id": "PKh7s5uQyxm0yPQg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pliers",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "tooth-tug"
-                    ]
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "reach-0"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "PJd67jQT66Irv4J6",
@@ -164,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -235,7 +118,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -310,22 +193,80 @@
             "type": "spell"
         },
         {
-            "_id": "4ZK6UkKCERwU9jVd",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 700000,
+            "_id": "xKAa1bclabyOkPCJ",
+            "img": "systems/pf2e/icons/equipment/held-items/extendable-pincer.webp",
+            "name": "Pliers",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
                 },
+                "containerId": null,
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
                 },
-                "proficiency": {
-                    "value": 1
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "tiny",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "PKh7s5uQyxm0yPQg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pliers",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "tooth-tug"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
                 },
                 "publication": {
                     "license": "ORC",
@@ -333,18 +274,77 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 15,
-                    "value": 7
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "reach-0"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "04WUnuVaMwggkQxr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Plaque Burst",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When killed, a tooth fairy bursts into sticky, foul-smelling white dust. Each creature in a @Template[emanation|distance:5] must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2kSrspDPmUktGvBB",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Tooth Tug",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The tooth fairy's last action was a successful pliers Strike against a creature with teeth</p><hr /><p><strong>Effect</strong> The tooth fairy attempts a @Check[thievery|defense:fortitude] check against the creature's Fortitude DC, dealing @Damage[2[bleed]] damage on any result but a critical failure. On a critical success, it also pulls out one of the target's teeth.</p>\n<p>If the creature loses a tooth, it takes a –1 status penalty to Charisma-based skill checks and must succeed at a @Check[flat|dc:5] to Cast a Spell unless that spell has the subtle trait. These effects last for 1 day, or until the stolen tooth is returned and the target regains at least 1 Hit Point.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Tooth Tug]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tooth-tug",
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Mischievous Plaguetooth",

@@ -4,345 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jrXffWSrX8LutkCI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Forest Passage",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The fiend keeper ignores difficult terrain caused by plants, such as bushes, vines, and undergrowth.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "C1xO1yedBaxAXJDa",
-            "_stats": {
-                "compendiumSource": "Actor.FQ2jwk1HruOq6pby.Item.C1xO1yedBaxAXJDa"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hunter of Virtue",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Whenever the tripkee fiend keeper critically hits an unholy creature, they reduce the value of their @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 1.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:trait:unholy"
-                        ],
-                        "selector": "attack-roll",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KDWPCHtHzOmFyl27",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bounce Cruuk",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tripkee fiend keeper makes a ranged Strike with their cruuk against a target within 30 feet. Once the Strike is complete, the cruuk ricochets back into the tripkee fiend keeper's hand. If their hands are full when the cruuk returns, it falls to the ground in their space.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9ycBz0EsYq1yOQMm",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harness Wickedness",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The tripkee fiend keeper isn't stupefied</p><hr /><p><strong>Effect</strong> The tripkee fiend keeper allows a portion of the fiendish power they have absorbed to flow through their body. For the next minute, the tripkee fiend keeper's Strikes deal an additional die of damage and gain the unholy trait. The tripkee fiend keeper also gains 10 temporary Hit Points, a +5-foot status bonus to Speed for the duration, and weakness 5 to holy. At the end of the duration, the tripkee fiend keeper is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Harness Wickedness",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Harness Wickedness"
-                },
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QQfKwpTyuvYnhbRU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 500000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "AahzSdoK7N21IYTi",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "uvsmwiTeFpXgghXA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Cruuk",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "LjV4o4mtAf2hCxEg": {
-                        "damage": "1d6+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "cruuk",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cq7QB4CrxpI8yn8K",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "uvsmwiTeFpXgghXA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Cruuk",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "xlYMTSV3PsOfpJSw": {
-                        "damage": "1d6+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "cruuk",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "thrown-30"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "D4hB5yx5MuAzhQAj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "jBXmrXVOEwU6wpbJ": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "uvsmwiTeFpXgghXA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.v8C4hkqMNeUk60Db"
             },
             "img": "systems/pf2e/icons/equipment/weapons/rungu.webp",
             "name": "Cruuk",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "rungu",
                 "bonus": {
@@ -422,6 +90,338 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "QQfKwpTyuvYnhbRU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "AahzSdoK7N21IYTi",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uvsmwiTeFpXgghXA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cruuk",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "LjV4o4mtAf2hCxEg": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "cruuk",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cq7QB4CrxpI8yn8K",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uvsmwiTeFpXgghXA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cruuk",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "xlYMTSV3PsOfpJSw": {
+                        "damage": "1d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "cruuk",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "thrown-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "D4hB5yx5MuAzhQAj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "jBXmrXVOEwU6wpbJ": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jrXffWSrX8LutkCI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Forest Passage",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The fiend keeper ignores difficult terrain caused by plants, such as bushes, vines, and undergrowth.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C1xO1yedBaxAXJDa",
+            "_stats": {
+                "compendiumSource": "Actor.FQ2jwk1HruOq6pby.Item.C1xO1yedBaxAXJDa"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hunter of Virtue",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Whenever the tripkee fiend keeper critically hits an unholy creature, they reduce the value of their @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 1.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:trait:unholy"
+                        ],
+                        "selector": "attack-roll",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KDWPCHtHzOmFyl27",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bounce Cruuk",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tripkee fiend keeper makes a ranged Strike with their cruuk against a target within 30 feet. Once the Strike is complete, the cruuk ricochets back into the tripkee fiend keeper's hand. If their hands are full when the cruuk returns, it falls to the ground in their space.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9ycBz0EsYq1yOQMm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Harness Wickedness",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The tripkee fiend keeper isn't stupefied</p><hr /><p><strong>Effect</strong> The tripkee fiend keeper allows a portion of the fiendish power they have absorbed to flow through their body. For the next minute, the tripkee fiend keeper's Strikes deal an additional die of damage and gain the unholy trait. The tripkee fiend keeper also gains 10 temporary Hit Points, a +5-foot status bonus to Speed for the duration, and weakness 5 to holy. At the end of the duration, the tripkee fiend keeper is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Harness Wickedness",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Harness Wickedness"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Tripkee Fiend-Keeper",

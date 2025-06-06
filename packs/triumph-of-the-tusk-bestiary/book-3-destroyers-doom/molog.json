@@ -4,242 +4,177 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jvxSRcPBHtsNMKY3",
+            "_id": "APOv9lpoZ22mYprg",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ferocity",
+            "img": "icons/weapons/polearms/glaive-simple.webp",
+            "name": "Glaive",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
+                "baseItem": "glaive",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "defensive",
-                "deathNote": true,
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                    "value": "<p>This polearm consists of a long, single-edged blade on the end of a 7-foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "polearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": "ferocity",
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "glaive",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "forceful",
+                        "reach"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
-            "_id": "J7bwpSXZBsmomQmg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frightful Standard",
+            "_id": "rNnqppsw1GJn52zl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
+            },
+            "img": "icons/weapons/bows/shortbow-recurve-bone.webp",
+            "name": "Composite Shortbow",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "composite-shortbow",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>As long as Molog remains mounted and his standard is intact, he has frightful presence against enemies within the aura.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XEMEJZ2ipdMwVu5S",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Battle Cry",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Molog rolls initiative</p><hr /><p><strong>Effect</strong> Molog attempts to [[/act demoralize]] an observed foe.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dhpIKD9jrHC3cMOf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Trampling Charge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Molog urges Bloodwing forward, trampling enemies in their path. He commands her to Stride or Fly up to her Speed, moving through the spaces of any foes in his path up to Large size. Bloodwing deals damage equal to her claw melee Strike to each creature whose space they move through, subject to a @Check[reflex|dc:31|basic] save. On a critical failure, the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of Molog's next turn. He can damage a given creature only once during this movement.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2z6CmFr0DNZwUBT7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Weapon Adept",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "bulk": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>Moloch can Swap between his glaive and composite shortbow, then Strike with the weapon he switched to.</p>"
+                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 14
+                    }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "composite-shortbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IrP94ne43PcN81Nn",
-            "_stats": {
-                "compendiumSource": "Actor.K4RHacsVSD3J8i2f.Item.tDR4IjM9uRaPIdd3"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Wyvern's Swoop",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Molog is mounting his wyvern</p><hr /><p><strong>Effect</strong> Molog Commands his mount to Stride twice. At any point during this movement, he can Strike one enemy within reach or within the first range increment of his ranged weapon, with a +1 circumstance bonus to his attack roll. If he began this movement at a higher point than his target, he deals an additional die of damage with this Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "wyverns-swoop",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "wyverns-swoop"
-                        ],
-                        "selector": "strike-attack-roll",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.WyvernRider.WyvernsSwoop.HigherElevation",
-                        "option": "swooping-down",
-                        "predicate": [
-                            "wyverns-swoop"
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "key": "DamageDice",
-                        "predicate": [
-                            "wyverns-swoop",
-                            "swooping-down"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
+                    "rarity": "common",
                     "value": [
-                        "flourish"
+                        "deadly-d10",
+                        "propulsive"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "KVbeHyyNGUEiOjO6",
@@ -248,7 +183,7 @@
             },
             "img": "icons/equipment/chest/breastplate-gorget-steel-white.webp",
             "name": "Half Plate",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "acBonus": 5,
                 "baseItem": "half-plate",
@@ -314,7 +249,7 @@
             },
             "img": "icons/sundries/flags/banner-standard-brown.webp",
             "name": "Standard of the Primeval Howl",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -402,7 +337,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -446,7 +381,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -483,177 +418,242 @@
             "type": "melee"
         },
         {
-            "_id": "APOv9lpoZ22mYprg",
+            "_id": "jvxSRcPBHtsNMKY3",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.N1kstYbHScxgUQtN"
             },
-            "img": "icons/weapons/polearms/glaive-simple.webp",
-            "name": "Glaive",
-            "sort": 1100000,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 700000,
             "system": {
-                "baseItem": "glaive",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "reaction"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": "<p>This polearm consists of a long, single-edged blade on the end of a 7-foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "polearm",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 1
-                },
-                "size": "med",
-                "slug": "glaive",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "ferocity",
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "forceful",
-                        "reach"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "rNnqppsw1GJn52zl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
-            },
-            "img": "icons/weapons/bows/shortbow-recurve-bone.webp",
-            "name": "Composite Shortbow",
-            "sort": 1200000,
+            "_id": "J7bwpSXZBsmomQmg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Frightful Standard",
+            "sort": 800000,
             "system": {
-                "baseItem": "composite-shortbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "defensive",
                 "description": {
-                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 14
-                    }
+                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>As long as Molog remains mounted and his standard is intact, he has frightful presence against enemies within the aura.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 60,
-                "reload": {
-                    "value": "0"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "composite-shortbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "deadly-d10",
-                        "propulsive"
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "XEMEJZ2ipdMwVu5S",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Battle Cry",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Molog rolls initiative</p><hr /><p><strong>Effect</strong> Molog attempts to [[/act demoralize]] an observed foe.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dhpIKD9jrHC3cMOf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Trampling Charge",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Molog urges Bloodwing forward, trampling enemies in their path. He commands her to Stride or Fly up to her Speed, moving through the spaces of any foes in his path up to Large size. Bloodwing deals damage equal to her claw melee Strike to each creature whose space they move through, subject to a @Check[reflex|dc:31|basic] save. On a critical failure, the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of Molog's next turn. He can damage a given creature only once during this movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2z6CmFr0DNZwUBT7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Weapon Adept",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Moloch can Swap between his glaive and composite shortbow, then Strike with the weapon he switched to.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IrP94ne43PcN81Nn",
+            "_stats": {
+                "compendiumSource": "Actor.K4RHacsVSD3J8i2f.Item.tDR4IjM9uRaPIdd3"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wyvern's Swoop",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Molog is mounting his wyvern</p><hr /><p><strong>Effect</strong> Molog Commands his mount to Stride twice. At any point during this movement, he can Strike one enemy within reach or within the first range increment of his ranged weapon, with a +1 circumstance bonus to his attack roll. If he began this movement at a higher point than his target, he deals an additional die of damage with this Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "wyverns-swoop",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wyverns-swoop"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.WyvernRider.WyvernsSwoop.HigherElevation",
+                        "option": "swooping-down",
+                        "predicate": [
+                            "wyverns-swoop"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "wyverns-swoop",
+                            "swooping-down"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Molog",

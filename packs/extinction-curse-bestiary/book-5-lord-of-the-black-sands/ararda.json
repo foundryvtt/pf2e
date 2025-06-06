@@ -4,438 +4,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZUghtcO2JEOGQOAq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
+            "_id": "MFsAqLtYbroqBTeA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JUAv4A165EW9vjcX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3khAQSOvCGGFmARp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blightburn Radiation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. Blightburn crystals infused into an ararda's body attempt to counteract any teleportation spell moving into or out of the aura's emanation (counteract check +31; 7th level).</p>\n<p>In addition, any creature that starts its turn within the emanation is exposed to Blightburn Sickness. The aura is blocked by lead sheeting, 1 foot of stone, or large force effects (such as a @UUID[Compendium.pf2e.spells-srd.Item.Wall of Force], but not a @UUID[Compendium.pf2e.spells-srd.Item.Shield] spell).</p>\n<p>An ararda can suppress their aura with an action (<span class=\"action-glyph\">a</span>) that has the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "blightburn-radiation-active"
-                        ],
-                        "radius": 60,
-                        "slug": "blightburn-radiation",
-                        "traits": [
-                            "arcane",
-                            "disease"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "blightburn-radiation-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura",
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bKziwa1hNAYNhHtz",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Charged Earth",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Any creature that hits an ararda with an unarmed attack or touches the ararda takes @Damage[2d8[electricity]] damage. Weapons that hit an ararda also take @Damage[2d8[electricity]] damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "electricity"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "upwihrPQGTpiBwCk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blightburn Sickness",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Creatures native to the Black Desert are immune, as are creatures who are affected by blightburn sickness but recover from it. The target can't recover from the disease's drained or sickened condition except by magic.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Onset</strong> [[/gmr 1d4 #days]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 week)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} (1 month)</p>\n<p><strong>Stage 5</strong> increase @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition by 1 (1 year)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "blightburn-sickness",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nDQsWnkhOjMNedYF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ararda can take on the form of a scorpion. The scorpion form always looks the same, but the ararda can choose to become either Tiny or Small in this form. This transformation doesn't change their Speed or the attack and damage bonuses of their Strikes, but might change the damage type their Strikes deal (typically to piercing).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Btfq47RDcKImj5q3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Earth Glide",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The aranda can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through dirt and stone at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "O6DDDWmQMfgrvOUU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Black Desert Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Bi8RZTKlzNcrlZXd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "f6pIZeCMzq997PVq"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Maul",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "wrix8ale7jgi8bidku02": {
-                        "damage": "3d12+17",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "jcxnj2Ps2GYGCILS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sand Fist",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "blightburn-sickness"
-                    ]
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "lex9e110tgclhtewog0o": {
-                        "damage": "2d8+17",
-                        "damageType": "bludgeoning"
-                    },
-                    "i9w05mcuaji21yx8h2z5": {
-                        "damage": "2d8",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "earth",
-                        "electricity",
-                        "magical",
-                        "nonlethal",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "HthRagLsoKlSBX0L",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sand Spear",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "blightburn-sickness"
-                    ]
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d8",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "2d8",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "earth",
-                        "electricity",
-                        "magical",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "B5iFgs95cU2U8riv",
@@ -444,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -529,7 +134,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Flesh to Stone",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -595,7 +200,7 @@
             },
             "img": "icons/commodities/stone/paver-brick-brown.webp",
             "name": "Wall of Stone",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -657,7 +262,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Gaseous Form (Self Only)",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -720,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
             "name": "Shape Stone (At Will)",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -787,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/veil.webp",
             "name": "Veil (Self Only)",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -850,7 +455,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -923,7 +528,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic (Constant)",
-            "sort": 1900000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -984,52 +589,13 @@
             "type": "spell"
         },
         {
-            "_id": "MFsAqLtYbroqBTeA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 2000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": 4
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "f6pIZeCMzq997PVq",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mlrmkpOlwpnGkw4I"
             },
             "img": "systems/pf2e/icons/equipment/weapons/maul.webp",
             "name": "Maul",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "maul",
                 "bonus": {
@@ -1106,6 +672,440 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "Bi8RZTKlzNcrlZXd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "f6pIZeCMzq997PVq"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Maul",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "wrix8ale7jgi8bidku02": {
+                        "damage": "3d12+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jcxnj2Ps2GYGCILS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sand Fist",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "blightburn-sickness"
+                    ]
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "lex9e110tgclhtewog0o": {
+                        "damage": "2d8+17",
+                        "damageType": "bludgeoning"
+                    },
+                    "i9w05mcuaji21yx8h2z5": {
+                        "damage": "2d8",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "earth",
+                        "electricity",
+                        "magical",
+                        "nonlethal",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HthRagLsoKlSBX0L",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sand Spear",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "blightburn-sickness"
+                    ]
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d8",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d8",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "earth",
+                        "electricity",
+                        "magical",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZUghtcO2JEOGQOAq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JUAv4A165EW9vjcX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3khAQSOvCGGFmARp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blightburn Radiation",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. Blightburn crystals infused into an ararda's body attempt to counteract any teleportation spell moving into or out of the aura's emanation (counteract check +31; 7th level).</p>\n<p>In addition, any creature that starts its turn within the emanation is exposed to Blightburn Sickness. The aura is blocked by lead sheeting, 1 foot of stone, or large force effects (such as a @UUID[Compendium.pf2e.spells-srd.Item.Wall of Force], but not a @UUID[Compendium.pf2e.spells-srd.Item.Shield] spell).</p>\n<p>An ararda can suppress their aura with an action (<span class=\"action-glyph\">a</span>) that has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "blightburn-radiation-active"
+                        ],
+                        "radius": 60,
+                        "slug": "blightburn-radiation",
+                        "traits": [
+                            "arcane",
+                            "disease"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "blightburn-radiation-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "aura",
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bKziwa1hNAYNhHtz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Charged Earth",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Any creature that hits an ararda with an unarmed attack or touches the ararda takes @Damage[2d8[electricity]] damage. Weapons that hit an ararda also take @Damage[2d8[electricity]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "upwihrPQGTpiBwCk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blightburn Sickness",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Creatures native to the Black Desert are immune, as are creatures who are affected by blightburn sickness but recover from it. The target can't recover from the disease's drained or sickened condition except by magic.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Onset</strong> [[/gmr 1d4 #days]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 week)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} (1 month)</p>\n<p><strong>Stage 5</strong> increase @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition by 1 (1 year)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "blightburn-sickness",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nDQsWnkhOjMNedYF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ararda can take on the form of a scorpion. The scorpion form always looks the same, but the ararda can choose to become either Tiny or Small in this form. This transformation doesn't change their Speed or the attack and damage bonuses of their Strikes, but might change the damage type their Strikes deal (typically to piercing).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Btfq47RDcKImj5q3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earth Glide",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The aranda can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through dirt and stone at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O6DDDWmQMfgrvOUU",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Black Desert Lore",
+            "sort": 2100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Ararda",

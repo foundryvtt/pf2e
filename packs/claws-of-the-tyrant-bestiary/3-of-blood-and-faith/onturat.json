@@ -4,364 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "oOdthftkNeAnj2vF",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Skeletal Lore",
+            "_id": "7yfmZkxBxXhIzfhz",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Onturat taps into the memories of the creatures whose bones make up his body. This gives him the Skeletal Lore skill, which he can use to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] of any kind. In addition, he can speak and understand all the languages known by the creatures whose bones make up his body (typically Common and the regional language of the skulltaker's home region). Onturat can use Skeletal Lore as the primary skill check for the @UUID[Compendium.pf2e.spells-srd.Item.Collective Memories] ritual, and he can cast collective memories without secondary casters.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Fv7pLR00M2cdJAKM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shard Storm",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet.</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[reflex|dc:42|basic] save.</p>\n<p>If the creature has resistance or immunity to void damage, or an effect that protects it against death effects, or an effect that protects it against the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] or @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition, the creature must first succeed at a @Check[will|dc:42] save or have all such benefits suppressed for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "shard-storm",
-                        "traits": [
-                            "air",
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "air",
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xZVC4Ktpor7xNXGV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t4gKNUAwe6yUvWC4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bonetaker",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm. The creature must succeed at a @Check[will|dc:40] save or rise as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Champion] in [[/gmr 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QtbYkrzWKmYbd4c5",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Splintered Ground",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a @Template[type:emanation|distance:100], except for surfaces of worked stone. A creature moving through the bones takes @Damage[10[piercing],10[void]]{10 piercing damage and 10 void} damage for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a @Check[reflex|dc:42] save or take a –10-foot circumstance penalty to all Speeds for 10 minutes, or a –15-foot circumstance penalty for 24 hours on a critical failure. The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Splintered Ground]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Splintered Ground (Critical Failure)]</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MbJQF9CoclP4Q7uV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Drain",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a @Check[fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fSV0NKkmwHba7jna",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Skeletal Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
+                "spelldc": {
+                    "dc": 42,
                     "value": 0
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "tradition": {
+                    "value": "divine"
                 },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "CvwwKggYQFJjBJE2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "void-drain"
-                    ]
-                },
-                "bonus": {
-                    "value": 37
-                },
-                "damageRolls": {
-                    "ZYWPjZTUzRfe5mPx": {
-                        "damage": "3d6",
-                        "damageType": "void"
-                    },
-                    "bc9xvSYqUIOtIhHP": {
-                        "damage": "3d10+16",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "deadly-2d12",
-                        "magical",
-                        "reach-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CSPlzpeSpvFo1iRa",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "void-drain"
-                    ]
-                },
-                "bonus": {
-                    "value": 37
-                },
-                "damageRolls": {
-                    "QEDTTbYRTbQxyzhb": {
-                        "damage": "3d6+16",
-                        "damageType": "slashing"
-                    },
-                    "gWqVgCyVB4fLudIn": {
-                        "damage": "3d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-2d12",
-                        "magical",
-                        "reach-15"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "KXm9mQf6psu6bRuB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bone Javelin",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "0hKHR5l649ZHxPfK": {
-                        "damage": "3d8+8",
-                        "damageType": "piercing"
-                    },
-                    "THWV22s0FjAZQqE5": {
-                        "damage": "3d6",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "thrown-100"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "8u8cl9npIwaAuTrM",
@@ -370,7 +50,7 @@
             },
             "img": "icons/creatures/abilities/bear-roar-bite-brown-green.webp",
             "name": "Metamorphosis",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -431,7 +111,7 @@
             },
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Desiccate",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -519,7 +199,7 @@
             },
             "img": "icons/magic/air/wind-tornado-funnel-blue-grey.webp",
             "name": "Punishing Winds",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cylinder",
@@ -587,7 +267,7 @@
             "folder": "6JF73zNhT8zbp1qC",
             "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
             "name": "Collective Memories",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -650,7 +330,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -770,7 +450,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -833,7 +513,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -903,22 +583,31 @@
             "type": "spell"
         },
         {
-            "_id": "7yfmZkxBxXhIzfhz",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1800000,
+            "_id": "CvwwKggYQFJjBJE2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "void-drain"
+                    ]
+                },
+                "bonus": {
+                    "value": 37
+                },
+                "damageRolls": {
+                    "ZYWPjZTUzRfe5mPx": {
+                        "damage": "3d6",
+                        "damageType": "void"
+                    },
+                    "bc9xvSYqUIOtIhHP": {
+                        "damage": "3d10+16",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -926,21 +615,332 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 42,
+                "traits": {
+                    "value": [
+                        "deadly-2d12",
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CSPlzpeSpvFo1iRa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1000000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "void-drain"
+                    ]
+                },
+                "bonus": {
+                    "value": 37
+                },
+                "damageRolls": {
+                    "QEDTTbYRTbQxyzhb": {
+                        "damage": "3d6+16",
+                        "damageType": "slashing"
+                    },
+                    "gWqVgCyVB4fLudIn": {
+                        "damage": "3d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-2d12",
+                        "magical",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KXm9mQf6psu6bRuB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bone Javelin",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "0hKHR5l649ZHxPfK": {
+                        "damage": "3d8+8",
+                        "damageType": "piercing"
+                    },
+                    "THWV22s0FjAZQqE5": {
+                        "damage": "3d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "thrown-100"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oOdthftkNeAnj2vF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Skeletal Lore",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Onturat taps into the memories of the creatures whose bones make up his body. This gives him the Skeletal Lore skill, which he can use to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] of any kind. In addition, he can speak and understand all the languages known by the creatures whose bones make up his body (typically Common and the regional language of the skulltaker's home region). Onturat can use Skeletal Lore as the primary skill check for the @UUID[Compendium.pf2e.spells-srd.Item.Collective Memories] ritual, and he can cast collective memories without secondary casters.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fv7pLR00M2cdJAKM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shard Storm",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet.</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[reflex|dc:42|basic] save.</p>\n<p>If the creature has resistance or immunity to void damage, or an effect that protects it against death effects, or an effect that protects it against the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] or @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition, the creature must first succeed at a @Check[will|dc:42] save or have all such benefits suppressed for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "shard-storm",
+                        "traits": [
+                            "air",
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xZVC4Ktpor7xNXGV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t4gKNUAwe6yUvWC4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bonetaker",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm. The creature must succeed at a @Check[will|dc:40] save or rise as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Skeletal Champion] in [[/gmr 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QtbYkrzWKmYbd4c5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Splintered Ground",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a @Template[type:emanation|distance:100], except for surfaces of worked stone. A creature moving through the bones takes @Damage[10[piercing],10[void]]{10 piercing damage and 10 void} damage for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a @Check[reflex|dc:42] save or take a –10-foot circumstance penalty to all Speeds for 10 minutes, or a –15-foot circumstance penalty for 24 hours on a critical failure. The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Splintered Ground]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Splintered Ground (Critical Failure)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MbJQF9CoclP4Q7uV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Drain",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a @Check[fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fSV0NKkmwHba7jna",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Skeletal Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 32
+                },
+                "proficient": {
                     "value": 0
                 },
-                "tradition": {
-                    "value": "divine"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Onturat",

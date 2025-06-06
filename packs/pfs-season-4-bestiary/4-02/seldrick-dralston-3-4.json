@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7m7b3dwyednyhqtu",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Denounce Heretic",
+            "_id": "BcSNcGhcDxvtI9k5",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who Seldrick Dralston can see and who doesn't follow the Whispering Way casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> Seldrick attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 2. If Seldrick fails to counteract the spell, the caster is temporarily immune to further uses of Denounce Heretic for 24 hours.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,268 +28,95 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "csccddk7b6n1491u",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Field of Undeath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Allies within the aura who have void healing gain fast healing 3. When a creature within the aura would receive vitality healing, it must succeed at a @Check[flat|dc:5] or receive no healing from the effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.fieldOfUndeathFastHealing",
-                        "value": 3
-                    },
-                    {
-                        "effects": [
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "affects": "allies",
-                                "includesSelf": false,
-                                "predicate": [
-                                    "target:negative-healing"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Undeath"
+                                "id": "8MpM5GTg1BL6Paod"
+                            },
+                            {
+                                "id": "emaYp7kTiz1CRd0R"
+                            },
+                            {
+                                "id": "LHz3MPPHHBewTA4k"
+                            },
+                            {
+                                "id": "daGqLkOFBywgASPi"
+                            },
+                            {
+                                "id": "IDnqpc8F1sBtAIFs"
                             }
-                        ],
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "field-of-undeath",
-                        "traits": [
-                            "divine"
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "nEBTafvOrfV6GX4t"
+                            },
+                            {
+                                "id": "jfGLR3TVqZ6nitMp"
+                            },
+                            {
+                                "id": "wMb4PXR3fe5Z5PpT"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "nSl8bcKb7JnH9i79"
+                            },
+                            {
+                                "id": "jfGLR3TVqZ6nitMp"
+                            },
+                            {
+                                "id": "OdbEydDzhVW4dY1u"
+                            },
+                            {
+                                "id": "OdbEydDzhVW4dY1u"
+                            },
+                            {
+                                "id": "OdbEydDzhVW4dY1u"
+                            },
+                            {
+                                "id": "OdbEydDzhVW4dY1u"
+                            }
                         ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NIIRwklz4cR5uYjX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2ASu2r4ddMMqE7Y8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Broken Religious Symbol of Pharasma",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "JbI3fTQB8SNFx3jC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gbwr57aT9ou8yKWT"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/wayfinder.webp",
-            "name": "Wayfinder",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This compact compass repurposes ancient technology to draw fantastic powers from the mysterious magical items called aeon stones. It serves as a badge of office for agents of the Pathfinder Society and as a status symbol among adventurers of any stripe. A wayfinder functions as a compass.</p>\n<p>An indentation in the middle of the <em>wayfinder</em> can hold a single <em>aeon stone</em>. Placing an <em>aeon stone</em> in this indentation provides you all the benefits of having the <em>aeon stone</em> orbiting your head, but it protects the stone from being noticed or stolen as easily. You invest a <em>wayfinder</em> and the <em>aeon stone</em> within it simultaneously, and they count as only one item toward your investiture limit. An invested <em>aeon stone</em> slotted in a <em>wayfinder</em> also grants its resonant power.</p>\n<p>If you have more than one <em>wayfinder</em> with an invested <em>aeon stone</em> on your person at a given time, destructive interference from their resonance prevents you from gaining benefits from any of them. You can still benefit from additional <em>aeon stones</em> orbiting your head, just not in <em>wayfinders</em>.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> The <em>wayfinder</em> is targeted by a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Light] spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 28
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "skill-check",
-                        "key": "RollOption",
-                        "option": "compass-in-possession",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "wayfinder",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "gMiNzG1gUoiz4bnp",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "LmVfAWr0Z44FlbNQ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
                     "value": 12
                 },
-                "damageRolls": {
-                    "s6jvct401xn2ybrw": {
-                        "damage": "2d4 + 5",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "RpSDL9pRSQiu3lu9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -294,22 +124,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
+                "spelldc": {
+                    "dc": 20,
+                    "mod": 0,
+                    "value": 12
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "nSl8bcKb7JnH9i79",
@@ -318,7 +144,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -384,7 +210,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -453,7 +279,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -539,7 +365,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -606,7 +432,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -687,7 +513,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -757,7 +583,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -818,7 +644,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1012,7 +838,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1079,7 +905,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1141,7 +967,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-undeath.webp",
             "name": "Touch of Undeath",
-            "sort": 1700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1216,147 +1042,13 @@
             "type": "spell"
         },
         {
-            "_id": "BcSNcGhcDxvtI9k5",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 1800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "8MpM5GTg1BL6Paod"
-                            },
-                            {
-                                "id": "emaYp7kTiz1CRd0R"
-                            },
-                            {
-                                "id": "LHz3MPPHHBewTA4k"
-                            },
-                            {
-                                "id": "daGqLkOFBywgASPi"
-                            },
-                            {
-                                "id": "IDnqpc8F1sBtAIFs"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "nEBTafvOrfV6GX4t"
-                            },
-                            {
-                                "id": "jfGLR3TVqZ6nitMp"
-                            },
-                            {
-                                "id": "wMb4PXR3fe5Z5PpT"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "nSl8bcKb7JnH9i79"
-                            },
-                            {
-                                "id": "jfGLR3TVqZ6nitMp"
-                            },
-                            {
-                                "id": "OdbEydDzhVW4dY1u"
-                            },
-                            {
-                                "id": "OdbEydDzhVW4dY1u"
-                            },
-                            {
-                                "id": "OdbEydDzhVW4dY1u"
-                            },
-                            {
-                                "id": "OdbEydDzhVW4dY1u"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "RpSDL9pRSQiu3lu9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 1900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "mod": 0,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "LmVfAWr0Z44FlbNQ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1436,6 +1128,314 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "2ASu2r4ddMMqE7Y8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Broken Religious Symbol of Pharasma",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "JbI3fTQB8SNFx3jC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gbwr57aT9ou8yKWT"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/wayfinder.webp",
+            "name": "Wayfinder",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This compact compass repurposes ancient technology to draw fantastic powers from the mysterious magical items called aeon stones. It serves as a badge of office for agents of the Pathfinder Society and as a status symbol among adventurers of any stripe. A wayfinder functions as a compass.</p>\n<p>An indentation in the middle of the <em>wayfinder</em> can hold a single <em>aeon stone</em>. Placing an <em>aeon stone</em> in this indentation provides you all the benefits of having the <em>aeon stone</em> orbiting your head, but it protects the stone from being noticed or stolen as easily. You invest a <em>wayfinder</em> and the <em>aeon stone</em> within it simultaneously, and they count as only one item toward your investiture limit. An invested <em>aeon stone</em> slotted in a <em>wayfinder</em> also grants its resonant power.</p>\n<p>If you have more than one <em>wayfinder</em> with an invested <em>aeon stone</em> on your person at a given time, destructive interference from their resonance prevents you from gaining benefits from any of them. You can still benefit from additional <em>aeon stones</em> orbiting your head, just not in <em>wayfinders</em>.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> The <em>wayfinder</em> is targeted by a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Light] spell.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 28
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "compass-in-possession",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "wayfinder",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "gMiNzG1gUoiz4bnp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "LmVfAWr0Z44FlbNQ"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "s6jvct401xn2ybrw": {
+                        "damage": "2d4 + 5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7m7b3dwyednyhqtu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Denounce Heretic",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet who Seldrick Dralston can see and who doesn't follow the Whispering Way casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> Seldrick attempts to counteract the triggering spell using their spell attack modifier and a counteract rank of 2. If Seldrick fails to counteract the spell, the caster is temporarily immune to further uses of Denounce Heretic for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "csccddk7b6n1491u",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Field of Undeath",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Allies within the aura who have void healing gain fast healing 3. When a creature within the aura would receive vitality healing, it must succeed at a @Check[flat|dc:5] or receive no healing from the effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.fieldOfUndeathFastHealing",
+                        "value": 3
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:negative-healing"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Undeath"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "field-of-undeath",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NIIRwklz4cR5uYjX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Seldrick Dralston (3-4)",

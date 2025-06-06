@@ -4,133 +4,248 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jbjsVEFvVsslwVHa",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Tail Lash",
+            "_id": "QmfL6KseYjlDPH2Q",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the ocean drake's tail uses an action to Strike or attempt a skill check.</p><hr /><p><strong>Effect</strong> The ocean drake attempts to Strike the triggering creature with its tail. If it hits, the creature takes a -2 circumstance penalty to the triggering roll.</p><hr /><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Tail Lash]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
+                    "license": "OGL",
+                    "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "xheziaVMnj1iAjP5",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Chthonic Mucus",
+            "_id": "0PfizSQ0sBuNenAW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.fZPCv2VHuM2yPbC8"
+            },
+            "img": "icons/magic/air/air-burst-spiral-large-pink.webp",
+            "name": "Deafness",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target loses hearing; it must attempt a Fortitude save. The target is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The target is Deafened for 10 minutes.</p>\n<p><strong>Critical Failure</strong> The target is Deafened permanently.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
                     "value": 2
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ocean drake spits a ball of chthonic mucus up to a range of 50 feet that explodes in a @Template[burst|distance:10]. Creatures within the burst take @Damage[4d6[spirit]] damage (@Check[reflex|dc:19|basic] save). Those that fail this save also take @Damage[1d6[persistent,spirit]] and take a -5-foot status penalty to their Speed. This Speed reduction ends with the persistent spirit damage.</p>\n<p>The ocean drake can't use Chthonic Mucus again for [[/gmr 1d6 #Recharge Chthonic Mucus]]{1d6 rounds}.</p><hr /><p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Chthonic Mucus]</p>"
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "QmfL6KseYjlDPH2Q"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "deafness",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
-                        "primal",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "yoaxSfIWBb1wKitA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx"
+            },
+            "img": "systems/pf2e/icons/spells/bane.webp",
+            "name": "Bane",
+            "sort": 300000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 10
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You fill the minds of your enemies with doubt. Enemies in the area must succeed at a Will save or take a –1 status penalty to attack rolls as long as they are in the area. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "QmfL6KseYjlDPH2Q"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "bane",
+                "target": {
+                    "value": "enemies in the area"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "aura",
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "gUE6u7t0ywjb51ai",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tsKnoBuBbKMXkiz5"
+            },
+            "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
+            "name": "Demonic Pact",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You call in a favor from one demon of level 2 or lower, two demons of level 0 or lower, or three demons of level –1 or lower.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the level of demon you call by 1 for each option.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": null
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "ritual": {
+                    "primary": {
+                        "check": "Religion (expert; you must be a demon)"
+                    },
+                    "secondary": {
+                        "casters": 0,
+                        "checks": ""
+                    }
+                },
+                "rules": [],
+                "slug": "demonic-pact",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
                         "unholy"
                     ]
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "GsSxwd5EPNBqxdWC",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The river drake makes one Fangs Strike and two Tail Strikes in any order.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qugqAWTLubz9fcj2",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Speed Surge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day;</p>\n<hr />\n<p><strong>Effect</strong> The river drake Strides or Flies twice.</p>"
-                },
-                "frequency": {
-                    "max": 3,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
+            "type": "spell"
         },
         {
             "_id": "lg0ZOYopXDTR0Atj",
@@ -203,248 +318,133 @@
             "type": "melee"
         },
         {
-            "_id": "0PfizSQ0sBuNenAW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.fZPCv2VHuM2yPbC8"
-            },
-            "img": "icons/magic/air/air-burst-spiral-large-pink.webp",
-            "name": "Deafness",
+            "_id": "jbjsVEFvVsslwVHa",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tail Lash",
             "sort": 700000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "reaction"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>The target loses hearing; it must attempt a Fortitude save. The target is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The target is Deafened for 10 minutes.</p>\n<p><strong>Critical Failure</strong> The target is Deafened permanently.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "heightenedLevel": 2,
-                    "value": "QmfL6KseYjlDPH2Q"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "deafness",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "yoaxSfIWBb1wKitA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx"
-            },
-            "img": "systems/pf2e/icons/spells/bane.webp",
-            "name": "Bane",
-            "sort": 800000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 10
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt. Enemies in the area must succeed at a Will save or take a –1 status penalty to attack rolls as long as they are in the area. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "QmfL6KseYjlDPH2Q"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "bane",
-                "target": {
-                    "value": "enemies in the area"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "aura",
-                        "concentrate",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "gUE6u7t0ywjb51ai",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.tsKnoBuBbKMXkiz5"
-            },
-            "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
-            "name": "Demonic Pact",
-            "sort": 900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You call in a favor from one demon of level 2 or lower, two demons of level 0 or lower, or three demons of level –1 or lower.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the level of demon you call by 1 for each option.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the ocean drake's tail uses an action to Strike or attempt a skill check.</p><hr /><p><strong>Effect</strong> The ocean drake attempts to Strike the triggering creature with its tail. If it hits, the creature takes a -2 circumstance penalty to the triggering roll.</p><hr /><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Tail Lash]</p>"
+                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "ritual": {
-                    "primary": {
-                        "check": "Religion (expert; you must be a demon)"
-                    },
-                    "secondary": {
-                        "casters": 0,
-                        "checks": ""
-                    }
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "demonic-pact",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1 day"
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xheziaVMnj1iAjP5",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Chthonic Mucus",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ocean drake spits a ball of chthonic mucus up to a range of 50 feet that explodes in a @Template[burst|distance:10]. Creatures within the burst take @Damage[4d6[spirit]] damage (@Check[reflex|dc:19|basic] save). Those that fail this save also take @Damage[1d6[persistent,spirit]] and take a -5-foot status penalty to their Speed. This Speed reduction ends with the persistent spirit damage.</p>\n<p>The ocean drake can't use Chthonic Mucus again for [[/gmr 1d6 #Recharge Chthonic Mucus]]{1d6 rounds}.</p><hr /><p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Chthonic Mucus]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
                     "value": [
+                        "primal",
                         "unholy"
                     ]
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "QmfL6KseYjlDPH2Q",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1000000,
+            "_id": "GsSxwd5EPNBqxdWC",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "actionType": {
+                    "value": "action"
                 },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The river drake makes one Fangs Strike and two Tail Strikes in any order.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "qugqAWTLubz9fcj2",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Speed Surge",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> three times per day;</p>\n<hr />\n<p><strong>Effect</strong> The river drake Strides or Flies twice.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Demonic Ocean Drake",

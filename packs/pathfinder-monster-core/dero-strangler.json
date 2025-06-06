@@ -3,494 +3,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HCUXasleODboE32A",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ill Glow",
+            "_id": "osyjgXeJV4vv5i3F",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>A non-dero living creature that starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the strangler is exposed to the sickly blue light from the strangler's cytillesh toolkit. It must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. This has no effect if the strangler isn't wearing the toolkit.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disease",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uldVZLVdwiLD1q6v",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Sunlight",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A dero strangler takes @Damage[8[untyped]] damage for every hour they're exposed to sunlight.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qwNhCiHQVyMkQrfX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dero Medicine",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dero is wearing a cytillesh toolkit and has a hand free</p>\n<hr />\n<p><strong>Effect</strong> The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for @Damage[2d8[healing]]{2d8 Hit Points}. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dero Medicine]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZDJkjnIor7qxsiSU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Strangle",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dero must have two free hands or be wielding a spiked chain</p>\n<hr />\n<p><strong>Effect</strong> The dero attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] with a +2 circumstance bonus. On a success, the target also takes @Damage[(1d6+6)[bludgeoning]] damage and can't speak (including to Cast a Spell) as long as they're @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:grapple",
-                            "action:strangle"
-                        ],
-                        "selector": "athletics",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CQl8LEG6PSZ2LQ81",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
-            },
-            "img": "icons/commodities/materials/liquid-orange.webp",
-            "name": "Lethargy Poison",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "poison",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by attackers who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 7
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "lethargy-poison",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "incapacitation",
-                        "injury",
-                        "poison",
-                        "sleep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "1CVLhTrJVtFboNQC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "Bl8rxvSctjIs06lY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
-            },
-            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
-            "name": "Rope",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>50 feet of rope.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "rope",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "6EHsEm9VBUy6EEGh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Cytillesh Toolkit",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These healer's toolkits are collections of crystalline scalpels and gritty salves made of cytillesh. They all glow the same sickly blue. While the toolkit is outside its opaque container, it sheds dim light in a 5-foot radius. Any non-dero using or wearing the toolkit is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until 1 hour after they've stopped, which cannot be reduced during that time.</p>\n<hr />\n<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healers-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "yVIAiphm8lYPffV3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ScifSFKSdAWFaZD1"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spiked Chain",
-            "sort": 900000,
-            "system": {
-                "attack": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": []
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "bonus": {
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 19,
+                    "mod": 0,
                     "value": 11
                 },
-                "damageRolls": {
-                    "SN1vTt6jabfQeL2u": {
-                        "damage": "1d8+6",
-                        "damageType": "bludgeoning"
-                    }
+                "tradition": {
+                    "value": "occult"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "spiked-chain",
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "5HRKFbIvbD2qXTXD",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "aMrfeaJgHIoPyWhD"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hand Crossbow",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "lethargy-poison"
-                    ]
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "dc3uiwlzk7uzjixewomw": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "E9yEjfkAzFYDW6Iy",
@@ -499,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -566,7 +118,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -638,7 +190,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -725,7 +277,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -789,7 +341,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -862,55 +414,13 @@
             "type": "spell"
         },
         {
-            "_id": "osyjgXeJV4vv5i3F",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "mod": 0,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "aMrfeaJgHIoPyWhD",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XyA6PKV46aNlLXOd"
             },
             "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
             "name": "Hand Crossbow",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "baseItem": "hand-crossbow",
                 "bonus": {
@@ -993,7 +503,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/spiked-chain.webp",
             "name": "Spiked Chain",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "baseItem": "spiked-chain",
                 "bonus": {
@@ -1072,6 +582,496 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "Bl8rxvSctjIs06lY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "6EHsEm9VBUy6EEGh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Cytillesh Toolkit",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These healer's toolkits are collections of crystalline scalpels and gritty salves made of cytillesh. They all glow the same sickly blue. While the toolkit is outside its opaque container, it sheds dim light in a 5-foot radius. Any non-dero using or wearing the toolkit is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until 1 hour after they've stopped, which cannot be reduced during that time.</p>\n<hr />\n<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "CQl8LEG6PSZ2LQ81",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN"
+            },
+            "img": "icons/commodities/materials/liquid-orange.webp",
+            "name": "Lethargy Poison",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "poison",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by attackers who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up ([[/gmr 1d4 #hours]]{1d4 hours}).</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "lethargy-poison",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "incapacitation",
+                        "injury",
+                        "poison",
+                        "sleep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "1CVLhTrJVtFboNQC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "yVIAiphm8lYPffV3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ScifSFKSdAWFaZD1"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spiked Chain",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "SN1vTt6jabfQeL2u": {
+                        "damage": "1d8+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "spiked-chain",
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5HRKFbIvbD2qXTXD",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "aMrfeaJgHIoPyWhD"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hand Crossbow",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "lethargy-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "dc3uiwlzk7uzjixewomw": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HCUXasleODboE32A",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ill Glow",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A non-dero living creature that starts its turn @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the strangler is exposed to the sickly blue light from the strangler's cytillesh toolkit. It must succeed at a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. This has no effect if the strangler isn't wearing the toolkit.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uldVZLVdwiLD1q6v",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Sunlight",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A dero strangler takes @Damage[8[untyped]] damage for every hour they're exposed to sunlight.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qwNhCiHQVyMkQrfX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dero Medicine",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dero is wearing a cytillesh toolkit and has a hand free</p>\n<hr />\n<p><strong>Effect</strong> The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for @Damage[2d8[healing]]{2d8 Hit Points}. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dero Medicine]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZDJkjnIor7qxsiSU",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Strangle",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dero must have two free hands or be wielding a spiked chain</p>\n<hr />\n<p><strong>Effect</strong> The dero attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] with a +2 circumstance bonus. On a success, the target also takes @Damage[(1d6+6)[bludgeoning]] damage and can't speak (including to Cast a Spell) as long as they're @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:grapple",
+                            "action:strangle"
+                        ],
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Dero Strangler",

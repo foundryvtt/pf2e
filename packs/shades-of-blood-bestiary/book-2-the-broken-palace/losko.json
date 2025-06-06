@@ -4,259 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UYsCIyA5TSr3kVVm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
-            },
-            "folder": "LOmu7fmjWOthtbvt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Losko is bound to the area he died and can't travel more than 30 feet from area <strong>B5</strong>.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "ghost-site-bound",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "A5VMzFwKCYvtew6G",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Chilling Cry",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Losko rolls initiative</p><hr /><p><strong>Effect</strong> Losko releases horrific cry that chills the bones of those nearby. Creatures in a @Template[type:emanation|distance:20] must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mv7gmRHYGqkWYP8C",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Erissa's Badge",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The sight of Erissa's badge (see area <strong>B8</strong>) distracts Losko. If a PC visibly wears this essence charm, Losko must succeed at a @Check[will|dc:20] save at the start of his turn. On a failure, he accuses the charm's wearer of being Erissa's stooge and threatens them with all manner of torment, spending enough time ranting that he becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until he can no longer see the charm.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5EvbvNghD1THDwUR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SH9SbbUP9vkrGrsi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frustrated Rage",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Losko misses a Strike against a creature</p><hr /><p><strong>Effect</strong> Losko shrieks in Azlanti, accusing the foe of being one of Erissa's guards, here to do her dirty work. The creature he attempted to Strike feels Losko's frustration wash over them and must attempt a @Check[will|dc:22] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of Losko's turn.</p>\n<p><strong>Failure</strong> The creature is off-guard until the end of Losko's next turn.</p>\n<p><strong>Critical Failure</strong> The creature is off-guard until Losko is destroyed or until they spend 1 minute outside combat gathering their wits, whichever comes first.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NAZI2pDZpCjYkd2r",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Gut-wrenching Terror",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever Losko damages a frightened creature with a melee Strike, that creature's terror creates an upsetting sense of impending doom, causing the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ACKkp3doVQsGfiwW",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "dI1ez9C30p7g1t91"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Warhammer",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "RDo0Of7x4Ih1Q5HN": {
-                        "damage": "2d8+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "warhammer",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "dI1ez9C30p7g1t91",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ"
             },
             "img": "icons/weapons/hammers/hammer-war-rounding.webp",
             "name": "Warhammer",
-            "sort": 800000,
+            "sort": 100000,
             "system": {
                 "baseItem": "warhammer",
                 "bonus": {
@@ -333,6 +87,252 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ACKkp3doVQsGfiwW",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dI1ez9C30p7g1t91"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Warhammer",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "RDo0Of7x4Ih1Q5HN": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "warhammer",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UYsCIyA5TSr3kVVm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
+            },
+            "folder": "LOmu7fmjWOthtbvt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Losko is bound to the area he died and can't travel more than 30 feet from area <strong>B5</strong>.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "ghost-site-bound",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A5VMzFwKCYvtew6G",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Chilling Cry",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Losko rolls initiative</p><hr /><p><strong>Effect</strong> Losko releases horrific cry that chills the bones of those nearby. Creatures in a @Template[type:emanation|distance:20] must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mv7gmRHYGqkWYP8C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Erissa's Badge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The sight of Erissa's badge (see area <strong>B8</strong>) distracts Losko. If a PC visibly wears this essence charm, Losko must succeed at a @Check[will|dc:20] save at the start of his turn. On a failure, he accuses the charm's wearer of being Erissa's stooge and threatens them with all manner of torment, spending enough time ranting that he becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until he can no longer see the charm.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5EvbvNghD1THDwUR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SH9SbbUP9vkrGrsi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Frustrated Rage",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Losko misses a Strike against a creature</p><hr /><p><strong>Effect</strong> Losko shrieks in Azlanti, accusing the foe of being one of Erissa's guards, here to do her dirty work. The creature he attempted to Strike feels Losko's frustration wash over them and must attempt a @Check[will|dc:22] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of Losko's turn.</p>\n<p><strong>Failure</strong> The creature is off-guard until the end of Losko's next turn.</p>\n<p><strong>Critical Failure</strong> The creature is off-guard until Losko is destroyed or until they spend 1 minute outside combat gathering their wits, whichever comes first.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NAZI2pDZpCjYkd2r",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gut-wrenching Terror",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever Losko damages a frightened creature with a melee Strike, that creature's terror creates an upsetting sense of impending doom, causing the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Losko",

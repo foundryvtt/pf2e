@@ -3,323 +3,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ads9d3lRyv0Z8u5p",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "e7Rk8yVGVqEP62yA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IXjaAxkgZsz5958E",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Free Expression",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A kanya's auditory and sonic effects attempt to counteract any effect that would directly control, manipulate, or prevent them from expressing themself freely, such as @UUID[Compendium.pf2e.spells-srd.Item.Silence]. They can also spend an action, which has concentrate trait, to speak forcefully and counteract such effects. The counteract modifier is [[/r 1d20+16 #Counteract]]{+16} in either case.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4G2TniPxICsNjk3Y",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Muse's Courage",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] the kanya casts grants a +2 status bonus instead of +1.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Spell Effect: Courageous Anthem (Kanya)]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:slug:courageous-anthem"
-                        ],
-                        "property": "description",
-                        "value": [
-                            {
-                                "text": "{item|system.description.value}"
-                            }
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D71sSjwa6Oa7yHvw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2n2EvBlcKOTTOQao",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3ld14dsn2RLu9owg"
-            },
-            "img": "icons/tools/instruments/lute-gold-brown.webp",
-            "name": "Virtuoso Harp",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>\n<p>A virtuoso instrument is more finely made and gives a +1 item bonus to Performance checks using that instrument.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
                 },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Pathfinder Monster Core"
                 },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "performance",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.PlayingItem",
-                        "option": "playing",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "playing"
-                        ],
-                        "selector": "performance",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "lg",
-                "slug": "musical-instrument-virtuoso-handheld",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "xECw5sCWsHZAUjFv",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "B5CQWqh21Ag4fN7D"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longsword",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
                     "value": 18
                 },
-                "damageRolls": {
-                    "fmm30jzh5rslku4s2vv6": {
-                        "damage": "1d8+10",
-                        "damageType": "slashing"
-                    },
-                    "vhiblzepdbwojxwqfvr1": {
-                        "damage": "1d6",
-                        "damageType": "sonic"
-                    }
+                "tradition": {
+                    "value": "divine"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "holy",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "HF4Dnnv97ezTQ1sy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "6a05z87y5msq24gs3qon": {
-                        "damage": "2d6+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "holy",
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "A6QXR1khVrcieezn",
@@ -328,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -390,7 +113,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -470,7 +193,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -534,7 +257,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -596,7 +319,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Noise Blast",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -685,7 +408,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -766,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -831,7 +554,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Courageous Anthem",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -895,7 +618,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -982,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1049,7 +772,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1112,7 +835,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1176,7 +899,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1257,7 +980,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-instrument.webp",
             "name": "Summon Instrument",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1319,7 +1042,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-competence.webp",
             "name": "Uplifting Overture",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1374,55 +1097,13 @@
             "type": "spell"
         },
         {
-            "_id": "e7Rk8yVGVqEP62yA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "B5CQWqh21Ag4fN7D",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
             },
             "img": "icons/weapons/swords/sword-guard-blue.webp",
             "name": "Longsword",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -1499,6 +1180,325 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "2n2EvBlcKOTTOQao",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3ld14dsn2RLu9owg"
+            },
+            "img": "icons/tools/instruments/lute-gold-brown.webp",
+            "name": "Virtuoso Harp",
+            "sort": 1800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>\n<p>A virtuoso instrument is more finely made and gives a +1 item bonus to Performance checks using that instrument.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "performance",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PlayingItem",
+                        "option": "playing",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "playing"
+                        ],
+                        "selector": "performance",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "lg",
+                "slug": "musical-instrument-virtuoso-handheld",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "xECw5sCWsHZAUjFv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "B5CQWqh21Ag4fN7D"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "fmm30jzh5rslku4s2vv6": {
+                        "damage": "1d8+10",
+                        "damageType": "slashing"
+                    },
+                    "vhiblzepdbwojxwqfvr1": {
+                        "damage": "1d6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "holy",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HF4Dnnv97ezTQ1sy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "6a05z87y5msq24gs3qon": {
+                        "damage": "2d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "holy",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ads9d3lRyv0Z8u5p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IXjaAxkgZsz5958E",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Free Expression",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A kanya's auditory and sonic effects attempt to counteract any effect that would directly control, manipulate, or prevent them from expressing themself freely, such as @UUID[Compendium.pf2e.spells-srd.Item.Silence]. They can also spend an action, which has concentrate trait, to speak forcefully and counteract such effects. The counteract modifier is [[/r 1d20+16 #Counteract]]{+16} in either case.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4G2TniPxICsNjk3Y",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Muse's Courage",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] the kanya casts grants a +2 status bonus instead of +1.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Spell Effect: Courageous Anthem (Kanya)]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:courageous-anthem"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|system.description.value}"
+                            }
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D71sSjwa6Oa7yHvw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kanya",

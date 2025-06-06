@@ -4,121 +4,262 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "IEibCXh97z4dVqH9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bandit's Ambush",
+            "_id": "2JOmjVrX6zMi3jhW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
+            "name": "Sling",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "sling",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "interaction",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>When the bandit rolls initiative using Deception or Stealth, they can attempt to [[/act demoralize]] one creature as a free action.</p>"
+                    "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sling",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "check:statistic:base:deception",
-                                    "check:statistic:base:stealth"
-                                ]
-                            }
-                        ],
-                        "selector": "initiative",
-                        "text": "{item|description}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VKwW4ylsv5KU7Nhr",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dread Striker",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the bandit.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "target:condition:frightened"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y9nL7kklEoVqLV06",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Forest Passage",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bandit ignores any difficult terrain caused by plants, such as bushes, vines, and undergrowth.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "quantity": 1,
+                "range": 50,
+                "reload": {
+                    "value": "1"
                 },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sling",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "propulsive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
+        },
+        {
+            "_id": "UIXlx0aROWfhPtws",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.O7IZBvVoe7W2XnBa"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/machete.webp",
+            "name": "Machete",
+            "sort": 200000,
+            "system": {
+                "baseItem": "machete",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This medium-length sword has a wide blade and long grip. Though it is typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Gods & Magic"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "machete",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "sweep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "s67Nnro2zsvUm1Io",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 300000,
+            "system": {
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "IXm05NQf7mWBHpuu",
@@ -255,32 +396,6 @@
             "type": "consumable"
         },
         {
-            "_id": "51OPbUesBItU8rTj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "HCyqbOwAesUJxAac",
             "flags": {
                 "pf2e": {
@@ -289,7 +404,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Machete",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -331,7 +446,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -373,7 +488,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -411,7 +526,7 @@
             "_id": "R0wrxXewuUSa6TI5",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -454,7 +569,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sling",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -489,262 +604,147 @@
             "type": "melee"
         },
         {
-            "_id": "2JOmjVrX6zMi3jhW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
+            "_id": "IEibCXh97z4dVqH9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bandit's Ambush",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When the bandit rolls initiative using Deception or Stealth, they can attempt to [[/act demoralize]] one creature as a free action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "check:statistic:base:deception",
+                                    "check:statistic:base:stealth"
+                                ]
+                            }
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
-            "name": "Sling",
+            "type": "action"
+        },
+        {
+            "_id": "VKwW4ylsv5KU7Nhr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dread Striker",
             "sort": 1200000,
             "system": {
-                "baseItem": "sling",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sling",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": "<p>@UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the bandit.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 50,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "sling",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "target:condition:frightened"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "propulsive"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "UIXlx0aROWfhPtws",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.O7IZBvVoe7W2XnBa"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/machete.webp",
-            "name": "Machete",
+            "_id": "y9nL7kklEoVqLV06",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Forest Passage",
             "sort": 1300000,
             "system": {
-                "baseItem": "machete",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This medium-length sword has a wide blade and long grip. Though it is typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "sword",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 7
-                    }
+                    "value": "<p>The bandit ignores any difficult terrain caused by plants, such as bushes, vines, and undergrowth.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Lost Omens Gods & Magic"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "machete",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "sweep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "s67Nnro2zsvUm1Io",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
-            },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
+            "_id": "51OPbUesBItU8rTj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
             "sort": 1400000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                    "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                "mod": {
+                    "value": 4
                 },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficient": {
                     "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
-                }
+                "slug": null,
+                "traits": {}
             },
-            "type": "weapon"
+            "type": "lore"
         }
     ],
     "name": "Bandit",

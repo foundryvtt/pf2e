@@ -4,162 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FVaLpxF68hSIofmb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bardic Lore",
+            "_id": "yreokfP5FubEtZI2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The maestro can @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any subject with a +19 modifier.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AOiC4NX8gLurruvc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Performing Specialist",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving acting, music, or storytelling, the maestro is a 15th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AFx73nJt4rUTGBQN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 circumstance bonus to saves vs. auditory, illusion, linguistic, sonic, or visual",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "auditory",
-                                    "illusion",
-                                    "linguistic",
-                                    "sonic",
-                                    "visual"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ockbOy7yj5lslqd9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resolve",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the maestro rolls a success on a Will save, they get a critical success instead.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "will"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rM22PCRrjGIy1eru",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resonating Weaponry",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The maestro funnels musical energy from their compositions into attacks, dealing additional @Damage[1d6[sonic]] damage with their weapon Strikes on any turn they cast a composition spell.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -167,273 +27,52 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zwtXLQSxTPrefDcI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
-            "name": "Leather Armor",
-            "sort": 600000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "leather-armor",
-                "bulk": {
-                    "value": 1
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
-                },
-                "dexCap": 4,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "leather-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "qRl7k6GsjETLDcZY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
-            "name": "Arrows",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 30,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "dyVUwI2QJ2pk6f6b",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3mprh9aZ670HfNhT"
-            },
-            "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
-            "name": "Lyre (Moderate Maestro's Instrument)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +2 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell with DC 27.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 900
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "performance",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.PlayingItem",
-                        "option": "playing",
-                        "toggleable": true
+                "slots": {
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "playing"
-                        ],
-                        "selector": "performance",
-                        "type": "item",
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 2,
                         "value": 2
                     }
-                ],
-                "size": "med",
-                "slug": "maestros-instrument-moderate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
                 },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "9TeCf359pvesngb3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Music Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "vdKItbZrAIX5Mak0",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "GFeJlAPlhnSHCcC2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rapier",
-            "sort": 1000000,
+            "_id": "Fq2Oh8hqTb1F5bAK",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": [
-                        "resonating-weaponry"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "ALpEVwDYWdSyfZk7": {
-                        "damage": "2d6+10",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -441,105 +80,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "rapier",
-                "traits": {
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2WtH2UBuqytTBXMU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "nQXmOqBKeFhVrzrX",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "1tz9ZPT3sHOXaoIY"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Shortbow",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "resonating-weaponry"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "PdwNixiA5DkvNuQU": {
-                        "damage": "2d6+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "composite-shortbow",
-                "traits": {
-                    "value": [
-                        "deadly-d10",
-                        "magical",
-                        "propulsive",
-                        "range-increment-60",
-                        "reload-0"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "RUaZK8XHEtt6SrNX",
@@ -548,7 +100,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -633,7 +185,7 @@
             },
             "img": "systems/pf2e/icons/spells/vibrant-pattern.webp",
             "name": "Vibrant Pattern",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -705,7 +257,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -773,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -835,7 +387,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Wave of Despair",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -917,7 +469,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -980,7 +532,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1900000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1052,7 +604,7 @@
             },
             "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
             "name": "Dirge of Doom",
-            "sort": 2000000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1117,7 +669,7 @@
             },
             "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
             "name": "Shatter",
-            "sort": 2100000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1197,7 +749,7 @@
             },
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
-            "sort": 2200000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1262,7 +814,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Courageous Anthem",
-            "sort": 2300000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1326,7 +878,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1389,7 +941,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2500000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1453,7 +1005,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2600000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1529,7 +1081,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-instrument.webp",
             "name": "Summon Instrument",
-            "sort": 2700000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1591,7 +1143,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2800000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1709,103 +1261,13 @@
             "type": "spell"
         },
         {
-            "_id": "yreokfP5FubEtZI2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "Fq2Oh8hqTb1F5bAK",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Focus Spells",
-            "sort": 3000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "1tz9ZPT3sHOXaoIY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
             },
             "img": "icons/weapons/bows/shortbow-recurve-bone.webp",
             "name": "Composite Shortbow",
-            "sort": 3100000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "composite-shortbow",
                 "bonus": {
@@ -1891,7 +1353,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 3200000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "rapier",
                 "bonus": {
@@ -1970,6 +1432,544 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "zwtXLQSxTPrefDcI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 2100000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "dyVUwI2QJ2pk6f6b",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3mprh9aZ670HfNhT"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
+            "name": "Lyre (Moderate Maestro's Instrument)",
+            "sort": 2200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +2 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell with DC 27.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 900
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "performance",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PlayingItem",
+                        "option": "playing",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "playing"
+                        ],
+                        "selector": "performance",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "maestros-instrument-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qRl7k6GsjETLDcZY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 2300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 30,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "vdKItbZrAIX5Mak0",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GFeJlAPlhnSHCcC2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rapier",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "resonating-weaponry"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "ALpEVwDYWdSyfZk7": {
+                        "damage": "2d6+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "rapier",
+                "traits": {
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2WtH2UBuqytTBXMU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.pathfinder-npc-core.Actor.5KojtpJA0T5xoum4.Item.4VbQq13CfCCwqfYt"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nQXmOqBKeFhVrzrX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "1tz9ZPT3sHOXaoIY"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Shortbow",
+            "sort": 2600000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "resonating-weaponry"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "PdwNixiA5DkvNuQU": {
+                        "damage": "2d6+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "composite-shortbow",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "propulsive",
+                        "range-increment-60",
+                        "reload-0"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FVaLpxF68hSIofmb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bardic Lore",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The maestro can @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any subject with a +19 modifier.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AOiC4NX8gLurruvc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Performing Specialist",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving acting, music, or storytelling, the maestro is a 15th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AFx73nJt4rUTGBQN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 circumstance bonus to saves vs. auditory, illusion, linguistic, sonic, or visual",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "auditory",
+                                    "illusion",
+                                    "linguistic",
+                                    "sonic",
+                                    "visual"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ockbOy7yj5lslqd9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resolve",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the maestro rolls a success on a Will save, they get a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "will"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rM22PCRrjGIy1eru",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resonating Weaponry",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The maestro funnels musical energy from their compositions into attacks, dealing additional @Damage[1d6[sonic]] damage with their weapon Strikes on any turn they cast a composition spell.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9TeCf359pvesngb3",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Music Lore",
+            "sort": 3200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Maestro",

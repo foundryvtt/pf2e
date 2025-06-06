@@ -4,780 +4,40 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "KRJrlJxtXYH93rOd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "EoknAO1gEQrmcFDR",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zGqC1f9nAbkhFc9Q",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Iron Command",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Seldeg</p>\n<hr />\n<p><strong>Effect</strong> Seldeg puts an impertinent foe who dared harm him in their proper place. He commands the enemy to kneel in obedience. If they refuse, they must pay the price in pain and anguish. The triggering creature must choose one of the following options: the enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action, or the enemy refuses and takes @Damage[5d6[mental]] damage. In addition, Seldeg's Strikes against the triggering creature deal an additional 3 damage until the end of his next turn. Seldeg chooses whether the additional damage is spirit or void each time he uses this reaction.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "iron-command",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitSpirit",
-                                "value": "spirit"
-                            },
-                            {
-                                "label": "PF2E.TraitVoid",
-                                "value": "void"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "{item|flags.pf2e.rulesSelections.ironCommand}",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "iron-command"
-                        ],
-                        "selector": "strike-damage",
-                        "value": 3
-                    }
-                ],
-                "slug": "iron-command",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qUWtbc8MT7AreYzs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZIFaA4jDQjM0vq8q"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/gmr 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]), transporting it to the Forge of Creation, or throwing it into the heart of a volcano.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-rejuvenation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vmaElwLfTTptfaGk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.bTJnxBQjr7G8yr30"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sacrilegious Aura",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. When a creature in the aura uses a vitality spell or ability, the graveknight automatically attempts to counteract it, with a counteract modifier of [[/r 1d20+27 #Counteract]]{+27}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "sacrilegious-aura",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": "graveknight-sacrilegious-aura",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "evil"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VM9gLYTZKgbWBBKH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shield Block",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xvESPcpt1GkrOZBG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QHX8JgZjpxQ71msf",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IxJbFJ8dG5RbZWBD"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Devastating Blast",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Seldeg unleashes a @Template[cone|distance:30] of fire. Creatures in the area take @Damage[9d12[fire]] damage (@Check[reflex|dc:35|basic]). Seldeg can use this ability once every [[/gmr 1d4 #Recharge Devastating Blast]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-devastating-blast",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sflDAvsA8PP3Jp11",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.5dbzWZbiTyPKgwKS"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Graveknight's Curse",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<p><strong>Saving Throw</strong> @Check[will|dc:35] save</p>\n<hr />\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, the creature's Speed is reduced by 10, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Graveknight's Curse]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-graveknights-curse",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "curse"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kyx1GW0W2F4XknIb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BgbSHRdkGH7raOgA"
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Phantom Steed",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>HP 130; AC 39, Fort +28, Ref +25, Will +22</p>\n<hr />\n<p>Seldeg summons a supernatural mount as per @UUID[Compendium.pf2e.spells-srd.Item.Marvelous Mount] (8th level). Unlike phantom steed, the steed's AC and saving throw bonuses are all 4 levels lower than Seldeg's, and the steed has one-third of Seldeg's Hit Points (rounded down). If the steed is destroyed, Seldeg must wait 1 hour before using this ability again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-phantom-mount",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gElZJHj913X1orQh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.7jWANvnDmNcQvFve"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ruinous Weapons",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any weapon or unarmed attack Seldeg uses gains the effects of the <em>+1 greater striking</em> and <em>greater flaming</em> runes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-ruinous-weapons",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DOr8AePD22yCeJqd",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unyielding Block",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>At the start of each of Seldeg's turns, he gains two additional reactions he can use only to perform a Shield Block.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rJ1opmsaOoIX1hei",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.6isn9nqnvfRrC1wW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Weapon Master",
-            "sort": 1200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "CriticalSpecialization"
-                    }
-                ],
-                "slug": "graveknight-weapon-master",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8snFi0LNsnT8Nwzh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "Full Plate",
-            "sort": 1300000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": "full-plate",
-                "bulk": {
-                    "value": 4
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": "standard",
-                    "type": "adamantine"
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "full-plate",
-                "speedPenalty": -10,
-                "strength": 4,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bulwark"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "GUeXopmtVLYBJod9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jRpiPUidZcaGDNG3",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "qiIk99TJEFKCj3QH"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greater Flaming Longsword",
-            "sort": 1500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "ET3PRJGIwWkMEeBM": {
-                        "damage": "3d8+17",
-                        "damageType": "slashing"
-                    },
-                    "OerCp3ItqMwBYb2x": {
-                        "damage": "2d10",
-                        "damageType": "fire"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "a7CQuFxP5MoA2hM9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "aVpxlsxcW2xWMytm": {
-                        "damage": "2d8+17",
-                        "damageType": "bludgeoning"
-                    },
-                    "r38oRv5WdB5bbVK7": {
-                        "damage": "2d10",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "fire",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "2mWEC6TWEMx7pGud",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "9TF6Zg6lp7WjMK52"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Flaming Javelin",
-            "sort": 1700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "SplCF9GhDCXfm38u": {
-                        "damage": "3d6+17",
-                        "damageType": "piercing"
-                    },
-                    "TgYfGiqHWy5OWDYq": {
-                        "damage": "2d10",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "magical",
-                        "thrown-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "o3lu3TmEtMlXcnVa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7Z8XXGiUiyyisKOD"
-            },
-            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
-            "name": "Sturdy Shield (Supreme)",
-            "sort": 1800000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "steel-shield",
-                "bulk": {
+                "proficiency": {
                     "value": 1
                 },
-                "containerId": null,
-                "description": {
-                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 20, HP 160, and BT 80.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 20,
-                "hp": {
-                    "max": 160,
-                    "value": 160
-                },
-                "level": {
-                    "value": 19
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 40000
-                    }
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
                 "rules": [],
-                "runes": {
-                    "reinforcing": 0
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 35,
+                    "value": 27
                 },
-                "size": "med",
-                "slug": "sturdy-shield-supreme",
-                "specific": {
-                    "integrated": null,
-                    "material": {
-                        "grade": null,
-                        "type": null
-                    },
-                    "runes": {
-                        "reinforcing": 0
-                    }
-                },
-                "speedPenalty": 0,
-                "traits": {
-                    "integrated": null,
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "shield"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "V8q9SeffkrZsfloO",
@@ -786,7 +46,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
             "name": "Touch of Corruption",
-            "sort": 1900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -900,49 +160,13 @@
             "type": "spell"
         },
         {
-            "_id": "EoknAO1gEQrmcFDR",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Champion Devotion Spells",
-            "sort": 2000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 35,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "9TF6Zg6lp7WjMK52",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JNt7GmLCCVz5BiEI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
             "name": "Javelin",
-            "sort": 2100000,
+            "sort": 300000,
             "system": {
                 "baseItem": "javelin",
                 "bonus": {
@@ -1027,7 +251,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "Longsword",
-            "sort": 2200000,
+            "sort": 400000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -1104,6 +328,782 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "o3lu3TmEtMlXcnVa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7Z8XXGiUiyyisKOD"
+            },
+            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
+            "name": "Sturdy Shield (Supreme)",
+            "sort": 500000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 20, HP 160, and BT 80.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 20,
+                "hp": {
+                    "max": 160,
+                    "value": 160
+                },
+                "level": {
+                    "value": 19
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 40000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "sturdy-shield-supreme",
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "shield"
+        },
+        {
+            "_id": "8snFi0LNsnT8Nwzh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+            "name": "Full Plate",
+            "sort": 600000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "full-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": "standard",
+                    "type": "adamantine"
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "full-plate",
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "jRpiPUidZcaGDNG3",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "qiIk99TJEFKCj3QH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greater Flaming Longsword",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "ET3PRJGIwWkMEeBM": {
+                        "damage": "3d8+17",
+                        "damageType": "slashing"
+                    },
+                    "OerCp3ItqMwBYb2x": {
+                        "damage": "2d10",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "a7CQuFxP5MoA2hM9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "aVpxlsxcW2xWMytm": {
+                        "damage": "2d8+17",
+                        "damageType": "bludgeoning"
+                    },
+                    "r38oRv5WdB5bbVK7": {
+                        "damage": "2d10",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "fire",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2mWEC6TWEMx7pGud",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "9TF6Zg6lp7WjMK52"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flaming Javelin",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "SplCF9GhDCXfm38u": {
+                        "damage": "3d6+17",
+                        "damageType": "piercing"
+                    },
+                    "TgYfGiqHWy5OWDYq": {
+                        "damage": "2d10",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "magical",
+                        "thrown-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KRJrlJxtXYH93rOd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zGqC1f9nAbkhFc9Q",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Iron Command",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages Seldeg</p>\n<hr />\n<p><strong>Effect</strong> Seldeg puts an impertinent foe who dared harm him in their proper place. He commands the enemy to kneel in obedience. If they refuse, they must pay the price in pain and anguish. The triggering creature must choose one of the following options: the enemy kneels, dropping @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action, or the enemy refuses and takes @Damage[5d6[mental]] damage. In addition, Seldeg's Strikes against the triggering creature deal an additional 3 damage until the end of his next turn. Seldeg chooses whether the additional damage is spirit or void each time he uses this reaction.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "iron-command",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitSpirit",
+                                "value": "spirit"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.ironCommand}",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "iron-command"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 3
+                    }
+                ],
+                "slug": "iron-command",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qUWtbc8MT7AreYzs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZIFaA4jDQjM0vq8q"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/gmr 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]), transporting it to the Forge of Creation, or throwing it into the heart of a volcano.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vmaElwLfTTptfaGk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.bTJnxBQjr7G8yr30"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sacrilegious Aura",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a creature in the aura uses a vitality spell or ability, the graveknight automatically attempts to counteract it, with a counteract modifier of [[/r 1d20+27 #Counteract]]{+27}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sacrilegious-aura",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": "graveknight-sacrilegious-aura",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "evil"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VM9gLYTZKgbWBBKH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xvESPcpt1GkrOZBG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QHX8JgZjpxQ71msf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IxJbFJ8dG5RbZWBD"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Devastating Blast",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Seldeg unleashes a @Template[cone|distance:30] of fire. Creatures in the area take @Damage[9d12[fire]] damage (@Check[reflex|dc:35|basic]). Seldeg can use this ability once every [[/gmr 1d4 #Recharge Devastating Blast]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-devastating-blast",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sflDAvsA8PP3Jp11",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.5dbzWZbiTyPKgwKS"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Graveknight's Curse",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<p><strong>Saving Throw</strong> @Check[will|dc:35] save</p>\n<hr />\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, the creature's Speed is reduced by 10, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Graveknight's Curse]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-graveknights-curse",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "curse"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kyx1GW0W2F4XknIb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BgbSHRdkGH7raOgA"
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Phantom Steed",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>HP 130; AC 39, Fort +28, Ref +25, Will +22</p>\n<hr />\n<p>Seldeg summons a supernatural mount as per @UUID[Compendium.pf2e.spells-srd.Item.Marvelous Mount] (8th level). Unlike phantom steed, the steed's AC and saving throw bonuses are all 4 levels lower than Seldeg's, and the steed has one-third of Seldeg's Hit Points (rounded down). If the steed is destroyed, Seldeg must wait 1 hour before using this ability again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-phantom-mount",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gElZJHj913X1orQh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.7jWANvnDmNcQvFve"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ruinous Weapons",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any weapon or unarmed attack Seldeg uses gains the effects of the <em>+1 greater striking</em> and <em>greater flaming</em> runes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-ruinous-weapons",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DOr8AePD22yCeJqd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unyielding Block",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>At the start of each of Seldeg's turns, he gains two additional reactions he can use only to perform a Shield Block.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rJ1opmsaOoIX1hei",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.6isn9nqnvfRrC1wW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Weapon Master",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization"
+                    }
+                ],
+                "slug": "graveknight-weapon-master",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GUeXopmtVLYBJod9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 2200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Seldeg Bheldis",

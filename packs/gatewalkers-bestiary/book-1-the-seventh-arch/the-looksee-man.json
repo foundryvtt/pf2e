@@ -4,395 +4,102 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "E0nFKRHw52sj5Mnq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow Blending",
+            "_id": "Qt0MDGy45EzgUTBu",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Wizard Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>When the Looksee Man is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] as a result of dim light, the flat check to target him has a DC of @Check[flat|dc:7], not 5.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HswoEGfftCAlN0rR",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Shadow Stride",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The Looksee Man is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The Looksee Man Strides. He has a +10-foot status bonus to his Speed during this Stride. The DC from shadow blending increases to @Check[flat|dc:11] during this Stride, and the Looksee Man remains @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by dim light until the end of the movement, even if he leaves dim light during the Stride.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "shadow-stride",
-                        "toggleable": true
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "aeB62jQp98ojyLkK"
+                            },
+                            {
+                                "id": "qag1JpCKSkSHqzBA"
+                            },
+                            {
+                                "id": "wh9L2YMRjMG7RyUf"
+                            }
+                        ]
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "shadow-stride"
-                        ],
-                        "selector": "land-speed",
-                        "type": "status",
-                        "value": 10
+                    "slot1": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "HMZmQbQXSqL7diZD"
+                            },
+                            {
+                                "id": "uSIgJMl5QDZxM0D2"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "mSxp1HoLGLqwulJI"
+                            },
+                            {
+                                "id": "NXFoAbBCMDFdZq09"
+                            },
+                            {
+                                "id": "NXFoAbBCMDFdZq09"
+                            },
+                            {
+                                "id": "EzNzh2wFTpJV8Eyv"
+                            }
+                        ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "illusion",
-                        "occult",
-                        "shadow"
-                    ]
+                "spelldc": {
+                    "dc": 21,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "AYxJNQPNBswH8pOv",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stalk Goggles Specialist",
-            "sort": 300000,
+            "_id": "dBI4qQGJ1xsIgngf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>As long as he wears his greater stalk goggles, the Looksee Man can't be flanked by creatures of 4th level or lower.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.offGuardable",
-                        "value": "@actor.level"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nvhxxxBTFIwprdeI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
-            },
-            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
-            "name": "Padded Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 1,
-                "baseItem": "padded-armor",
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "light",
-                "checkPenalty": 0,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": null,
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "padded-armor",
-                "speedPenalty": 0,
-                "strength": 0,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "cIEXLVeQMI06C53u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.U7UVGM93EaNc6lzY"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/day-goggles.webp",
-            "name": "Stalk Goggles (Greater)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These black leather goggle frames have no lenses. Instead, when a character puts them on and invests them, the wearer's eyes transform and lengthen into snail-like eyestalks. The wobbly eyestalks stretch out through the lens holes and up over the wearer's head on lengthened optic nerves.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By focusing hard, you can watch for enemies in all directions. You gain all-around vision and a +1 item bonus to Perception checks involving sight for 1 minute; during this time, you can't be flanked.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Stalk Goggles]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #187: The Seventh Arch"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "stalk-goggles-greater",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "invested",
-                        "magical",
-                        "morph"
-                    ]
-                },
-                "usage": {
-                    "value": "worneyepiece"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "L3Zne1rZSxhBEgAL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
-            },
-            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
-            "name": "Spellbook",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Gecko Grip]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shocking Grasp]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "spellbook-blank",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "wWOs2LfPSpdasDvq",
-            "img": "icons/equipment/finger/ring-inlay-skull-silver.webp",
-            "name": "Ring With Nethys Mask Sigil",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>(Bonded item)</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornring"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "yWvKSaz8R2i5cfiP",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "EXSO2luN6JUeXHWx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "3Eqv6j2SijC9q5s3": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -400,49 +107,38 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "45vS5dA92QPFYzYZ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "EXSO2luN6JUeXHWx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
+            "_id": "GbdzxsOU9nk4djit",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Transmutation School Spell",
+            "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "P8QB2R4awLcO6nFc": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -450,20 +146,17 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
+                "spelldc": {
+                    "dc": 21,
+                    "value": 14
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "mSxp1HoLGLqwulJI",
@@ -472,7 +165,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -552,7 +245,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
             "name": "Scorching Ray",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -682,7 +375,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-striped-web-red.webp",
             "name": "Spider Climb",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -742,7 +435,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -805,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -886,7 +579,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -959,7 +652,7 @@
             },
             "img": "systems/pf2e/icons/spells/physical-boost.webp",
             "name": "Physical Boost",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1017,7 +710,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1079,7 +772,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1159,7 +852,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1216,168 +909,13 @@
             "type": "spell"
         },
         {
-            "_id": "Qt0MDGy45EzgUTBu",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Wizard Prepared Spells",
-            "sort": 2000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "aeB62jQp98ojyLkK"
-                            },
-                            {
-                                "id": "qag1JpCKSkSHqzBA"
-                            },
-                            {
-                                "id": "wh9L2YMRjMG7RyUf"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "HMZmQbQXSqL7diZD"
-                            },
-                            {
-                                "id": "uSIgJMl5QDZxM0D2"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "mSxp1HoLGLqwulJI"
-                            },
-                            {
-                                "id": "NXFoAbBCMDFdZq09"
-                            },
-                            {
-                                "id": "NXFoAbBCMDFdZq09"
-                            },
-                            {
-                                "id": "EzNzh2wFTpJV8Eyv"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "dBI4qQGJ1xsIgngf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "GbdzxsOU9nk4djit",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Transmutation School Spell",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "EXSO2luN6JUeXHWx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1457,6 +995,468 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "nvhxxxBTFIwprdeI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Padded Armor",
+            "sort": 1500000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "cIEXLVeQMI06C53u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.U7UVGM93EaNc6lzY"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/day-goggles.webp",
+            "name": "Stalk Goggles (Greater)",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These black leather goggle frames have no lenses. Instead, when a character puts them on and invests them, the wearer's eyes transform and lengthen into snail-like eyestalks. The wobbly eyestalks stretch out through the lens holes and up over the wearer's head on lengthened optic nerves.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By focusing hard, you can watch for enemies in all directions. You gain all-around vision and a +1 item bonus to Perception checks involving sight for 1 minute; during this time, you can't be flanked.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Stalk Goggles]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #187: The Seventh Arch"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "stalk-goggles-greater",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical",
+                        "morph"
+                    ]
+                },
+                "usage": {
+                    "value": "worneyepiece"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "L3Zne1rZSxhBEgAL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
+            },
+            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+            "name": "Spellbook",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Gecko Grip]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shocking Grasp]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "spellbook-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "wWOs2LfPSpdasDvq",
+            "img": "icons/equipment/finger/ring-inlay-skull-silver.webp",
+            "name": "Ring With Nethys Mask Sigil",
+            "sort": 1800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>(Bonded item)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornring"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "yWvKSaz8R2i5cfiP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EXSO2luN6JUeXHWx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "3Eqv6j2SijC9q5s3": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "45vS5dA92QPFYzYZ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "EXSO2luN6JUeXHWx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "P8QB2R4awLcO6nFc": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "E0nFKRHw52sj5Mnq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shadow Blending",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the Looksee Man is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] as a result of dim light, the flat check to target him has a DC of @Check[flat|dc:7], not 5.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HswoEGfftCAlN0rR",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Shadow Stride",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Looksee Man is in dim light</p>\n<hr />\n<p><strong>Effect</strong> The Looksee Man Strides. He has a +10-foot status bonus to his Speed during this Stride. The DC from shadow blending increases to @Check[flat|dc:11] during this Stride, and the Looksee Man remains @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by dim light until the end of the movement, even if he leaves dim light during the Stride.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shadow-stride",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shadow-stride"
+                        ],
+                        "selector": "land-speed",
+                        "type": "status",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "illusion",
+                        "occult",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AYxJNQPNBswH8pOv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stalk Goggles Specialist",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As long as he wears his greater stalk goggles, the Looksee Man can't be flanked by creatures of 4th level or lower.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.offGuardable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "The Looksee Man",

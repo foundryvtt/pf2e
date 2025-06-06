@@ -3,274 +3,61 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "5rmiy80ibEEvlvIL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Consecration Vulnerability",
+            "_id": "6PZisICkQg9iEoQs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>An etioling in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by @UUID[Compendium.pf2e.spells-srd.Item.Anointed Ground], is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5OPP2h29MKUEtig6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ectoplasmic Secretions",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Any creature that hits the etioling with an unarmed attack, tries to @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grapple} them, or otherwise touches them becomes partially coated in ectoplasm.</p>\n<p>The creature takes @Damage[1d6[void]] damage and must succeed at a @Check[reflex|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the ectoplasm is removed.</p>\n<p>The ectoplasm can be removed with a total of 3 Interact actions by the creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aHOLCHiRhu5ipc7L",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ectoplasmic Shield",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The etioling is the target of a physical ranged attack</p>\n<hr />\n<p><strong>Effect</strong> The etioling interposes a wave of ectoplasm between themself and the source of the ranged attack, giving them a +2 circumstance bonus to AC against the triggering attack. If the attack misses, the ectoplasm deflected it. The ectoplasm can't deflect unusually large or heavy ranged projectiles (such as boulders or ballista bolts).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "ectoplasmic-shield",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "ectoplasmic-shield"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vDs8pDlAo0An3Z5L",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZPn8LuEY8HTRPp38",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Withering Aura",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. The etioling drains nutrients from nearby plant and animal life. Each round a creature begins its turn in this aura, it takes @Damage[1d6[void]] damage and must succeed at a @Check[fortitude|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>All non-magical plant life in this aura instantly withers, removing any cover and concealment provided by trees and undergrowth.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "withering-aura",
-                        "traits": [
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NWXRpTU3jhjVFz93",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Death Gasp",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The etioling draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead.</p>\n<p>The etioling gains the undead and incorporeal traits and becomes immune to bleed, death effects, disease, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, and sleep. Any such effects the etioling is currently suffering from are suspended, but take effect again once they take a breath. They gain a fly Speed of 25 feet, resistance 10 to all damage (except force, ghost touch, or vitality; double this resistance vs. non-magical) while they hold their breath.They can't cast spells during this time.</p>\n<p>Death Gasp lasts as long as the etioling blightmage holds their breath (up to 8 rounds).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Death Gasp (Etioling)]</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mYKiwGxlqb75Vo6G",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Corrupting Touch",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+6",
-                        "damageType": "void"
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "O9sTraluoVTknDgs",
@@ -279,7 +66,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -368,7 +155,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -450,7 +237,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -526,7 +313,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -588,7 +375,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -677,7 +464,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -743,7 +530,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -815,7 +602,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "line",
@@ -903,7 +690,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -981,7 +768,7 @@
             },
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1044,7 +831,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +894,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1170,7 +957,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1231,7 +1018,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1300,7 +1087,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1365,7 +1152,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1526,7 +1313,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2400000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1596,7 +1383,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 2500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1659,7 +1446,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1744,7 +1531,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1822,7 +1609,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 2800000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1888,7 +1675,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2900000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1976,7 +1763,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 3000000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2039,7 +1826,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 3100000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2107,7 +1894,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 3200000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2166,22 +1953,29 @@
             "type": "spell"
         },
         {
-            "_id": "6PZisICkQg9iEoQs",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 3300000,
+            "_id": "mYKiwGxlqb75Vo6G",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Corrupting Touch",
+            "sort": 2700000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+6",
+                        "damageType": "void"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2189,38 +1983,244 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "5rmiy80ibEEvlvIL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Consecration Vulnerability",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An etioling in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by @UUID[Compendium.pf2e.spells-srd.Item.Anointed Ground], is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5OPP2h29MKUEtig6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ectoplasmic Secretions",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Any creature that hits the etioling with an unarmed attack, tries to @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grapple} them, or otherwise touches them becomes partially coated in ectoplasm.</p>\n<p>The creature takes @Damage[1d6[void]] damage and must succeed at a @Check[reflex|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the ectoplasm is removed.</p>\n<p>The ectoplasm can be removed with a total of 3 Interact actions by the creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aHOLCHiRhu5ipc7L",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ectoplasmic Shield",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The etioling is the target of a physical ranged attack</p>\n<hr />\n<p><strong>Effect</strong> The etioling interposes a wave of ectoplasm between themself and the source of the ranged attack, giving them a +2 circumstance bonus to AC against the triggering attack. If the attack misses, the ectoplasm deflected it. The ectoplasm can't deflect unusually large or heavy ranged projectiles (such as boulders or ballista bolts).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "ectoplasmic-shield",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ectoplasmic-shield"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vDs8pDlAo0An3Z5L",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZPn8LuEY8HTRPp38",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Withering Aura",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The etioling drains nutrients from nearby plant and animal life. Each round a creature begins its turn in this aura, it takes @Damage[1d6[void]] damage and must succeed at a @Check[fortitude|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>All non-magical plant life in this aura instantly withers, removing any cover and concealment provided by trees and undergrowth.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "withering-aura",
+                        "traits": [
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NWXRpTU3jhjVFz93",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Death Gasp",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The etioling draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead.</p>\n<p>The etioling gains the undead and incorporeal traits and becomes immune to bleed, death effects, disease, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, and sleep. Any such effects the etioling is currently suffering from are suspended, but take effect again once they take a breath. They gain a fly Speed of 25 feet, resistance 10 to all damage (except force, ghost touch, or vitality; double this resistance vs. non-magical) while they hold their breath.They can't cast spells during this time.</p>\n<p>Death Gasp lasts as long as the etioling blightmage holds their breath (up to 8 rounds).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Death Gasp (Etioling)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Etioling Blightmage",

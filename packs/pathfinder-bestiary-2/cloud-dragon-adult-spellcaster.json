@@ -3,261 +3,169 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NDhBBYbkfa48lqzj",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mist Vision",
+            "_id": "jWt4W1OUjOcKKBNI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 6
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Fog and mist don't impair a cloud dragon's vision; they ignore the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from fog and mist.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eV7RBmdPGgdfp41d",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "T4cC9H9vxNTUqnco",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Deflecting Cloud",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon is the target of a ranged attack</p>\n<p><strong>Requirements</strong> The dragon is aware of the attack and has a free wing</p>\n<hr />\n<p><strong>Effect</strong> The cloud dragon flexes a wing and creates a billowing cloud of mist. The dragon is treated as if they were @UUID[Compendium.pf2e.conditionitems.Item.Hidden] for the purposes of resolving the triggering attack, so normally the attacker must succeed at a @Check[flat|dc:11] to target them. The dragon also gains a +4 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "deflecting-cloud",
-                        "toggleable": true
-                    },
-                    {
-                        "inMemoryOnly": true,
-                        "key": "GrantItem",
-                        "predicate": [
-                            "deflecting-cloud"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "deflecting-cloud"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vID81IzA60CV6yD2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:32]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4KxhR1H4vfF5teNe",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[15d6[electricity]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[reflex|dc:35|basic|options:area-effect] save). They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "electricity",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0v7H9KCVbUUdkdU7",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Cloud Form",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The cloud dragon's body becomes vaporous and misty. They gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form], except their fly Speed remains unchanged. The cloud dragon can use this action again to return to physical form.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "xRRp9FkHJ7cOl5XG"
+                            },
+                            {
+                                "id": "zAxbPqEdppgllPqT"
+                            },
+                            {
+                                "id": "F0Y0Ka2zVW5ZRYNs"
+                            },
+                            {
+                                "id": "oHUDGZrZ8LjDqYRv"
+                            },
+                            {
+                                "id": "ik7DwOjyrS0SpA2D"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "q3wXYAwk5Ibr504G"
+                            },
+                            {
+                                "id": "JTId278IImW6WG7b"
+                            },
+                            {
+                                "id": "S6BwpeJQQbJXDSLm"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "vU2mrN6sUbxUIiFA"
+                            },
+                            {
+                                "id": "YHjnYeNXmsFGxhg6"
+                            },
+                            {
+                                "id": "wDZCORZLcptmgsTw"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "RZE1Z4nfLcRlbZ5A"
+                            },
+                            {
+                                "id": "GbEtqzmvDsNMEVd3"
+                            },
+                            {
+                                "id": "LpydeJc1B4nYmHfG"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "KH1PdmNV7sNzHHii"
+                            },
+                            {
+                                "id": "wuKCPkLniVQ8xIR0"
+                            },
+                            {
+                                "id": "3LnZ7eprXMHQN7Vo"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "o9xFwr1oZGA09K9U"
+                            },
+                            {
+                                "id": "tWxDS0H1Y8xTlyX3"
+                            },
+                            {
+                                "id": "mzhyT50rGJhGsNeW"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "fYfoFWfYyPfrWoXP"
+                            },
+                            {
+                                "id": "GNYnhOv7gOQ9R4DW"
+                            },
+                            {
+                                "id": "20K8Y9iIm2sQRH2X"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "polymorph",
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 34,
+                    "mod": 0,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "LUG7zInRwnS0c3vJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cloud Walk",
-            "sort": 700000,
+            "_id": "gzQlpS0D81W4iCub",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The cloud dragon can tread on clouds or fog as though on solid ground.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -265,199 +173,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 36,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "hQdMdV8u5o7eWZEV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d10+15",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "2d12",
-                        "damageType": "electricity"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "electricity",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "D5p47qiv8jIAcjoL",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d10+15",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "numgrwQUdlF3fy51",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d12+15",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "072UUA8WXrWV6tPc",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Horn",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d12+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "20K8Y9iIm2sQRH2X",
@@ -466,7 +197,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -529,7 +260,7 @@
             },
             "img": "systems/pf2e/icons/spells/banishment.webp",
             "name": "Banishment",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -597,7 +328,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Death Ward",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -658,7 +389,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance.webp",
             "name": "Passwall",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -719,7 +450,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -780,7 +511,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -845,7 +576,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -905,7 +636,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -970,7 +701,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1031,7 +762,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1097,7 +828,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Stinking Cloud",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1166,7 +897,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1227,7 +958,7 @@
             },
             "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
             "name": "Animal Messenger",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1287,7 +1018,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1352,7 +1083,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind (At Will)",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1421,7 +1152,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1485,7 +1216,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1544,7 +1275,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 2900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1607,7 +1338,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3000000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1674,7 +1405,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 3100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1759,7 +1490,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Feather Fall",
-            "sort": 3200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1818,7 +1549,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 3300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2014,7 +1745,7 @@
             },
             "img": "icons/magic/air/wind-tornado-spiral-teal-green.webp",
             "name": "Negate Aroma",
-            "sort": 3400000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2074,7 +1805,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 3500000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2137,7 +1868,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 3600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2201,7 +1932,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 3700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2275,169 +2006,32 @@
             "type": "spell"
         },
         {
-            "_id": "jWt4W1OUjOcKKBNI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 3800000,
+            "_id": "hQdMdV8u5o7eWZEV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 2900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 6
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "attackEffects": {
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "xRRp9FkHJ7cOl5XG"
-                            },
-                            {
-                                "id": "zAxbPqEdppgllPqT"
-                            },
-                            {
-                                "id": "F0Y0Ka2zVW5ZRYNs"
-                            },
-                            {
-                                "id": "oHUDGZrZ8LjDqYRv"
-                            },
-                            {
-                                "id": "ik7DwOjyrS0SpA2D"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "q3wXYAwk5Ibr504G"
-                            },
-                            {
-                                "id": "JTId278IImW6WG7b"
-                            },
-                            {
-                                "id": "S6BwpeJQQbJXDSLm"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "vU2mrN6sUbxUIiFA"
-                            },
-                            {
-                                "id": "YHjnYeNXmsFGxhg6"
-                            },
-                            {
-                                "id": "wDZCORZLcptmgsTw"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "RZE1Z4nfLcRlbZ5A"
-                            },
-                            {
-                                "id": "GbEtqzmvDsNMEVd3"
-                            },
-                            {
-                                "id": "LpydeJc1B4nYmHfG"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "KH1PdmNV7sNzHHii"
-                            },
-                            {
-                                "id": "wuKCPkLniVQ8xIR0"
-                            },
-                            {
-                                "id": "3LnZ7eprXMHQN7Vo"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "o9xFwr1oZGA09K9U"
-                            },
-                            {
-                                "id": "tWxDS0H1Y8xTlyX3"
-                            },
-                            {
-                                "id": "mzhyT50rGJhGsNeW"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "fYfoFWfYyPfrWoXP"
-                            },
-                            {
-                                "id": "GNYnhOv7gOQ9R4DW"
-                            },
-                            {
-                                "id": "20K8Y9iIm2sQRH2X"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "mod": 0,
+                "bonus": {
                     "value": 29
                 },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "gzQlpS0D81W4iCub",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 3900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+15",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d12",
+                        "damageType": "electricity"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -2445,22 +2039,428 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 28
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "D5p47qiv8jIAcjoL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 3000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+15",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "numgrwQUdlF3fy51",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 3100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d12+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "072UUA8WXrWV6tPc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 3200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NDhBBYbkfa48lqzj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Vision",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Fog and mist don't impair a cloud dragon's vision; they ignore the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from fog and mist.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eV7RBmdPGgdfp41d",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T4cC9H9vxNTUqnco",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Deflecting Cloud",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragon is the target of a ranged attack</p>\n<p><strong>Requirements</strong> The dragon is aware of the attack and has a free wing</p>\n<hr />\n<p><strong>Effect</strong> The cloud dragon flexes a wing and creates a billowing cloud of mist. The dragon is treated as if they were @UUID[Compendium.pf2e.conditionitems.Item.Hidden] for the purposes of resolving the triggering attack, so normally the attacker must succeed at a @Check[flat|dc:11] to target them. The dragon also gains a +4 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "deflecting-cloud",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "deflecting-cloud"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vID81IzA60CV6yD2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:32]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4KxhR1H4vfF5teNe",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[15d6[electricity]|options:area-damage] damage in a @Template[cone|distance:50] (@Check[reflex|dc:35|basic|options:area-effect] save). They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0v7H9KCVbUUdkdU7",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Cloud Form",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cloud dragon's body becomes vaporous and misty. They gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Vapor Form], except their fly Speed remains unchanged. The cloud dragon can use this action again to return to physical form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LUG7zInRwnS0c3vJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cloud Walk",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cloud dragon can tread on clouds or fog as though on solid ground.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Cloud Dragon (Adult, Spellcaster)",

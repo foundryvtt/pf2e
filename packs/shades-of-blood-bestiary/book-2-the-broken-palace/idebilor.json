@@ -4,520 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "uslpjn03DUtzbfFp",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Feral Corruption",
+            "_id": "drAKb4bqjSmV2LIS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Idebilor is reduced to 0 Hit Points and an animal (such as a mold ticks in area <strong>N7</strong> or any of the spider swarms in area <strong>N9</strong>) is within 100 feet</p><hr /><p><strong>Effect</strong> Idebilor casts his spirit into a nearby animal, which must attempt a @Check[will|dc:25] save. On a failure, the animal is possessed (as per the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell) for 7 days. This possession can be counteracted only by effects that can counteract a curse. If, at any point, an animal critically succeeds at this save or no animal is within 100 feet, Idebilor is destroyed.</p>\n<p>If Idebilor is possessing an animal, he seeks out his burial site (area <strong>N11</strong>) and buries himself there. At this point, the animal host is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], and beheading it destroys him and kills the animal. Removing the curse on the animal destroys Idebilor and returns the animal to normal. After [[/gmr 1d4 #days]]{1d4 days}, if Idebilor hasn't been destroyed, the animal dies and Idebilor is reborn fully healed from its remains.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "divine",
-                        "incapacitation",
-                        "mental",
-                        "possession"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GnAoSJeodjtFoanm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Feral Possession",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The vrykolakas is reduced to 0 Hit Points, and an animal is within 100 feet</p><hr /><p><strong>Effect</strong> Unlike most other undead, a vrykolakas isn't destroyed when it reaches 0 HP. Instead, it attempts to cast its spirit into an animal within 100 feet, which must attempt @Check[will|dc:24] save. On a failure, the animal is possessed. This has the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell, but it lasts a number of days equal to the vrykolakas's level. This possession can't be counteracted with magic (though remove curse works against it normally).</p>\n<p>If the animal succeeds at its save, the vrykolakas can attempt to possess a different animal within 100 feet. If at any point an animal critically succeeds at its save or no animal is within 100 feet, the vrykolakas fails to possess anything and is destroyed.</p>\n<p>A vrykolakas possessing an animal seeks out its burial site (see Burial Site Bound below) immediately, burying itself there. While the vrykolakas is in this state of recovery, its animal host is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], and beheading it destroys the vrykolakas and kills its host. Removing the curse destroys the vrykolakas and returns the animal to normal.</p>\n<p>After [[/gmr 1d4 #days]]{1d4 days}, if the vrykolakas hasn't been destroyed, the animal dies and the vrykolakas rises in a new body that's identical to its previous one, formed from the animal's remains.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "divine",
-                        "incapacitation",
-                        "mental",
-                        "possession"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c4mDZBMrkh9kwIHn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JOeW89FGrajDYQsW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vrykolakas Vulnerabilities",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Idebilor must return to his burial site (area <strong>N11</strong>) once per week and bury himself there for 24 hours, during which time he is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] and can be beheaded. If he's unable to return to this site, he's reduced to 0 Hit Points and attempts to use Feral Corruption. If the host animal can't reach the burial site before the possession effect ends, Idebilor is destroyed and the animal returns to normal.</p>\n<p>If he is beheaded, Idebilor can't use Feral Corruption, and a beheaded corpse cannot rise as a vrykolakas.</p>\n<p>Vrykolakas all have the following vulnerabilities.</p><ul><li><strong>Burial Site Bound</strong> A vrykolakas is bound to the place of its death or interment. It must return to this location once per week and bury itself in the earth for 24 hours, during which time it is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] and can be beheaded. If it is unable to return to this site, it is reduced to 0 Hit Points and attempts to use Feral Corruption; if this host animal can't return to the burial site before the possession effect ends, the vrykolakas is destroyed and the animal host returns to normal.</li><li><strong>Vulnerable to Decapitation</strong> A vrykolakas that is beheaded can't use its Feral Possession, and a beheaded corpse cannot rise as a vrykolakas.</li></ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NSJfJ8LJDfLasQQF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bloody Obsession",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Idebilor curses a living creature with an overwhelming obsession with blood. He stares intently at a living creature within 30 feet, then licks his fangs violently enough to cause his tongue to bleed (this causes no damage to Idebilor). The target must attempt a @Check[will|dc:25] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target feels uneasy. If the target can see a creature taking persistent bleed damage within 30 feet, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as they obsessively stare at the bleeding wound.</p>\n<p><strong>Failure</strong> As success, but the target becomes slowed for 1 minute. If the target uses an Interact action to drink blood from themselves or an adjacent willing or helpless creature, the duration of this curse is reduced by 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but with an unlimited duration. If the target uses an Interact action to drink blood, they ignore the slowed condition caused by this curse for the following [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "curse",
-                        "divine",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DxgiMoyx7wyltYqp",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drink Blood",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The vrykolakas' last action was a successful fangs Strike</p><hr /><p><strong>Effect</strong> The vrykolakas sinks its fangs into that creature to drink its blood. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC. On a success, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and the vrykolakas regains @Damage[11[healing]] HP, gaining any excess HP as temporary Hit Points.</p>\n<p>Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire, but it increases the creature's drained condition value by 1. A vrykolakas can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week.</p>\n<p>A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "drink-blood",
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H1CrtJTYHt1zROG7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "rend",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o6uYu3eF1D58ozvS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sap Life",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Idebilor damages at least one living creature with a @UUID[Compendium.pf2e.spells-srd.Item.Harm] spell, he regains HP equal to the harm spell's rank (@Damage[5[healing]]).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "B4p0t3d1tyqd8xr8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wrDmWkGxmwzYtfiA"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Crisis of Faith (Rank 3)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated rank.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of the spell at the listed rank.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 360
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-3rd-rank-spell",
-                "spell": {
-                    "_id": "PzinhGnb948TZmlb",
-                    "_stats": {
-                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa"
-                    },
-                    "folder": "4fJHnYFqH0VjZXPv",
-                    "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
-                    "name": "Crisis of Faith",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {
-                            "0": {
-                                "applyMod": false,
-                                "category": null,
-                                "formula": "6d6",
-                                "kinds": [
-                                    "damage"
-                                ],
-                                "materials": [],
-                                "type": "mental"
-                            }
-                        },
-                        "defense": {
-                            "save": {
-                                "basic": false,
-                                "statistic": "will"
-                            }
-                        },
-                        "description": {
-                            "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "heightening": {
-                            "damage": {
-                                "0": "2d6"
-                            },
-                            "interval": 1,
-                            "type": "interval"
-                        },
-                        "level": {
-                            "value": 3
-                        },
-                        "location": {
-                            "heightenedLevel": 3,
-                            "value": null
-                        },
-                        "overlays": {
-                            "Fs08rHTZAfROKKzu": {
-                                "_id": "Fs08rHTZAfROKKzu",
-                                "name": "Crisis of Faith (Vs. Divine)",
-                                "overlayType": "override",
-                                "sort": 2,
-                                "system": {
-                                    "damage": {
-                                        "0": {
-                                            "formula": "6d8"
-                                        }
-                                    },
-                                    "heightening": {
-                                        "damage": {
-                                            "0": "2d8"
-                                        }
-                                    }
-                                }
-                            },
-                            "noPVUX8Ocln52MKm": {
-                                "_id": "noPVUX8Ocln52MKm",
-                                "overlayType": "override",
-                                "sort": 1,
-                                "system": {}
-                            }
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "30 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "crisis-of-faith",
-                        "target": {
-                            "value": "1 creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "manipulate",
-                                "mental"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "magical",
-                        "manipulate",
-                        "mental",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "U5b8FjV2ANIG77gm",
-            "img": "icons/sundries/misc/key-copper.webp",
-            "name": "Key",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>To prison cells (area <strong>N13</strong>)</p>",
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "jpADnhH419EAEb0j",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Butchering Lore",
-            "sort": 1100000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 15
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -525,33 +28,125 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "Bw9byuMDE3XOLdHQ"
+                            },
+                            {
+                                "id": "a2X8pdvhq3zW9KYq"
+                            },
+                            {
+                                "id": "Xoe0VqQbbLWcZN7g"
+                            },
+                            {
+                                "id": "OtKjiTslRUx5GwSD"
+                            },
+                            {
+                                "id": "WOrGIQd4XGiF7EdR"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "VvRXrGKGWILIHaZB"
+                            },
+                            {
+                                "id": "4AEue1A2XZLbnMt8"
+                            },
+                            {
+                                "id": "PbmO63iqd8IIOllV"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "JzqjGeuGOPGm95dn"
+                            },
+                            {
+                                "id": "T1SnwUNLO6xJGvU9"
+                            },
+                            {
+                                "id": "kQ4MXAOh3k31K4dO"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "wTjZQe9oH6AnD1m4"
+                            },
+                            {
+                                "id": "A8MTZMQu8YAXA4vz"
+                            },
+                            {
+                                "id": "4AEue1A2XZLbnMt8"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 7,
+                        "prepared": [
+                            {
+                                "id": "7c3hL1JOy4lSHGL5"
+                            },
+                            {
+                                "id": "AAzNVpfB3OZDOQPG"
+                            },
+                            {
+                                "id": "AAzNVpfB3OZDOQPG"
+                            },
+                            {
+                                "id": "AAzNVpfB3OZDOQPG"
+                            },
+                            {
+                                "id": "AAzNVpfB3OZDOQPG"
+                            },
+                            {
+                                "id": "AAzNVpfB3OZDOQPG"
+                            },
+                            {
+                                "id": "01EKzmjqxwTDNsiF"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "FrTdGO6BqbRvBLu9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 1200000,
+            "_id": "1FWobcuGPcQuI0fI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": [
-                        "drink-blood"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "97cwhiod2ricovm20fon": {
-                        "damage": "2d10+7",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -559,51 +154,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PskJTiEThXOJo4hH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 25,
                     "value": 17
                 },
-                "damageRolls": {
-                    "xazre9c2gajsxtmyioio": {
-                        "damage": "2d8+7",
-                        "damageType": "slashing"
-                    }
+                "tradition": {
+                    "value": "divine"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "7c3hL1JOy4lSHGL5",
@@ -613,7 +175,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +238,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -745,7 +307,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 1600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -832,7 +394,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -895,7 +457,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -957,7 +519,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1109,7 +671,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1197,7 +759,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1280,7 +842,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1347,7 +909,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1428,7 +990,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2400000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1516,7 +1078,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1711,7 +1273,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1788,7 +1350,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "icons/magic/acid/dissolve-vomit-green-brown.webp",
             "name": "Overstuff",
-            "sort": 2700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1853,7 +1415,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1914,7 +1476,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1977,7 +1539,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "systems/pf2e/icons/spells/touch-of-undeath.webp",
             "name": "Touch of Undeath",
-            "sort": 3000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2060,7 +1622,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 3100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2140,149 +1702,260 @@
             "type": "spell"
         },
         {
-            "_id": "drAKb4bqjSmV2LIS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 3200000,
+            "_id": "U5b8FjV2ANIG77gm",
+            "img": "icons/sundries/misc/key-copper.webp",
+            "name": "Key",
+            "sort": 2100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
                 },
+                "containerId": null,
                 "description": {
+                    "gm": "<p>To prison cells (area <strong>N13</strong>)</p>",
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
                 },
-                "proficiency": {
-                    "value": 1
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "quantity": 1,
                 "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "Bw9byuMDE3XOLdHQ"
-                            },
-                            {
-                                "id": "a2X8pdvhq3zW9KYq"
-                            },
-                            {
-                                "id": "Xoe0VqQbbLWcZN7g"
-                            },
-                            {
-                                "id": "OtKjiTslRUx5GwSD"
-                            },
-                            {
-                                "id": "WOrGIQd4XGiF7EdR"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "VvRXrGKGWILIHaZB"
-                            },
-                            {
-                                "id": "4AEue1A2XZLbnMt8"
-                            },
-                            {
-                                "id": "PbmO63iqd8IIOllV"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "JzqjGeuGOPGm95dn"
-                            },
-                            {
-                                "id": "T1SnwUNLO6xJGvU9"
-                            },
-                            {
-                                "id": "kQ4MXAOh3k31K4dO"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "wTjZQe9oH6AnD1m4"
-                            },
-                            {
-                                "id": "A8MTZMQu8YAXA4vz"
-                            },
-                            {
-                                "id": "4AEue1A2XZLbnMt8"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 7,
-                        "prepared": [
-                            {
-                                "id": "7c3hL1JOy4lSHGL5"
-                            },
-                            {
-                                "id": "AAzNVpfB3OZDOQPG"
-                            },
-                            {
-                                "id": "AAzNVpfB3OZDOQPG"
-                            },
-                            {
-                                "id": "AAzNVpfB3OZDOQPG"
-                            },
-                            {
-                                "id": "AAzNVpfB3OZDOQPG"
-                            },
-                            {
-                                "id": "AAzNVpfB3OZDOQPG"
-                            },
-                            {
-                                "id": "01EKzmjqxwTDNsiF"
-                            }
-                        ]
-                    }
-                },
+                "size": "med",
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "equipment"
         },
         {
-            "_id": "1FWobcuGPcQuI0fI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 3300000,
+            "_id": "B4p0t3d1tyqd8xr8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.wrDmWkGxmwzYtfiA"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Wand of Crisis of Faith (Rank 3)",
+            "sort": 2200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated rank.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of the spell at the listed rank.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 360
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-3rd-rank-spell",
+                "spell": {
+                    "_id": "PzinhGnb948TZmlb",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa"
+                    },
+                    "folder": "4fJHnYFqH0VjZXPv",
+                    "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+                    "name": "Crisis of Faith",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {
+                            "0": {
+                                "applyMod": false,
+                                "category": null,
+                                "formula": "6d6",
+                                "kinds": [
+                                    "damage"
+                                ],
+                                "materials": [],
+                                "type": "mental"
+                            }
+                        },
+                        "defense": {
+                            "save": {
+                                "basic": false,
+                                "statistic": "will"
+                            }
+                        },
+                        "description": {
+                            "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "heightening": {
+                            "damage": {
+                                "0": "2d6"
+                            },
+                            "interval": 1,
+                            "type": "interval"
+                        },
+                        "level": {
+                            "value": 3
+                        },
+                        "location": {
+                            "heightenedLevel": 3,
+                            "value": null
+                        },
+                        "overlays": {
+                            "Fs08rHTZAfROKKzu": {
+                                "_id": "Fs08rHTZAfROKKzu",
+                                "name": "Crisis of Faith (Vs. Divine)",
+                                "overlayType": "override",
+                                "sort": 2,
+                                "system": {
+                                    "damage": {
+                                        "0": {
+                                            "formula": "6d8"
+                                        }
+                                    },
+                                    "heightening": {
+                                        "damage": {
+                                            "0": "2d8"
+                                        }
+                                    }
+                                }
+                            },
+                            "noPVUX8Ocln52MKm": {
+                                "_id": "noPVUX8Ocln52MKm",
+                                "overlayType": "override",
+                                "sort": 1,
+                                "system": {}
+                            }
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "30 feet"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "crisis-of-faith",
+                        "target": {
+                            "value": "1 creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "manipulate",
+                                "mental"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "magical",
+                        "manipulate",
+                        "mental",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "FrTdGO6BqbRvBLu9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "drink-blood"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "97cwhiod2ricovm20fon": {
+                        "damage": "2d10+7",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -2290,18 +1963,345 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PskJTiEThXOJo4hH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 17
                 },
-                "tradition": {
-                    "value": "divine"
+                "damageRolls": {
+                    "xazre9c2gajsxtmyioio": {
+                        "damage": "2d8+7",
+                        "damageType": "slashing"
+                    }
                 },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uslpjn03DUtzbfFp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Feral Corruption",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Idebilor is reduced to 0 Hit Points and an animal (such as a mold ticks in area <strong>N7</strong> or any of the spider swarms in area <strong>N9</strong>) is within 100 feet</p><hr /><p><strong>Effect</strong> Idebilor casts his spirit into a nearby animal, which must attempt a @Check[will|dc:25] save. On a failure, the animal is possessed (as per the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell) for 7 days. This possession can be counteracted only by effects that can counteract a curse. If, at any point, an animal critically succeeds at this save or no animal is within 100 feet, Idebilor is destroyed.</p>\n<p>If Idebilor is possessing an animal, he seeks out his burial site (area <strong>N11</strong>) and buries himself there. At this point, the animal host is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], and beheading it destroys him and kills the animal. Removing the curse on the animal destroys Idebilor and returns the animal to normal. After [[/gmr 1d4 #days]]{1d4 days}, if Idebilor hasn't been destroyed, the animal dies and Idebilor is reborn fully healed from its remains.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "incapacitation",
+                        "mental",
+                        "possession"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GnAoSJeodjtFoanm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Feral Possession",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The vrykolakas is reduced to 0 Hit Points, and an animal is within 100 feet</p><hr /><p><strong>Effect</strong> Unlike most other undead, a vrykolakas isn't destroyed when it reaches 0 HP. Instead, it attempts to cast its spirit into an animal within 100 feet, which must attempt @Check[will|dc:24] save. On a failure, the animal is possessed. This has the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell, but it lasts a number of days equal to the vrykolakas's level. This possession can't be counteracted with magic (though remove curse works against it normally).</p>\n<p>If the animal succeeds at its save, the vrykolakas can attempt to possess a different animal within 100 feet. If at any point an animal critically succeeds at its save or no animal is within 100 feet, the vrykolakas fails to possess anything and is destroyed.</p>\n<p>A vrykolakas possessing an animal seeks out its burial site (see Burial Site Bound below) immediately, burying itself there. While the vrykolakas is in this state of recovery, its animal host is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], and beheading it destroys the vrykolakas and kills its host. Removing the curse destroys the vrykolakas and returns the animal to normal.</p>\n<p>After [[/gmr 1d4 #days]]{1d4 days}, if the vrykolakas hasn't been destroyed, the animal dies and the vrykolakas rises in a new body that's identical to its previous one, formed from the animal's remains.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "incapacitation",
+                        "mental",
+                        "possession"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c4mDZBMrkh9kwIHn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JOeW89FGrajDYQsW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vrykolakas Vulnerabilities",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Idebilor must return to his burial site (area <strong>N11</strong>) once per week and bury himself there for 24 hours, during which time he is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] and can be beheaded. If he's unable to return to this site, he's reduced to 0 Hit Points and attempts to use Feral Corruption. If the host animal can't reach the burial site before the possession effect ends, Idebilor is destroyed and the animal returns to normal.</p>\n<p>If he is beheaded, Idebilor can't use Feral Corruption, and a beheaded corpse cannot rise as a vrykolakas.</p>\n<p>Vrykolakas all have the following vulnerabilities.</p><ul><li><strong>Burial Site Bound</strong> A vrykolakas is bound to the place of its death or interment. It must return to this location once per week and bury itself in the earth for 24 hours, during which time it is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] and can be beheaded. If it is unable to return to this site, it is reduced to 0 Hit Points and attempts to use Feral Corruption; if this host animal can't return to the burial site before the possession effect ends, the vrykolakas is destroyed and the animal host returns to normal.</li><li><strong>Vulnerable to Decapitation</strong> A vrykolakas that is beheaded can't use its Feral Possession, and a beheaded corpse cannot rise as a vrykolakas.</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NSJfJ8LJDfLasQQF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloody Obsession",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Idebilor curses a living creature with an overwhelming obsession with blood. He stares intently at a living creature within 30 feet, then licks his fangs violently enough to cause his tongue to bleed (this causes no damage to Idebilor). The target must attempt a @Check[will|dc:25] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target feels uneasy. If the target can see a creature taking persistent bleed damage within 30 feet, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as they obsessively stare at the bleeding wound.</p>\n<p><strong>Failure</strong> As success, but the target becomes slowed for 1 minute. If the target uses an Interact action to drink blood from themselves or an adjacent willing or helpless creature, the duration of this curse is reduced by 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but with an unlimited duration. If the target uses an Interact action to drink blood, they ignore the slowed condition caused by this curse for the following [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "curse",
+                        "divine",
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DxgiMoyx7wyltYqp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drink Blood",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The vrykolakas' last action was a successful fangs Strike</p><hr /><p><strong>Effect</strong> The vrykolakas sinks its fangs into that creature to drink its blood. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC. On a success, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, and the vrykolakas regains @Damage[11[healing]] HP, gaining any excess HP as temporary Hit Points.</p>\n<p>Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire, but it increases the creature's drained condition value by 1. A vrykolakas can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week.</p>\n<p>A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "drink-blood",
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H1CrtJTYHt1zROG7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o6uYu3eF1D58ozvS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sap Life",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Idebilor damages at least one living creature with a @UUID[Compendium.pf2e.spells-srd.Item.Harm] spell, he regains HP equal to the harm spell's rank (@Damage[5[healing]]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jpADnhH419EAEb0j",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Butchering Lore",
+            "sort": 3300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Idebilor",

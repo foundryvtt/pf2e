@@ -4,473 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "DFO5TG9a9XSW1ZCQ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aquatic Echolocation (Precise) 120 feet",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A drowned mummy can use its hearing as a precise sense at the listed range but only underwater.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EKje0rFSGasep1s9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CX6Zle74rzAF8AJD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9kbgRdQ3ETNB56f2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Water Pressure",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature that begins its turn within the aura feels overburdened by the weight of the water around it and must succeed at a @Check[fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] for as long as it remains in the area. A creature that succeeds is temporarily immune to water pressure for 24 hours. Water pressure only functions while the drowned mummy is underwater and can only affect creatures that are in contact with the same body of water.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "water-pressure",
-                        "traits": [
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4vu636kxS4VGzdBb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aquatic Advantage",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A drowned mummy's Strikes deal an additional 2d6 damage against creatures in the same body of water as the drowned mummy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "aquatic-advantage",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "aquatic-advantage"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bmmxyDFE4P8Hxgiv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.HBrBrUzjfvj2gDXB"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Aquatic Ambush",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AquaticAmbush]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "aquatic-ambush",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "aquatic-ambush"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": "aquatic-ambush",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VhlqeFWKIF1E1hja",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rancid Bloat",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This disease and damage from it can't be healed unless this curse is removed. A creature killed by rancid bloat rots away to waterlogged pieces of flesh and can't be resurrected except by an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:38]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @Damage[16d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "disease",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ODB0ADki8uJ1yfU4",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Whirlpool",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The drowned mummy is underwater</p>\n<hr />\n<p><strong>Effect</strong> The drowned mummy commands the water to churn, creating a powerful whirlpool centered on itself. Each creature within a @Template[emanation|distance:30] centered on the drowned mummy takes @Damage[14d8[bludgeoning]] damage (@Check[reflex|dc:38|basic]) as the powerful current batters them around. A creature that fails this save is pushed 20 feet away from the mummy and also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure. The drowned mummy can't use Whirlpool again for [[/gmr 1d4 #Recharge Whirlpool]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal",
-                        "water"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LXm7CjtHvyMtTtkR",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "nSWYHtEIfDX1f1iV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "aquatic-advantage"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "jCyIPBB6LdSYHhp1": {
-                        "damage": "3d8+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "aLE7hYZdSApM5Qdi",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "aquatic-advantage",
-                        "rancid-bloat"
-                    ]
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "2iTn519IV1eM6oeP": {
-                        "damage": "2d8+15",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "vnnjrRhVI5LeA1qy",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "nSWYHtEIfDX1f1iV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "aquatic-advantage"
-                    ]
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "G1iw8xwJifDIDWHm": {
-                        "damage": "3d8+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "nSWYHtEIfDX1f1iV",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Trident",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "baseItem": "trident",
                 "bonus": {
@@ -547,6 +87,466 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "LXm7CjtHvyMtTtkR",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "nSWYHtEIfDX1f1iV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "aquatic-advantage"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "jCyIPBB6LdSYHhp1": {
+                        "damage": "3d8+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aLE7hYZdSApM5Qdi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "aquatic-advantage",
+                        "rancid-bloat"
+                    ]
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "2iTn519IV1eM6oeP": {
+                        "damage": "2d8+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vnnjrRhVI5LeA1qy",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "nSWYHtEIfDX1f1iV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "aquatic-advantage"
+                    ]
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "G1iw8xwJifDIDWHm": {
+                        "damage": "3d8+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DFO5TG9a9XSW1ZCQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aquatic Echolocation (Precise) 120 feet",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A drowned mummy can use its hearing as a precise sense at the listed range but only underwater.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EKje0rFSGasep1s9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CX6Zle74rzAF8AJD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9kbgRdQ3ETNB56f2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Water Pressure",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that begins its turn within the aura feels overburdened by the weight of the water around it and must succeed at a @Check[fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] for as long as it remains in the area. A creature that succeeds is temporarily immune to water pressure for 24 hours. Water pressure only functions while the drowned mummy is underwater and can only affect creatures that are in contact with the same body of water.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "water-pressure",
+                        "traits": [
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4vu636kxS4VGzdBb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aquatic Advantage",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A drowned mummy's Strikes deal an additional 2d6 damage against creatures in the same body of water as the drowned mummy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-advantage",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "aquatic-advantage"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bmmxyDFE4P8Hxgiv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.HBrBrUzjfvj2gDXB"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Aquatic Ambush",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AquaticAmbush]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": "aquatic-ambush",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VhlqeFWKIF1E1hja",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rancid Bloat",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This disease and damage from it can't be healed unless this curse is removed. A creature killed by rancid bloat rots away to waterlogged pieces of flesh and can't be resurrected except by an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Resurrect] ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:38]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @Damage[16d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "disease",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ODB0ADki8uJ1yfU4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Whirlpool",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The drowned mummy is underwater</p>\n<hr />\n<p><strong>Effect</strong> The drowned mummy commands the water to churn, creating a powerful whirlpool centered on itself. Each creature within a @Template[emanation|distance:30] centered on the drowned mummy takes @Damage[14d8[bludgeoning]] damage (@Check[reflex|dc:38|basic]) as the powerful current batters them around. A creature that fails this save is pushed 20 feet away from the mummy and also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure. The drowned mummy can't use Whirlpool again for [[/gmr 1d4 #Recharge Whirlpool]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Drowned Mummy",

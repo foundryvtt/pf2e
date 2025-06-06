@@ -4,446 +4,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "J82EHqf8yKe7pMEq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense 30 feet",
+            "_id": "IcalXla4INxKnCPk",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "F7zqmFxLH2v3hOAA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AGshXsiKjGrOkqWk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fNQ2aHpM6vTQ7iqr",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Command Confusion",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature fails its save against the seugathi's mindfog aura</p>\n<hr />\n<p><strong>Effect</strong> The seugathi determines who the @UUID[Compendium.pf2e.conditionitems.Item.Confused] creature attacks for that round, instead of the target being randomly determined by the GM.</p>\n<p>If the chosen target is the confused creature's ally, the creature can immediately attempt a @Check[will|dc:25] save; on a success, its target is determined randomly as normal for confusion, and on a critical success the target is no longer confused.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a4lUBuJPU86WP0Gq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mindfog Aura",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. A creature that starts its turn in the aura must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; on a success, that creature is temporarily immune for 1 minute. A seugathi can suppress or activate this aura as a single action with the concentrate trait.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.Seugathi.MindfogSuppression",
-                        "option": "mindfog-suppression",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            {
-                                "not": "mindfog-suppression"
-                            }
-                        ],
-                        "radius": 20,
-                        "slug": "mindfog-aura",
-                        "traits": [
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "J3s8xl5VZ1K6APbE",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Envenom Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The seugathi applies their seugathi venom to one weapon they wield.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "xoFC8JZ1B0deUW2k",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magic Item Mastery",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A seugathi can Cast a Spell from a magic item even if the spell isn't on their spell list. All such spells are occult spells and use the seugathi's innate spell DC and attack modifier.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "attribute": "cha",
-                        "baseModifier": {
-                            "check": 20,
-                            "dc": 28
-                        },
-                        "itemCasting": {
-                            "tradition": "occult"
-                        },
-                        "key": "SpecialStatistic",
-                        "slug": "magic-item-mastery",
-                        "type": "attack-roll"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nLKHrHv3rcodZfOf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Seugathi Venom",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "seugathi-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EEwIe3zMikRnRWg6",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Warp Reality",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The seugathi bends reality in their choice of a @Template[emanation|distance:10] or a @Template[line|distance:60], altering the terrain of the area. The terrain becomes a different type of terrain (such as aquatic, arctic, or desert) and becomes normal or difficult terrain, as the seugathi chooses. Structures, general geographic features, and creatures in the area aren't transformed, but creatures in the area take @Damage[5d6[spirit]] damage (@Check[fortitude|dc:28|basic] save) as reality tries to bend them along with the terrain.</p>\n<p>Though changes to the area are permanent, the natural environment might eventually revert the land back to its original state (aquatic areas drain, arctic areas thaw, and so on).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pZ4b9ZPNlMtoF8P7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "seugathi-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "dnphm97hx4dsnhn170ma": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    },
-                    "cywy3ghlfzf512zmv11a": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "NVdOFyf2EscpiksE",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "IvhwAKjsxJV7jjkI"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Battle Axe",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "wx54vgedtqcll6qhso2v": {
-                        "damage": "1d8+8",
-                        "damageType": "bludgeoning"
-                    },
-                    "f46v10sj4x3187oxrter": {
-                        "damage": "1d10",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ZQ7GehjePgRVUEf7",
@@ -452,7 +52,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -534,7 +134,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -618,7 +218,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +294,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Wave of Despair",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -776,7 +376,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -858,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -947,7 +547,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1027,7 +627,7 @@
             },
             "img": "icons/magic/light/orb-lightbulb-gray.webp",
             "name": "Hypercognition",
-            "sort": 1900000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1090,7 +690,7 @@
             },
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate",
-            "sort": 2000000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1155,7 +755,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 2100000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1227,7 +827,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1314,7 +914,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2300000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1381,7 +981,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 2400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1462,7 +1062,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2500000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1589,55 +1189,13 @@
             "type": "spell"
         },
         {
-            "_id": "IcalXla4INxKnCPk",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "IvhwAKjsxJV7jjkI",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.War0uyLBx1jA0Ge7"
             },
             "img": "systems/pf2e/icons/equipment/weapons/battle-axe.webp",
             "name": "Battle Axe",
-            "sort": 2700000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "battle-axe",
                 "bonus": {
@@ -1714,6 +1272,448 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "pZ4b9ZPNlMtoF8P7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "seugathi-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "dnphm97hx4dsnhn170ma": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    },
+                    "cywy3ghlfzf512zmv11a": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "NVdOFyf2EscpiksE",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "IvhwAKjsxJV7jjkI"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Battle Axe",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "wx54vgedtqcll6qhso2v": {
+                        "damage": "1d8+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "f46v10sj4x3187oxrter": {
+                        "damage": "1d10",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "J82EHqf8yKe7pMEq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense 30 feet",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "F7zqmFxLH2v3hOAA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AGshXsiKjGrOkqWk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fNQ2aHpM6vTQ7iqr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Command Confusion",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature fails its save against the seugathi's mindfog aura</p>\n<hr />\n<p><strong>Effect</strong> The seugathi determines who the @UUID[Compendium.pf2e.conditionitems.Item.Confused] creature attacks for that round, instead of the target being randomly determined by the GM.</p>\n<p>If the chosen target is the confused creature's ally, the creature can immediately attempt a @Check[will|dc:25] save; on a success, its target is determined randomly as normal for confusion, and on a critical success the target is no longer confused.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a4lUBuJPU86WP0Gq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mindfog Aura",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. A creature that starts its turn in the aura must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round; on a success, that creature is temporarily immune for 1 minute. A seugathi can suppress or activate this aura as a single action with the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Seugathi.MindfogSuppression",
+                        "option": "mindfog-suppression",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "mindfog-suppression"
+                            }
+                        ],
+                        "radius": 20,
+                        "slug": "mindfog-aura",
+                        "traits": [
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J3s8xl5VZ1K6APbE",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Envenom Weapon",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The seugathi applies their seugathi venom to one weapon they wield.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xoFC8JZ1B0deUW2k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Item Mastery",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A seugathi can Cast a Spell from a magic item even if the spell isn't on their spell list. All such spells are occult spells and use the seugathi's innate spell DC and attack modifier.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "attribute": "cha",
+                        "baseModifier": {
+                            "check": 20,
+                            "dc": 28
+                        },
+                        "itemCasting": {
+                            "tradition": "occult"
+                        },
+                        "key": "SpecialStatistic",
+                        "slug": "magic-item-mastery",
+                        "type": "attack-roll"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nLKHrHv3rcodZfOf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Seugathi Venom",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "seugathi-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EEwIe3zMikRnRWg6",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Warp Reality",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The seugathi bends reality in their choice of a @Template[emanation|distance:10] or a @Template[line|distance:60], altering the terrain of the area. The terrain becomes a different type of terrain (such as aquatic, arctic, or desert) and becomes normal or difficult terrain, as the seugathi chooses. Structures, general geographic features, and creatures in the area aren't transformed, but creatures in the area take @Damage[5d6[spirit]] damage (@Check[fortitude|dc:28|basic] save) as reality tries to bend them along with the terrain.</p>\n<p>Though changes to the area are permanent, the natural environment might eventually revert the land back to its original state (aquatic areas drain, arctic areas thaw, and so on).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Seugathi Reality Warper",

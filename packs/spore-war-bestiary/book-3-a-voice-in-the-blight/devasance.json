@@ -4,214 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HfbSs7SLOD6VU1zU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Malaise",
+            "_id": "9e0iniI10DBN6EQL",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A living creature that starts its turn in the devasance's aura must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "void"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PbUqELCuL7UTIIts",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Drink Life",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature takes void damage from the devasance</p><hr /><p><strong>Effect</strong> The devasance gains 25 temporary HP for 1 minute and becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the end of its next turn. It can use the extra action to Strike or Fly.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Drink Life",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Drink Life"
-                },
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MWz3NrV9GtUpaBxo",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Void Shadow",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>While on a plane with the void trait or in the area of an effect with the void trait, the devasance's form disappears. It is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible] in this area, but becomes visible for 1 minute after it takes vitality damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dSUBb6rSLG1okYH5",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Living Death",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature hit by the devasance's void hand strike must attempt a @Check[fortitude|dc:37] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes on the appearance of a rotted or nearly skeletal undead version of itself and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 round. If the target assumes another shape through a polymorph effect, it continues to look undead in its new shape. This change in appearance persists for 10 minutes.</p>\n<p><strong>Failure</strong> As success, but with an unlimited duration. Healing effects on the target restore only half the Hit Points they normally would.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. If a living creature dies while under the effects of this curse, their soul is transformed into a devasance upon death. The creature cannot be restored to life, nor can its soul move on to the afterlife, until it is slain again as a devasance.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0xT9rZeLVOvIihoB",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Void Ray",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The devasance emits a ray of void energy from its chest in a @Template[type:line|distance:60]. Living creatures in this area take @Damage[7d6[void]] damage (@Check[fortitude|dc:37|basic] save, plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} on a failure, or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure; the condition has an unlimited duration in either case).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "x0ffgEgbgkaGmFUh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Void Hand",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "living-death"
-                    ]
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "3b9JMTHA5kSMeNyw": {
-                        "damage": "3d6+8",
-                        "damageType": "void"
-                    },
-                    "rlquxLoijHfrkDlA": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 37,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "OYkUynJdhguqSGVy",
@@ -220,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -289,7 +119,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -374,7 +204,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -462,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -540,7 +370,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -664,7 +494,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -744,22 +574,31 @@
             "type": "spell"
         },
         {
-            "_id": "9e0iniI10DBN6EQL",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1300000,
+            "_id": "x0ffgEgbgkaGmFUh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Void Hand",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "living-death"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "3b9JMTHA5kSMeNyw": {
+                        "damage": "3d6+8",
+                        "damageType": "void"
+                    },
+                    "rlquxLoijHfrkDlA": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -767,21 +606,182 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "HfbSs7SLOD6VU1zU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Malaise",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A living creature that starts its turn in the devasance's aura must succeed at a @Check[will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "void"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PbUqELCuL7UTIIts",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drink Life",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature takes void damage from the devasance</p><hr /><p><strong>Effect</strong> The devasance gains 25 temporary HP for 1 minute and becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the end of its next turn. It can use the extra action to Strike or Fly.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Drink Life",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Drink Life"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MWz3NrV9GtUpaBxo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Shadow",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While on a plane with the void trait or in the area of an effect with the void trait, the devasance's form disappears. It is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible] in this area, but becomes visible for 1 minute after it takes vitality damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dSUBb6rSLG1okYH5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Living Death",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature hit by the devasance's void hand strike must attempt a @Check[fortitude|dc:37] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes on the appearance of a rotted or nearly skeletal undead version of itself and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 round. If the target assumes another shape through a polymorph effect, it continues to look undead in its new shape. This change in appearance persists for 10 minutes.</p>\n<p><strong>Failure</strong> As success, but with an unlimited duration. Healing effects on the target restore only half the Hit Points they normally would.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}. If a living creature dies while under the effects of this curse, their soul is transformed into a devasance upon death. The creature cannot be restored to life, nor can its soul move on to the afterlife, until it is slain again as a devasance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0xT9rZeLVOvIihoB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void Ray",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The devasance emits a ray of void energy from its chest in a @Template[type:line|distance:60]. Living creatures in this area take @Damage[7d6[void]] damage (@Check[fortitude|dc:37|basic] save, plus @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} on a failure, or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure; the condition has an unlimited duration in either case).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Devasance",

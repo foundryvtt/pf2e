@@ -4,427 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZUjpZ8qa5zU67u4f",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Keeper's Revenge",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the gamekeeper dies, all creatures in a @Template[type:emanation|distance:60] that have damaged the gamekeeper in the last minute must succeed a @Check[will|dc:24] saving throw or be cursed. All animals the cursed creature encounters have an initial attitude toward them that is one step worse. This curse can be removed only by an effect that specifically targets curses.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mnYkgDdgH982pZxa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Move It!",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The gamekeeper can @UUID[Compendium.pf2e.actionspf2e.Item.Hustle] for 30 minutes longer and is not affected by difficult terrain while in their territory.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "40j55TPg1eH7egi1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sic 'Em!",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An animal within 60 feet of the gamekeeper is killed</p><hr /><p><strong>Effect</strong> The gamekeeper stokes the ire of the wild. Until the end of the gamekeeper's next turn, they and all animals in a @Template[type:emanation|distance:60] gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sic 'Em!]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fIusYGjNJuL9pseZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Leader of the Pack",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gamekeeper depends on a small pack of dogs or other pack animals suitable for the environment to patrol their area. Creatures that are adjacent to a hostile animal are considered @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the gamekeeper.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "leader-of-the-pack",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "leader-of-the-pack"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZdVVssE5mW70jC47",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 40,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "3e3jDXa0BbxKnEPG",
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Animal Treats",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "T6ziNrg4PIf1x1Cv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Hunting Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Ih7QDfEToepMwEar",
-            "_stats": {
-                "compendiumSource": "Actor.mYgxWlZT3QW41nhq.Item.jBgZFYd3SvvHv1KH"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "eEvwd3QZagynekeT": {
-                        "damage": "1d4+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "QQ2wRxTrRAKl78I6",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "3L0e1yhguw2F1b1b"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "AmVr7gw6vRwBxVul": {
-                        "damage": "1d6+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "club",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "iR6mpiXvRooJNr8l",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "y2SjMGWNErqnjeL0"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Arbalest",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "6qnbkefxia7y8bd6": {
-                        "damage": "1d10+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "arbalest",
-                "traits": {
-                    "value": [
-                        "backstabber",
-                        "magical",
-                        "range-increment-110",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "y2SjMGWNErqnjeL0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.K3qNqWRvBhnlwE3Q"
             },
             "img": "icons/weapons/crossbows/crossbow-purple.webp",
             "name": "Arbalest",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "arbalest",
                 "bonus": {
@@ -509,7 +95,7 @@
             },
             "img": "icons/weapons/clubs/club-banded-brown.webp",
             "name": "Club",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "baseItem": "club",
                 "bonus": {
@@ -585,6 +171,420 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "3e3jDXa0BbxKnEPG",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Animal Treats",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ZdVVssE5mW70jC47",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 40,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Ih7QDfEToepMwEar",
+            "_stats": {
+                "compendiumSource": "Actor.mYgxWlZT3QW41nhq.Item.jBgZFYd3SvvHv1KH"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "eEvwd3QZagynekeT": {
+                        "damage": "1d4+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "QQ2wRxTrRAKl78I6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3L0e1yhguw2F1b1b"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "AmVr7gw6vRwBxVul": {
+                        "damage": "1d6+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "club",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iR6mpiXvRooJNr8l",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "y2SjMGWNErqnjeL0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Arbalest",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "6qnbkefxia7y8bd6": {
+                        "damage": "1d10+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "arbalest",
+                "traits": {
+                    "value": [
+                        "backstabber",
+                        "magical",
+                        "range-increment-110",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZUjpZ8qa5zU67u4f",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Keeper's Revenge",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the gamekeeper dies, all creatures in a @Template[type:emanation|distance:60] that have damaged the gamekeeper in the last minute must succeed a @Check[will|dc:24] saving throw or be cursed. All animals the cursed creature encounters have an initial attitude toward them that is one step worse. This curse can be removed only by an effect that specifically targets curses.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mnYkgDdgH982pZxa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Move It!",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The gamekeeper can @UUID[Compendium.pf2e.actionspf2e.Item.Hustle] for 30 minutes longer and is not affected by difficult terrain while in their territory.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "40j55TPg1eH7egi1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sic 'Em!",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An animal within 60 feet of the gamekeeper is killed</p><hr /><p><strong>Effect</strong> The gamekeeper stokes the ire of the wild. Until the end of the gamekeeper's next turn, they and all animals in a @Template[type:emanation|distance:60] gain a +1 status bonus to attack rolls and a +2 status bonus to damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Sic 'Em!]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fIusYGjNJuL9pseZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Leader of the Pack",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gamekeeper depends on a small pack of dogs or other pack animals suitable for the environment to patrol their area. Creatures that are adjacent to a hostile animal are considered @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the gamekeeper.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "leader-of-the-pack",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "leader-of-the-pack"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "T6ziNrg4PIf1x1Cv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Hunting Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Gamekeeper",

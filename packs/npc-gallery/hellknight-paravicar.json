@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "M6mU2n4cS5QZRHvV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
+            "_id": "SPtYCE6lLVtQjkar",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>If a reaction would disrupt the Hellknight paravicar's spellcasting, they can attempt a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,30 +27,62 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "FQO3E18nwnNURI9p",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Universal Obedience",
+            "_id": "ug2TQxIeBOWQren2",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>If the next action the Hellknight paravicar uses is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Cast a sorcerer Spell} with the linguistic trait, the spell affects its target as if the target and the Hellknight paravicar shared a common language. The target must have a language.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -55,325 +90,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "manipulate"
-                    ]
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "rJH4Sq14VL3sMhLc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/hellknight-plate.webp",
-            "name": "Hellknight Plate",
-            "sort": 300000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": "hellknight-plate",
-                "bulk": {
-                    "value": 4
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Few armors in the Inner Sea region are as memorable as the iconic Hellknight plate. While each order has its own flourishes, Hellknight plate is instantly recognizable to any who know of the Hellknights. Hellknights go to extreme measures to punish non-Hellknights who get their hands on Hellknight plate, and the reward is not usually worth the risk, since for non-Hellknights, the armor is functionally similar to @UUID[Compendium.pf2e.equipment-srd.Item.Full Plate].</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 35
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens Character Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "hellknight-plate",
-                "speedPenalty": -10,
-                "strength": 4,
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "bulwark"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "E0HKgUzJnsdh8ASy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "B3JpSKzv22WWlqMT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Lesser)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "2d8+5",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "WRQQun80G8om7SIp",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "18XOpkL2M0BH3sDN"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Morningstar",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xkwTvTqSPNbk86Un",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "yjTVn5zGiibr7UH8"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Crossbow",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-120",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "z0BFdEjxYBwV6rLi",
@@ -382,7 +110,7 @@
             },
             "img": "systems/pf2e/icons/spells/spellwrack.webp",
             "name": "Spellwrack",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -451,7 +179,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -536,7 +264,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -600,7 +328,7 @@
             },
             "img": "systems/pf2e/icons/spells/banishment.webp",
             "name": "Banishment",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -669,7 +397,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -740,7 +468,7 @@
             },
             "img": "icons/magic/earth/volcano-explosion-lava-yellow.webp",
             "name": "Hellfire Plume",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -836,7 +564,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-fiend.webp",
             "name": "Summon Fiend",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -896,7 +624,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-fiend.webp",
             "name": "Summon Fiend",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -956,7 +684,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1018,7 +746,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1085,7 +813,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1149,7 +877,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1218,7 +946,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1287,7 +1015,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 2100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1370,7 +1098,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1453,7 +1181,7 @@
             },
             "img": "systems/pf2e/icons/spells/embrace-the-pit.webp",
             "name": "Embrace the Pit",
-            "sort": 2300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1513,7 +1241,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 2400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1581,7 +1309,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 2500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1644,7 +1372,7 @@
             },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire",
-            "sort": 2600000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1710,7 +1438,7 @@
             },
             "img": "icons/magic/earth/orb-lava-ball-yellow.webp",
             "name": "Flaming Sphere",
-            "sort": 2700000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1794,7 +1522,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2800000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1864,7 +1592,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2900000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1934,7 +1662,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 3000000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2004,7 +1732,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 3100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2074,7 +1802,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment",
-            "sort": 3200000,
+            "sort": 2700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2139,7 +1867,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3300000,
+            "sort": 2800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2206,7 +1934,7 @@
             },
             "img": "systems/pf2e/icons/spells/diabolic-edict.webp",
             "name": "Diabolic Edict",
-            "sort": 3400000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2264,7 +1992,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 3500000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2335,7 +2063,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 3600000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2396,7 +2124,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 3700000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2593,7 +2321,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 3800000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2657,7 +2385,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 3900000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2738,7 +2466,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 4000000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2806,7 +2534,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 4100000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2868,7 +2596,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 4200000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2923,114 +2651,13 @@
             "type": "spell"
         },
         {
-            "_id": "SPtYCE6lLVtQjkar",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 4300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "ug2TQxIeBOWQren2",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
-            "sort": 4400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "yjTVn5zGiibr7UH8",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
             },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
-            "sort": 4500000,
+            "sort": 3800000,
             "system": {
                 "baseItem": "crossbow",
                 "bonus": {
@@ -3113,7 +2740,7 @@
             },
             "img": "icons/weapons/maces/mace-round-spiked-black.webp",
             "name": "Morningstar",
-            "sort": 4600000,
+            "sort": 3900000,
             "system": {
                 "baseItem": "morningstar",
                 "bonus": {
@@ -3190,6 +2817,379 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "rJH4Sq14VL3sMhLc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/hellknight-plate.webp",
+            "name": "Hellknight Plate",
+            "sort": 4000000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "hellknight-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Few armors in the Inner Sea region are as memorable as the iconic Hellknight plate. While each order has its own flourishes, Hellknight plate is instantly recognizable to any who know of the Hellknights. Hellknights go to extreme measures to punish non-Hellknights who get their hands on Hellknight plate, and the reward is not usually worth the risk, since for non-Hellknights, the armor is functionally similar to @UUID[Compendium.pf2e.equipment-srd.Item.Full Plate].</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 35
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens Character Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hellknight-plate",
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "E0HKgUzJnsdh8ASy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 4100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "B3JpSKzv22WWlqMT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Lesser)",
+            "sort": 4200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(2d8+5)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 12
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "WRQQun80G8om7SIp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "18XOpkL2M0BH3sDN"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Morningstar",
+            "sort": 4300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xkwTvTqSPNbk86Un",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "yjTVn5zGiibr7UH8"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Crossbow",
+            "sort": 4400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-120",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "M6mU2n4cS5QZRHvV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt the Hellknight paravicar's spellcasting, they can attempt a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FQO3E18nwnNURI9p",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Universal Obedience",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the next action the Hellknight paravicar uses is to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Cast a sorcerer Spell} with the linguistic trait, the spell affects its target as if the target and the Hellknight paravicar shared a common language. The target must have a language.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Hellknight Paravicar",

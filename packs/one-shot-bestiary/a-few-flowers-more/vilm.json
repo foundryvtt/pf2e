@@ -4,173 +4,139 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7Tr463aYLlpKVHXH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rip Flesh",
+            "_id": "7qYSCkLUt7VdjJqF",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A jinkin has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with their pincer claw</p>\n<hr />\n<p><strong>Effect</strong> The jinkin forcefully pulls the pincer claw out of the creature, ripping flesh and cackling in sadistic glee. The creature takes @Damage[1d8[piercing]] damage and is no longer grabbed.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "hZy96Ln7woTYG0EE",
+            "_id": "5aOi2V8jW8bju4iW",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
+            "img": "icons/magic/symbols/runes-triangle-blue.webp",
+            "name": "Prestidigitation",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>The jinkin deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The simplest magic does your bidding. You can perform simple magical effects for as long as you Sustain the Spell. Each time you Sustain the Spell, you can choose one of four options.</p>\n<ul>\n<li><strong>Cook</strong> Cool, warm, or flavor 1 pound of nonliving material.</li>\n<li><strong>Lift</strong> Slowly lift an unattended object of light Bulk or less 1 foot off the ground.</li>\n<li><strong>Make</strong> Create a temporary object of negligible Bulk, made of congealed magical substance. The object looks crude and artificial and is extremely fragile-it can't be used as a tool, weapon, or spell component.</li>\n<li><strong>Tidy</strong> Color, clean, or soil an object of light Bulk or less. You can affect an object of 1 Bulk with 10 rounds of concentration, and a larger object a 1 minute per Bulk.</li>\n</ul>\n<p>Prestidigitation can't deal damage or cause adverse conditions. Any actual change to an object (beyond what is noted above) persists only as long as you Sustain the Spell.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "7qYSCkLUt7VdjJqF"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
+                "range": {
+                    "value": "10 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "prestidigitation",
+                "target": {
+                    "value": "1 object (cook, lift, or tidy only)"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sdTQ4UDze0yoQiqJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tinker",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A group of six jinkins can work together for an hour to imbue an item with a curse at a range of 60 feet. While this process is lengthy, it's also unobtrusive and can be performed while @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hiding}. Jinkins prefer to use this ability on magic items. The curse makes the item unreliable (@Check[flat|dc:5] or waste any action to Interact with or Activate the item), adds a bizarre requirement to use the item, or imparts some other curse of a similar caliber.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "curse",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
                         "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "uF8rrbcid5DCz1gK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ltAQkS0Veq8SlsBm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 500000,
+            "_id": "IwDJy9E3HcmIRFRG",
+            "img": "systems/pf2e/icons/equipment/weapons/shears.webp",
+            "name": "Pincer Claw",
+            "sort": 300000,
             "system": {
                 "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "bulk": {
                     "value": 0.1
                 },
-                "category": "ammo",
+                "category": "simple",
                 "containerId": null,
-                "damage": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
                 "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
+                "group": null,
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -184,9 +150,91 @@
                     "type": null
                 },
                 "price": {
-                    "per": 10,
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "tiny",
+                "slug": "",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "JiOjgo31jQPPDL1p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
+            "name": "Shortbow",
+            "sort": 400000,
+            "system": {
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
                     "value": {
-                        "sp": 1
+                        "gp": 3
                     }
                 },
                 "publication": {
@@ -194,25 +242,33 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 20,
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
+                },
                 "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
                 "size": "tiny",
-                "slug": "arrows",
-                "stackGroup": "arrows",
+                "slug": "shortbow",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d10"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
+                    "value": "held-in-one-plus-hands"
                 }
             },
-            "type": "consumable"
+            "type": "weapon"
         },
         {
             "_id": "iVCHXn2IbVYrD3Ct",
@@ -221,7 +277,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-green.webp",
             "name": "Boots of Elvenkind",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -284,6 +340,72 @@
                 }
             },
             "type": "equipment"
+        },
+        {
+            "_id": "ltAQkS0Veq8SlsBm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "tiny",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
         },
         {
             "_id": "CVjUFBRBNFzzyeUM",
@@ -432,271 +554,149 @@
             "type": "melee"
         },
         {
-            "_id": "5aOi2V8jW8bju4iW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
-            },
-            "img": "icons/magic/symbols/runes-triangle-blue.webp",
-            "name": "Prestidigitation",
+            "_id": "7Tr463aYLlpKVHXH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rip Flesh",
             "sort": 1000000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "action"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>The simplest magic does your bidding. You can perform simple magical effects for as long as you Sustain the Spell. Each time you Sustain the Spell, you can choose one of four options.</p>\n<ul>\n<li><strong>Cook</strong> Cool, warm, or flavor 1 pound of nonliving material.</li>\n<li><strong>Lift</strong> Slowly lift an unattended object of light Bulk or less 1 foot off the ground.</li>\n<li><strong>Make</strong> Create a temporary object of negligible Bulk, made of congealed magical substance. The object looks crude and artificial and is extremely fragile-it can't be used as a tool, weapon, or spell component.</li>\n<li><strong>Tidy</strong> Color, clean, or soil an object of light Bulk or less. You can affect an object of 1 Bulk with 10 rounds of concentration, and a larger object a 1 minute per Bulk.</li>\n</ul>\n<p>Prestidigitation can't deal damage or cause adverse conditions. Any actual change to an object (beyond what is noted above) persists only as long as you Sustain the Spell.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
+                "actions": {
                     "value": 1
                 },
-                "location": {
-                    "value": "7qYSCkLUt7VdjJqF"
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A jinkin has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] with their pincer claw</p>\n<hr />\n<p><strong>Effect</strong> The jinkin forcefully pulls the pincer claw out of the creature, ripping flesh and cackling in sadistic glee. The creature takes @Damage[1d8[piercing]] damage and is no longer grabbed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "range": {
-                    "value": "10 feet"
-                },
-                "requirements": "",
                 "rules": [],
-                "slug": "prestidigitation",
-                "target": {
-                    "value": "1 object (cook, lift, or tidy only)"
-                },
-                "time": {
-                    "value": "2"
-                },
+                "slug": "",
                 "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "7qYSCkLUt7VdjJqF",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "hZy96Ln7woTYG0EE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
             "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
+                    "value": "<p>The jinkin deals 1d6 extra precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "primal"
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "IwDJy9E3HcmIRFRG",
-            "img": "systems/pf2e/icons/equipment/weapons/shears.webp",
-            "name": "Pincer Claw",
+            "_id": "sdTQ4UDze0yoQiqJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tinker",
             "sort": 1200000,
             "system": {
-                "baseItem": null,
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": null,
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
+                    "value": "<p>A group of six jinkins can work together for an hour to imbue an item with a curse at a range of 60 feet. While this process is lengthy, it's also unobtrusive and can be performed while @UUID[Compendium.pf2e.actionspf2e.Item.Hide]{Hiding}. Jinkins prefer to use this ability on magic items. The curse makes the item unreliable (@Check[flat|dc:5] or waste any action to Interact with or Activate the item), adds a bizarre requirement to use the item, or imparts some other curse of a similar caliber.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "tiny",
                 "slug": "",
-                "splashDamage": {
-                    "value": 0
-                },
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "finesse"
+                        "curse",
+                        "primal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "JiOjgo31jQPPDL1p",
+            "_id": "uF8rrbcid5DCz1gK",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
-            "name": "Shortbow",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 1300000,
             "system": {
-                "baseItem": "shortbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": 60,
-                "reload": {
-                    "value": "0"
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "tiny",
-                "slug": "shortbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "grab",
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "deadly-d10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-plus-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Vilm",

@@ -4,69 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "gs0pxkwu7daocb36",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hellfire Flurry",
+            "_id": "U1xk8qzg0baTzMmB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Monk Focus Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The monastic bodyguard makes two Strikes with his fist or with a monk weapon. These attacks deal an extra @Damage[1d4[fire]] damage. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "hellfire-flurry",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "hellfire-flurry"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8zi6k2km9hutms1m",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Powerful Fists",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The monastic bodyguard's fist Strikes don't take penalties when making lethal attacks.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -74,111 +28,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 15,
+                    "mod": 0,
+                    "value": 7
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "evu7m4fyr5r21h1i",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "BHyl0T5dDj8CXNNn"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bo Staff",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "xbcxGay9SyTaPvS6": {
-                        "damage": "1d8+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "parry",
-                        "reach",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ygcqxglhl1ki3ua7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "C7x8CgCdGgtTmpBf": {
-                        "damage": "1d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "0nW0w6desfRkFgUY",
@@ -187,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -245,7 +106,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -314,51 +175,13 @@
             "type": "spell"
         },
         {
-            "_id": "U1xk8qzg0baTzMmB",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Focus Spells",
-            "sort": 700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 15,
-                    "mod": 0,
-                    "value": 7
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "BHyl0T5dDj8CXNNn",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hMYdSFmMWzidzHih"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bo-staff.webp",
             "name": "Bo Staff",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "baseItem": "bo-staff",
                 "bonus": {
@@ -438,6 +261,183 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "evu7m4fyr5r21h1i",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "BHyl0T5dDj8CXNNn"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bo Staff",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "xbcxGay9SyTaPvS6": {
+                        "damage": "1d8+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "parry",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ygcqxglhl1ki3ua7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "C7x8CgCdGgtTmpBf": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "gs0pxkwu7daocb36",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hellfire Flurry",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The monastic bodyguard makes two Strikes with his fist or with a monk weapon. These attacks deal an extra @Damage[1d4[fire]] damage. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "hellfire-flurry",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "hellfire-flurry"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8zi6k2km9hutms1m",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Powerful Fists",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The monastic bodyguard's fist Strikes don't take penalties when making lethal attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Monastic Bodyguard (3-4)",

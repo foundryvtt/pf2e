@@ -3,158 +3,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8VqNl9kqJUEBBRW1",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Ferocious Will",
+            "_id": "cIdzhTylzbVeNykJ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The house drake succeeds at a saving throw against a magical mental effect</p>\n<hr />\n<p><strong>Effect</strong> The house drake sends a blast of magical feedback at the effect's source, dealing @Damage[2d6[mental]] damage (@Check[will|dc:16|basic] save) to that creature. On a failed save, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VR2zhinm3bRfVONP",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The house drake breathes a @Template[cone|distance:10] of silver mist. Each creature within the mist must succeed at a @Check[will|dc:16|options:area-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p>The house drake can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UYwd2bv5bCYGaPAI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Silver Strike",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>House drakes sharpen their jaws on silver ornamentation until they incorporate bits of silver in their teeth. Their jaws Strike counts as silver.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:jaws"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    }
-                ],
-                "slug": "silver-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y0GOJlbF7uqf9iXm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 400000,
-            "system": {
-                "attack": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "silver-strike"
-                    ]
+                "prepared": {
+                    "value": "innate"
                 },
-                "bonus": {
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
                     "value": 9
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d8 + 1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "cHbVgR84LooQlfjQ",
@@ -163,7 +49,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Obscuring Mist",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -228,7 +114,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -291,7 +177,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -357,7 +243,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -431,22 +317,31 @@
             "type": "spell"
         },
         {
-            "_id": "cIdzhTylzbVeNykJ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 900000,
+            "_id": "y0GOJlbF7uqf9iXm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "silver-strike"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d8 + 1",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -454,21 +349,126 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 9
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "8VqNl9kqJUEBBRW1",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocious Will",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The house drake succeeds at a saving throw against a magical mental effect</p>\n<hr />\n<p><strong>Effect</strong> The house drake sends a blast of magical feedback at the effect's source, dealing @Damage[2d6[mental]] damage (@Check[will|dc:16|basic] save) to that creature. On a failed save, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VR2zhinm3bRfVONP",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The house drake breathes a @Template[cone|distance:10] of silver mist. Each creature within the mist must succeed at a @Check[will|dc:16|options:area-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 round.</p>\n<p>The house drake can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UYwd2bv5bCYGaPAI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Silver Strike",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>House drakes sharpen their jaws on silver ornamentation until they incorporate bits of silver in their teeth. Their jaws Strike counts as silver.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:jaws"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
+                "slug": "silver-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "House Drake",

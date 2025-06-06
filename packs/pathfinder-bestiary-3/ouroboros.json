@@ -3,423 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZUqkHDdNfKyhgkOs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sGEoB9eohFcV4gEe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 50 (Deactivated by Fire)",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "fire"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 50
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BD81Ab7NPFAacuhc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Attack of Opportunity (Special)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Incalculable Fangs Only</p>\n<p>Because the ouroboros contains an infinite number of snakes that act independently, its Attack of Opportunity is a free action (though it can still use only one per trigger).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m8Ycgo6ZGdfthZSw",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sanguine Spray",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the ouroboros takes slashing or piercing damage, or when Devour Tail ends, blood gushes from the wound in a @Template[cone|distance:15]. Each creature in the area takes @Damage[5d6[acid]] damage (@Check[reflex|dc:41|basic] save). A creature that takes any damage is exposed to the ouroboros's regenerative blood.</p>\n<p>Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals @Damage[17[piercing],5[poison]]{17 piercing damage and 5 poison damage} to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an @UUID[Compendium.pf2e.pathfinder-bestiary-2.Actor.Emperor Cobra].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5JGaGCjUurVrjoyX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unfathomable Infinity",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>100 feet. The ouroboros is the embodiment of perfect infinity, and this concept pulls at the threads of mortal minds, desperately straining the limits of their comprehension. When a creature ends its turn in the aura, it must attempt a @Check[will|dc:41] save.</p>\n<p>The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Success</strong> The creature is stupefied 1 for 1 minute.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned], both for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 100,
-                        "slug": "unfathomable-infinity",
-                        "traits": [
-                            "incapacitation",
-                            "mental",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "incapacitation",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tqdfXRytHABtgkJ4",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Devour Tail",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An ouroboros spend most of its life eating its own tail, which perpetually regrows at the same rate it's consumed. The ouroboros places its maw around the end of its tail and begins devouring its own body.</p>\n<p>While the ouroboros is consuming itself, its regeneration can't be suppressed, and it is immune to @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage], and @UUID[Compendium.pf2e.conditionitems.Item.Sickened] conditions. If any of these conditions is in effect when the ouroboros takes this action, the condition immediately ends.</p>\n<p>While eating its tail, the ouroboros can't make maw or tail strikes, and its Speeds are 50 feet. It continues devouring its tail even while @UUID[Compendium.pf2e.conditionitems.Item.Dying], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or otherwise unable to act.</p>\n<p>To end this effect, the ouroboros must first be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], then a creature must successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] it, which tears the maw free in addition to its normal effects. The ouroboros can also cease Devouring its Tail with a single action. Either of these tears the maw free of the tail, causing the stump to spill blood as described in sanguine spray.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "devour-tail",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "devour-tail"
-                        ],
-                        "type": [
-                            "drained",
-                            "enfeebled",
-                            "fatigued",
-                            "persistent-damage",
-                            "sickened"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mNMGvHwMrDdtnVoO",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Fast Swallow",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The ouroboros @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grabs} a creature with their maw</p>\n<hr />\n<p><strong>Effect</strong> The ouroboros uses Swallow Whole.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "fast-swallow",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PrWWui76kCsgmSBk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Flying Wheel",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ouroboros is eating its own tail (see Devour Tail)</p>\n<hr />\n<p><strong>Effect</strong> As Trample, except the ouroboros can Fly up to double its Speed instead of Striding.</p>\n<p>Huge or smaller, body, @Check[reflex|dc:45|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "trample",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HAbopgX5BTCYokYc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regenerative Blood",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The regenerative and transmutative properties of ouroboros blood regenerate and mutate a creature's body into ouroboros-like snakes. A creature already affected by regenerative blood is immune to additional exposure.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 24 hours</p>\n<p><strong>Stage 1</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (12 hours)</p>\n<p><strong>Stage 2</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4} (12 hours)</p>\n<p><strong>Stage 3</strong> The creature's body transmutes into a mass of writhing snakes, with the effects an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] spell but with an unlimited duration.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "contact",
-                        "curse",
-                        "incapacitation",
-                        "poison",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1sZ0LFXxfqkedyyb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Huge, @Damage[(4d10+9)[acid]], Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FR0NE1tkGwNuwmOZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "gJ7hdDvMBTlevMyx",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Maw",
-            "sort": 1200000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -466,7 +53,7 @@
             "_id": "phH8RreUZhjjwiuo",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Body",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -511,7 +98,7 @@
             "_id": "lIN8nRgTYzPOm90G",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Incalculable Fangs",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -561,7 +148,7 @@
             "_id": "rYN4yg46PUJy1sS9",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -601,6 +188,419 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "ZUqkHDdNfKyhgkOs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sGEoB9eohFcV4gEe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 50 (Deactivated by Fire)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BD81Ab7NPFAacuhc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Attack of Opportunity (Special)",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Incalculable Fangs Only</p>\n<p>Because the ouroboros contains an infinite number of snakes that act independently, its Attack of Opportunity is a free action (though it can still use only one per trigger).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m8Ycgo6ZGdfthZSw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sanguine Spray",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the ouroboros takes slashing or piercing damage, or when Devour Tail ends, blood gushes from the wound in a @Template[cone|distance:15]. Each creature in the area takes @Damage[5d6[acid]] damage (@Check[reflex|dc:41|basic] save). A creature that takes any damage is exposed to the ouroboros's regenerative blood.</p>\n<p>Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals @Damage[17[piercing],5[poison]]{17 piercing damage and 5 poison damage} to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an @UUID[Compendium.pf2e.pathfinder-bestiary-2.Actor.Emperor Cobra].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5JGaGCjUurVrjoyX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unfathomable Infinity",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>100 feet. The ouroboros is the embodiment of perfect infinity, and this concept pulls at the threads of mortal minds, desperately straining the limits of their comprehension. When a creature ends its turn in the aura, it must attempt a @Check[will|dc:41] save.</p>\n<p>The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Success</strong> The creature is stupefied 1 for 1 minute.</p>\n<p><strong>Failure</strong> The creature is stupefied 1 for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned], both for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "unfathomable-infinity",
+                        "traits": [
+                            "incapacitation",
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "incapacitation",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tqdfXRytHABtgkJ4",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Devour Tail",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An ouroboros spend most of its life eating its own tail, which perpetually regrows at the same rate it's consumed. The ouroboros places its maw around the end of its tail and begins devouring its own body.</p>\n<p>While the ouroboros is consuming itself, its regeneration can't be suppressed, and it is immune to @UUID[Compendium.pf2e.conditionitems.Item.Drained], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Fatigued], @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage], and @UUID[Compendium.pf2e.conditionitems.Item.Sickened] conditions. If any of these conditions is in effect when the ouroboros takes this action, the condition immediately ends.</p>\n<p>While eating its tail, the ouroboros can't make maw or tail strikes, and its Speeds are 50 feet. It continues devouring its tail even while @UUID[Compendium.pf2e.conditionitems.Item.Dying], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or otherwise unable to act.</p>\n<p>To end this effect, the ouroboros must first be @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], then a creature must successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] it, which tears the maw free in addition to its normal effects. The ouroboros can also cease Devouring its Tail with a single action. Either of these tears the maw free of the tail, causing the stump to spill blood as described in sanguine spray.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "devour-tail",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "devour-tail"
+                        ],
+                        "type": [
+                            "drained",
+                            "enfeebled",
+                            "fatigued",
+                            "persistent-damage",
+                            "sickened"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mNMGvHwMrDdtnVoO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Fast Swallow",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The ouroboros @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]{Grabs} a creature with their maw</p>\n<hr />\n<p><strong>Effect</strong> The ouroboros uses Swallow Whole.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "fast-swallow",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PrWWui76kCsgmSBk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flying Wheel",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ouroboros is eating its own tail (see Devour Tail)</p>\n<hr />\n<p><strong>Effect</strong> As Trample, except the ouroboros can Fly up to double its Speed instead of Striding.</p>\n<p>Huge or smaller, body, @Check[reflex|dc:45|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "trample",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HAbopgX5BTCYokYc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regenerative Blood",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The regenerative and transmutative properties of ouroboros blood regenerate and mutate a creature's body into ouroboros-like snakes. A creature already affected by regenerative blood is immune to additional exposure.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:42]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 24 hours</p>\n<p><strong>Stage 1</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (12 hours)</p>\n<p><strong>Stage 2</strong> regeneration 5 (deactivated by fire), @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4} (12 hours)</p>\n<p><strong>Stage 3</strong> The creature's body transmutes into a mass of writhing snakes, with the effects an 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] spell but with an unlimited duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "contact",
+                        "curse",
+                        "incapacitation",
+                        "poison",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1sZ0LFXxfqkedyyb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Huge, @Damage[(4d10+9)[acid]], Rupture 50</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FR0NE1tkGwNuwmOZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ouroboros",

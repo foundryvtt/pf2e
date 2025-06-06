@@ -3,369 +3,146 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "arPvj1DbTMkdSiTB",
+            "_id": "Xam6UcLwOGTDVFxo",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+                "compendiumSource": "Actor.MfpL1tgQP4ek9PjR.Item.Xam6UcLwOGTDVFxo"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense (Imprecise) 30 feet",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dWRnyH4wHlRK0NV9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y6w2lBq7sglsX4fS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Divine",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:divine"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LLQTiCQhR3zcH4eU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Divine Deflection",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon is critically hit by an attack</p>\n<hr />\n<p><strong>Effect</strong> Divine power intercedes, preventing some of the damage. The dragon gains resistance 10 to all damage against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "divine-deflection",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "divine-deflection"
-                        ],
-                        "type": "all-damage",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "S375NGCdok3X6iek",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Inspiring Presence",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet.</p>\n<p>The mere sight of an empyreal dragon motivates other creatures. Creatures within the aura gain a +1 status bonus to saving throws and skill checks. The empyreal dragon can't gain the benefit of their own aura or other actions that use the aura, and they can choose to exclude any creatures from any benefit of the aura or action that uses the aura.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Inspiring Presence (Empyreal Dragon)"
-                            }
-                        ],
-                        "key": "Aura",
-                        "predicate": [
-                            {
-                                "not": "direct-halo"
-                            }
-                        ],
-                        "radius": 20,
-                        "traits": [
-                            "emotion",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "inspiring-presence",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vUZ5gWFlcQncu9SL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Direct Halo",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon tosses their halo to a square within 90 feet. While the halo is deployed in this way, the dragon loses their inspiring presence aura, and the aura instead emanates from the halo with the same emanation radius. The dragon can Sustain to recall the halo from any distance. The halo is made of pure light—it doesn't occupy space and can't be targeted or destroyed in any way.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "direct-halo",
-                        "toggleable": true
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "kOD8o01yOwFzuiUb"
+                            },
+                            {
+                                "id": "g5tiSyjsdInpHaA3"
+                            },
+                            {
+                                "id": "FarriZphgoWKd5hs"
+                            },
+                            {
+                                "id": "yjA5pdnokuQ3BOpi"
+                            },
+                            {
+                                "id": "dhAU4NQ4Wp4Sf4rk"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "82e6h0G1hhYvXryF"
+                            },
+                            {
+                                "id": "OcAiIVYoX1u2UTsn"
+                            },
+                            {
+                                "id": "C0soCx7JOJFrtgY1"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "4k29njWdCtJHmgAF"
+                            },
+                            {
+                                "id": "vekBkAd8RgH4uvQq"
+                            },
+                            {
+                                "id": "sDo79BITjlNLKHoD"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "uOlpbuT0thoTGVfm"
+                            },
+                            {
+                                "id": "e448Exgc71rcX7aN"
+                            },
+                            {
+                                "id": "rE8Q0l1S0TvuZDxW"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "tx2lQN27Lj6K3BuC"
+                            },
+                            {
+                                "id": "RThBflxDoMQ24BYo"
+                            },
+                            {
+                                "id": "Je9Vf5cCzV7w9Qvn"
+                            }
+                        ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OjT0pleNnNeCjfub",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Halo Pulse",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
+                "spelldc": {
+                    "dc": 29,
+                    "value": 22
                 },
-                "actions": {
-                    "value": 2
+                "tradition": {
+                    "value": "divine"
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon chooses one effect to impose on creatures in their inspiring presence aura.</p>\n<p>The dragon can't use Halo Pulse again for [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Repulsion</strong> Each creature must succeed at a @Check[fortitude|dc:29] save or be pushed until it's no longer in the aura.</li>\n<li><strong>Restoration</strong> (healing, vitality) Each creature recovers @Damage[5d8[healing]]{5d8 Hit Points}.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kvqqiXW7WeNRoofl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spirit Breath",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon unleashes a blast of holy fire that deals @Damage[9d8[spirit]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:29|basic|options:area-effect] save).</p>\n<p>The dragon can't use Spirit Breath again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "holy",
-                        "spirit"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PGKw766Nf01Dibfj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Heaven Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "PLkCVfc8da1kpFaM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
+            "_id": "BsBGEo42aDLylS80",
+            "_stats": {
+                "compendiumSource": "Actor.MfpL1tgQP4ek9PjR.Item.BsBGEo42aDLylS80"
+            },
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "3k67sBQbgZFYm8n3": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "cEKh5CNc7KzHotiF": {
-                        "damage": "2d10+9",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -373,164 +150,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "holy",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "7Q0vXXKMcdqYWR0t",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "RpQIzImOfD467cVQ": {
-                        "damage": "2d8+9",
-                        "damageType": "slashing"
-                    },
-                    "ZdM6C0spWwVMAiLM": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "holy",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Dwo2UQS3Y2cbaR0u",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "Va9e8DMKv5qn4gRL": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "b2gH0iPqE45nJcIi": {
-                        "damage": "2d10+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "holy",
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "thc8iQSsjt0P5UbH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Wing",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "gW17aQRm17xarr0r": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "oOA5pz1jZWPCLupp": {
-                        "damage": "1d10+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "dZPExCkBhDp7SQj4",
@@ -539,7 +173,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -601,7 +235,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -662,7 +296,7 @@
             },
             "img": "systems/pf2e/icons/spells/vital-beacon.webp",
             "name": "Vital Beacon",
-            "sort": 1600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -724,7 +358,7 @@
             },
             "img": "systems/pf2e/icons/spells/bind-undead.webp",
             "name": "Bind Undead",
-            "sort": 1700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -785,7 +419,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Holy Light (At Will)",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -879,7 +513,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -949,7 +583,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Clear Mind",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1012,7 +646,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1074,7 +708,7 @@
             },
             "img": "icons/magic/light/torch-fire-orange.webp",
             "name": "Everlight",
-            "sort": 2200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1137,7 +771,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield-other.webp",
             "name": "Share Life",
-            "sort": 2300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1196,7 +830,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Sound Body",
-            "sort": 2400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1259,7 +893,7 @@
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 2500000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1324,7 +958,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2600000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1391,7 +1025,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1473,7 +1107,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 2800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1534,7 +1168,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1731,7 +1365,7 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 3000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1808,7 +1442,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 3100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1868,7 +1502,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1930,7 +1564,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 3300000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1987,146 +1621,32 @@
             "type": "spell"
         },
         {
-            "_id": "Xam6UcLwOGTDVFxo",
-            "_stats": {
-                "compendiumSource": "Actor.MfpL1tgQP4ek9PjR.Item.Xam6UcLwOGTDVFxo"
-            },
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 3400000,
+            "_id": "PLkCVfc8da1kpFaM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 2300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 4
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "attackEffects": {
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "kOD8o01yOwFzuiUb"
-                            },
-                            {
-                                "id": "g5tiSyjsdInpHaA3"
-                            },
-                            {
-                                "id": "FarriZphgoWKd5hs"
-                            },
-                            {
-                                "id": "yjA5pdnokuQ3BOpi"
-                            },
-                            {
-                                "id": "dhAU4NQ4Wp4Sf4rk"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "82e6h0G1hhYvXryF"
-                            },
-                            {
-                                "id": "OcAiIVYoX1u2UTsn"
-                            },
-                            {
-                                "id": "C0soCx7JOJFrtgY1"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "4k29njWdCtJHmgAF"
-                            },
-                            {
-                                "id": "vekBkAd8RgH4uvQq"
-                            },
-                            {
-                                "id": "sDo79BITjlNLKHoD"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "uOlpbuT0thoTGVfm"
-                            },
-                            {
-                                "id": "e448Exgc71rcX7aN"
-                            },
-                            {
-                                "id": "rE8Q0l1S0TvuZDxW"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "tx2lQN27Lj6K3BuC"
-                            },
-                            {
-                                "id": "RThBflxDoMQ24BYo"
-                            },
-                            {
-                                "id": "Je9Vf5cCzV7w9Qvn"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
+                "bonus": {
                     "value": 22
                 },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "BsBGEo42aDLylS80",
-            "_stats": {
-                "compendiumSource": "Actor.MfpL1tgQP4ek9PjR.Item.BsBGEo42aDLylS80"
-            },
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 3500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "damageRolls": {
+                    "3k67sBQbgZFYm8n3": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
+                    },
+                    "cEKh5CNc7KzHotiF": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -2134,21 +1654,501 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
+                "traits": {
+                    "value": [
+                        "holy",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7Q0vXXKMcdqYWR0t",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 2400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "RpQIzImOfD467cVQ": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    },
+                    "ZdM6C0spWwVMAiLM": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "holy",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Dwo2UQS3Y2cbaR0u",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 2500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "Va9e8DMKv5qn4gRL": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
+                    },
+                    "b2gH0iPqE45nJcIi": {
+                        "damage": "2d10+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "holy",
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "thc8iQSsjt0P5UbH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wing",
+            "sort": 2600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "gW17aQRm17xarr0r": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
+                    },
+                    "oOA5pz1jZWPCLupp": {
+                        "damage": "1d10+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "arPvj1DbTMkdSiTB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (Imprecise) 30 feet",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dWRnyH4wHlRK0NV9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y6w2lBq7sglsX4fS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Divine",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:divine"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LLQTiCQhR3zcH4eU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Divine Deflection",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragon is critically hit by an attack</p>\n<hr />\n<p><strong>Effect</strong> Divine power intercedes, preventing some of the damage. The dragon gains resistance 10 to all damage against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "divine-deflection",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "divine-deflection"
+                        ],
+                        "type": "all-damage",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "S375NGCdok3X6iek",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Inspiring Presence",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet.</p>\n<p>The mere sight of an empyreal dragon motivates other creatures. Creatures within the aura gain a +1 status bonus to saving throws and skill checks. The empyreal dragon can't gain the benefit of their own aura or other actions that use the aura, and they can choose to exclude any creatures from any benefit of the aura or action that uses the aura.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Inspiring Presence (Empyreal Dragon)"
+                            }
+                        ],
+                        "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "direct-halo"
+                            }
+                        ],
+                        "radius": 20,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "inspiring-presence",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vUZ5gWFlcQncu9SL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Direct Halo",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon tosses their halo to a square within 90 feet. While the halo is deployed in this way, the dragon loses their inspiring presence aura, and the aura instead emanates from the halo with the same emanation radius. The dragon can Sustain to recall the halo from any distance. The halo is made of pure light—it doesn't occupy space and can't be targeted or destroyed in any way.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "direct-halo",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OjT0pleNnNeCjfub",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Halo Pulse",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon chooses one effect to impose on creatures in their inspiring presence aura.</p>\n<p>The dragon can't use Halo Pulse again for [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Repulsion</strong> Each creature must succeed at a @Check[fortitude|dc:29] save or be pushed until it's no longer in the aura.</li>\n<li><strong>Restoration</strong> (healing, vitality) Each creature recovers @Damage[5d8[healing]]{5d8 Hit Points}.</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kvqqiXW7WeNRoofl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spirit Breath",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon unleashes a blast of holy fire that deals @Damage[9d8[spirit]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:29|basic|options:area-effect] save).</p>\n<p>The dragon can't use Spirit Breath again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "holy",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PGKw766Nf01Dibfj",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Heaven Lore",
+            "sort": 3500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 21
                 },
-                "tradition": {
-                    "value": "divine"
+                "proficient": {
+                    "value": 0
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Empyreal Dragon (Young, Spellcaster)",

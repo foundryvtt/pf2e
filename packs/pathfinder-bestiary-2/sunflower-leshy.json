@@ -3,228 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "G3Qoqz5IMBvs9EYb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Verdant Burst",
+            "_id": "E283z5pYuHL8XdzA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a sunflower leshy dies, a burst of primal energy explodes from its body, restoring @Damage[1d8[healing]] Hit Points to each plant creature in a @Template[emanation|distance:30]. This area immediately fills with sunflowers, becoming difficult terrain.</p>\n<p>If the terrain is not a viable environment for these sunflowers, they wither after 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "plant"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LwAD4kqFgkuoaJ0b",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sunflower leshy transforms into a Small flower. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LQBlltvEb0rVnJYA",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Heliotrope",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>20 feet.</p>\n<p><strong>Requirements</strong> The sunflower leshy begins its turn in an area of bright light</p>\n<hr />\n<p><strong>Effect</strong> The sunflower leshy reflects the sun or another source of bright light from their face. Each creature that ends its turn in the emanation must attempt a @Check[will|dc:16] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to heliotrope for 24 hours.</p>\n<p><strong>Failure</strong> The creature is distracted by the light, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "heliotrope-active"
-                        ],
-                        "radius": 20,
-                        "slug": "heliotrope",
-                        "traits": [
-                            "light",
-                            "primal"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "heliotrope-active",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "light",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h20KMmp1wuDSm1Oa",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Seed Spray",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sunflower leshy launches a deluge of seeds from their head in a @Template[cone|distance:15], dealing @Damage[2d6[bludgeoning]] damage to creatures within the area (@Check[reflex|dc:16|basic] save).</p>\n<p>It gains a +2 status bonus to this damage against @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] creatures.</p>\n<p>The sunflower leshy can't use Seed Spray again for [[/gmr 1d4 #Recharge Seed Spray]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pT1xpkQICFklLesg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tendril",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "apb89l16tdq89ig8fjc5": {
-                        "damage": "1d8",
-                        "damageType": "bludgeoning"
-                    }
-                },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "6Mfkl1CejuYcVcXf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Seed",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "rr8qd0oju4aw7383rszc": {
-                        "damage": "1d6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -232,18 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-20"
-                    ]
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
+                    "value": 7
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "fAMWaK2fMYLvV1ks",
@@ -252,7 +47,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -306,23 +101,28 @@
             "type": "spell"
         },
         {
-            "_id": "E283z5pYuHL8XdzA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 800000,
+            "_id": "pT1xpkQICFklLesg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "apb89l16tdq89ig8fjc5": {
+                        "damage": "1d8",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -330,18 +130,218 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 7
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "6Mfkl1CejuYcVcXf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Seed",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "rr8qd0oju4aw7383rszc": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "G3Qoqz5IMBvs9EYb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Verdant Burst",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a sunflower leshy dies, a burst of primal energy explodes from its body, restoring @Damage[1d8[healing]] Hit Points to each plant creature in a @Template[emanation|distance:30]. This area immediately fills with sunflowers, becoming difficult terrain.</p>\n<p>If the terrain is not a viable environment for these sunflowers, they wither after 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "plant"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LwAD4kqFgkuoaJ0b",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sunflower leshy transforms into a Small flower. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LQBlltvEb0rVnJYA",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Heliotrope",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>20 feet.</p>\n<p><strong>Requirements</strong> The sunflower leshy begins its turn in an area of bright light</p>\n<hr />\n<p><strong>Effect</strong> The sunflower leshy reflects the sun or another source of bright light from their face. Each creature that ends its turn in the emanation must attempt a @Check[will|dc:16] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to heliotrope for 24 hours.</p>\n<p><strong>Failure</strong> The creature is distracted by the light, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "heliotrope-active"
+                        ],
+                        "radius": 20,
+                        "slug": "heliotrope",
+                        "traits": [
+                            "light",
+                            "primal"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "heliotrope-active",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "light",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h20KMmp1wuDSm1Oa",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Seed Spray",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sunflower leshy launches a deluge of seeds from their head in a @Template[cone|distance:15], dealing @Damage[2d6[bludgeoning]] damage to creatures within the area (@Check[reflex|dc:16|basic] save).</p>\n<p>It gains a +2 status bonus to this damage against @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] creatures.</p>\n<p>The sunflower leshy can't use Seed Spray again for [[/gmr 1d4 #Recharge Seed Spray]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sunflower Leshy",

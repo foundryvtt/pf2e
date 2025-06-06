@@ -4,287 +4,105 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "INS8hnRRKNGfbWn8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Lover's Devotion",
+            "_id": "MVN5DhkH7iXBTqcj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Luxia would be hit by a melee attack</p><hr /><p><strong>Effect</strong> One of the floating skulls of Luxia's previous lovers interferes with the attack, granting Luxia a +2 circumstance bonus to her AC. The skull is then destroyed. Once all three skulls are destroyed in this way, Luxia can no longer use this reaction.</p>"
+                    "value": ""
                 },
-                "frequency": null,
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "lovers-devotion",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "lovers-devotion"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "p2vx0ZdnnU6pMRLS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Drain Bonded Item",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Luxia hasn't acted yet on this turn</p><hr /><p><strong>Effect</strong> Luxia expends the power stored in her +1 staff. This gives her the ability to cast one prepared spell she had already previously cast today without spending a spell slot. Luxia must still Cast the Spell and meet the spell's other requirements.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "4SXE7JfKzU5Pr5Yw"
+                            },
+                            {
+                                "id": "Kce8XTCmyQwvpikj"
+                            },
+                            {
+                                "id": "lxGXtINNS0DB8pjx"
+                            },
+                            {
+                                "id": "oO4RI71QQGyMHmPK"
+                            },
+                            {
+                                "id": "fH0iFfx04tOU71tE"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "UKyabMbTQ7jd0RJW"
+                            },
+                            {
+                                "id": "hQIT0ck2DlZMouzS"
+                            },
+                            {
+                                "id": "85B3xj8mTR7riqKm"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "449z53HG5Ms3KH6y"
+                            },
+                            {
+                                "id": "PmqOv6aR0fOVuUYf"
+                            },
+                            {
+                                "id": "joszZmUjkEou8gpZ"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "IH2esnaAhmy2GC53"
+                            },
+                            {
+                                "id": "mmoiJkCkahU1Q93d"
+                            },
+                            {
+                                "id": "CxXZBpE7S352Cu9h"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "p9tJDu2GfOJrKKdv",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steady Spellcasting",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "spelldc": {
+                    "dc": 26,
+                    "value": 16
                 },
-                "actions": {
-                    "value": null
+                "tradition": {
+                    "value": "arcane"
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a reaction would disrupt Luxia's spellcasting action, she attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oGPqzEflZiEI7E2l",
-            "img": "icons/sundries/books/book-black-grey.webp",
-            "name": "Spellbook",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p><strong>Cantrips</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Daze]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Ignition]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Void Warp]</p>\n<p><strong>1st Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Command]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</p>\n<p><strong>2nd Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Blood Vendetta]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.False Vitality]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Stupefy]</p>\n<p><strong>3rd Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Paralyze]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "MQd5xRHo6EhfgXQw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Undead Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "7vZ8eGHMOmncAk9U",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wOyLBxgcOKE27tNW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "GrGbCluu3lckfdAP": {
-                        "damage": "2d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": "staff",
-                "traits": {
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "In9gbgMWTe6kc8pH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "pCqai6Sfox1Wk0Xf": {
-                        "damage": "2d6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "IH2esnaAhmy2GC53",
@@ -293,7 +111,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -370,7 +188,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -446,7 +264,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Feast",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -532,7 +350,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -616,7 +434,7 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Vitality",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +494,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Stupefy",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -742,7 +560,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -821,7 +639,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -908,7 +726,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -993,7 +811,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1080,7 +898,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1190,7 +1008,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1252,7 +1070,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1329,7 +1147,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1409,114 +1227,13 @@
             "type": "spell"
         },
         {
-            "_id": "MVN5DhkH7iXBTqcj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "4SXE7JfKzU5Pr5Yw"
-                            },
-                            {
-                                "id": "Kce8XTCmyQwvpikj"
-                            },
-                            {
-                                "id": "lxGXtINNS0DB8pjx"
-                            },
-                            {
-                                "id": "oO4RI71QQGyMHmPK"
-                            },
-                            {
-                                "id": "fH0iFfx04tOU71tE"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "UKyabMbTQ7jd0RJW"
-                            },
-                            {
-                                "id": "hQIT0ck2DlZMouzS"
-                            },
-                            {
-                                "id": "85B3xj8mTR7riqKm"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "449z53HG5Ms3KH6y"
-                            },
-                            {
-                                "id": "PmqOv6aR0fOVuUYf"
-                            },
-                            {
-                                "id": "joszZmUjkEou8gpZ"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "IH2esnaAhmy2GC53"
-                            },
-                            {
-                                "id": "mmoiJkCkahU1Q93d"
-                            },
-                            {
-                                "id": "CxXZBpE7S352Cu9h"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "wOyLBxgcOKE27tNW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1592,6 +1309,289 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "oGPqzEflZiEI7E2l",
+            "img": "icons/sundries/books/book-black-grey.webp",
+            "name": "Spellbook",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Cantrips</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Daze]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Ignition]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Void Warp]</p>\n<p><strong>1st Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Command]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</p>\n<p><strong>2nd Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Blood Vendetta]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.False Vitality]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Stupefy]</p>\n<p><strong>3rd Rank</strong></p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Paralyze]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "7vZ8eGHMOmncAk9U",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wOyLBxgcOKE27tNW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "GrGbCluu3lckfdAP": {
+                        "damage": "2d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": "staff",
+                "traits": {
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "In9gbgMWTe6kc8pH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "pCqai6Sfox1Wk0Xf": {
+                        "damage": "2d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "INS8hnRRKNGfbWn8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lover's Devotion",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Luxia would be hit by a melee attack</p><hr /><p><strong>Effect</strong> One of the floating skulls of Luxia's previous lovers interferes with the attack, granting Luxia a +2 circumstance bonus to her AC. The skull is then destroyed. Once all three skulls are destroyed in this way, Luxia can no longer use this reaction.</p>"
+                },
+                "frequency": null,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "lovers-devotion",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lovers-devotion"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p2vx0ZdnnU6pMRLS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drain Bonded Item",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Luxia hasn't acted yet on this turn</p><hr /><p><strong>Effect</strong> Luxia expends the power stored in her +1 staff. This gives her the ability to cast one prepared spell she had already previously cast today without spending a spell slot. Luxia must still Cast the Spell and meet the spell's other requirements.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p9tJDu2GfOJrKKdv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steady Spellcasting",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt Luxia's spellcasting action, she attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MQd5xRHo6EhfgXQw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Undead Lore",
+            "sort": 2300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Luxia Mirsaad",

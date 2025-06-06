@@ -3,176 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3A8TmAuVP2C3XDsX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Refuse Pile",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>When they're not in danger, an ofalth can spend 1 minute settling into a 10-foot pile that looks like a heap of garbage. Until the next time it takes an action, the ofalth gains a +2 circumstance bonus to AC.</p>\n<p>A creature that enters the area of the garbage heap or interacts with it must attempt a save against the ofalth's stench.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "refuse-pile",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "refuse-pile"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CDkktCbVeomEuX4D",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Filth Wallow",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>An ofalth gains fast healing 2 when in an area with a high concentration of debris or excrement, such as a refuse heap or sewer.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "predicate": [
-                            "filth-wallow"
-                        ],
-                        "value": 2
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "filth-wallow",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wZIvxt9vYjvqq2GU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet, @Check[fortitude|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": "stench",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qcaLKbJ4n5L9k9Vc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wretched Weeps",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d4[bleed]]{2d4 persistent bleed} every hour and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 3</strong> @Damage[2d6[bleed]]{2d6 persistent bleed} every hour and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "wretched-weeps",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "wR8rvUNTkSFlNhUv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 500000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -219,7 +53,7 @@
             "_id": "Vdx4lOd9PGzzo18M",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Offal",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -260,6 +94,172 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "3A8TmAuVP2C3XDsX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Refuse Pile",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When they're not in danger, an ofalth can spend 1 minute settling into a 10-foot pile that looks like a heap of garbage. Until the next time it takes an action, the ofalth gains a +2 circumstance bonus to AC.</p>\n<p>A creature that enters the area of the garbage heap or interacts with it must attempt a save against the ofalth's stench.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "refuse-pile",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "refuse-pile"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CDkktCbVeomEuX4D",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Filth Wallow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>An ofalth gains fast healing 2 when in an area with a high concentration of debris or excrement, such as a refuse heap or sewer.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "filth-wallow"
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "filth-wallow",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wZIvxt9vYjvqq2GU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet, @Check[fortitude|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": "stench",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qcaLKbJ4n5L9k9Vc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wretched Weeps",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d4[bleed]]{2d4 persistent bleed} every hour and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 3</strong> @Damage[2d6[bleed]]{2d6 persistent bleed} every hour and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "wretched-weeps",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ofalth",

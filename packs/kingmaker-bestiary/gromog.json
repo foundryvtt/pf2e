@@ -3,84 +3,96 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "66WdJU8fGY3RHFZN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blinded",
+            "_id": "bLVZ5ms9o0MNzxDg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Oiq3QgLrM4i3W5Hg"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/ogre-hook.webp",
+            "name": "Ogre Hook",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "ogre-hook",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "interaction",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "advanced",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d10"
+                },
                 "description": {
-                    "value": "<p>Gromog's eyes have been wounded by Linzi. In time, he'll recover his eyesight (mostly), but for the duration of this combat he is @UUID[Compendium.pf2e.conditionitems.Item.Blinded]</p>"
+                    "value": "<p>Ogres are known for using immense, curved picks called ogre hooks.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "pick",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wzltAJwbP73KlolU",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Itchy",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
                 },
-                "actions": {
+                "size": "lg",
+                "slug": "ogre-hook",
+                "splashDamage": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Not only have the itchy lice in Gromog's furs reduced his AC, Reflex save, and attack modifier through distraction (resulting in the values below the standard values for an ogre warrior), he also must succeed at a @Check[flat|dc:10] at the start of each round to avoid spending 2 actions furiously scratching himself. On a successful flat check, he must spend only one action scratching at the vermin. Finally, as a side effect of the discomfort caused by his lice, Gromog is too distracted to properly wield his ogre hook. While the weapon can still inflict grievous damage, as long as he remains itchy it doesn't possess the deadly trait these weapons normally possess.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:slug:ogre-hook",
-                            {
-                                "not": "self:armored"
-                            }
-                        ],
-                        "property": "traits",
-                        "value": "deadly-d10"
-                    }
-                ],
-                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "value": [
+                        "deadly-d10",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "6ofr6YtODR30jRp0",
             "img": "systems/pf2e/icons/default-icons/armor.svg",
             "name": "Lice-Infested Furs",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "acBonus": 0,
                 "baseItem": null,
@@ -167,7 +179,7 @@
             },
             "img": "systems/pf2e/icons/conditions/blinded.webp",
             "name": "Blinded",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "description": {
                     "value": "<p>You can't see. All normal terrain is difficult terrain to you. You can't detect anything using vision. You automatically critically fail Perception checks that require you to be able to see, and if vision is your only precise sense, you take a -4 status penalty to Perception checks. You are immune to visual effects. Blinded overrides @UUID[Compendium.pf2e.conditionitems.Item.Dazzled].</p>"
@@ -216,7 +228,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ogre Hook",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -257,90 +269,78 @@
             "type": "melee"
         },
         {
-            "_id": "bLVZ5ms9o0MNzxDg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Oiq3QgLrM4i3W5Hg"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/ogre-hook.webp",
-            "name": "Ogre Hook",
-            "sort": 600000,
+            "_id": "66WdJU8fGY3RHFZN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blinded",
+            "sort": 500000,
             "system": {
-                "baseItem": "ogre-hook",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "advanced",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d10"
-                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>Ogres are known for using immense, curved picks called ogre hooks.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "pick",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
+                    "value": "<p>Gromog's eyes have been wounded by Linzi. In time, he'll recover his eyesight (mostly), but for the duration of this combat he is @UUID[Compendium.pf2e.conditionitems.Item.Blinded]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
+                    "title": ""
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "lg",
-                "slug": "ogre-hook",
-                "splashDamage": {
-                    "value": null
-                },
+                "slug": null,
                 "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "deadly-d10",
-                        "trip"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "wzltAJwbP73KlolU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Itchy",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Not only have the itchy lice in Gromog's furs reduced his AC, Reflex save, and attack modifier through distraction (resulting in the values below the standard values for an ogre warrior), he also must succeed at a @Check[flat|dc:10] at the start of each round to avoid spending 2 actions furiously scratching himself. On a successful flat check, he must spend only one action scratching at the vermin. Finally, as a side effect of the discomfort caused by his lice, Gromog is too distracted to properly wield his ogre hook. While the weapon can still inflict grievous damage, as long as he remains itchy it doesn't possess the deadly trait these weapons normally possess.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:ogre-hook",
+                            {
+                                "not": "self:armored"
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "deadly-d10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Gromog",

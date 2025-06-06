@@ -4,264 +4,124 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "S0eUokfR9NCiHTkD",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wolf Empathy",
+            "_id": "i4Z53PbHjjlFshli",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Jaul can communicate with lupines.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XsfO4kZKUmGSNSI0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Poison",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "poison"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "C2q1zvPuwqgQMvwX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.08egiRxOvMX97XTc"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<ul>\n<li><strong>Human</strong>\n<ul>\n<li><strong>Melee</strong> fist [[/r 1d20+16 #Fist]]{+16}/[[/r 1d20+12 #Fist]]{+12}/[[/r 1d20+8 #Fist]]{+8} (agile, nonlethal), <strong>Damage</strong> @Damage[(1d6+7)[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Wolf</strong>\n<ul>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> jaws[[/r 1d20+16 #Jaws]]{+16}/[[/r 1d20+11 #Jaws]]{+11}/[[/r 1d20+6 #Jaws]]{+6}, <strong>Damage</strong> @Damage[(2d8+7)[piercing]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown]</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "werecreature-change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RBjfyeeaXd5gEMNe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ICnpftxZEilrYjn0"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Curse of the Werewolf",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This curse affects only humanoids.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:23]</p>\n<hr />\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a werewolf until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling unconscious at dawn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "werecreature-curse-of-the-werecreature",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "igyVJ2r1r0X9HNP8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FA0ri2fAcMa1HgZe"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Moon Frenzy",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When a full moon appears in the night sky, Jaul must enter his hybrid form, can't Change Shape thereafter, becomes Large, increases his reach by 5 feet, and increases the damage of his jaws by 2.</p>\n<p>When the moon sets or the sun rises, Jaul returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Moon Frenzy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "werecreature-moon-frenzy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5rrKtIIzYEri3htn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wolf Coordination",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Jaul's Strikes deal 1d6 extra damage to creatures within his wolf's reach.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "wolf-coordination",
-                        "toggleable": true
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "BEzJK3f8Z0Z6kVVq"
+                            },
+                            {
+                                "id": "5YTf8nFRwGkR75rr"
+                            },
+                            {
+                                "id": "0vDYCFzBJSXPEA1G"
+                            },
+                            {
+                                "id": "6KoAHfwCFZ9XAglK"
+                            }
+                        ]
                     },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "wolf-coordination"
-                        ],
-                        "selector": "strike-damage"
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "z9fodQZeMkUOMomH"
+                            },
+                            {
+                                "id": "2zV0npFDdwAGHdam"
+                            },
+                            {
+                                "id": "lInapOsFKanSPpRv"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Lk1bKLrtbGWtz7mk"
+                            },
+                            {
+                                "id": "gK6ll1qVTeDYLSR0"
+                            },
+                            {
+                                "id": "AFlU1pau6zlQ2NcR"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Lk1bKLrtbGWtz7mk"
+                            },
+                            {
+                                "id": "YaBXXRYT0511L1Rh"
+                            },
+                            {
+                                "id": "h5RX2LxfbBrZj3DW"
+                            }
+                        ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "G3bgPlOpXpztjTdf",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "E952Mn29Vyncndfi"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Katar",
-            "sort": 700000,
+            "_id": "EDPFYDhj0ZOTpRmX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Animal Order Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d4+7",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -269,112 +129,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "deadly-d6",
-                        "magical",
-                        "monk"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "yJVTcQFJpy86gPDG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 24,
+                    "mod": 0,
                     "value": 16
                 },
-                "damageRolls": {
-                    "sem8c0jrrtmhqbi2gig9": {
-                        "damage": "2d6+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "8l05kDJb53W6NV0L",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "werecreature-curse-of-the-werecreature"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "YaBXXRYT0511L1Rh",
@@ -383,7 +149,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -470,7 +236,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -548,7 +314,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -609,7 +375,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -770,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -837,7 +603,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Feather Fall",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -896,7 +662,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -961,7 +727,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1157,7 +923,7 @@
             },
             "img": "icons/creatures/mammals/rabbit-movement-glowing-green.webp",
             "name": "Heal Animal",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1292,7 +1058,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-fang.webp",
             "name": "Magic Fang",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1351,7 +1117,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1432,7 +1198,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-animal.webp",
             "name": "Summon Animal",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1492,7 +1258,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1549,203 +1315,13 @@
             "type": "spell"
         },
         {
-            "_id": "i4Z53PbHjjlFshli",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "BEzJK3f8Z0Z6kVVq"
-                            },
-                            {
-                                "id": "5YTf8nFRwGkR75rr"
-                            },
-                            {
-                                "id": "0vDYCFzBJSXPEA1G"
-                            },
-                            {
-                                "id": "6KoAHfwCFZ9XAglK"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "z9fodQZeMkUOMomH"
-                            },
-                            {
-                                "id": "2zV0npFDdwAGHdam"
-                            },
-                            {
-                                "id": "lInapOsFKanSPpRv"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Lk1bKLrtbGWtz7mk"
-                            },
-                            {
-                                "id": "gK6ll1qVTeDYLSR0"
-                            },
-                            {
-                                "id": "AFlU1pau6zlQ2NcR"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Lk1bKLrtbGWtz7mk"
-                            },
-                            {
-                                "id": "YaBXXRYT0511L1Rh"
-                            },
-                            {
-                                "id": "h5RX2LxfbBrZj3DW"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "EDPFYDhj0ZOTpRmX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Animal Order Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "mod": 0,
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "txASc5iIQvLV4Nxv",
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aluum-charm.webp",
-            "name": "Bejeweled Necklace featuring a Porpoise",
-            "sort": 2500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Ayla, My Beloved</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "E952Mn29Vyncndfi",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Fg3GkCDkszj5WtgQ"
             },
             "img": "systems/pf2e/icons/equipment/weapons/katar.webp",
             "name": "Katar",
-            "sort": 2600000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "katar",
                 "bonus": {
@@ -1824,6 +1400,430 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "txASc5iIQvLV4Nxv",
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/aluum-charm.webp",
+            "name": "Bejeweled Necklace featuring a Porpoise",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Ayla, My Beloved</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "G3bgPlOpXpztjTdf",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "E952Mn29Vyncndfi"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Katar",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "deadly-d6",
+                        "magical",
+                        "monk"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yJVTcQFJpy86gPDG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "sem8c0jrrtmhqbi2gig9": {
+                        "damage": "2d6+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8l05kDJb53W6NV0L",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "werecreature-curse-of-the-werecreature"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "S0eUokfR9NCiHTkD",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wolf Empathy",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Jaul can communicate with lupines.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XsfO4kZKUmGSNSI0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Poison",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "poison"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C2q1zvPuwqgQMvwX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.08egiRxOvMX97XTc"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<ul>\n<li><strong>Human</strong>\n<ul>\n<li><strong>Melee</strong> fist [[/r 1d20+16 #Fist]]{+16}/[[/r 1d20+12 #Fist]]{+12}/[[/r 1d20+8 #Fist]]{+8} (agile, nonlethal), <strong>Damage</strong> @Damage[(1d6+7)[bludgeoning]] damage</li>\n</ul>\n</li>\n<li><strong>Wolf</strong>\n<ul>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> jaws[[/r 1d20+16 #Jaws]]{+16}/[[/r 1d20+11 #Jaws]]{+11}/[[/r 1d20+6 #Jaws]]{+6}, <strong>Damage</strong> @Damage[(2d8+7)[piercing]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Knockdown]</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "werecreature-change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RBjfyeeaXd5gEMNe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ICnpftxZEilrYjn0"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Curse of the Werewolf",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This curse affects only humanoids.</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:23]</p>\n<hr />\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a werewolf until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling unconscious at dawn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "werecreature-curse-of-the-werecreature",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "igyVJ2r1r0X9HNP8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FA0ri2fAcMa1HgZe"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Moon Frenzy",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a full moon appears in the night sky, Jaul must enter his hybrid form, can't Change Shape thereafter, becomes Large, increases his reach by 5 feet, and increases the damage of his jaws by 2.</p>\n<p>When the moon sets or the sun rises, Jaul returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Moon Frenzy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "werecreature-moon-frenzy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5rrKtIIzYEri3htn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wolf Coordination",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Jaul's Strikes deal 1d6 extra damage to creatures within his wolf's reach.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "wolf-coordination",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "wolf-coordination"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Jaul Mezmin",

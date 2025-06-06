@@ -4,294 +4,75 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3LcqeSNm2BGnGC1G",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Placate",
+            "_id": "2HONqJ3KSR0h25We",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>An advisor is well versed in soothing agitated nobles. Their claming voice gives them a +2 circumstance bonus to Deception and Diplomacy checks when dealing with members of the nobility.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "placate",
-                        "toggleable": true
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "placate"
-                        ],
-                        "selector": [
-                            "diplomacy",
-                            "deception"
-                        ],
-                        "type": "circumstance",
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 2,
                         "value": 2
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ecoV8BNfNvgzOWSl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Minor)",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "spelldc": {
+                    "dc": 22,
+                    "mod": 0,
+                    "value": 14
                 },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "1d8",
-                    "kind": "healing",
-                    "type": "vitality"
+                "tradition": {
+                    "value": "occult"
                 },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[1d8[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-minor",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "oQ8HRwiXOkN5lOG5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
-            },
-            "img": "icons/equipment/chest/breastplate-purple.webp",
-            "name": "Clothing (Fine)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "clothing-fine",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "O3WnGGds29lL8Ajd",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
-            },
-            "img": "icons/tools/instruments/pipe-flue-tan.webp",
-            "name": "Small Harp",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 8
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "musical-instrument-handheld",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "OmOeBNnG1vyNMitv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "XHVHeWTU0zqmjJWZ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "tXbnCwNjwgocZ1g5"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Whip",
-            "sort": 600000,
+            "_id": "cnmmUfSvnBHbPJ3N",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Bard Composition Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "kvhyx50a5yzc6rc3n09s": {
-                        "damage": "1d4+4",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -299,100 +80,19 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "nonlethal",
-                        "reach-10",
-                        "trip"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 22,
+                    "mod": 0,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "Bz5e5nzwVDHVigQ0",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "itOnQERbGYDW1wyL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "xiz1kglm334zoswd11x7x": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "TFSWS9GfHfeAzqrF",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "RwSPVznXswpE2UsJ": {
-                        "damage": "1d4+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "AfOPyFuhgzUMNINp",
@@ -401,7 +101,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -469,7 +169,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -540,7 +240,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -602,7 +302,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -665,7 +365,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-defense.webp",
             "name": "Rallying Anthem",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -729,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Stupefy",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -796,7 +496,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -876,7 +576,7 @@
             },
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -941,7 +641,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Courageous Anthem",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1005,7 +705,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1092,7 +792,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1166,7 +866,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1230,7 +930,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1293,7 +993,7 @@
             },
             "img": "systems/pf2e/icons/spells/protection.webp",
             "name": "Protection",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1354,7 +1054,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1416,7 +1116,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 2400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1498,7 +1198,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-competence.webp",
             "name": "Uplifting Overture",
-            "sort": 2500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1559,7 +1259,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1639,104 +1339,13 @@
             "type": "spell"
         },
         {
-            "_id": "2HONqJ3KSR0h25We",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "mod": 0,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "cnmmUfSvnBHbPJ3N",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Bard Composition Spells",
-            "sort": 2800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "mod": 0,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "itOnQERbGYDW1wyL",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2900000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1825,7 +1434,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
             "name": "Whip",
-            "sort": 3000000,
+            "sort": 2200000,
             "system": {
                 "baseItem": "whip",
                 "bonus": {
@@ -1906,6 +1515,397 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "oQ8HRwiXOkN5lOG5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8"
+            },
+            "img": "icons/equipment/chest/breastplate-purple.webp",
+            "name": "Clothing (Fine)",
+            "sort": 2300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "clothing-fine",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "O3WnGGds29lL8Ajd",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
+            },
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
+            "name": "Small Harp",
+            "sort": 2400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "musical-instrument-handheld",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ecoV8BNfNvgzOWSl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 2500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[1d8[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "XHVHeWTU0zqmjJWZ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "tXbnCwNjwgocZ1g5"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Whip",
+            "sort": 2600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "kvhyx50a5yzc6rc3n09s": {
+                        "damage": "1d4+4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "nonlethal",
+                        "reach-10",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Bz5e5nzwVDHVigQ0",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "itOnQERbGYDW1wyL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "xiz1kglm334zoswd11x7x": {
+                        "damage": "1d4+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TFSWS9GfHfeAzqrF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "RwSPVznXswpE2UsJ": {
+                        "damage": "1d4+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3LcqeSNm2BGnGC1G",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Placate",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An advisor is well versed in soothing agitated nobles. Their claming voice gives them a +2 circumstance bonus to Deception and Diplomacy checks when dealing with members of the nobility.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "placate",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "placate"
+                        ],
+                        "selector": [
+                            "diplomacy",
+                            "deception"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OmOeBNnG1vyNMitv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 3000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Advisor",

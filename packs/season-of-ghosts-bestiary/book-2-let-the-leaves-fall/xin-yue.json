@@ -4,204 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7m7b3dwyednyhqtu",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Chastise Heretic",
+            "_id": "sWvwwPLnXJTX65vX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> a creature within 60 feet who Xin Yue can see casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> Xin Yue attempts to counteract the triggering spell using her spell attack modifier and a counteract rank of 4. If the spell is counteracted, the caster takes @Damage[1d10[persistent,mental]] damage. If Xin Yue fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "csccddk7b6n1491u",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Field of Past Regrets",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>40 feet. All creatures within the aura who have at least one past life (including all PCs in <em>Season of Ghosts</em>) recall failures in their past lives and are bolstered against repeating them, gaining a +1 status bonus to saving throws against mental effects. Living, non-nindoru creatures within the aura feel the pain of all their past lives, as well as their own current pain when they endure mental attacks, and gain weakness 3 to mental damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Past Regrets"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 40,
-                        "slug": "field-of-past-regrets",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": "field-of-past-regrets",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gOII2343e5IryF6t",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Profane Reincarnation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once every 1,000 days</p>\n<p><strong>Trigger</strong> Xin Yue is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> Xin Yue utters a shriek as her undead body splits open and her shortsword becomes broken. She's instantly reincarnated as a @UUID[Compendium.pf2e.season-of-ghosts-bestiary.Actor.Sojiruh] nindoru with the elite creature adjustment.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NIIRwklz4cR5uYjX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Px04YVuIFCO29uqx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Near-Death Experience",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Xin Yue reduces a creature to 0 Hit Points and causes them to gain the dying condition</p><hr /><p><strong>Effect</strong> Time appears to slow down to the dying creature as the immense stress of their near-death experience pushes their brain into overdrive. The target sees their life flash before their eyes, and the urge to resist death grows strong. The target reduces the DC of their recovery checks by 2, but if they lose the dying condition, they must attempt a @Check[will|dc:25] save.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Near-Death Experience]</p><hr /><p><strong>Critical Success</strong> The creature is empowered by the experience and gains fast healing 5 for 1 minute.</p>\n<p><strong>Success</strong> The creature is empowered by the experience and gains fast healing 1 for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes depressed by the experience and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 24 hours.</p>\n<p><strong>Critical Failure</strong> The creature reels from the experience. They become stupefied 1 and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Near-Death Experience Healing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0pmtQbsirt6Hh7Nt",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Sangpotshi Lore",
-            "sort": 600000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 15
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -209,67 +27,35 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1E4CYeLxF3eLkcV0",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "jbumXTpqQASbYliL"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "J3oHhDVguNiX0mH9": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
                     },
-                    "lZ9h6Tr6KKliwnDi": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "LwvcgGSsITBwmh6J",
@@ -278,7 +64,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -340,7 +126,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -429,7 +215,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -512,7 +298,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -598,7 +384,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-large-pink.webp",
             "name": "Deafness",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -666,7 +452,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -729,7 +515,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Sound Burst",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -816,7 +602,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -897,7 +683,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -977,7 +763,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1064,7 +850,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1145,7 +931,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1226,7 +1012,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1287,7 +1073,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1482,7 +1268,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1677,7 +1463,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1872,7 +1658,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1940,7 +1726,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2019,7 +1805,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2080,7 +1866,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2136,67 +1922,13 @@
             "type": "spell"
         },
         {
-            "_id": "sWvwwPLnXJTX65vX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 2800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "jbumXTpqQASbYliL",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 2900000,
+            "sort": 2200000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -2277,6 +2009,274 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "1E4CYeLxF3eLkcV0",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "jbumXTpqQASbYliL"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 2300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "J3oHhDVguNiX0mH9": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "lZ9h6Tr6KKliwnDi": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7m7b3dwyednyhqtu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Chastise Heretic",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a creature within 60 feet who Xin Yue can see casts a divine spell</p>\n<hr />\n<p><strong>Effect</strong> Xin Yue attempts to counteract the triggering spell using her spell attack modifier and a counteract rank of 4. If the spell is counteracted, the caster takes @Damage[1d10[persistent,mental]] damage. If Xin Yue fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "csccddk7b6n1491u",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Field of Past Regrets",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>40 feet. All creatures within the aura who have at least one past life (including all PCs in <em>Season of Ghosts</em>) recall failures in their past lives and are bolstered against repeating them, gaining a +1 status bonus to saving throws against mental effects. Living, non-nindoru creatures within the aura feel the pain of all their past lives, as well as their own current pain when they endure mental attacks, and gain weakness 3 to mental damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Field of Past Regrets"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 40,
+                        "slug": "field-of-past-regrets",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": "field-of-past-regrets",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gOII2343e5IryF6t",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Profane Reincarnation",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once every 1,000 days</p>\n<p><strong>Trigger</strong> Xin Yue is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> Xin Yue utters a shriek as her undead body splits open and her shortsword becomes broken. She's instantly reincarnated as a @UUID[Compendium.pf2e.season-of-ghosts-bestiary.Actor.Sojiruh] nindoru with the elite creature adjustment.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NIIRwklz4cR5uYjX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Px04YVuIFCO29uqx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Near-Death Experience",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Xin Yue reduces a creature to 0 Hit Points and causes them to gain the dying condition</p><hr /><p><strong>Effect</strong> Time appears to slow down to the dying creature as the immense stress of their near-death experience pushes their brain into overdrive. The target sees their life flash before their eyes, and the urge to resist death grows strong. The target reduces the DC of their recovery checks by 2, but if they lose the dying condition, they must attempt a @Check[will|dc:25] save.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Near-Death Experience]</p><hr /><p><strong>Critical Success</strong> The creature is empowered by the experience and gains fast healing 5 for 1 minute.</p>\n<p><strong>Success</strong> The creature is empowered by the experience and gains fast healing 1 for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes depressed by the experience and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 24 hours.</p>\n<p><strong>Critical Failure</strong> The creature reels from the experience. They become stupefied 1 and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Near-Death Experience Healing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0pmtQbsirt6Hh7Nt",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Sangpotshi Lore",
+            "sort": 2900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "lore"
         }
     ],
     "name": "Xin Yue",

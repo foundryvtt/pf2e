@@ -3,351 +3,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8DQYpHmdq6bDWmWn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
+            "_id": "5mPw6sxoT1REzZmj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.flankable",
-                        "value": false
-                    }
-                ],
-                "slug": "all-around-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NHG6AmeokuReiYz8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3Jr5BOjlfU2WxVuj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "All-Knowing Eyes",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the giylea's aura, it must attempt a @Check[will|dc:34] save. If the creature fails, any Deception check it attempts until the end of its next turn has its result reduced by one degree of success. If a creature is currently disguised or in a shape other than its true form when it fails its save, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "level": 16,
-                        "radius": 30,
-                        "traits": [
-                            "divine",
-                            "mental",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NzRqtCLm3KLiAODl",
-            "_stats": {
-                "compendiumSource": "Actor.oTw6wAZmGiL3oGWR.Item.fHJ8nd0W2SbII4o1"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Archon's Protection",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages the archon's ally and both are within 15 feet of the archon</p>\n<hr />\n<p><strong>Effect</strong> The ally gains resistance 20 to all damage against the triggering damage and the archon can make a Strike against the enemy.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "L4Fc4BOiIian9jw1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fiery Spokes",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The giylea spins furiously, emitting a rain of divine fire. All creatures in a @Template[emanation|distance:60] take @Damage[(12d6)[fire],(5d6)[spirit]]{12d6 fire damage and 5d6 spirit damage} with a @Check[reflex|dc:37|basic] save. The giylea can't use Fiery Spokes for [[/gmr 1d4 #Recharge Fiery Spokes]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "fire",
-                        "holy",
-                        "spirit"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1vPMh16Kx98sAgCw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Focus Gaze",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The giylea fixes their gaze on a creature they can see within 30 feet. The target must immediately attempt a @Check[will|dc:37|traits:aura,divine,mental,visual] save against the giylea's all-knowing eyes. If the creature is under any magical effect that disguises it or has altered its shape, the giylea attempts to counter that magical disguise effect (counteract [[/r 1d20+29 #Counteract]]{+29}, 8th rank). After attempting its save, the creature is then temporarily immune until the start of the giylea's next turn.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "mental",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SChVzcavpmvFv7GY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "mod": {
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 37,
                     "value": 29
                 },
-                "proficient": {
-                    "value": 0
+                "tradition": {
+                    "value": "divine"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "2CkJbuxtIAk02ger",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Slam",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "1yAs2AhGUHe0gRkL": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "4wovsPadv3wZVsZT": {
-                        "damage": "3d12+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "holy",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "DwYWiPBkSuaZEcQH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tongue of Flame",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "DoFtv7c4P11PkB3X": {
-                        "damage": "7d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "holy",
-                        "magical",
-                        "range-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ALgg9wA9yxMSumAf",
@@ -356,7 +49,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Detonate Magic",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -435,7 +128,7 @@
             },
             "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
             "name": "Divine Decree",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -523,7 +216,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -587,7 +280,7 @@
             },
             "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
             "name": "Zealous Conviction",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -650,7 +343,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -739,7 +432,7 @@
             },
             "img": "systems/pf2e/icons/spells/prying-eye.webp",
             "name": "Scouting Eye",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -802,7 +495,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -864,7 +557,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -953,7 +646,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth (At Will)",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1024,7 +717,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth (Constant)",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1089,22 +782,32 @@
             "type": "spell"
         },
         {
-            "_id": "5mPw6sxoT1REzZmj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2000000,
+            "_id": "2CkJbuxtIAk02ger",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Slam",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "1yAs2AhGUHe0gRkL": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "4wovsPadv3wZVsZT": {
+                        "damage": "3d12+14",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -1112,21 +815,318 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
+                "traits": {
+                    "value": [
+                        "holy",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DwYWiPBkSuaZEcQH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue of Flame",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "DoFtv7c4P11PkB3X": {
+                        "damage": "7d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "holy",
+                        "magical",
+                        "range-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8DQYpHmdq6bDWmWn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NHG6AmeokuReiYz8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Jr5BOjlfU2WxVuj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "All-Knowing Eyes",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the giylea's aura, it must attempt a @Check[will|dc:34] save. If the creature fails, any Deception check it attempts until the end of its next turn has its result reduced by one degree of success. If a creature is currently disguised or in a shape other than its true form when it fails its save, it also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "level": 16,
+                        "radius": 30,
+                        "traits": [
+                            "divine",
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NzRqtCLm3KLiAODl",
+            "_stats": {
+                "compendiumSource": "Actor.oTw6wAZmGiL3oGWR.Item.fHJ8nd0W2SbII4o1"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Archon's Protection",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy damages the archon's ally and both are within 15 feet of the archon</p>\n<hr />\n<p><strong>Effect</strong> The ally gains resistance 20 to all damage against the triggering damage and the archon can make a Strike against the enemy.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L4Fc4BOiIian9jw1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fiery Spokes",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The giylea spins furiously, emitting a rain of divine fire. All creatures in a @Template[emanation|distance:60] take @Damage[(12d6)[fire],(5d6)[spirit]]{12d6 fire damage and 5d6 spirit damage} with a @Check[reflex|dc:37|basic] save. The giylea can't use Fiery Spokes for [[/gmr 1d4 #Recharge Fiery Spokes]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fire",
+                        "holy",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1vPMh16Kx98sAgCw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Focus Gaze",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The giylea fixes their gaze on a creature they can see within 30 feet. The target must immediately attempt a @Check[will|dc:37|traits:aura,divine,mental,visual] save against the giylea's all-knowing eyes. If the creature is under any magical effect that disguises it or has altered its shape, the giylea attempts to counter that magical disguise effect (counteract [[/r 1d20+29 #Counteract]]{+29}, 8th rank). After attempting its save, the creature is then temporarily immune until the start of the giylea's next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SChVzcavpmvFv7GY",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 2000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 29
                 },
-                "tradition": {
-                    "value": "divine"
+                "proficient": {
+                    "value": 0
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Giylea",

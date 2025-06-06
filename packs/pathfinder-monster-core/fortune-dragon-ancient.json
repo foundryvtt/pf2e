@@ -3,357 +3,819 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RvtzkMW1PTqja0gM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Arcane",
+            "_id": "2ZLsaPJA5gu2RAy4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:arcane"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TeMGPTAgB6CQgUrI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Aura of Disruption",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>120 feet.</p>\n<p>The dragon radiates disruptive energies that allow them to feed on magic. When a spell is counteracted or disrupted within the aura, the dragon regains one expended spontaneous spell slot and gains 35 temporary Hit Points that last for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 120,
-                        "traits": [
-                            "arcane"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "aura"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fLPSxVkoQyjEcOhg",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Capture Spell",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon succeeds or critically succeeds on a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to capture a portion of the spell's magic to feed themself. They attempt to counteract the spell (counteract rank 10, counteract modifier [[/r 1d20+37 #Counteract]]{+37}). If successful, the dragon is unaffected by the spell and regains one expended spontaneous spell slot; other subjects are affected by the spell normally.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Fd9jpCrOyon1zkTb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Disruptive Breath",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon unleashes a spray of magic-disrupting energies that deals @Damage[18d6[force]|options:area-damage] damage in a @Template[cone|distance:60] (@Check[reflex|dc:45|basic|options:area-effect] save). Creatures that fail become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>\n<p>The dragon can't use Disruptive Breath again for [[/gmr 1d4 #Recharge Disruptive Breath]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "force"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wlFjZPNirGsmZHEX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Frenzy",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xZbyHDzzCDYB7MD6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Momentum",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever they score a critical hit with a Strike, the dragon chooses to either recharge Disruptive Breath or regain one expended spontaneous spell slot.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "i9VTUX1hC7QRu6cr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Drain Hoard",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon is within 60 feet of their hoard</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws power out of the magic items in their hoard, regaining all their expended spontaneous spell slots.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot10": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 45,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "HrKiO0jPCr68aaT0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Share the Wealth",
+            "_id": "pMF6IAk67Qnd2DiA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4WS7HrFjwNvTn8T2"
+            },
+            "img": "systems/pf2e/icons/spells/implosion.webp",
+            "name": "Implosion",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "75",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You crush the target by causing it to collapse in on itself, dealing 75 damage. The first time each round you Sustain the spell, you must choose a new target to be subject to the same effect; the same creature can never be targeted more than once with a single casting of this spell. You also can't affect more than one creature per turn with implosion. You can't target a creature that's incorporeal, gaseous, or liquid, or otherwise lacking a solid form.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "implosion",
+                "target": {
+                    "value": "1 corporeal creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "9LNy0844UeJLnWQe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
+            },
+            "img": "systems/pf2e/icons/spells/maze.webp",
+            "name": "Quandary",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You transport the target into an extraplanar puzzle room of mysterious origin, locking them there. Once each turn as a single action, the target can attempt an Occultism check, Perception check, or Thievery check against your spell DC to solve the puzzle. Teleportation effects can't carry the target outside the puzzle room unless they can also traverse the planes, such as @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. When the spell ends, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr />\n<p><strong>Critical Success</strong> The target solves the puzzle and escapes.</p>\n<p><strong>Success</strong> The target is on the right path to the solution. If it was already on the right path, it solves the puzzle and escapes.</p>\n<p><strong>Failure</strong> The target makes no progress toward a solution.</p>\n<p><strong>Critical Failure</strong> The target makes no progress and, if it was on the right path, it no longer is.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "quandary",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "extradimensional",
+                        "manipulate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "FaVnIgs11nKc3n6Z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8kJbiBEjMWG4VUjs"
+            },
+            "img": "systems/pf2e/icons/spells/warp-mind.webp",
+            "name": "Warp Mind",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] and other effects that counteract spells can't counteract them. However, @UUID[Compendium.pf2e.spells-srd.Item.Wish] rituals and abilities that can remove non-magical effects can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "warp-mind",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "aTL5hdhAXeigottA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TDNlDWbYb58Y55Da"
+            },
+            "img": "systems/pf2e/icons/spells/chain-lightning.webp",
+            "name": "Chain Lightning",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "chain-lightning",
+                "target": {
+                    "value": "1 creature, plus any number of additional creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "eOFpmxHj4Kqtf0ig",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.xFp4EwVcYwSG336t"
+            },
+            "img": "icons/creatures/reptiles/serpent-horned-green.webp",
+            "name": "Slither",
+            "sort": 600000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "hBNB5kWrMV8T2CuH": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "piercing"
+                    },
+                    "mY0vhGfbdzA69pIz": {
+                        "applyMod": false,
+                        "category": "persistent",
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "poison"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>A mass of snakes made of shadow rise up to capture creatures in the area. Each creature in the area when you Cast the Spell takes @Damage[3d6[piercing]] damage and @Damage[1d6[persistent,poison]] damage from a biting snake, and it's @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] depending on its Reflex save. A creature that ends its turn in the area must also attempt this save, even if it's already grabbed or restrained by the snakes. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes full damage and is grabbed by a snake. The snakes' @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC is equal to your spell DC. A creature can attack a snake to release the creature. A snake's AC is equal to your spell DC, and it's destroyed if it takes 12 or more damage at once. New snakes continually regrow as long as the spell lasts, so destroying snakes doesn't prevent slither from capturing more creatures.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and is restrained by a snake.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent poison damage increases by 1d6 and snake HP increases by 6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "hBNB5kWrMV8T2CuH": "0",
+                        "mY0vhGfbdzA69pIz": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "slither",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "AJ1yLigCUPDfpXUg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
+            },
+            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
+            "name": "Unfettered Movement",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>unfettered movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "unfettered-movement",
+                "target": {
+                    "value": "1 creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "sNVPlrGHgUKc5ABj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd"
+            },
+            "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
+            "name": "Fireball",
             "sort": 800000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": {
+                    "type": "burst",
+                    "value": 20
                 },
-                "actions": {
-                    "value": 2
+                "cost": {
+                    "value": ""
                 },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon's body is covered in riches (this is typically the case when the dragon is first encountered)</p>\n<hr />\n<p><strong>Effect</strong> The dragon shakes their body aggressively, sending coins and other riches flying in every direction, dealing @Damage[18d10[bludgeoning]] damage with a @Check[reflex|dc:40|basic] save to all creatures in a @Template[emanation|distance:50]. The dragon's body is then no longer covered in riches.</p>"
+                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "fireball",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "ZSBangxptZQWQrmm",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Treasure Dive",
+            "_id": "EUdeG6pV7AvsMvbp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
             "sort": 900000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": {
+                    "type": "emanation",
+                    "value": 30
                 },
-                "actions": {
-                    "value": 2
+                "cost": {
+                    "value": ""
                 },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon's body isn't covered in riches and the dragon is adjacent to their hoard</p>\n<hr />\n<p><strong>Effect</strong> The dragon Strides or Burrows through their hoard using their land Speed. They coat themself in coins, magic items, and other treasures. This contact with magical items revitalizes the dragon, causing them to regain one expended spontaneous spell slot.</p>\n<p>The dragon can move through other creatures while moving in this way. Creatures in the dragon's path, or above it if the dragon Burrows, must succeed at a @Check[reflex|dc:38] save or be pushed 10 feet (or pushed 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "2ZLsaPJA5gu2RAy4"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "detect-magic",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
-                    "value": []
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "xAnWgLECiMfi9alB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Accounting Lore",
+            "_id": "HCZoZXU257qlMRFY",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM"
+            },
+            "img": "systems/pf2e/icons/spells/magic-missile.webp",
+            "name": "Force Barrage",
             "sort": 1000000,
             "system": {
-                "description": {
+                "area": null,
+                "cost": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 37
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d4+1",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "force"
+                    }
                 },
-                "proficient": {
-                    "value": 0
+                "defense": null,
+                "description": {
+                    "value": "<p>You fire a shard of solidified magic toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of shards you shoot by one, to a maximum of three shards for 3 actions. You choose the target for each shard individually. If you shoot more than one shard at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You fire one additional shard with each action you spend.</p>"
                 },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 10,
+                    "value": "2ZLsaPJA5gu2RAy4"
+                },
+                "overlays": {},
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
-                "traits": {}
+                "slug": "force-barrage",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "force",
+                        "manipulate"
+                    ]
+                }
             },
-            "type": "lore"
+            "type": "spell"
         },
         {
-            "_id": "U2aHyDSUjhmZQz3D",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mercantile Lore",
+            "_id": "tkQzWdHkAQOzFXJ0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
+            },
+            "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+            "name": "Read Aura",
             "sort": 1100000,
             "system": {
-                "description": {
+                "area": null,
+                "cost": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 37
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical. You or anyone you advise about the aura gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] on the item. If the object is illusory, you detect this only if the effect's rank is lower than the rank of your <em>read aura</em> spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
-                "proficient": {
-                    "value": 0
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "2ZLsaPJA5gu2RAy4"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": ""
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
-                "traits": {}
+                "slug": "read-aura",
+                "target": {
+                    "value": "1 object"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
             },
-            "type": "lore"
+            "type": "spell"
         },
         {
             "_id": "V3RdFn1rzRknyFZk",
@@ -500,792 +962,103 @@
             "type": "melee"
         },
         {
-            "_id": "pMF6IAk67Qnd2DiA",
+            "_id": "RvtzkMW1PTqja0gM",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4WS7HrFjwNvTn8T2"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
-            "img": "systems/pf2e/icons/spells/implosion.webp",
-            "name": "Implosion",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Arcane",
             "sort": 1500000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "75",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You crush the target by causing it to collapse in on itself, dealing 75 damage. The first time each round you Sustain the spell, you must choose a new target to be subject to the same effect; the same creature can never be targeted more than once with a single casting of this spell. You also can't affect more than one creature per turn with implosion. You can't target a creature that's incorporeal, gaseous, or liquid, or otherwise lacking a solid form.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "10"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "implosion",
-                "target": {
-                    "value": "1 corporeal creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "9LNy0844UeJLnWQe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.Oj1PJBMQD9vuwCv7"
-            },
-            "img": "systems/pf2e/icons/spells/maze.webp",
-            "name": "Quandary",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You transport the target into an extraplanar puzzle room of mysterious origin, locking them there. Once each turn as a single action, the target can attempt an Occultism check, Perception check, or Thievery check against your spell DC to solve the puzzle. Teleportation effects can't carry the target outside the puzzle room unless they can also traverse the planes, such as @UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]. When the spell ends, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr />\n<p><strong>Critical Success</strong> The target solves the puzzle and escapes.</p>\n<p><strong>Success</strong> The target is on the right path to the solution. If it was already on the right path, it solves the puzzle and escapes.</p>\n<p><strong>Failure</strong> The target makes no progress toward a solution.</p>\n<p><strong>Critical Failure</strong> The target makes no progress and, if it was on the right path, it no longer is.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "quandary",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "extradimensional",
-                        "manipulate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "FaVnIgs11nKc3n6Z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8kJbiBEjMWG4VUjs"
-            },
-            "img": "systems/pf2e/icons/spells/warp-mind.webp",
-            "name": "Warp Mind",
-            "sort": 1700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] and other effects that counteract spells can't counteract them. However, @UUID[Compendium.pf2e.spells-srd.Item.Wish] rituals and abilities that can remove non-magical effects can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "warp-mind",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "incapacitation",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "aTL5hdhAXeigottA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TDNlDWbYb58Y55Da"
-            },
-            "img": "systems/pf2e/icons/spells/chain-lightning.webp",
-            "name": "Chain Lightning",
-            "sort": 1800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "8d12",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "chain-lightning",
-                "target": {
-                    "value": "1 creature, plus any number of additional creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "eOFpmxHj4Kqtf0ig",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.xFp4EwVcYwSG336t"
-            },
-            "img": "icons/creatures/reptiles/serpent-horned-green.webp",
-            "name": "Slither",
-            "sort": 1900000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "hBNB5kWrMV8T2CuH": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "3d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "piercing"
-                    },
-                    "mY0vhGfbdzA69pIz": {
-                        "applyMod": false,
-                        "category": "persistent",
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "poison"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>A mass of snakes made of shadow rise up to capture creatures in the area. Each creature in the area when you Cast the Spell takes @Damage[3d6[piercing]] damage and @Damage[1d6[persistent,poison]] damage from a biting snake, and it's @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] depending on its Reflex save. A creature that ends its turn in the area must also attempt this save, even if it's already grabbed or restrained by the snakes. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes full damage and is grabbed by a snake. The snakes' @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC is equal to your spell DC. A creature can attack a snake to release the creature. A snake's AC is equal to your spell DC, and it's destroyed if it takes 12 or more damage at once. New snakes continually regrow as long as the spell lasts, so destroying snakes doesn't prevent slither from capturing more creatures.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and is restrained by a snake.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent poison damage increases by 1d6 and snake HP increases by 6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {
-                        "hBNB5kWrMV8T2CuH": "0",
-                        "mY0vhGfbdzA69pIz": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "slither",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "shadow"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "AJ1yLigCUPDfpXUg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH"
-            },
-            "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
-            "name": "Unfettered Movement",
-            "sort": 2000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] an effect that has them @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], they automatically succeed unless the effect is magical and of a higher rank than the <em>unfettered movement</em> spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "unfettered-movement",
-                "target": {
-                    "value": "1 creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "sNVPlrGHgUKc5ABj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd"
-            },
-            "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
-            "name": "Fireball",
-            "sort": 2100000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 20
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "6d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "fire"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "fireball",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "EUdeG6pV7AvsMvbp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
-            },
-            "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
-            "sort": 2200000,
-            "system": {
-                "area": {
-                    "type": "emanation",
-                    "value": 30
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "detect-magic",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HCZoZXU257qlMRFY",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM"
-            },
-            "img": "systems/pf2e/icons/spells/magic-missile.webp",
-            "name": "Force Barrage",
-            "sort": 2300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d4+1",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "force"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You fire a shard of solidified magic toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of shards you shoot by one, to a maximum of three shards for 3 actions. You choose the target for each shard individually. If you shoot more than one shard at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You fire one additional shard with each action you spend.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 10,
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "overlays": {},
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "force-barrage",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "force",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "tkQzWdHkAQOzFXJ0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA"
-            },
-            "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
-            "name": "Read Aura",
-            "sort": 2400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical. You or anyone you advise about the aura gains a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] on the item. If the object is illusory, you detect this only if the effect's rank is lower than the rank of your <em>read aura</em> spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "10 objects"
-                            }
-                        },
-                        "6": {
-                            "target": {
-                                "value": "any number of objects"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "2ZLsaPJA5gu2RAy4"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "read-aura",
-                "target": {
-                    "value": "1 object"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "detection",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "2ZLsaPJA5gu2RAy4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:arcane"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TeMGPTAgB6CQgUrI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Disruption",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>120 feet.</p>\n<p>The dragon radiates disruptive energies that allow them to feed on magic. When a spell is counteracted or disrupted within the aura, the dragon regains one expended spontaneous spell slot and gains 35 temporary Hit Points that last for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "traits": [
+                            "arcane"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fLPSxVkoQyjEcOhg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capture Spell",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragon succeeds or critically succeeds on a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to capture a portion of the spell's magic to feed themself. They attempt to counteract the spell (counteract rank 10, counteract modifier [[/r 1d20+37 #Counteract]]{+37}). If successful, the dragon is unaffected by the spell and regains one expended spontaneous spell slot; other subjects are affected by the spell normally.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1293,26 +1066,253 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot10": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 45,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fd9jpCrOyon1zkTb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Disruptive Breath",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon unleashes a spray of magic-disrupting energies that deals @Damage[18d6[force]|options:area-damage] damage in a @Template[cone|distance:60] (@Check[reflex|dc:45|basic|options:area-effect] save). Creatures that fail become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute.</p>\n<p>The dragon can't use Disruptive Breath again for [[/gmr 1d4 #Recharge Disruptive Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "force"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wlFjZPNirGsmZHEX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draconic Frenzy",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon makes two claw Strikes and one tail Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xZbyHDzzCDYB7MD6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Draconic Momentum",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever they score a critical hit with a Strike, the dragon chooses to either recharge Disruptive Breath or regain one expended spontaneous spell slot.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i9VTUX1hC7QRu6cr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Drain Hoard",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon is within 60 feet of their hoard</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws power out of the magic items in their hoard, regaining all their expended spontaneous spell slots.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HrKiO0jPCr68aaT0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Share the Wealth",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon's body is covered in riches (this is typically the case when the dragon is first encountered)</p>\n<hr />\n<p><strong>Effect</strong> The dragon shakes their body aggressively, sending coins and other riches flying in every direction, dealing @Damage[18d10[bludgeoning]] damage with a @Check[reflex|dc:40|basic] save to all creatures in a @Template[emanation|distance:50]. The dragon's body is then no longer covered in riches.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZSBangxptZQWQrmm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Treasure Dive",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon's body isn't covered in riches and the dragon is adjacent to their hoard</p>\n<hr />\n<p><strong>Effect</strong> The dragon Strides or Burrows through their hoard using their land Speed. They coat themself in coins, magic items, and other treasures. This contact with magical items revitalizes the dragon, causing them to regain one expended spontaneous spell slot.</p>\n<p>The dragon can move through other creatures while moving in this way. Creatures in the dragon's path, or above it if the dragon Burrows, must succeed at a @Check[reflex|dc:38] save or be pushed 10 feet (or pushed 20 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xAnWgLECiMfi9alB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Accounting Lore",
+            "sort": 2400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 37
                 },
-                "tradition": {
-                    "value": "arcane"
+                "proficient": {
+                    "value": 0
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "U2aHyDSUjhmZQz3D",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mercantile Lore",
+            "sort": 2500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Fortune Dragon (Ancient)",

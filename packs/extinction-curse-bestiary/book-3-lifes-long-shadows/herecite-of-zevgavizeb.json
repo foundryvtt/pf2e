@@ -4,310 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "oKvWxPQ1VdadXlOL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cabal",
+            "_id": "2oeiSTDdWeqdi1Ew",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Multiple herecites can form a cabal to gain increased magical abilities and defenses. A cabal consists of two to five herecites. The ritual to form a cabal (or to welcome new herecites into an existing cabal) requires 24 hours of worship, prayer, and vile sacrifice, after which point the herecites become magically bound to one another. All herecites in a cabal gain the cleric domain spells granted by each individual herecite's deity, and each herecite's focus pool increases to 3 Focus Points. As long as the cabal exists, herecites in the cabal gain a +2 status bonus to Perception checks and fast healing 10. These benefits persist as long as the cabal consists of two or more herecites that remain within 1 mile of one another.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "in-a-cabal",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FastHealing",
-                        "predicate": [
-                            "in-a-cabal"
-                        ],
-                        "type": "fast-healing",
-                        "value": 10
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "in-a-cabal"
-                        ],
-                        "selector": "perception",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iBalLMYNzfQfwcHn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Herecite Deity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A herecite is associated with one evil god and is always of the same alignment as that god. Whenever it wields its deity's favored weapon, that weapon gains the unholy rune. The herecite's creators select two domains from their deity; the herecite can cast the domain spells and the advanced domain spells from those domains as cleric focus spells. The herecite can cast the deity's other granted cleric spells as divine innate spells. Most herecites have 2 Focus Points in their focus pool. The herecite presented here is a herecite of Zevgavizeb.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7jb5XLgHQFBJzvra",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HAq5bDyta4z3yz98",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Perverse Prayer",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet uses the Sustain a Spell action to sustain a divine spell or the Cast a Spell action to cast a divine spell with a verbal component</p>\n<hr />\n<p><strong>Effect</strong> The herecite warps the caster's prayers into a sacrilegious echo praising the evils of its own deity. The triggering caster must succeed at a @Check[will|dc:29] saving throw or their spell is disrupted and their action wasted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "divine",
-                        "evil"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gi1EHeu40BAEjrvS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nN899egloBXvGHGV",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Assault the Soul",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The herecite is in a cabal of three or more members, two of which are within 60 feet and have used Cabal Communion within the last round</p>\n<hr />\n<p><strong>Effect</strong> The herecite casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], @UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast], or @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic] (DC 31). Once a herecite has used this ability (whether or not it was successful), the cabal must wait 24 hours before one of its members can use Assault the Soul again.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "evil"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PQ4Thk0ntFSWU7Gz",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Cabal Communion",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>With murmurs and chants, the herecite casts its consciousness toward the other members of its cabal. For 1 round, it senses what other members are sensing, knows their thoughts, and knows their exact location.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "luzb0P0GAIgFEHxS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Curse of Defiled Idols",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Recalling the cruelty of the foul ritual that birthed it, the herecite curses an enemy with a fragment of its blasphemy. The herecite targets one creature within 30 feet, which must attempt a @Check[will|dc:29] save. On a failure, the creature is cursed. As long as the creature is cursed, any art object, symbol, or implement of religious significance in the creature's possession-such as a divine spellcasting focus, holy text, fetish, or rendering of a deity-becomes physically corrupted in a way that debases the deity's tenets (a depiction of Shelyn's songbird, for example, might lose its beautiful plumage to reveal a hideous skeletal form beneath). While these items continue to function normally, the cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupified 2} as long as it possesses an object corrupted in this fashion. The creature can cast off its corrupted objects to remove the stupefied condition, but any new religious objects it takes into its possession become similarly corrupted. The curse can be lifted by a remove curse spell or by an atone ritual. After a creature is targeted with this ability, regardless of whether it was affected, it becomes immune to herecites' Curse of Defiled Idols for 1 day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "divine",
-                        "evil"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tp9ORpYsDj2Yd3XE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Zevgavizeb Lore",
-            "sort": 900000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 19
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -316,42 +28,57 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "4v1QwNqequfwzIu9",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "teoYBsXeF4ePoNS9"
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Unholy Spiked Gauntlet",
-            "sort": 1000000,
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "Fkch2WMm3nRHukfN",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Focus Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "pa77zhe78ij06bzlbm0t": {
-                        "damage": "2d4+10",
-                        "damageType": "piercing"
-                    },
-                    "ysv7t0pn6qtvx9r4zkuw": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -359,20 +86,27 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "free-hand",
-                        "unholy"
-                    ]
+                "slots": {
+                    "slot1": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    }
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "y4FzMRUJzi32QlMi",
@@ -381,7 +115,7 @@
             },
             "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
             "name": "Ravening Maw",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -450,7 +184,7 @@
             },
             "img": "systems/pf2e/icons/spells/enduring-might.webp",
             "name": "Enduring Might",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -511,7 +245,7 @@
             },
             "img": "systems/pf2e/icons/spells/natures-bounty.webp",
             "name": "Nature's Bounty",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -589,7 +323,7 @@
             },
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -672,7 +406,7 @@
             },
             "img": "icons/magic/earth/strike-fist-stone-light.webp",
             "name": "Meld into Stone",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -734,7 +468,7 @@
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -802,7 +536,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -873,7 +607,7 @@
             },
             "img": "icons/magic/control/buff-strength-muscle-damage.webp",
             "name": "Athletic Rush",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -931,7 +665,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (Constant) (Good Only)",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -996,7 +730,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm (At-Will)",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1191,7 +925,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1259,7 +993,7 @@
             },
             "img": "icons/magic/nature/thorns-hand-glow-green.webp",
             "name": "Vibrant Thorns",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1314,118 +1048,13 @@
             "type": "spell"
         },
         {
-            "_id": "2oeiSTDdWeqdi1Ew",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "Fkch2WMm3nRHukfN",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Focus Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "teoYBsXeF4ePoNS9",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YFfG2fMyaIAXkmtr"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spiked-gauntlet.webp",
             "name": "Spiked Gauntlet",
-            "sort": 2500000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "spiked-gauntlet",
                 "bonus": {
@@ -1504,6 +1133,377 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "4v1QwNqequfwzIu9",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "teoYBsXeF4ePoNS9"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Unholy Spiked Gauntlet",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "pa77zhe78ij06bzlbm0t": {
+                        "damage": "2d4+10",
+                        "damageType": "piercing"
+                    },
+                    "ysv7t0pn6qtvx9r4zkuw": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "free-hand",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "oKvWxPQ1VdadXlOL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cabal",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Multiple herecites can form a cabal to gain increased magical abilities and defenses. A cabal consists of two to five herecites. The ritual to form a cabal (or to welcome new herecites into an existing cabal) requires 24 hours of worship, prayer, and vile sacrifice, after which point the herecites become magically bound to one another. All herecites in a cabal gain the cleric domain spells granted by each individual herecite's deity, and each herecite's focus pool increases to 3 Focus Points. As long as the cabal exists, herecites in the cabal gain a +2 status bonus to Perception checks and fast healing 10. These benefits persist as long as the cabal consists of two or more herecites that remain within 1 mile of one another.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "in-a-cabal",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "in-a-cabal"
+                        ],
+                        "type": "fast-healing",
+                        "value": 10
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "in-a-cabal"
+                        ],
+                        "selector": "perception",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iBalLMYNzfQfwcHn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Herecite Deity",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A herecite is associated with one evil god and is always of the same alignment as that god. Whenever it wields its deity's favored weapon, that weapon gains the unholy rune. The herecite's creators select two domains from their deity; the herecite can cast the domain spells and the advanced domain spells from those domains as cleric focus spells. The herecite can cast the deity's other granted cleric spells as divine innate spells. Most herecites have 2 Focus Points in their focus pool. The herecite presented here is a herecite of Zevgavizeb.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7jb5XLgHQFBJzvra",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HAq5bDyta4z3yz98",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Perverse Prayer",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet uses the Sustain a Spell action to sustain a divine spell or the Cast a Spell action to cast a divine spell with a verbal component</p>\n<hr />\n<p><strong>Effect</strong> The herecite warps the caster's prayers into a sacrilegious echo praising the evils of its own deity. The triggering caster must succeed at a @Check[will|dc:29] saving throw or their spell is disrupted and their action wasted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "evil"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gi1EHeu40BAEjrvS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nN899egloBXvGHGV",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Assault the Soul",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The herecite is in a cabal of three or more members, two of which are within 60 feet and have used Cabal Communion within the last round</p>\n<hr />\n<p><strong>Effect</strong> The herecite casts @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul], @UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast], or @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic] (DC 31). Once a herecite has used this ability (whether or not it was successful), the cabal must wait 24 hours before one of its members can use Assault the Soul again.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "evil"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PQ4Thk0ntFSWU7Gz",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Cabal Communion",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With murmurs and chants, the herecite casts its consciousness toward the other members of its cabal. For 1 round, it senses what other members are sensing, knows their thoughts, and knows their exact location.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "luzb0P0GAIgFEHxS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Curse of Defiled Idols",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Recalling the cruelty of the foul ritual that birthed it, the herecite curses an enemy with a fragment of its blasphemy. The herecite targets one creature within 30 feet, which must attempt a @Check[will|dc:29] save. On a failure, the creature is cursed. As long as the creature is cursed, any art object, symbol, or implement of religious significance in the creature's possession-such as a divine spellcasting focus, holy text, fetish, or rendering of a deity-becomes physically corrupted in a way that debases the deity's tenets (a depiction of Shelyn's songbird, for example, might lose its beautiful plumage to reveal a hideous skeletal form beneath). While these items continue to function normally, the cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupified 2} as long as it possesses an object corrupted in this fashion. The creature can cast off its corrupted objects to remove the stupefied condition, but any new religious objects it takes into its possession become similarly corrupted. The curse can be lifted by a remove curse spell or by an atone ritual. After a creature is targeted with this ability, regardless of whether it was affected, it becomes immune to herecites' Curse of Defiled Idols for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "evil"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tp9ORpYsDj2Yd3XE",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Zevgavizeb Lore",
+            "sort": 2500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Herecite of Zevgavizeb",

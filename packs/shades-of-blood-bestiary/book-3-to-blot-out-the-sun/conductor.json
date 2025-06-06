@@ -4,537 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3zUiUJfYeXIPZBU6",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Painsight",
+            "_id": "PnDxzrjJaQEslLHv",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Item.Doomed], @UUID[Compendium.pf2e.conditionitems.Item.Dying], and @UUID[Compendium.pf2e.conditionitems.Item.Wounded] conditions, as well as the value of those conditions.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TcPzW3mJrkr3xwPJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "h1gxGTqJNQ3d2YiH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jWi52nabMjsgxHax",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (Deactivated by Holy or Silver",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "holy",
-                            "silver"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 10
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5aHnOxuuv74kblGh",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Horrifying Accompaniment",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it hears every scream the velstrac conductor's victims have ever uttered. The creature must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "traits": [
-                            "auditory",
-                            "aura",
-                            "divine",
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ouRdXacD2CSHXiPA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sonic Redirection",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature targets the velstrac conductor with an auditory or sonic effect or includes the conductor in the area of an auditory or sonic effect</p><hr /><p><strong>Effect</strong> The conductor sings a note that resonates with the triggering effect, redirecting it to the triggering creature. The triggering creature becomes the target of the triggering effect, instead of the conductor.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hwIQPwhl4ZPBpOCt",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Focus Gaze",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The velstrac conductor stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against the velstrac conductor's horrifying accompaniment aura. In addition, if the creature was already frightened, on a failed save the creature takes @Damage[1d6[persistent,mental]] damage. After attempting this save, the creature is then temporarily immune for 1 hour.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OPWiHtXAg9BWIktp",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scream for Me",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
+                "spelldc": {
+                    "dc": 28,
+                    "value": 20
                 },
-                "actions": {
-                    "value": 1
+                "tradition": {
+                    "value": "divine"
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> With a horrifying flourish and hungry smile, the velstrac conductor points their baton at a creature within 100 feet, compelling them to scream. The creature must attempt a @Check[will|dc:28] save. On a failure, they scream, taking @Damage[4d6[mental]] damage (@Damage[8d6[mental]] on a critical failure) and dealing @Damage[2d6[sonic]] damage to all creatures in a @Template[type:emanation|distance:20] (@Check[fortitude|dc:28|basic] save).</p>\n<p>Instead of targeting one creature, the conductor can choose to target all creatures in range that were compelled to scream by this ability last round.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "mental",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "g8Fn8rgfUYoJlwgY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Unholy Exaltation",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The conductor lets out a terrible scream of joy, dealing @Damage[10d6[sonic]] damage to all creatures in either a @Template[type:cone|distance:30] or a @Template[type:line|distance:90] (@Check[will|dc:28|basic] save). Holy creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. The conductor can't use Unholy Exaltation again for [[/gmr 1d4 #Recharge Unholy Exaltation]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "sonic",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Xcl8Md9G3qK6KdEP",
-            "img": "icons/weapons/staves/staff-ornate.webp",
-            "name": "Conductor's Baton",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "um2PxwFSEzBMcQc9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Torture Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "rwSFHVcngEK7T6Md",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "WWXkoFbEeCxkC8Pq": {
-                        "damage": "4d6+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "cm4QiNEJgATueajx",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Conductor's Baton",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "09fx4nanlCVaYqwx": {
-                        "damage": "3d4+7",
-                        "damageType": "piercing"
-                    },
-                    "0h8dSEHcVzURq8c1": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "VxY2MB8tInlVu8Qz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pinpoint Shriek",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "zyvBLrOS7DFqYb84": {
-                        "damage": "4d6",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "range-increment-90",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "tqXrf9dVeQNU4n0h",
@@ -544,7 +51,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly (Constant)",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -608,7 +115,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -681,7 +188,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -742,22 +249,77 @@
             "type": "spell"
         },
         {
-            "_id": "PnDxzrjJaQEslLHv",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1800000,
+            "_id": "Xcl8Md9G3qK6KdEP",
+            "img": "icons/weapons/staves/staff-ornate.webp",
+            "name": "Conductor's Baton",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
                 },
+                "containerId": null,
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
                 },
-                "proficiency": {
-                    "value": 1
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "rwSFHVcngEK7T6Md",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "WWXkoFbEeCxkC8Pq": {
+                        "damage": "4d6+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -765,21 +327,459 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cm4QiNEJgATueajx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Conductor's Baton",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
                 },
-                "tradition": {
-                    "value": "divine"
+                "bonus": {
+                    "value": 19
                 },
+                "damageRolls": {
+                    "09fx4nanlCVaYqwx": {
+                        "damage": "3d4+7",
+                        "damageType": "piercing"
+                    },
+                    "0h8dSEHcVzURq8c1": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VxY2MB8tInlVu8Qz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pinpoint Shriek",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "zyvBLrOS7DFqYb84": {
+                        "damage": "4d6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "range-increment-90",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3zUiUJfYeXIPZBU6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Painsight",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Item.Doomed], @UUID[Compendium.pf2e.conditionitems.Item.Dying], and @UUID[Compendium.pf2e.conditionitems.Item.Wounded] conditions, as well as the value of those conditions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TcPzW3mJrkr3xwPJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "h1gxGTqJNQ3d2YiH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jWi52nabMjsgxHax",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Holy or Silver",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "holy",
+                            "silver"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 10
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5aHnOxuuv74kblGh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Horrifying Accompaniment",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it hears every scream the velstrac conductor's victims have ever uttered. The creature must succeed at a @Check[will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "auditory",
+                            "aura",
+                            "divine",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ouRdXacD2CSHXiPA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sonic Redirection",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature targets the velstrac conductor with an auditory or sonic effect or includes the conductor in the area of an auditory or sonic effect</p><hr /><p><strong>Effect</strong> The conductor sings a note that resonates with the triggering effect, redirecting it to the triggering creature. The triggering creature becomes the target of the triggering effect, instead of the conductor.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hwIQPwhl4ZPBpOCt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Focus Gaze",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The velstrac conductor stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against the velstrac conductor's horrifying accompaniment aura. In addition, if the creature was already frightened, on a failed save the creature takes @Damage[1d6[persistent,mental]] damage. After attempting this save, the creature is then temporarily immune for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OPWiHtXAg9BWIktp",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scream for Me",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> With a horrifying flourish and hungry smile, the velstrac conductor points their baton at a creature within 100 feet, compelling them to scream. The creature must attempt a @Check[will|dc:28] save. On a failure, they scream, taking @Damage[4d6[mental]] damage (@Damage[8d6[mental]] on a critical failure) and dealing @Damage[2d6[sonic]] damage to all creatures in a @Template[type:emanation|distance:20] (@Check[fortitude|dc:28|basic] save).</p>\n<p>Instead of targeting one creature, the conductor can choose to target all creatures in range that were compelled to scream by this ability last round.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "mental",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g8Fn8rgfUYoJlwgY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unholy Exaltation",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The conductor lets out a terrible scream of joy, dealing @Damage[10d6[sonic]] damage to all creatures in either a @Template[type:cone|distance:30] or a @Template[type:line|distance:90] (@Check[will|dc:28|basic] save). Holy creatures that fail this save are also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. The conductor can't use Unholy Exaltation again for [[/gmr 1d4 #Recharge Unholy Exaltation]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "sonic",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "um2PxwFSEzBMcQc9",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Torture Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Conductor",

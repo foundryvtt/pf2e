@@ -4,59 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "85ZFVNdum6WrNAnT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "ubs94wAy7XupF4V3",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TqypIhZnwhIuh2eR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.JcaIJLGGmst79f1Y"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Thoughtsense (Imprecise) 60 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Kirosthrek senses a creature's mental essence at the listed range.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Thoughtsense]</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -64,491 +27,100 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "thoughtsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pCcRbDIkKmjmDyfT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OLmfUY8tRGHs6zpa",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Divert Thoughts",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Kirosthrek attempts a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> Kirosthrek diverts some of the spell's energy, gaining a +2 circumstance bonus to the saving throw or +4 if the spell has the mental trait.</p>\n<p>If she critically succeeds at the saving throw, she can use the Cast a Spell action on her next turn to cast the triggering spell at the same level without expending any spell slots.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical",
-                            {
-                                "not": "mental"
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "slug": "divert-thoughts-2",
-                        "type": "circumstance",
+                    "slot10": {
+                        "max": 2,
                         "value": 2
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "mental",
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "slug": "divert-thoughts-4",
-                        "type": "circumstance",
-                        "value": 4
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot9": {
+                        "max": 3,
+                        "value": 3
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental"
-                    ]
+                "spelldc": {
+                    "dc": 42,
+                    "value": 34
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "SHp8QZBD4sEwfuHc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Psychogenic Secretions",
-            "sort": 500000,
+            "_id": "mDxntBa1Fvx5511p",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[will|dc:42] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "psychogenic-secretions",
-                        "traits": [
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yTuD5OYd94nyf8YO",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Consume Knowledge",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kirosthrek invades the mind of a creature within 100 feet and attempts to swallow its capacity for higher thought. The creature must attempt a @Check[will|dc:42] save.</p>\n<p>Using Consume Knowledge immediately ends any of the ability's previous effects on a different creature.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is slowed 1 and can take no actions other than basic actions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and Kirosthrek is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 minute. She can use this extra action to Stride, Strike, or Cast a Spell if the target had prepared spells or a spell repertoire.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gkZZB6VEmnazsd8w",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 700000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 2
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "BuX5y81FQzZ9dfCL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qK964kZz1ALcysOa"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (True)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "10d6+27",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span></p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(10d6+27)[healing]] Hit Points and gain +4 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 19
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-true",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "WW0rVGZeDbBBS5np",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h2aVryWbNP24gC05"
-            },
-            "img": "systems/pf2e/icons/equipment/held-items/planar-ribbon.webp",
-            "name": "Planar Ribbon",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>By twisting and twirling this ordinary-looking leather ribbon, you can temporarily bend a rift in space.</p>\n<hr />\n<p><strong>Activate</strong> 1 minute (command, envision, Interact)</p>\n<hr />\n<p><strong>Effect</strong> The ribbon spins and swirls, creating a circular loop in the air through which you can spy on a creature on another plane.</p>\n<p>This has the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Scrying] spell (DC 40) against the creature but functions more as a mundane -albeit interplanar-window; a similar loop appears before the target, and for the duration, both sides can clearly see and hear each other through the created portal, but nothing can pass through.</p>\n<p>You can Sustain the Activation to gain the effects of Sustaining the Spell. This activation has the scrying trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> You extend the ribbon to brush against a foe up to 60 feet away. If that creature fails a @Check[reflex|dc:42] save, you exchange positions with the target and all of that creature's allies are off-guard to you until the end of your turn. This activation has the teleportation trait.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 20
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #156: The Apocalypse Prophet"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "planar-ribbon",
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "occult"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ut1GcOdnxUjt4DaV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "ks9iq37srcbkpqgsbopz": {
-                        "damage": "4d8+6",
-                        "damageType": "piercing"
-                    },
-                    "rypxcuvl32hvtjlrn4gx": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "S9kIEucfakAniYkE",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 42,
                     "value": 34
                 },
-                "damageRolls": {
-                    "n4jdn8pt8bi2xynoax5e": {
-                        "damage": "4d4+6",
-                        "damageType": "slashing"
-                    },
-                    "ouunjn2zkw9ytisg3wpl": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "0Lf33oBfyrZZxGe5",
@@ -557,7 +129,7 @@
             },
             "img": "systems/pf2e/icons/spells/alter-reality.webp",
             "name": "Alter Reality",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -617,7 +189,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Foresight",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -681,7 +253,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Weird",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -763,7 +335,7 @@
             },
             "img": "systems/pf2e/icons/spells/disapperance.webp",
             "name": "Disappearance",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -824,7 +396,7 @@
             },
             "img": "systems/pf2e/icons/spells/maze.webp",
             "name": "Maze",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -887,7 +459,7 @@
             },
             "img": "systems/pf2e/icons/spells/visions-of-danger.webp",
             "name": "Visions of Danger",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -976,7 +548,7 @@
             },
             "img": "systems/pf2e/icons/spells/warp-mind.webp",
             "name": "Warp Mind",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1045,7 +617,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1134,7 +706,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Planar Binding",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1197,7 +769,7 @@
             },
             "img": "systems/pf2e/icons/spells/scrying.webp",
             "name": "Scrying",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1264,7 +836,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1328,7 +900,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-force.webp",
             "name": "Wall of Force",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1390,7 +962,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-force.webp",
             "name": "Wall of Force",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1452,7 +1024,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1515,7 +1087,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1598,7 +1170,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1666,7 +1238,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-fiend.webp",
             "name": "Summon Fiend",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1726,7 +1298,7 @@
             },
             "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
             "name": "Synaptic Pulse",
-            "sort": 2900000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1796,7 +1368,7 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 3000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1872,7 +1444,7 @@
             },
             "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
             "name": "Telekinetic Haul (At Will)",
-            "sort": 3100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1933,7 +1505,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 3200000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2011,7 +1583,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly (Constant)",
-            "sort": 3300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2073,7 +1645,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
-            "sort": 3400000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2145,7 +1717,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 3500000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2234,7 +1806,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 3600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2313,7 +1885,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 3700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2381,7 +1953,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 3800000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2453,7 +2025,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 3900000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2531,7 +2103,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 4000000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2596,7 +2168,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 4100000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2657,7 +2229,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 4200000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2718,7 +2290,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 4300000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2781,7 +2353,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 4400000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2842,7 +2414,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 4500000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2905,7 +2477,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 4600000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2992,7 +2564,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 4700000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3073,7 +2645,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 4800000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3134,7 +2706,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 4900000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3209,7 +2781,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain (At Will)",
-            "sort": 5000000,
+            "sort": 4100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3295,7 +2867,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 5100000,
+            "sort": 4200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3357,7 +2929,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 5200000,
+            "sort": 4300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -3429,7 +3001,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 5300000,
+            "sort": 4400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3553,7 +3125,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 5400000,
+            "sort": 4500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3608,102 +3180,232 @@
             "type": "spell"
         },
         {
-            "_id": "ubs94wAy7XupF4V3",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 5500000,
+            "_id": "gkZZB6VEmnazsd8w",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 4600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
                     "value": 1
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
                 },
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot10": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot9": {
-                        "max": 3,
-                        "value": 3
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "tradition": {
-                    "value": "occult"
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 2
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "armor"
         },
         {
-            "_id": "mDxntBa1Fvx5511p",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 5600000,
+            "_id": "WW0rVGZeDbBBS5np",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.h2aVryWbNP24gC05"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/planar-ribbon.webp",
+            "name": "Planar Ribbon",
+            "sort": 4700000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>By twisting and twirling this ordinary-looking leather ribbon, you can temporarily bend a rift in space.</p>\n<hr />\n<p><strong>Activate</strong> 1 minute (command, envision, Interact)</p>\n<hr />\n<p><strong>Effect</strong> The ribbon spins and swirls, creating a circular loop in the air through which you can spy on a creature on another plane.</p>\n<p>This has the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Scrying] spell (DC 40) against the creature but functions more as a mundane -albeit interplanar-window; a similar loop appears before the target, and for the duration, both sides can clearly see and hear each other through the created portal, but nothing can pass through.</p>\n<p>You can Sustain the Activation to gain the effects of Sustaining the Spell. This activation has the scrying trait.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> You extend the ribbon to brush against a foe up to 60 feet away. If that creature fails a @Check[reflex|dc:42] save, you exchange positions with the target and all of that creature's allies are off-guard to you until the end of your turn. This activation has the teleportation trait.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 20
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #156: The Apocalypse Prophet"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "planar-ribbon",
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "BuX5y81FQzZ9dfCL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qK964kZz1ALcysOa"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (True)",
+            "sort": 4800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "10d6+27",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span></p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[(10d6+27)[healing]] Hit Points and gain +4 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 19
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-true",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ut1GcOdnxUjt4DaV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 4900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "ks9iq37srcbkpqgsbopz": {
+                        "damage": "4d8+6",
+                        "damageType": "piercing"
+                    },
+                    "rypxcuvl32hvtjlrn4gx": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -3711,20 +3413,318 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "value": 34
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "S9kIEucfakAniYkE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 5000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "n4jdn8pt8bi2xynoax5e": {
+                        "damage": "4d4+6",
+                        "damageType": "slashing"
+                    },
+                    "ouunjn2zkw9ytisg3wpl": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "85ZFVNdum6WrNAnT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 5100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TqypIhZnwhIuh2eR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.JcaIJLGGmst79f1Y"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense (Imprecise) 60 feet",
+            "sort": 5200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Kirosthrek senses a creature's mental essence at the listed range.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Thoughtsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "thoughtsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pCcRbDIkKmjmDyfT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 5300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OLmfUY8tRGHs6zpa",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Divert Thoughts",
+            "sort": 5400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Kirosthrek attempts a saving throw against a spell</p>\n<hr />\n<p><strong>Effect</strong> Kirosthrek diverts some of the spell's energy, gaining a +2 circumstance bonus to the saving throw or +4 if the spell has the mental trait.</p>\n<p>If she critically succeeds at the saving throw, she can use the Cast a Spell action on her next turn to cast the triggering spell at the same level without expending any spell slots.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical",
+                            {
+                                "not": "mental"
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "slug": "divert-thoughts-2",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mental",
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "slug": "divert-thoughts-4",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SHp8QZBD4sEwfuHc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Psychogenic Secretions",
+            "sort": 5500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[will|dc:42] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "psychogenic-secretions",
+                        "traits": [
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yTuD5OYd94nyf8YO",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Consume Knowledge",
+            "sort": 5600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kirosthrek invades the mind of a creature within 100 feet and attempts to swallow its capacity for higher thought. The creature must attempt a @Check[will|dc:42] save.</p>\n<p>Using Consume Knowledge immediately ends any of the ability's previous effects on a different creature.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is slowed 1 and can take no actions other than basic actions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and Kirosthrek is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 minute. She can use this extra action to Stride, Strike, or Cast a Spell if the target had prepared spells or a spell repertoire.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kirosthrek",

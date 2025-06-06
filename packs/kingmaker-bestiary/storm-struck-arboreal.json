@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "esNHCG2RP8SOfTuA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Axe Vulnerability",
+            "_id": "qqqYIHulqpSQmjAc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>A storm-struck arboreal takes 15 additional Damage from axes.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,89 +27,198 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "GZ9qL58QMmBtlHul",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Electric Healing",
+            "_id": "YM4pPvwo4VfvHCHk",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TDNlDWbYb58Y55Da"
+            },
+            "img": "systems/pf2e/icons/spells/chain-lightning.webp",
+            "name": "Chain Lightning",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
                 },
-                "category": "defensive",
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
                 "description": {
-                    "value": "<p>Whenever the storm-struck arboreal would take electricity damage or is targeted with an electricity effect, it gains 15 temporary HP.</p>"
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "qqqYIHulqpSQmjAc"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
+                "range": {
+                    "value": "500 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "chain-lightning",
+                "target": {
+                    "value": "1 creature, plus any number of additional creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "0BMCA9P7mLMAMs10",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sunder Objects",
+            "_id": "ZMN1Sr50Z9rCVsLz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2"
+            },
+            "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
+            "name": "Lightning Bolt",
             "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "area": {
+                    "type": "line",
+                    "value": 120
                 },
-                "actions": {
-                    "value": null
+                "cost": {
+                    "value": ""
                 },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "4d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
                 "description": {
-                    "value": "<p>When a storm-struck arboreal damages an item or structure it deals an additional [[/r 3d12]] damage to that item or structure.</p>"
+                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "value": "qqqYIHulqpSQmjAc"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "sunder-objects",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 3,
-                        "dieSize": "d12",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "sunder-objects"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "lightning-bolt",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
             "_id": "oSq2qYAln4B4sFY0",
@@ -197,200 +309,20 @@
             "type": "melee"
         },
         {
-            "_id": "YM4pPvwo4VfvHCHk",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.TDNlDWbYb58Y55Da"
-            },
-            "img": "systems/pf2e/icons/spells/chain-lightning.webp",
-            "name": "Chain Lightning",
+            "_id": "esNHCG2RP8SOfTuA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Axe Vulnerability",
             "sort": 600000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "8d12",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "heightenedLevel": 8,
-                    "value": "qqqYIHulqpSQmjAc"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "chain-lightning",
-                "target": {
-                    "value": "1 creature, plus any number of additional creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ZMN1Sr50Z9rCVsLz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2"
-            },
-            "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
-            "name": "Lightning Bolt",
-            "sort": 700000,
-            "system": {
-                "area": {
-                    "type": "line",
-                    "value": 120
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "4d12",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "electricity"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "heightenedLevel": 7,
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "qqqYIHulqpSQmjAc"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "lightning-bolt",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "qqqYIHulqpSQmjAc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 800000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>A storm-struck arboreal takes 15 additional Damage from axes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -398,21 +330,89 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "GZ9qL58QMmBtlHul",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Electric Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Whenever the storm-struck arboreal would take electricity damage or is targeted with an electricity effect, it gains 15 temporary HP.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0BMCA9P7mLMAMs10",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunder Objects",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a storm-struck arboreal damages an item or structure it deals an additional [[/r 3d12]] damage to that item or structure.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "sunder-objects",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "sunder-objects"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Storm-Struck Arboreal",

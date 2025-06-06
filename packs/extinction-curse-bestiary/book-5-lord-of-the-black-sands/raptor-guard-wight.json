@@ -4,647 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vYBcrx4xIUPetI0S",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "92xnULMmOwNxGCpN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Stench",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[fortitude|dc:32] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for as long as it is sickened; on a critical failure, the creature is instead @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} for as long as it is sickened. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to any creature's death stench for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "death-stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1LKBXuy7BK2mG9vh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RaAxUg8NsJWovO3S",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Drain Life",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the Raptor Guard wight damages a living creature with a melee Strike, the wight gains 13 temporary Hit Points and the target creature must succeed at a @Check[fortitude|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the wight increases the drained condition by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": "drain-life",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o59thQeI8g01OAvC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hungry Spear",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Raptor Guard wight's ranged spear Strikes apply drain life, but the wight doesn't gain any temporary Hit Points if the attack hits.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "selector": "ranged-strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": "hungry-spear",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qnz5lB0E15Y5lYDX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Terror Master",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>As long as the Raptor Guard wears its dinosaur-skull helm, its Strikes deal an additional @Damage[1d10[void]] damage, or an additional @Damage[2d10[void]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "strike-damage",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.RaptorGuardWight.TerrorMaster",
-                        "option": "terror-master",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "damageType": "void",
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "terror-master",
-                            "target:condition:frightened"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "damageType": "void",
-                        "diceNumber": 1,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "terror-master",
-                            {
-                                "not": "target:condition:frightened"
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": "terror-master",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rH50o3UwWDkWRLLK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wight Spawn",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living humanoid slain by a Raptor Guard wight's melee Strike rises as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Wight] after [[/gmr 1d4 #rounds]]{1d4 rounds}. This wight spawn is under the command of the Raptor Guard that killed it. It doesn't have the drain life or wight spawn abilities and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains the drain life and wight spawn abilities, and is no longer clumsy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bGV9QKdEo62zbwAD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
-            },
-            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
-            "name": "Hide Armor",
-            "sort": 800000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "hide-armor",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "hide-armor",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "wCbEGJGbctuI39HT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.shKPtYN0YUOe07K2"
-            },
-            "img": "icons/equipment/head/mask-horned-brown.webp",
-            "name": "Demon Mask (Greater)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This terrifying mask is crafted in the visage of a leering demon and grants a +2 item bonus to Intimidation checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mask casts a 3rd-rank @UUID[Compendium.pf2e.spells-srd.Item.Fear] spell with a DC of 29.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 900
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "intimidation",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "demon-mask-greater",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornmask"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Br7RNde4i4eoRkTL",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mAwxYKlNfq1Lgofj"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "drain-life",
-                        "terror-master"
-                    ]
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tAJk9Rlb2IK6RZDK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "drain-life",
-                        "terror-master"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "guwEcneKYJeKnJ6x",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "drain-life",
-                        "terror-master"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ltmniMbuhHmyNIeh",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mAwxYKlNfq1Lgofj"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "hungry-spear",
-                        "terror-master"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "ZOZSl7UJF5kgXuqM": {
-                        "damage": "2d6+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "mAwxYKlNfq1Lgofj",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
             "name": "Spear",
-            "sort": 1400000,
+            "sort": 100000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -721,6 +87,640 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "bGV9QKdEo62zbwAD",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
+            },
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+            "name": "Hide Armor",
+            "sort": 200000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "hide-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "hide-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "wCbEGJGbctuI39HT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.shKPtYN0YUOe07K2"
+            },
+            "img": "icons/equipment/head/mask-horned-brown.webp",
+            "name": "Demon Mask (Greater)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This terrifying mask is crafted in the visage of a leering demon and grants a +2 item bonus to Intimidation checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mask casts a 3rd-rank @UUID[Compendium.pf2e.spells-srd.Item.Fear] spell with a DC of 29.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 900
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "intimidation",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "demon-mask-greater",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornmask"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Br7RNde4i4eoRkTL",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mAwxYKlNfq1Lgofj"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "drain-life",
+                        "terror-master"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tAJk9Rlb2IK6RZDK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "drain-life",
+                        "terror-master"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "guwEcneKYJeKnJ6x",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "drain-life",
+                        "terror-master"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ltmniMbuhHmyNIeh",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mAwxYKlNfq1Lgofj"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "hungry-spear",
+                        "terror-master"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "ZOZSl7UJF5kgXuqM": {
+                        "damage": "2d6+14",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vYBcrx4xIUPetI0S",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "92xnULMmOwNxGCpN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Stench",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[fortitude|dc:32] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for as long as it is sickened; on a critical failure, the creature is instead @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} for as long as it is sickened. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to any creature's death stench for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "death-stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1LKBXuy7BK2mG9vh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RaAxUg8NsJWovO3S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Drain Life",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the Raptor Guard wight damages a living creature with a melee Strike, the wight gains 13 temporary Hit Points and the target creature must succeed at a @Check[fortitude|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the wight increases the drained condition by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "drain-life",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o59thQeI8g01OAvC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hungry Spear",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Raptor Guard wight's ranged spear Strikes apply drain life, but the wight doesn't gain any temporary Hit Points if the attack hits.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "selector": "ranged-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "hungry-spear",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qnz5lB0E15Y5lYDX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Terror Master",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As long as the Raptor Guard wears its dinosaur-skull helm, its Strikes deal an additional @Damage[1d10[void]] damage, or an additional @Damage[2d10[void]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.RaptorGuardWight.TerrorMaster",
+                        "option": "terror-master",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "void",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "terror-master",
+                            "target:condition:frightened"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "void",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "terror-master",
+                            {
+                                "not": "target:condition:frightened"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "terror-master",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rH50o3UwWDkWRLLK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wight Spawn",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living humanoid slain by a Raptor Guard wight's melee Strike rises as a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Wight] after [[/gmr 1d4 #rounds]]{1d4 rounds}. This wight spawn is under the command of the Raptor Guard that killed it. It doesn't have the drain life or wight spawn abilities and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains the drain life and wight spawn abilities, and is no longer clumsy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Raptor Guard Wight",

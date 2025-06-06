@@ -4,374 +4,54 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "16GapaocUFBhDvDr",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Daunting Charisma",
+            "_id": "7Q2JXUoOMgTKj2NK",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The razzle dazzler rolls initiative using Deception or Performance</p><hr /><p><strong>Effect</strong> The razzle dazzler can attempt to [[/act demoralize]] one creature they can see.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "check:statistic:base:deception",
-                                    "check:statistic:base:performance"
-                                ]
-                            }
-                        ],
-                        "selector": "initiative",
-                        "text": "{item|description}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qJml3cgdrzvlNocV",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Dazzling Duplicate",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The razzle dazzler creates an illusory duplicate of themself in their space that lasts for 1 round. A creature who attacks the razzle dazzler must first attempt a @Check[flat|dc:11]. On a failure, the attack misses the razzle dazzler and destroys the illusion instead, ending this effect.</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "illusion",
-                        "manipulate"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 22,
+                    "value": 15
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "RhRU71FnwZRnap9a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
-            "name": "Bolts",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "bolts",
-                "stackGroup": "bolts",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "DMLOonXI4lNLvogT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/dueling-cape.webp",
-            "name": "Dueling Cape",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can pull a dueling cape you're wearing from your shoulder and wrap it around your arm with an Interact action. While wielding the dueling cape this way, the cape uses that arm and hand, and you can't hold anything else in that hand.</p>\n<p>While you do so, you can spend an action to hold it in a protective position, giving you a +1 circumstance bonus to AC and to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Dueling Cape]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "dueling-cape",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "worncloak"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "gAwqpxztGZ1OLGjY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Wkfy0r9J2YWYLX0Z"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "mIsWsdyqx7vcC7Kr": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "xBIQiQ8xhHjxXlZm",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Wkfy0r9J2YWYLX0Z"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "v1mGe9oYFqOSL84h": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "hlP6tTRO6b6EAY0s",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "cwLckQ0lkees5lx3": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "H6pGWCcPfDvIZ7UA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "QxoAD3O65HwPjAJn"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hand Crossbow",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "PWf7ft4ux6PltYmO": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "hand-crossbow",
-                "traits": {
-                    "value": [
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "1KqMQvG8dAYzB7GZ",
@@ -380,7 +60,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -448,7 +128,7 @@
             },
             "img": "systems/pf2e/icons/spells/hypnotic-pattern.webp",
             "name": "Hypnotize",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -519,7 +199,7 @@
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -584,7 +264,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Laughing Fit",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -652,7 +332,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -724,7 +404,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Dizzying Colors",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -796,7 +476,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -859,7 +539,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -922,7 +602,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -985,7 +665,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1051,7 +731,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1117,7 +797,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1181,7 +861,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1244,7 +924,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1325,7 +1005,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1449,7 +1129,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1508,63 +1188,13 @@
             "type": "spell"
         },
         {
-            "_id": "7Q2JXUoOMgTKj2NK",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 15
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "Wkfy0r9J2YWYLX0Z",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2600000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1653,7 +1283,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
             "name": "Hand Crossbow",
-            "sort": 2700000,
+            "sort": 1900000,
             "system": {
                 "baseItem": "hand-crossbow",
                 "bonus": {
@@ -1728,6 +1358,376 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "DMLOonXI4lNLvogT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/dueling-cape.webp",
+            "name": "Dueling Cape",
+            "sort": 2000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can pull a dueling cape you're wearing from your shoulder and wrap it around your arm with an Interact action. While wielding the dueling cape this way, the cape uses that arm and hand, and you can't hold anything else in that hand.</p>\n<p>While you do so, you can spend an action to hold it in a protective position, giving you a +1 circumstance bonus to AC and to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Dueling Cape]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "dueling-cape",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worncloak"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "RhRU71FnwZRnap9a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "bolts",
+                "stackGroup": "bolts",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "gAwqpxztGZ1OLGjY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Wkfy0r9J2YWYLX0Z"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "mIsWsdyqx7vcC7Kr": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xBIQiQ8xhHjxXlZm",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Wkfy0r9J2YWYLX0Z"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "v1mGe9oYFqOSL84h": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hlP6tTRO6b6EAY0s",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "cwLckQ0lkees5lx3": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "H6pGWCcPfDvIZ7UA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "QxoAD3O65HwPjAJn"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hand Crossbow",
+            "sort": 2500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "PWf7ft4ux6PltYmO": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "hand-crossbow",
+                "traits": {
+                    "value": [
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "16GapaocUFBhDvDr",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Daunting Charisma",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The razzle dazzler rolls initiative using Deception or Performance</p><hr /><p><strong>Effect</strong> The razzle dazzler can attempt to [[/act demoralize]] one creature they can see.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "check:statistic:base:deception",
+                                    "check:statistic:base:performance"
+                                ]
+                            }
+                        ],
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qJml3cgdrzvlNocV",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Dazzling Duplicate",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The razzle dazzler creates an illusory duplicate of themself in their space that lasts for 1 round. A creature who attacks the razzle dazzler must first attempt a @Check[flat|dc:11]. On a failure, the attack misses the razzle dazzler and destroys the illusion instead, ending this effect.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "illusion",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Razzle Dazzler",

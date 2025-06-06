@@ -4,213 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "b5YXhirEFdSSDLH6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Caustic Monitor Venom",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HTLhEnC9IDistr37",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Caustic Spray",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The caustic monitor spits a spray of corrosive bile that deals @Damage[5d8[acid]] damage in a @Template[cone|distance:20] (@Check[reflex|dc:32|basic] save). It can't use Caustic Spray again for [[/gmr 1d4 #Recharge Caustic Spray]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9ZmnGbdzjkxjJW7a",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Corrosive Flesh",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature that touches the caustic monitor takes @Damage[2d8[acid]] damage (@Check[fortitude|dc:32|basic|traits:acid] save).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Bifu56yEAvTSjDrJ",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Gnashing Grip",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature grabbed by the caustic monitor's jaws fails a check to Escape.</p>\n<hr />\n<p><strong>Effect</strong> The caustic monitor's jaws deal @Damage[2d8[piercing]] damage and the triggering creature is exposed to caustic monitor venom.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Zk1ji35jlTOW4n2n",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Lurching Charge",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The caustic monitor Strides twice, then makes a jaws Strike. If the monitor moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "lurching-charge"
-                        ],
-                        "selector": "jaws-attack",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "lurching-charge",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ws4s8pOVS1TPkbCJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "skufhVK1SVupaF1j",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 700000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -262,7 +59,7 @@
             "_id": "h1CT2QsnUJZaJ3fA",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Talon",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -304,6 +101,209 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "b5YXhirEFdSSDLH6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Caustic Monitor Venom",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HTLhEnC9IDistr37",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Caustic Spray",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The caustic monitor spits a spray of corrosive bile that deals @Damage[5d8[acid]] damage in a @Template[cone|distance:20] (@Check[reflex|dc:32|basic] save). It can't use Caustic Spray again for [[/gmr 1d4 #Recharge Caustic Spray]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9ZmnGbdzjkxjJW7a",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Corrosive Flesh",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that touches the caustic monitor takes @Damage[2d8[acid]] damage (@Check[fortitude|dc:32|basic|traits:acid] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Bifu56yEAvTSjDrJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gnashing Grip",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature grabbed by the caustic monitor's jaws fails a check to Escape.</p>\n<hr />\n<p><strong>Effect</strong> The caustic monitor's jaws deal @Damage[2d8[piercing]] damage and the triggering creature is exposed to caustic monitor venom.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zk1ji35jlTOW4n2n",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Lurching Charge",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The caustic monitor Strides twice, then makes a jaws Strike. If the monitor moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lurching-charge"
+                        ],
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "lurching-charge",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ws4s8pOVS1TPkbCJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Caustic Monitor",

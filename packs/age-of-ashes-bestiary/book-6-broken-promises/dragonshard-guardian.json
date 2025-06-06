@@ -4,102 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v8QaZXPq7Yj9K2v1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "MQvALn3TuAb3iI1B",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Arcane Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hPc0H3LlS5oAeiST",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b9ku7PIEzSu9iFAq",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<p>- Flame (arcane, evocation, fire) A blast of flame deals @Damage[15d10[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:60] (@Check[reflex|dc:45|basic|options:area-effect] save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a @Template[cone|distance:60] to attempt a @Check[fortitude|dc:45] save; the effect lasts 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 8}.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -107,164 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "fire"
-                    ]
+                "spelldc": {
+                    "dc": 44,
+                    "mod": 0,
+                    "value": 36
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "DyilSr4hYYAgoPFF",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reverberating Revenge",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragonshard guardian takes cold, fire, electricity, or sonic damage from a non-dragonshard guardian source</p>\n<hr />\n<p><strong>Effect</strong> The dragonshard guardian's body absorbs the energy entirely, preventing the damage from harming the construct. Its body reverberates and transforms the absorbed energy before projecting it outward in a @Template[burst|distance:60].</p>\n<p>Each creature within the burst takes an amount of fire damage equal to the amount of energy damage absorbed by the triggering attack, including any damage resisted by the guardian's resistances and additional damage from its weakness (@Check[reflex|dc:45|basic] save).</p>\n<p>This fire damage doesn't harm objects or constructs.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "exceptions": [
-                            {
-                                "definition": [
-                                    "damage:type:bludgeoning",
-                                    {
-                                        "or": [
-                                            "damage:material:adamantine",
-                                            "damage:material:keep-stone"
-                                        ]
-                                    }
-                                ],
-                                "label": "PF2E.IWR.Custom.AdamantineBludgeoning"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "type": "physical",
-                        "value": 24
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5s7kaeGdKYRnxQlF",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 41
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "6d10+8",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "2d10",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "T1sHFc7JoaRRC0iK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 41
-                },
-                "damageRolls": {
-                    "yuct2pf8bdz098zngb2g": {
-                        "damage": "9d6+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Y4NlUcT2NJz7cDOb",
@@ -273,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -330,22 +104,32 @@
             "type": "spell"
         },
         {
-            "_id": "MQvALn3TuAb3iI1B",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
-            "sort": 800000,
+            "_id": "5s7kaeGdKYRnxQlF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "6d10+8",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d10",
+                        "damageType": "bleed"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -353,18 +137,234 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 44,
-                    "mod": 0,
-                    "value": 36
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "T1sHFc7JoaRRC0iK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "yuct2pf8bdz098zngb2g": {
+                        "damage": "9d6+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "v8QaZXPq7Yj9K2v1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hPc0H3LlS5oAeiST",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b9ku7PIEzSu9iFAq",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<p>- Flame (arcane, evocation, fire) A blast of flame deals @Damage[15d10[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:60] (@Check[reflex|dc:45|basic|options:area-effect] save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a @Template[cone|distance:60] to attempt a @Check[fortitude|dc:45] save; the effect lasts 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 8}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DyilSr4hYYAgoPFF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reverberating Revenge",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragonshard guardian takes cold, fire, electricity, or sonic damage from a non-dragonshard guardian source</p>\n<hr />\n<p><strong>Effect</strong> The dragonshard guardian's body absorbs the energy entirely, preventing the damage from harming the construct. Its body reverberates and transforms the absorbed energy before projecting it outward in a @Template[burst|distance:60].</p>\n<p>Each creature within the burst takes an amount of fire damage equal to the amount of energy damage absorbed by the triggering attack, including any damage resisted by the guardian's resistances and additional damage from its weakness (@Check[reflex|dc:45|basic] save).</p>\n<p>This fire damage doesn't harm objects or constructs.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "damage:type:bludgeoning",
+                                    {
+                                        "or": [
+                                            "damage:material:adamantine",
+                                            "damage:material:keep-stone"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.AdamantineBludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 24
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Dragonshard Guardian",

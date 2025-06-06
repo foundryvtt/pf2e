@@ -4,60 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TPvgZ6053mvRRzoT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
+            "_id": "NBbBo6yO26XCZQQE",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UTDRJ0aSBYuVR0SZ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Forge-Flame Breath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing @Damage[3d6[fire]|options:area-damage] damage in a @Template[cone|distance:15] (@Check[reflex|dc:17|basic|options:area-effect] save).</p>\n<p>The forged bones can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -65,86 +28,30 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9LGa6ot2uwssAdnW",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "fpJ9r4U7RNtqcNcv"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "War Axe",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "ylq2pig01xkcm020mzr9": {
-                        "damage": "1d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "Use Dwarven War Axe Two-Handed",
-                        "option": "two-handed",
-                        "toggleable": true
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
                     },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 12
+                    "slot2": {
+                        "max": 1,
+                        "value": 1
                     }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "dwarf",
-                        "sweep",
-                        "two-hand-d12"
-                    ]
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "mod": 0,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "1Cve9JKdhlaQMoza",
@@ -153,7 +60,7 @@
             },
             "img": "systems/pf2e/icons/spells/reapers-lantern.webp",
             "name": "Reaper's Lantern",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -221,7 +128,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -284,117 +191,13 @@
             "type": "spell"
         },
         {
-            "_id": "NBbBo6yO26XCZQQE",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "mod": 0,
-                    "value": 9
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "5LsriIMT7ULOEQSs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fUENXLX3tzi33CcB"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/art-objects/lesser-art-object/silk-ceremonial-armor.webp",
-            "name": "Ceremonial Robes",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Gamemastery Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "lg",
-                "slug": "silk-ceremonial-armor",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "fpJ9r4U7RNtqcNcv",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MYnh7w7EL3AcQT41"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dwarven-war-axe.webp",
             "name": "Ceremonial Dwarven War Axe",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "baseItem": "dwarven-war-axe",
                 "bonus": {
@@ -473,6 +276,203 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "5LsriIMT7ULOEQSs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fUENXLX3tzi33CcB"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/art-objects/lesser-art-object/silk-ceremonial-armor.webp",
+            "name": "Ceremonial Robes",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Gamemastery Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "lg",
+                "slug": "silk-ceremonial-armor",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "9LGa6ot2uwssAdnW",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "fpJ9r4U7RNtqcNcv"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "War Axe",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "ylq2pig01xkcm020mzr9": {
+                        "damage": "1d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "Use Dwarven War Axe Two-Handed",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 12
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "dwarf",
+                        "sweep",
+                        "two-hand-d12"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TPvgZ6053mvRRzoT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UTDRJ0aSBYuVR0SZ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Forge-Flame Breath",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing @Damage[3d6[fire]|options:area-damage] damage in a @Template[cone|distance:15] (@Check[reflex|dc:17|basic|options:area-effect] save).</p>\n<p>The forged bones can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Forged Bones",

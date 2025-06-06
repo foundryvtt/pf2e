@@ -4,766 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "he4BOljXdRpxAwLY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ghoran Memories",
+            "_id": "HKM6aZphsdJYyNKf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Unaasi can @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any subject with a +21 modifier.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sZ0U04XNO13cY7bc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Delicious",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ghorans were originally created to be scrumptious food. A ghoran takes an additional 5 damage from jaws Strikes, fangs Strikes, or other similar Strikes with a creature's mouth. When a ghoran is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by a creature's jaws, fangs, or mouth, the DC to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] is increased by 2.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            {
-                                "or": [
-                                    "item:slug:jaws",
-                                    "item:slug:fangs",
-                                    "item:slug:bite"
-                                ]
-                            }
-                        ],
-                        "key": "Weakness",
-                        "type": "custom",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kzaQnsJ3O2KPytpe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.edpED1d9NbvR2NmB"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosive End",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When Unaasi dies, the planar portal inside them collapses, causing them to explode in a burst of scouring energy that deals @Damage[11d6[fire]] damage to all creatures in their luminant aura (@Check[reflex|dc:32|basic] save). Their body is completely consumed, leaving behind only their gear.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #202: Severed at the Root"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "wood"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SC3aydVcXNUz1em6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.WIVta5JyoDl9b2UO"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Luminant Aura",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>20 feet. The volatile planar energy coursing through a woodblessed's veins fills the area with dim light.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #202: Severed at the Root"
-                },
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "value": {
-                            "alpha": 0.2,
-                            "animation": {
-                                "speed": 2,
-                                "type": "torch"
-                            },
-                            "attenuation": 0.6,
-                            "bright": 0,
-                            "color": "#53d251",
-                            "dim": 20
-                        }
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UmjU8ik6ouMuxSRJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.tEP4ajRcD7cr644Z"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Reactive Flare",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Unaasi is damaged by a creature within their reach</p>\n<hr />\n<p><strong>Effect</strong> Unaasi temporarily loses control of the planar energy within them. Both they and the triggering creature take @Damage[6d6[fire]] damage (@Check[reflex|dc:30|basic] save).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #202: Severed at the Root"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sblGasDumxhtssQf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scouring Surge",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Unaasi unleashes the planar energy coursing through their body for a split-second, dealing @Damage[11d6[fire]] damage (@Check[reflex|dc:30|basic] save) to all creatures in their luminant aura. They can't use Scouring Surge again for [[/gmr 1d4 #Recharge Scouring Surge]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fire",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1PI6jClf4EfXVnGh",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Signature Spells",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Unaasi can heighten the following spells freely: @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy], @UUID[Compendium.pf2e.spells-srd.Item.Rip the Spirit], @UUID[Compendium.pf2e.spells-srd.Item.Soothe].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "O8XwtM3VhjsJIC47",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Steady Spellcasting",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Unaasi is a confident spellcaster and doesn't easily lose their focus. If a reaction would disrupt their spellcasting action, Unaasi attempts a @Check[flat|dc:15]. If they succeed, their action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tMggXgby8wb3y5TL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.sQ2nzNDLMdGqECm6"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tap Planar Gate",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Unaasi taps into the planar energy surging through them, using this energy to empower themself or their next attack.</p>\n<ul>\n<li>If their next action is to Stride, Unaasi is launched off the ground and propelled forward. During this Stride, they have a fly Speed equal to their Speed. If they don't end their movement on a solid surface that can support their weight, they fall.</li>\n<li>If their next action is to make a melee or ranged Strike, that Strike deals an additional 3d6 fire damage.</li>\n<li>If their next action is to Cast a Spell, the range of that spell increases by 30 feet, and the area of that spell increases by 10 feet.\n\n</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #202: Severed at the Root"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "tap-planar-gate",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "tap-planar-gate"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bqHgz6iznIyruEt0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Sound Body (Rank 4)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Sound Body]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 7
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 70
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-4th-rank-spell",
-                "spell": {
-                    "_id": "t43ktCZvy4fGJDnW",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.Et8RSCLx8w7uOLvo"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
-                    "name": "Sound Body",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": true,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>You send a surge of healing energy to restore the target's body. Attempt to counteract an effect of your choice imposing one of these conditions on the target: @UUID[Compendium.pf2e.conditionitems.Item.Blinded], @UUID[Compendium.pf2e.conditionitems.Item.Dazzled], @UUID[Compendium.pf2e.conditionitems.Item.Deafened], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]. If you didn't counteract the effect, but you would have if its counteract rank were 2 lower, instead suppress the effect until the beginning of your next turn. The effect's duration doesn't elapse while it's suppressed.</p>\n<p>This spell can't counteract or suppress curses, diseases, or conditions that are part of the target's normal state.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed] to the list of conditions.</p>\n<p><strong>Heightened (8th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Stunned] to the list of conditions.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 2
-                        },
-                        "location": {
-                            "heightenedLevel": 4,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "sound-body",
-                        "target": {
-                            "value": "1 willing creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "healing",
-                                "manipulate",
-                                "vitality"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "manipulate",
-                        "scroll",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "F6cuEij6ek9U4aCF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4sGIy77COooxhQuC"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Soothe (Rank 6)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Soothe]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 11
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 300
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-6th-rank-spell",
-                "spell": {
-                    "_id": "KaznWZZh3GXhd6On",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
-                        }
-                    },
-                    "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
-                    "name": "Soothe",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {
-                            "0": {
-                                "applyMod": false,
-                                "category": null,
-                                "formula": "1d10+4",
-                                "kinds": [
-                                    "healing"
-                                ],
-                                "materials": [],
-                                "type": "untyped"
-                            }
-                        },
-                        "defense": null,
-                        "description": {
-                            "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": "1 minute"
-                        },
-                        "heightening": {
-                            "damage": {
-                                "0": "1d10+4"
-                            },
-                            "interval": 1,
-                            "type": "interval"
-                        },
-                        "level": {
-                            "value": 1
-                        },
-                        "location": {
-                            "heightenedLevel": 6,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "ORC",
-                            "remaster": true,
-                            "title": "Pathfinder Player Core"
-                        },
-                        "range": {
-                            "value": "30 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "soothe",
-                        "target": {
-                            "value": "1 willing creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "occult"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "emotion",
-                                "healing",
-                                "manipulate",
-                                "mental"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "consumable",
-                        "emotion",
-                        "healing",
-                        "magical",
-                        "manipulate",
-                        "mental",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "zBhq96gqFVgKqA5o",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.PAPA06Oe9TgKqh4B"
-            },
-            "img": "icons/commodities/treasure/brooch-eye-silver-teal.webp",
-            "name": "Passage Charm",
-            "sort": 1200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This glossy black brooch is made of solidified shadows and is a gift, given by Avathrael Realmshaper to their allies to allow them to navigate the heart of the forest within Gloaming Arbor. While wearing a <em>passage charm</em>, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Darkness] as an innate occult spell twice per day.</p>\n<p><strong>Activate—Shape the Shadows</strong> <span class=\"action-glyph\">3</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You're in an area that's dark or dim light</p>\n<hr />\n<p><strong>Effect</strong> You command the shadows to do your bidding, forming a path, a ramp, a wall, or stairs. The <em>passage charm</em> casts 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Stone], except the spell loses the earth trait, gains the shadow trait, and has a duration of 24 hours, and the wall is created from solid shadows, rather than stone. If any section of the wall is exposed to bright light, that portion of the wall has its Hardness temporarily reduced by half (to Hardness 7).</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1000
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder #202: Severed at the Root"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "passage-charm",
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "invested",
-                        "magical",
-                        "shadow"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "vAGc1Zn23nW2XASa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.l68lJrjtjjkV7NiJ"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/specialty-wands/wand-of-thundering-echoes.webp",
-            "name": "Wand of Thundering Echoes (4th-Rank Spell)",
-            "sort": 1300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A forked, lightning-like crack runs down the length of this ornate stone wand, which rumbles slightly with the peals of distant thunder.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Noise Blast] of the indicated level. After you Cast the Spell, at the start of each of your turns, the sound echoes in the same area as if you had cast it again, though it deals one fewer d10. This effect lasts until the damage is reduced to below 2d10. The echoes don't affect structures or other items.</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply a casting of <em>sound burst</em> of the appropriate rank.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 11
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens The Grand Bazaar"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "wand-of-thundering-echoes-4th-level-spell",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "magical",
-                        "sonic",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "X2lJpMz9V4k8dP8u",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Ghoran Memories",
-            "sort": 1400000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 21
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -771,39 +27,61 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "oGKKmHUjnQB2l4VU",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "lHXHpceREGJjqo7U"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fighting Fan",
-            "sort": 1500000,
+            "_id": "6mNa0g82dKNLbBqr",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "0sIvH2uGW9Ax6lO9": {
-                        "damage": "2d4+6",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -811,62 +89,58 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "fighting-fan",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "backstabber",
-                        "deadly-d6",
-                        "finesse"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3bt08BF8GMxYTH4e",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Energy Surge",
-            "sort": 1600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "6TEybT1An5sznXJd": {
-                        "damage": "4d6+6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "range-increment-30"
-                    ]
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
                 },
-                "weaponType": {
-                    "value": "ranged"
-                }
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "6HcYDfLofsz2GGdt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Bard Composition Spells",
+            "sort": 300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
         },
         {
             "_id": "nH1BjxrhpW9vbjh1",
@@ -875,7 +149,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -944,7 +218,7 @@
             },
             "img": "icons/magic/water/orb-water-transparent.webp",
             "name": "Mirror Malefactors",
-            "sort": 1800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1031,7 +305,7 @@
             },
             "img": "systems/pf2e/icons/spells/repelling-pulse.webp",
             "name": "Repelling Pulse",
-            "sort": 1900000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1118,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/rip-the-spirit.webp",
             "name": "Rip the Spirit",
-            "sort": 2000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1274,7 +548,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 2100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1340,7 +614,7 @@
             },
             "img": "icons/magic/unholy/orb-beam-pink.webp",
             "name": "Containment",
-            "sort": 2200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1407,7 +681,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathy.webp",
             "name": "Telepathy",
-            "sort": 2300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1470,7 +744,7 @@
             },
             "img": "icons/creatures/mammals/wolf-howl-moon-black.webp",
             "name": "Dirge of Doom",
-            "sort": 2400000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1535,7 +809,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 2500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1607,7 +881,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1684,7 +958,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 2700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1760,7 +1034,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangling Flora",
-            "sort": 2800000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -1832,7 +1106,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2900000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1894,7 +1168,7 @@
             },
             "img": "systems/pf2e/icons/spells/barkskin.webp",
             "name": "Oaken Resilience",
-            "sort": 3000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1957,7 +1231,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 3100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2036,7 +1310,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Translate",
-            "sort": 3200000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2108,7 +1382,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2190,7 +1464,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Cleanse Cuisine",
-            "sort": 3400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2251,7 +1525,7 @@
             },
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
-            "sort": 3500000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2316,7 +1590,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Courageous Anthem",
-            "sort": 3600000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2380,7 +1654,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2467,7 +1741,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3800000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2534,7 +1808,7 @@
             },
             "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
             "name": "Detect Poison",
-            "sort": 3900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2596,7 +1870,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 4000000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2659,7 +1933,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 4100000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2734,7 +2008,7 @@
             },
             "img": "icons/magic/nature/tree-animated-smile.webp",
             "name": "Protector Tree",
-            "sort": 4200000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2796,7 +2070,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4300000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2875,7 +2149,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 4400000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2957,7 +2231,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "Sure Strike",
-            "sort": 4500000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3018,7 +2292,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 4600000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3082,7 +2356,7 @@
             },
             "img": "systems/pf2e/icons/spells/timber.webp",
             "name": "Timber",
-            "sort": 4700000,
+            "sort": 3400000,
             "system": {
                 "area": {
                     "type": "line",
@@ -3164,206 +2438,13 @@
             "type": "spell"
         },
         {
-            "_id": "HKM6aZphsdJYyNKf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 4800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "6mNa0g82dKNLbBqr",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 4900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "6HcYDfLofsz2GGdt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Bard Composition Spells",
-            "sort": 5000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "Uh1f0GPiSupm5gaB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
-            "name": "Gold Pieces",
-            "sort": 5100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1000,
-                "rules": [],
-                "size": "med",
-                "slug": "gold-pieces",
-                "stackGroup": "coins",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "lHXHpceREGJjqo7U",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.76AqNZB5xuFWxgJI"
             },
             "img": "icons/commodities/materials/material-feathers-violet.webp",
             "name": "Fighting Fan",
-            "sort": 5200000,
+            "sort": 3500000,
             "system": {
                 "baseItem": "fighting-fan",
                 "bonus": {
@@ -3444,6 +2525,925 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "zBhq96gqFVgKqA5o",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.PAPA06Oe9TgKqh4B"
+            },
+            "img": "icons/commodities/treasure/brooch-eye-silver-teal.webp",
+            "name": "Passage Charm",
+            "sort": 3600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This glossy black brooch is made of solidified shadows and is a gift, given by Avathrael Realmshaper to their allies to allow them to navigate the heart of the forest within Gloaming Arbor. While wearing a <em>passage charm</em>, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Darkness] as an innate occult spell twice per day.</p>\n<p><strong>Activate—Shape the Shadows</strong> <span class=\"action-glyph\">3</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You're in an area that's dark or dim light</p>\n<hr />\n<p><strong>Effect</strong> You command the shadows to do your bidding, forming a path, a ramp, a wall, or stairs. The <em>passage charm</em> casts 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Stone], except the spell loses the earth trait, gains the shadow trait, and has a duration of 24 hours, and the wall is created from solid shadows, rather than stone. If any section of the wall is exposed to bright light, that portion of the wall has its Hardness temporarily reduced by half (to Hardness 7).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1000
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #202: Severed at the Root"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "passage-charm",
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "invested",
+                        "magical",
+                        "shadow"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "vAGc1Zn23nW2XASa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.l68lJrjtjjkV7NiJ"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/specialty-wands/wand-of-thundering-echoes.webp",
+            "name": "Wand of Thundering Echoes (4th-Rank Spell)",
+            "sort": 3700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A forked, lightning-like crack runs down the length of this ornate stone wand, which rumbles slightly with the peals of distant thunder.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Noise Blast] of the indicated level. After you Cast the Spell, at the start of each of your turns, the sound echoes in the same area as if you had cast it again, though it deals one fewer d10. This effect lasts until the damage is reduced to below 2d10. The echoes don't affect structures or other items.</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply a casting of <em>sound burst</em> of the appropriate rank.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 11
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens The Grand Bazaar"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "wand-of-thundering-echoes-4th-level-spell",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "magical",
+                        "sonic",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "bqHgz6iznIyruEt0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
+            },
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Sound Body (Rank 4)",
+            "sort": 3800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Sound Body]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 7
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 70
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-4th-rank-spell",
+                "spell": {
+                    "_id": "t43ktCZvy4fGJDnW",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.Et8RSCLx8w7uOLvo"
+                        }
+                    },
+                    "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
+                    "name": "Sound Body",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": true,
+                        "damage": {},
+                        "defense": null,
+                        "description": {
+                            "value": "<p>You send a surge of healing energy to restore the target's body. Attempt to counteract an effect of your choice imposing one of these conditions on the target: @UUID[Compendium.pf2e.conditionitems.Item.Blinded], @UUID[Compendium.pf2e.conditionitems.Item.Dazzled], @UUID[Compendium.pf2e.conditionitems.Item.Deafened], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]. If you didn't counteract the effect, but you would have if its counteract rank were 2 lower, instead suppress the effect until the beginning of your next turn. The effect's duration doesn't elapse while it's suppressed.</p>\n<p>This spell can't counteract or suppress curses, diseases, or conditions that are part of the target's normal state.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed] to the list of conditions.</p>\n<p><strong>Heightened (8th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Stunned] to the list of conditions.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "level": {
+                            "value": 2
+                        },
+                        "location": {
+                            "heightenedLevel": 4,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "touch"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "sound-body",
+                        "target": {
+                            "value": "1 willing creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine",
+                                "occult",
+                                "primal"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "healing",
+                                "manipulate",
+                                "vitality"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "manipulate",
+                        "scroll",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "F6cuEij6ek9U4aCF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4sGIy77COooxhQuC"
+            },
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Soothe (Rank 6)",
+            "sort": 3900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Soothe]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 11
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 300
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-6th-rank-spell",
+                "spell": {
+                    "_id": "KaznWZZh3GXhd6On",
+                    "flags": {
+                        "core": {
+                            "sourceId": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
+                        }
+                    },
+                    "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
+                    "name": "Soothe",
+                    "sort": 0,
+                    "system": {
+                        "area": null,
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {
+                            "0": {
+                                "applyMod": false,
+                                "category": null,
+                                "formula": "1d10+4",
+                                "kinds": [
+                                    "healing"
+                                ],
+                                "materials": [],
+                                "type": "untyped"
+                            }
+                        },
+                        "defense": null,
+                        "description": {
+                            "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": "1 minute"
+                        },
+                        "heightening": {
+                            "damage": {
+                                "0": "1d10+4"
+                            },
+                            "interval": 1,
+                            "type": "interval"
+                        },
+                        "level": {
+                            "value": 1
+                        },
+                        "location": {
+                            "heightenedLevel": 6,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "30 feet"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "soothe",
+                        "target": {
+                            "value": "1 willing creature"
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "occult"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "emotion",
+                                "healing",
+                                "manipulate",
+                                "mental"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "emotion",
+                        "healing",
+                        "magical",
+                        "manipulate",
+                        "mental",
+                        "scroll"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Uh1f0GPiSupm5gaB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 4000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1000,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "oGKKmHUjnQB2l4VU",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lHXHpceREGJjqo7U"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fighting Fan",
+            "sort": 4100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "0sIvH2uGW9Ax6lO9": {
+                        "damage": "2d4+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "fighting-fan",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "backstabber",
+                        "deadly-d6",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3bt08BF8GMxYTH4e",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Energy Surge",
+            "sort": 4200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "6TEybT1An5sznXJd": {
+                        "damage": "4d6+6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "he4BOljXdRpxAwLY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ghoran Memories",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Unaasi can @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] on any subject with a +21 modifier.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sZ0U04XNO13cY7bc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Delicious",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ghorans were originally created to be scrumptious food. A ghoran takes an additional 5 damage from jaws Strikes, fangs Strikes, or other similar Strikes with a creature's mouth. When a ghoran is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by a creature's jaws, fangs, or mouth, the DC to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] is increased by 2.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:slug:jaws",
+                                    "item:slug:fangs",
+                                    "item:slug:bite"
+                                ]
+                            }
+                        ],
+                        "key": "Weakness",
+                        "type": "custom",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kzaQnsJ3O2KPytpe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.edpED1d9NbvR2NmB"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosive End",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When Unaasi dies, the planar portal inside them collapses, causing them to explode in a burst of scouring energy that deals @Damage[11d6[fire]] damage to all creatures in their luminant aura (@Check[reflex|dc:32|basic] save). Their body is completely consumed, leaving behind only their gear.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #202: Severed at the Root"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "wood"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SC3aydVcXNUz1em6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.WIVta5JyoDl9b2UO"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Luminant Aura",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>20 feet. The volatile planar energy coursing through a woodblessed's veins fills the area with dim light.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #202: Severed at the Root"
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "alpha": 0.2,
+                            "animation": {
+                                "speed": 2,
+                                "type": "torch"
+                            },
+                            "attenuation": 0.6,
+                            "bright": 0,
+                            "color": "#53d251",
+                            "dim": 20
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UmjU8ik6ouMuxSRJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.tEP4ajRcD7cr644Z"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reactive Flare",
+            "sort": 4700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Unaasi is damaged by a creature within their reach</p>\n<hr />\n<p><strong>Effect</strong> Unaasi temporarily loses control of the planar energy within them. Both they and the triggering creature take @Damage[6d6[fire]] damage (@Check[reflex|dc:30|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #202: Severed at the Root"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sblGasDumxhtssQf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scouring Surge",
+            "sort": 4800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Unaasi unleashes the planar energy coursing through their body for a split-second, dealing @Damage[11d6[fire]] damage (@Check[reflex|dc:30|basic] save) to all creatures in their luminant aura. They can't use Scouring Surge again for [[/gmr 1d4 #Recharge Scouring Surge]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1PI6jClf4EfXVnGh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Signature Spells",
+            "sort": 4900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Unaasi can heighten the following spells freely: @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy], @UUID[Compendium.pf2e.spells-srd.Item.Rip the Spirit], @UUID[Compendium.pf2e.spells-srd.Item.Soothe].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O8XwtM3VhjsJIC47",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steady Spellcasting",
+            "sort": 5000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Unaasi is a confident spellcaster and doesn't easily lose their focus. If a reaction would disrupt their spellcasting action, Unaasi attempts a @Check[flat|dc:15]. If they succeed, their action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tMggXgby8wb3y5TL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.sQ2nzNDLMdGqECm6"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tap Planar Gate",
+            "sort": 5100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Unaasi taps into the planar energy surging through them, using this energy to empower themself or their next attack.</p>\n<ul>\n<li>If their next action is to Stride, Unaasi is launched off the ground and propelled forward. During this Stride, they have a fly Speed equal to their Speed. If they don't end their movement on a solid surface that can support their weight, they fall.</li>\n<li>If their next action is to make a melee or ranged Strike, that Strike deals an additional 3d6 fire damage.</li>\n<li>If their next action is to Cast a Spell, the range of that spell increases by 30 feet, and the area of that spell increases by 10 feet.\n\n</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder #202: Severed at the Root"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "tap-planar-gate",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "tap-planar-gate"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "X2lJpMz9V4k8dP8u",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Ghoran Memories",
+            "sort": 5200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Unaasi",

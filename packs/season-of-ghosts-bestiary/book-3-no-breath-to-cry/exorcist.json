@@ -4,78 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2qBowsYsLLirVU0U",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Purifying Flames",
+            "_id": "GuzuP3z04L4TjoRM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The exorcist attempts to Strike a creature with their torch, attacking with great precision and causing the torch's fires to flare up. This Strike gains a +2 status bonus to its attack roll and inflicts an additional 2d6 fire damage on a hit instead of just 1d6 fire damage. An undead, spirit, or transmigrated creature hit by this attack must also attempt a @Check[will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by this additional effect, and some of the fire flares back onto the exorcist, inflicting @Damage[2d6[fire]] damage to the exorcist (@Check[reflex|dc:26|basic] save).</p>\n<p><strong>Success</strong> The creature is unaffected by this additional effect.</p>\n<p><strong>Failure</strong> The purifying flames cause the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "purifying-flames",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "purifying-flames"
-                        ],
-                        "selector": "torch-damage"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "purifying-flames"
-                        ],
-                        "selector": "torch-attack",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "purifying-flames",
-                "traits": {
-                    "value": [
-                        "divine",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AyXoeCAZBF0vHXaY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Torch Wielder",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>The exorcist treats a torch as a light mace that deals an additional 1d6 fire damage on a hit.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -83,364 +28,92 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ljvAofTkmxkRCQKP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
-            },
-            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
-            "name": "Hide Armor",
-            "sort": 300000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "hide-armor",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "hide-armor",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "FyiBYxhtkJrpba2F",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
-            },
-            "img": "icons/sundries/lights/torch-brown.webp",
-            "name": "Torch",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "TokenLight",
-                        "predicate": [
-                            "lit-torch"
-                        ],
-                        "value": {
-                            "alpha": 0.45,
-                            "animation": {
-                                "intensity": 1,
-                                "speed": 2,
-                                "type": "flame"
-                            },
-                            "attenuation": 0.4,
-                            "bright": 20,
-                            "color": "#ffae3d",
-                            "dim": 40,
-                            "shadows": 0.2
-                        }
-                    },
-                    {
-                        "category": "simple",
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d4"
-                            }
-                        },
-                        "key": "Strike",
-                        "otherTags": [
-                            "improvised"
-                        ],
-                        "predicate": [
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "not": "lit-torch"
+                                "id": "oMBcU3qSynMKh06S"
+                            },
+                            {
+                                "id": "0Uqwo6vp3oihTunl"
+                            },
+                            {
+                                "id": "U0h5hYJHD8DxZZB8"
+                            },
+                            {
+                                "id": "5VDQUUtbaz8KdDlB"
+                            },
+                            {
+                                "id": "ZiZU0BryCpNMPIiY"
                             }
                         ]
                     },
-                    {
-                        "category": "simple",
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d4"
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "FucYMtSl4oxrMBHh"
+                            },
+                            {
+                                "id": "DpIlbwS9xJWs8mJe"
+                            },
+                            {
+                                "id": "DFxb0boXaWgRlBaU"
                             }
-                        },
-                        "img": "icons/sundries/lights/torch-brown-lit.webp",
-                        "key": "Strike",
-                        "otherTags": [
-                            "improvised"
-                        ],
-                        "predicate": [
-                            "lit-torch"
                         ]
                     },
-                    {
-                        "damageType": "fire",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "lit-torch"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "value": 1
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "U77YELzhHg9lMHly"
+                            },
+                            {
+                                "id": "BpqHO1RnLlncOsvY"
+                            },
+                            {
+                                "id": "gcGlhzSYX6nBMqvg"
+                            }
+                        ]
                     },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.LitTorch",
-                        "option": "lit-torch",
-                        "toggleable": true
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "AZz5YGRzZmMJgVph"
+                            },
+                            {
+                                "id": "BpqHO1RnLlncOsvY"
+                            },
+                            {
+                                "id": "hxyTek3klqFVIkxu"
+                            }
+                        ]
                     },
-                    {
-                        "key": "TokenEffectIcon",
-                        "predicate": [
-                            "lit-torch"
-                        ],
-                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    "slot4": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "MfgeNiBIvnBhPKcf"
+                            },
+                            {
+                                "id": "0XsvGNmM7uhqa2VC"
+                            }
+                        ]
                     }
-                ],
-                "size": "med",
-                "slug": "torch",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "S9JtmtrH8Q1aQeRl",
-            "img": "icons/sundries/misc/key-copper.webp",
-            "name": "Key",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p>opens all gates except Earth gate</p>",
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "equipment"
-        },
-        {
-            "_id": "zuNmwZ4T2vmUsUHA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "785SIZKqXuPjSIAx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "E4f51mEVg8KQxaHI": {
-                        "damage": "2d6+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "spear",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3LCWlBMMV8deBJpy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Torch",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "SAjaNe0mnZ519RBh": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "iCE2NXmWdBtC1cPD": {
-                        "damage": "1d4+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "shove"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "MfgeNiBIvnBhPKcf",
@@ -449,7 +122,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -537,7 +210,7 @@
             },
             "img": "systems/pf2e/icons/spells/talking-corpse.webp",
             "name": "Talking Corpse",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -602,7 +275,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Holy Light",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -695,7 +368,7 @@
             },
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -763,7 +436,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -825,7 +498,7 @@
             },
             "img": "icons/commodities/bones/skull-hollow-brown-red.webp",
             "name": "Peaceful Rest",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -903,7 +576,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Weapon",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -983,7 +656,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1053,7 +726,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1132,7 +805,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1199,7 +872,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1280,7 +953,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1476,7 +1149,7 @@
             },
             "img": "icons/magic/fire/flame-burning-earth-orange.webp",
             "name": "Produce Flame",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1557,7 +1230,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1636,7 +1309,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1696,7 +1369,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1753,125 +1426,13 @@
             "type": "spell"
         },
         {
-            "_id": "GuzuP3z04L4TjoRM",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "oMBcU3qSynMKh06S"
-                            },
-                            {
-                                "id": "0Uqwo6vp3oihTunl"
-                            },
-                            {
-                                "id": "U0h5hYJHD8DxZZB8"
-                            },
-                            {
-                                "id": "5VDQUUtbaz8KdDlB"
-                            },
-                            {
-                                "id": "ZiZU0BryCpNMPIiY"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "FucYMtSl4oxrMBHh"
-                            },
-                            {
-                                "id": "DpIlbwS9xJWs8mJe"
-                            },
-                            {
-                                "id": "DFxb0boXaWgRlBaU"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "U77YELzhHg9lMHly"
-                            },
-                            {
-                                "id": "BpqHO1RnLlncOsvY"
-                            },
-                            {
-                                "id": "gcGlhzSYX6nBMqvg"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "AZz5YGRzZmMJgVph"
-                            },
-                            {
-                                "id": "BpqHO1RnLlncOsvY"
-                            },
-                            {
-                                "id": "hxyTek3klqFVIkxu"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "MfgeNiBIvnBhPKcf"
-                            },
-                            {
-                                "id": "0XsvGNmM7uhqa2VC"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "785SIZKqXuPjSIAx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
             },
             "img": "icons/weapons/polearms/spear-flared-steel.webp",
             "name": "Spear",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "spear",
                 "bonus": {
@@ -1950,6 +1511,445 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ljvAofTkmxkRCQKP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
+            },
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+            "name": "Hide Armor",
+            "sort": 1900000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "hide-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hide-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "FyiBYxhtkJrpba2F",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 2000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "S9JtmtrH8Q1aQeRl",
+            "img": "icons/sundries/misc/key-copper.webp",
+            "name": "Key",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p>opens all gates except Earth gate</p>",
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "zuNmwZ4T2vmUsUHA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "785SIZKqXuPjSIAx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
+            "sort": 2200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "E4f51mEVg8KQxaHI": {
+                        "damage": "2d6+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "spear",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3LCWlBMMV8deBJpy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Torch",
+            "sort": 2300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "SAjaNe0mnZ519RBh": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "iCE2NXmWdBtC1cPD": {
+                        "damage": "1d4+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2qBowsYsLLirVU0U",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Purifying Flames",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The exorcist attempts to Strike a creature with their torch, attacking with great precision and causing the torch's fires to flare up. This Strike gains a +2 status bonus to its attack roll and inflicts an additional 2d6 fire damage on a hit instead of just 1d6 fire damage. An undead, spirit, or transmigrated creature hit by this attack must also attempt a @Check[will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by this additional effect, and some of the fire flares back onto the exorcist, inflicting @Damage[2d6[fire]] damage to the exorcist (@Check[reflex|dc:26|basic] save).</p>\n<p><strong>Success</strong> The creature is unaffected by this additional effect.</p>\n<p><strong>Failure</strong> The purifying flames cause the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "purifying-flames",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "purifying-flames"
+                        ],
+                        "selector": "torch-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "purifying-flames"
+                        ],
+                        "selector": "torch-attack",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "purifying-flames",
+                "traits": {
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AyXoeCAZBF0vHXaY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Torch Wielder",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The exorcist treats a torch as a light mace that deals an additional 1d6 fire damage on a hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Exorcist",

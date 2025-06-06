@@ -4,347 +4,41 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JdNDpyPZkZaFedEK",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Blocking Counterattack",
+            "_id": "1AmZDKEmlr6DEFSl",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Monk Focus Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within the black belt's reach targets them with a melee attack</p><hr /><p><strong>Effect</strong> The black belt blocks, gaining a +2 circumstance bonus to their AC against the triggering attack. If the attack misses, the black belt retaliates with a Strike. This Strike doesn't count toward the black belt's multiple attack penalty, and the multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "blocking-counterattack",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "blocking-counterattack"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "blocking-counterattack",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Cgi6w2XRHGi6dEsV",
-            "_stats": {
-                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.PjqwihmMf7cPnPtH"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The black belt makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The black belt can substitute any number of the attacks with bo staff Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oWhjvWrXmDrkBEbU",
-            "_stats": {
-                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.nrV7U6vtd1tSnRpu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Powerful Fists",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "spelldc": {
+                    "dc": 32,
+                    "value": 23
                 },
-                "actions": {
-                    "value": null
+                "tradition": {
+                    "value": "occult"
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The black belt's fist Strikes don't take penalties when making lethal attacks, and fist Strikes are treated as cold iron and silver.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "cold-iron"
-                    },
-                    {
-                        "definition": [
-                            "item:slug:fist"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "materials",
-                        "value": "silver"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y5AtO9GHxIR4ZMYe",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Rapid Barrage",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The black belt pummels their fists in a fast onslaught. They make three fist Strikes against one target. If more than one Strike hits, combine damage for the purpose of resistances and weaknesses. Regardless of whether any Strikes hit, the target must succeed at a @Check[fortitude|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of their next turn and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "incapacitation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ot4lWRHvlWeB3Q2C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bands of Force",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 500
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bands-of-force",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmbands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "aXXZWVf51ZkhspOg",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Martial Arts Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "Omu8jfg1ZYl6AReA",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bo Staff",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "5uMHjC43IapeRctK": {
-                        "damage": "2d8+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "parry",
-                        "reach",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "v2SPwV17jWgfcN8M",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "iM6r3ZimWaTtl5zx": {
-                        "damage": "2d8+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "uqd5Vpwe4t0OsEu0",
@@ -353,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Inner Upheaval",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -429,7 +123,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Qi Rush",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -482,50 +176,13 @@
             "type": "spell"
         },
         {
-            "_id": "1AmZDKEmlr6DEFSl",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Monk Focus Spells",
-            "sort": 1100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 23
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "EORvZyi7YbTwvJ9J",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+1 Striking Handwraps of Mighty Blows",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -614,7 +271,7 @@
             },
             "img": "icons/weapons/staves/staff-simple-gold.webp",
             "name": "Bo Staff",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "baseItem": "bo-staff",
                 "bonus": {
@@ -694,6 +351,349 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ot4lWRHvlWeB3Q2C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bands of Force",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bands-of-force",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmbands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Omu8jfg1ZYl6AReA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bo Staff",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "5uMHjC43IapeRctK": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "parry",
+                        "reach",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "v2SPwV17jWgfcN8M",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "iM6r3ZimWaTtl5zx": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JdNDpyPZkZaFedEK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blocking Counterattack",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the black belt's reach targets them with a melee attack</p><hr /><p><strong>Effect</strong> The black belt blocks, gaining a +2 circumstance bonus to their AC against the triggering attack. If the attack misses, the black belt retaliates with a Strike. This Strike doesn't count toward the black belt's multiple attack penalty, and the multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "blocking-counterattack",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "blocking-counterattack"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "blocking-counterattack",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Cgi6w2XRHGi6dEsV",
+            "_stats": {
+                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.PjqwihmMf7cPnPtH"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The black belt makes two fist Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>\n<p>The black belt can substitute any number of the attacks with bo staff Strikes or attempts to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oWhjvWrXmDrkBEbU",
+            "_stats": {
+                "compendiumSource": "Actor.zRUKUK93YxtbadPT.Item.nrV7U6vtd1tSnRpu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Powerful Fists",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The black belt's fist Strikes don't take penalties when making lethal attacks, and fist Strikes are treated as cold iron and silver.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fist"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "materials",
+                        "value": "silver"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y5AtO9GHxIR4ZMYe",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Rapid Barrage",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The black belt pummels their fists in a fast onslaught. They make three fist Strikes against one target. If more than one Strike hits, combine damage for the purpose of resistances and weaknesses. Regardless of whether any Strikes hit, the target must succeed at a @Check[fortitude|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of their next turn and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aXXZWVf51ZkhspOg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Martial Arts Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Black Belt",

@@ -3,347 +3,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OPfyi9ivt0InaEXb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
+            "_id": "gBE8Z8acvqFsiw0Z",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Occult Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Ioseff Xarwin is site bound to his laboratory.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "66dtKIUqfelqC7kk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Recoil",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If a character forcefully presents Fulvia's ring to Ioseff as an action with the manipulate trait, he must attempt a @Check[will|dc:26] save; he's thereafter immune to Recoil for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> Ioseff is unaffected.</p>\n<p><strong>Success</strong> Ioseff takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> Ioseff takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> Ioseff takes @Damage[8d6[mental]] damage, is frightened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AlPbxguovoxPTMet",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>\n<hr />\n<p>In order to put Ioseff to rest, the following three conditions must be met after defeating Ioseff but before he rejuvenates:</p>\n<ul>\n<li>The undead brain collector in area D6 has been destroyed.</li>\n<li>The brains of his wife and children have been freed from the brain collector statue, allowing their souls to move to the Boneyard.</li>\n<li>The Void Mirror has been replaced in its frame in the Cosmic Crypt.</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "M7sVspfHZSCGkPB3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shame",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Ioseff takes a -1 item penalty to attack rolls and saving throws against a character who carries Fulvia's ring. This penalty doubles to -2 against a character who wears Fulvia's ring. At the start of ttheir turn, a character who possesses Fulvia's ring can attempt a secret @Check[perception|dc:20|traits:secret] check; on a success, they sense a faint compulsion fueled by outrage to present Fulvia's ring to the ghost.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetPossess",
-                        "option": "possess-fulvia-ring",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetWear",
-                        "option": "wearing-fulvia-ring",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "possess-fulvia-ring"
-                        ],
-                        "selector": "attack",
-                        "slug": "shame",
-                        "type": "item",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "wearing-fulvia-ring"
-                        ],
-                        "selector": "attack",
-                        "slug": "more-shame",
-                        "type": "item",
-                        "value": -2
-                    },
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SavePossess",
-                        "option": "save-possess-fulvia-ring",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "saving-throw",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SaveWear",
-                        "option": "save-wearing-fulvia-ring",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "save-possess-fulvia-ring"
-                        ],
-                        "selector": "saving-throw",
-                        "slug": "shame",
-                        "type": "item",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "save-wearing-fulvia-ring"
-                        ],
-                        "selector": "saving-throw",
-                        "slug": "more-shame",
-                        "type": "item",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "W6oYW5b8Ylon2YvG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oaQPnXy17nhfdQcU",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Incite Insurrection",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of Ioseff fails a saving throw against one of his spells</p>\n<hr />\n<p><strong>Effect</strong> Ioseff infuses the magic of his spell with the agonies of his own death. In addition to any effects caused by the triggering spell, the target must also attempt a @Check[fortitude|dc:28|traits:disease] save. or contract internal insurrection at stage 1 (stage 2 on a critical failure)</p>\n<p><strong>Internal Insurrection</strong> (disease); <strong>Level 7</strong>.</p>\n<p>The target can't recover from the clumsy condition from internal insurrection until the disease is cured</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 day)</p>\n<p><strong>Stage 3</strong> clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and off-guard (1 day)</p>\n<p><strong>Stage 5</strong> death, and the target's body splits apart into a mass of fragments that crawls outward in a 10-foot-emanation before perishing, leaving a bare skeleton surrounded by gore.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tq4v9Tm2A5wAIhYF",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Malevolent Possession",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ioseff Xarwin attempts to possess an adjacent corporeal creature. This has the same effect as the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell, except since Ioseff Xarwin doesn't have a physical body, it is unaffected by that restriction of the spell.</p>\n<p>The target must attempt a @Check[will|dc:28|traits:controlling] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> You possess the target but can't control it. You ride along in the body while the spell lasts.</p>\n<p><strong>Failure</strong> You possess the target and take partial control of it. You no longer have a separate turn; instead, you might control the target. At the start of each of the target's turns, it attempts another Will save. If it fails, it's @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by you on that turn; if it succeeds, it chooses its own actions; and if it critically succeeds, it forces you out and the spell ends.</p>\n<p><strong>Critical Failure</strong> You possess the target fully, and it can only watch as you manipulate it like a puppet. The target is Controlled by you.</p>\n<p>A character who carries Fulvia's ring on their person gains a +4 item bonus to their save and treats the result of the save as one degree of success better than their rolled result. If Ioseff attempts to use this ability on a character who wears Fulvia's ring, he can attempt a Perception check against the ring-wearer's Stealth DC to notice the ring in time to avoid the attempt; on a success, he loses the two actions he took to make the attempt but avoids further effects. If he doesn't notice the ring and attempts to possess the ring-wearer, the ring-wearer automatically gains a critical success on their Will save, Ioseff is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, and he can't use Malevolent Possession again for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6mMJCH3VP87wzthp",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Phantasmal Amputation",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Ioseff holds up the stump of his left arm, and the streaming blood begins to form a ghostly hand that he then uses to point out a humanoid creature within 30 feet. That creature must attempt a @Check[fortitude|dc:28|traits:necromancy,occult] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by a sudden, agonizing pain in their left hand.</p>\n<p><strong>Success</strong> As critical success, but the creature also takes @Damage[2d6[slashing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as they feel as if their left hand just got lopped off by a hatchet.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, takes @Damage[5d6[slashing]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 minute as they feel as if their left hand just got lopped off by a hatchet.</p>\n<p><strong>Critical Failure</strong> The PC is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and takes @Damage[8d6[slashing],2d6[bleed]]{8d6 slashing damage and 2d6 bleed damage} as their left hand appears to detach and fall to the floor before instantly decaying into bones. The PC is clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1}. As soon as this wounded condition is removed, the PC's hand miraculously returns and the clumsy condition ends.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GCPgpwElCHLQVIOo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Astronomy Lore",
-            "sort": 900000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 21
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -352,80 +26,39 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "PNqYkMjgT8qLINIr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Cheliax Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "AwvX8r0Dpmhamr4F",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bloody Ectoplasmic Lash",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "7j5vlkkxa5u2utijja0u": {
-                        "damage": "2d8+7",
-                        "damageType": "void"
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "value": 2
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "reach-10"
-                    ]
+                "spelldc": {
+                    "dc": 28,
+                    "mod": 0,
+                    "value": 20
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "zPjV1ZAzpCHAWFM2",
@@ -434,7 +67,7 @@
             },
             "img": "systems/pf2e/icons/spells/banishment.webp",
             "name": "Banishment",
-            "sort": 1200000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -502,7 +135,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-entity.webp",
             "name": "Summon Entity",
-            "sort": 1300000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -561,7 +194,7 @@
             },
             "img": "systems/pf2e/icons/spells/extract-brain.webp",
             "name": "Extract Brain",
-            "sort": 1400000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -624,7 +257,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1500000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -710,7 +343,7 @@
             },
             "img": "icons/magic/control/encase-creature-spider-hold.webp",
             "name": "Nightmare",
-            "sort": 1600000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -777,7 +410,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 1700000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -864,7 +497,7 @@
             },
             "img": "icons/skills/trades/music-singing-voice-blue.webp",
             "name": "Dream Message",
-            "sort": 1800000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -926,7 +559,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1900000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -993,7 +626,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2000000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1059,7 +692,7 @@
             },
             "img": "icons/commodities/bones/skull-hollow-brown-red.webp",
             "name": "Gentle Repose",
-            "sort": 2100000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1121,7 +754,7 @@
             },
             "img": "systems/pf2e/icons/spells/inveigle.webp",
             "name": "Inveigle",
-            "sort": 2200000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1186,7 +819,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 2300000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1248,7 +881,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 2400000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1310,7 +943,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 2500000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1379,7 +1012,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2600000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1466,7 +1099,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2700000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1536,7 +1169,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 2800000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1599,7 +1232,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2900000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1663,7 +1296,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 3000000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1724,7 +1357,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 3100000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1791,7 +1424,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 3200000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1909,21 +1542,393 @@
             "type": "spell"
         },
         {
-            "_id": "gBE8Z8acvqFsiw0Z",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
-            "sort": 3300000,
+            "_id": "AwvX8r0Dpmhamr4F",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bloody Ectoplasmic Lash",
+            "sort": 2300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "7j5vlkkxa5u2utijja0u": {
+                        "damage": "2d8+7",
+                        "damageType": "void"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OPfyi9ivt0InaEXb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Ioseff Xarwin is site bound to his laboratory.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "66dtKIUqfelqC7kk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Recoil",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a character forcefully presents Fulvia's ring to Ioseff as an action with the manipulate trait, he must attempt a @Check[will|dc:26] save; he's thereafter immune to Recoil for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> Ioseff is unaffected.</p>\n<p><strong>Success</strong> Ioseff takes @Damage[4d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> Ioseff takes @Damage[8d6[mental]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> Ioseff takes @Damage[8d6[mental]] damage, is frightened 2, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AlPbxguovoxPTMet",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>\n<hr />\n<p>In order to put Ioseff to rest, the following three conditions must be met after defeating Ioseff but before he rejuvenates:</p>\n<ul>\n<li>The undead brain collector in area D6 has been destroyed.</li>\n<li>The brains of his wife and children have been freed from the brain collector statue, allowing their souls to move to the Boneyard.</li>\n<li>The Void Mirror has been replaced in its frame in the Cosmic Crypt.</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M7sVspfHZSCGkPB3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shame",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Ioseff takes a -1 item penalty to attack rolls and saving throws against a character who carries Fulvia's ring. This penalty doubles to -2 against a character who wears Fulvia's ring. At the start of ttheir turn, a character who possesses Fulvia's ring can attempt a secret @Check[perception|dc:20|traits:secret] check; on a success, they sense a faint compulsion fueled by outrage to present Fulvia's ring to the ghost.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetPossess",
+                        "option": "possess-fulvia-ring",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetWear",
+                        "option": "wearing-fulvia-ring",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "possess-fulvia-ring"
+                        ],
+                        "selector": "attack",
+                        "slug": "shame",
+                        "type": "item",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wearing-fulvia-ring"
+                        ],
+                        "selector": "attack",
+                        "slug": "more-shame",
+                        "type": "item",
+                        "value": -2
+                    },
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SavePossess",
+                        "option": "save-possess-fulvia-ring",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SaveWear",
+                        "option": "save-wearing-fulvia-ring",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "save-possess-fulvia-ring"
+                        ],
+                        "selector": "saving-throw",
+                        "slug": "shame",
+                        "type": "item",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "save-wearing-fulvia-ring"
+                        ],
+                        "selector": "saving-throw",
+                        "slug": "more-shame",
+                        "type": "item",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W6oYW5b8Ylon2YvG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oaQPnXy17nhfdQcU",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Incite Insurrection",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of Ioseff fails a saving throw against one of his spells</p>\n<hr />\n<p><strong>Effect</strong> Ioseff infuses the magic of his spell with the agonies of his own death. In addition to any effects caused by the triggering spell, the target must also attempt a @Check[fortitude|dc:28|traits:disease] save. or contract internal insurrection at stage 1 (stage 2 on a critical failure)</p>\n<p><strong>Internal Insurrection</strong> (disease); <strong>Level 7</strong>.</p>\n<p>The target can't recover from the clumsy condition from internal insurrection until the disease is cured</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 day)</p>\n<p><strong>Stage 3</strong> clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and off-guard (1 day)</p>\n<p><strong>Stage 5</strong> death, and the target's body splits apart into a mass of fragments that crawls outward in a 10-foot-emanation before perishing, leaving a bare skeleton surrounded by gore.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tq4v9Tm2A5wAIhYF",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Malevolent Possession",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ioseff Xarwin attempts to possess an adjacent corporeal creature. This has the same effect as the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell, except since Ioseff Xarwin doesn't have a physical body, it is unaffected by that restriction of the spell.</p>\n<p>The target must attempt a @Check[will|dc:28|traits:controlling] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> You possess the target but can't control it. You ride along in the body while the spell lasts.</p>\n<p><strong>Failure</strong> You possess the target and take partial control of it. You no longer have a separate turn; instead, you might control the target. At the start of each of the target's turns, it attempts another Will save. If it fails, it's @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by you on that turn; if it succeeds, it chooses its own actions; and if it critically succeeds, it forces you out and the spell ends.</p>\n<p><strong>Critical Failure</strong> You possess the target fully, and it can only watch as you manipulate it like a puppet. The target is Controlled by you.</p>\n<p>A character who carries Fulvia's ring on their person gains a +4 item bonus to their save and treats the result of the save as one degree of success better than their rolled result. If Ioseff attempts to use this ability on a character who wears Fulvia's ring, he can attempt a Perception check against the ring-wearer's Stealth DC to notice the ring in time to avoid the attempt; on a success, he loses the two actions he took to make the attempt but avoids further effects. If he doesn't notice the ring and attempts to possess the ring-wearer, the ring-wearer automatically gains a critical success on their Will save, Ioseff is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}, and he can't use Malevolent Possession again for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6mMJCH3VP87wzthp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Phantasmal Amputation",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Ioseff holds up the stump of his left arm, and the streaming blood begins to form a ghostly hand that he then uses to point out a humanoid creature within 30 feet. That creature must attempt a @Check[fortitude|dc:28|traits:necromancy,occult] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by a sudden, agonizing pain in their left hand.</p>\n<p><strong>Success</strong> As critical success, but the creature also takes @Damage[2d6[slashing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as they feel as if their left hand just got lopped off by a hatchet.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, takes @Damage[5d6[slashing]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for 1 minute as they feel as if their left hand just got lopped off by a hatchet.</p>\n<p><strong>Critical Failure</strong> The PC is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} and takes @Damage[8d6[slashing],2d6[bleed]]{8d6 slashing damage and 2d6 bleed damage} as their left hand appears to detach and fall to the floor before instantly decaying into bones. The PC is clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1}. As soon as this wounded condition is removed, the PC's hand miraculously returns and the clumsy condition ends.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GCPgpwElCHLQVIOo",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Astronomy Lore",
+            "sort": 3200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -1932,39 +1937,34 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "mod": 0,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "occult"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
+        },
+        {
+            "_id": "PNqYkMjgT8qLINIr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Cheliax Lore",
+            "sort": 3300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Ioseff Xarwin",

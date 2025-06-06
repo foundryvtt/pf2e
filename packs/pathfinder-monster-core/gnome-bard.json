@@ -3,208 +3,46 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GfHdH66gQw6A7IbC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Gnomish Shift",
+            "_id": "63bWc2t3gBmtcims",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The gnome bard would take damage</p>\n<hr />\n<p><strong>Effect</strong> The gnome bard gains resistance 2 to the triggering damage and teleports to an adjacent space.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "gnomish-shift",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "gnomish-shift"
-                        ],
-                        "type": "all-damage",
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 2,
                         "value": 2
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "primal",
-                        "teleportation"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 19,
+                    "value": 11
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "lpn1X46g2bCqCbd3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Do a Jig!",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gnome bard plays a ditty that inspires dance. One creature within 30 feet must make a @Check[will|dc:19] saving throw.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target must waste 1 action on its next turn dancing.</p>\n<p><strong>Critical Failure</strong> The target must waste 2 actions on its next turn dancing.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nI47EFrtOv2ok2FR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
-            "name": "Sling Bullets",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "sling-bullets",
-                "stackGroup": "slingBullets",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "d0ltXPuMBkzRpAax",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
-            },
-            "img": "icons/tools/instruments/pipe-flue-tan.webp",
-            "name": "Musical Instrument (Handheld)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 8
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "musical-instrument-handheld",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Ia4ZiEmapTC1k3h2",
@@ -213,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -293,7 +131,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -372,7 +210,7 @@
             },
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Courageous Anthem",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -436,7 +274,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -523,7 +361,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -586,7 +424,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -662,7 +500,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -725,7 +563,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-instrument.webp",
             "name": "Summon Instrument",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -781,55 +619,13 @@
             "type": "spell"
         },
         {
-            "_id": "63bWc2t3gBmtcims",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 1300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 19,
-                    "value": 11
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "p0HEnyLXgwI0HtUz",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -918,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
             "name": "Sling",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "sling",
                 "bonus": {
@@ -993,6 +789,210 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "d0ltXPuMBkzRpAax",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
+            },
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
+            "name": "Musical Instrument (Handheld)",
+            "sort": 1200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "musical-instrument-handheld",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "nI47EFrtOv2ok2FR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
+            "name": "Sling Bullets",
+            "sort": 1300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "sling-bullets",
+                "stackGroup": "slingBullets",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "GfHdH66gQw6A7IbC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gnomish Shift",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The gnome bard would take damage</p>\n<hr />\n<p><strong>Effect</strong> The gnome bard gains resistance 2 to the triggering damage and teleports to an adjacent space.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "gnomish-shift",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "gnomish-shift"
+                        ],
+                        "type": "all-damage",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lpn1X46g2bCqCbd3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Do a Jig!",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gnome bard plays a ditty that inspires dance. One creature within 30 feet must make a @Check[will|dc:19] saving throw.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target must waste 1 action on its next turn dancing.</p>\n<p><strong>Critical Failure</strong> The target must waste 2 actions on its next turn dancing.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Gnome Bard",

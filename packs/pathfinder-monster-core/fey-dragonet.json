@@ -3,57 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HQToKWTC3drtqduN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "8yN0Tb58TCHXqGYI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2vBMTexIigEtaKt3",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Euphoric Breath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragonet breathes euphoric gas in a @Template[cone|distance:15]. Each creature in the area must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}; on a critical failure, the duration is 1 minute.</p>\n<p>The fey dragonet can't use Euphoric Breath again for [[/gmr 1d4 #Recharge Euphoric Breath]]{1d4 rounds}.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -61,41 +27,43 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XpcWHnvqjcngSTyK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "geue1zcmljrdpnrws91k": {
-                        "damage": "1d4",
-                        "damageType": "piercing"
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
                     }
                 },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "mod": 0,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "uj64Am9tI0929tfx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -103,20 +71,22 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "mod": 0,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "eN762ag1BwsEj2mG",
@@ -125,7 +95,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (Self Only)",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -187,7 +157,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -250,7 +220,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -316,7 +286,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -382,7 +352,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -446,7 +416,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -509,7 +479,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -581,7 +551,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -645,7 +615,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -763,67 +733,29 @@
             "type": "spell"
         },
         {
-            "_id": "8yN0Tb58TCHXqGYI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 1300000,
+            "_id": "XpcWHnvqjcngSTyK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "mod": 0,
+                "bonus": {
                     "value": 10
                 },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "uj64Am9tI0929tfx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "damageRolls": {
+                    "geue1zcmljrdpnrws91k": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -831,22 +763,90 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "HQToKWTC3drtqduN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2vBMTexIigEtaKt3",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Euphoric Breath",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragonet breathes euphoric gas in a @Template[cone|distance:15]. Each creature in the area must succeed at a @Check[fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for [[/gmr 1d4 #rounds]]{1d4 rounds}; on a critical failure, the duration is 1 minute.</p>\n<p>The fey dragonet can't use Euphoric Breath again for [[/gmr 1d4 #Recharge Euphoric Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Fey Dragonet",

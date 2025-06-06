@@ -4,301 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XVYGlrj03AqcGMI3",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Distracting Giggle",
+            "_id": "hEWjDHiKJ4OYbMGW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>15 feet. The thatchling's giggle echoes in the back of the mind. Creatures within the aura take a –1 status penalty to Will saves.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Distracting Giggle"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 15,
-                        "slug": "distracting-giggle",
-                        "traits": [
-                            "auditory",
-                            "emotion",
-                            "mental",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "aura",
-                        "emotion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wsM7ognfk7jqmwtX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rejuvenation",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When a thatchling is destroyed by damage other than fire, it attempts a @Check[flat|dc:11]. On a success, it reforms after [[/br 2d4 #days]]{2d4 days} within 120 feet of where it was destroyed, fully healed. A thatchling is always permanently destroyed if reduced to 0 Hit Points by fire damage or if the obstacle preventing the soul from reincarnating is removed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gYa7Xy1s4PIsKKV2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UdPijD4tBNXJotZy",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Create Thatchling Spawn",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living humanoid who's slain by a red-hooded thatchling while under the effects of Thatchling's Curse rises as a thatchling after [[/gmr 1d4 #rounds]]{1d4 rounds}. This spawn is under the command of the red-hooded thatchling that killed it. If a red-hooded thatchling controls too many at once (as determined by the GM), some thatchlings can free themselves with a @Check[will|dc:18] saving throw at the start of their turn. If the red-hooded thatchling who created the spawn is destroyed, the spawn becomes an autonomous thatchling.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "r4MEpGtkv5rLSOQU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Howl of Vengeful Fury",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The red-hooded thatchling sobs pitifully before unleashing a terrifying scream. All non-thatchling creatures within a @Template[emanation|distance:30] take @Damage[2d10[sonic]] damage (@Check[fortitude|dc:18|basic] save) and become immune to all thatchlings' distracting giggle for 1 minute. Thatchlings in the area gain 5 temporary Hit Points and a +1 status bonus to their Strikes and saving throws for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Howl of Vengeful Fury]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SNBRxMl0LfjvgCP2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thatchling's Curse",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The thatchling focuses its attention on a single target within 30 feet that it can see, and then begins muttering and whispering nonsense. The target must attempt a @Check[will|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Thatchling's Curse for 24 hours.</p>\n<p><strong>Success</strong> The target is momentarily disoriented and has difficulty moving in the right direction. The target takes a –5-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Failure</strong> As success, but the penalty to its Speeds lasts for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, but the penalty to its Speeds lasts until the curse is removed or until the thatchling that created the effect is permanently destroyed, whichever comes first. In addition, when the cursed creature attempts a Survival check to Sense Direction or @UUID[Compendium.pf2e.actionspf2e.Item.Track], they use the outcome for one degree of success worse than the result of their check, and they can't take the Scout exploration activity.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "curse",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6ox3qbeYGpuKFgZa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Thicket Walker",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Thatchlings ignore difficult terrain caused by brambles, tangled grass, and undergrowth, even those manipulated by magic.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "23IFxhQXEXwHsFKI",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Frond",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "IJBWYQs4HcxtkUev": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    },
-                    "zBPflcU7a2cke7YJ": {
-                        "damage": "1d6+2",
-                        "damageType": "slashing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "6Xi8uGXG8xs9SnQh",
@@ -307,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -385,7 +128,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -448,7 +191,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -566,22 +309,33 @@
             "type": "spell"
         },
         {
-            "_id": "hEWjDHiKJ4OYbMGW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1200000,
+            "_id": "23IFxhQXEXwHsFKI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frond",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "IJBWYQs4HcxtkUev": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    },
+                    "zBPflcU7a2cke7YJ": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -589,21 +343,267 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "XVYGlrj03AqcGMI3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Distracting Giggle",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. The thatchling's giggle echoes in the back of the mind. Creatures within the aura take a –1 status penalty to Will saves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Distracting Giggle"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "distracting-giggle",
+                        "traits": [
+                            "auditory",
+                            "emotion",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wsM7ognfk7jqmwtX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rejuvenation",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a thatchling is destroyed by damage other than fire, it attempts a @Check[flat|dc:11]. On a success, it reforms after [[/br 2d4 #days]]{2d4 days} within 120 feet of where it was destroyed, fully healed. A thatchling is always permanently destroyed if reduced to 0 Hit Points by fire damage or if the obstacle preventing the soul from reincarnating is removed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gYa7Xy1s4PIsKKV2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UdPijD4tBNXJotZy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Create Thatchling Spawn",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living humanoid who's slain by a red-hooded thatchling while under the effects of Thatchling's Curse rises as a thatchling after [[/gmr 1d4 #rounds]]{1d4 rounds}. This spawn is under the command of the red-hooded thatchling that killed it. If a red-hooded thatchling controls too many at once (as determined by the GM), some thatchlings can free themselves with a @Check[will|dc:18] saving throw at the start of their turn. If the red-hooded thatchling who created the spawn is destroyed, the spawn becomes an autonomous thatchling.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r4MEpGtkv5rLSOQU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Howl of Vengeful Fury",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The red-hooded thatchling sobs pitifully before unleashing a terrifying scream. All non-thatchling creatures within a @Template[emanation|distance:30] take @Damage[2d10[sonic]] damage (@Check[fortitude|dc:18|basic] save) and become immune to all thatchlings' distracting giggle for 1 minute. Thatchlings in the area gain 5 temporary Hit Points and a +1 status bonus to their Strikes and saving throws for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Howl of Vengeful Fury]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SNBRxMl0LfjvgCP2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thatchling's Curse",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The thatchling focuses its attention on a single target within 30 feet that it can see, and then begins muttering and whispering nonsense. The target must attempt a @Check[will|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune to Thatchling's Curse for 24 hours.</p>\n<p><strong>Success</strong> The target is momentarily disoriented and has difficulty moving in the right direction. The target takes a –5-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Failure</strong> As success, but the penalty to its Speeds lasts for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, but the penalty to its Speeds lasts until the curse is removed or until the thatchling that created the effect is permanently destroyed, whichever comes first. In addition, when the cursed creature attempts a Survival check to Sense Direction or @UUID[Compendium.pf2e.actionspf2e.Item.Track], they use the outcome for one degree of success worse than the result of their check, and they can't take the Scout exploration activity.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6ox3qbeYGpuKFgZa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thicket Walker",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Thatchlings ignore difficult terrain caused by brambles, tangled grass, and undergrowth, even those manipulated by magic.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Red-Hooded Thatchling",

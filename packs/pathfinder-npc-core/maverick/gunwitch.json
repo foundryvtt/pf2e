@@ -4,297 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "nbGYZczLrjoPrNxy",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Firearm Familiar",
+            "_id": "AHqZqmHmbdICrVZD",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The gunwitch's firearm acts as their familiar but remains a mindless item with no actions. The master abilities it grants are included in the stat block.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ZU5kwu08GSIgB4Q1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.wCnsRCHvtZkZTmO0"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Acrobatic Dodge",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An attacker the gunwitch can observe targets them with an attack</p><hr /><p><strong>Effect</strong> The gunwitch gains a +2 circumstance bonus to AC against the triggering attack, and after the attack the gunwitch @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "acrobatic-dodge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "acrobatic-dodge"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "nimble-dodge",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7McDPEFv5lCLd6gs",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Betwitched Shot",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded in it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch Casts a Spell that takes 1 or 2 actions to cast into their bullet, then Strikes with their firearm familiar, shooting the magic bullet. This counts as two attacks for the gunwitch's multiple attack penalty. On a hit, the target is also affected by the spell, though the target gets any normal defenses allowed by the spell.</p>\n<p>If the spell is targeted, it targets the creature that was hit and no one else. If the spell is an area, the target must be in the area. A burst is centered on a corner of the target's square if the target is Medium or smaller or the corner of a square closest to the creature's center if it's Large or larger. A cone or line emits from a square of the gunwitch's choice adjacent to the target.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "U3D8UB50MVdn9owB",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Bullet Storm",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded into it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch unleashes a flurry of projectiles. Each creature in a @Template[type:emanation|distance:60] takes @Damage[8d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qUQ5fdfxmcMcuAX9",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hex Bullet",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The gunwitch conjures a magical hex bullet in their firearm. It can be used as a normal bullet or for the Bewitched Shot and Bullet Storm abilities. The bullet vanishes if not fired by the end of the turn.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BCK488BYbofd6C0V",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Recall Firearm",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The gunwitch's firearm familiar is within 1 mile</p><hr /><p><strong>Effect</strong> The gunwitch summons their firearm into their hand or hands.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "occult",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yT77Mj62srjuaAkM",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Fy63rwYVBq0hXh0T"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Flintlock Musket)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-flintlock-musket",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "KlBSPZFmgxGnPWxY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Patron Lore",
-            "sort": 800000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 15
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -302,100 +28,113 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "zvaEUHM6cBHzBEtb"
+                            },
+                            {
+                                "id": "xauKusNY0UUGnYnX"
+                            },
+                            {
+                                "id": "7BMJfUVD2ZLMPU2c"
+                            },
+                            {
+                                "id": "QN6RGV9n6OoidXag"
+                            },
+                            {
+                                "id": "g1GZcNkTKXN8Cxee"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "e6XVJgFTeTXbxfrW"
+                            },
+                            {
+                                "id": "e6XVJgFTeTXbxfrW"
+                            },
+                            {
+                                "id": "UVS2ug1lkk2Fx8r7"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "kRs7TUXTtBtzqxgA"
+                            },
+                            {
+                                "id": "1wYlZTCZpBluZIu5"
+                            },
+                            {
+                                "id": "1wYlZTCZpBluZIu5"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "8yNL8luFmdfjvtF1"
+                            },
+                            {
+                                "id": "yMUkNWJpprHdUOC2"
+                            },
+                            {
+                                "id": "16AEMDgALxCUzPaU"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "kSMDy8bLpMPFJYIW"
+                            },
+                            {
+                                "id": "QpBFmT8fnD0I9ncG"
+                            },
+                            {
+                                "id": "x15m4P3bETaObrSH"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "md4SEoFEbsW7ZNMZ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "e4VHT4CABCaoOthc"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Musket Staff",
-            "sort": 900000,
+            "_id": "Ty6gHYSX9V8oLSSj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Witch Hex Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.MusketStaff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD6",
-                        "override": {
-                            "dieSize": "d6"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
-                "slug": "reinforced-stock",
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "two-hand-d6"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bmk4lwn3XpOj4PeB",
-            "_stats": {
-                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -403,78 +142,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "C9ZsCn6QkBtekUHd",
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "reinforcedStock": {
-                            "id": "e4VHT4CABCaoOthc",
-                            "onDelete": "detach"
-                        }
-                    },
-                    "linkedWeapon": "pdjCSwk0p00nszjy"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Musket Staff",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+6",
-                        "damageType": "piercing"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "flag": "reinforcedStock",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock"
-                    }
-                ],
-                "slug": "musket-staff-of-force",
-                "traits": {
-                    "value": [
-                        "concussive",
-                        "fatal-d10",
-                        "magical",
-                        "range-increment-70",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "kSMDy8bLpMPFJYIW",
@@ -483,7 +162,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -560,7 +239,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Flicker",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -621,7 +300,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -692,7 +371,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -769,7 +448,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -845,7 +524,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -906,7 +585,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -968,7 +647,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1055,7 +734,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1122,7 +801,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1188,7 +867,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1252,7 +931,7 @@
             },
             "img": "systems/pf2e/icons/spells/needle-of-vengeance.webp",
             "name": "Needle of Vengeance",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1335,7 +1014,7 @@
             },
             "img": "systems/pf2e/icons/spells/nudge-fate.webp",
             "name": "Nudge Fate",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1394,7 +1073,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1479,7 +1158,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1558,7 +1237,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "Sure Strike",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1618,7 +1297,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1736,165 +1415,13 @@
             "type": "spell"
         },
         {
-            "_id": "AHqZqmHmbdICrVZD",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
-            "sort": 2900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "zvaEUHM6cBHzBEtb"
-                            },
-                            {
-                                "id": "xauKusNY0UUGnYnX"
-                            },
-                            {
-                                "id": "7BMJfUVD2ZLMPU2c"
-                            },
-                            {
-                                "id": "QN6RGV9n6OoidXag"
-                            },
-                            {
-                                "id": "g1GZcNkTKXN8Cxee"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "e6XVJgFTeTXbxfrW"
-                            },
-                            {
-                                "id": "e6XVJgFTeTXbxfrW"
-                            },
-                            {
-                                "id": "UVS2ug1lkk2Fx8r7"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "kRs7TUXTtBtzqxgA"
-                            },
-                            {
-                                "id": "1wYlZTCZpBluZIu5"
-                            },
-                            {
-                                "id": "1wYlZTCZpBluZIu5"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "8yNL8luFmdfjvtF1"
-                            },
-                            {
-                                "id": "yMUkNWJpprHdUOC2"
-                            },
-                            {
-                                "id": "16AEMDgALxCUzPaU"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "kSMDy8bLpMPFJYIW"
-                            },
-                            {
-                                "id": "QpBFmT8fnD0I9ncG"
-                            },
-                            {
-                                "id": "x15m4P3bETaObrSH"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "Ty6gHYSX9V8oLSSj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Witch Hex Spells",
-            "sort": 3000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "pdjCSwk0p00nszjy",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mfYwthsSMkDS8djw"
             },
             "img": "systems/pf2e/icons/equipment/weapons/flintlock-musket.webp",
             "name": "Musket Staff of Force",
-            "sort": 3100000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "flintlock-musket",
                 "bonus": {
@@ -2008,7 +1535,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/reinforced-stock.webp",
             "name": "Reinforced Stock",
-            "sort": 3200000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "reinforced-stock",
                 "bonus": {
@@ -2087,6 +1614,479 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "yT77Mj62srjuaAkM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Fy63rwYVBq0hXh0T"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Flintlock Musket)",
+            "sort": 2200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-flintlock-musket",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "md4SEoFEbsW7ZNMZ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "e4VHT4CABCaoOthc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Musket Staff",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.MusketStaff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD6",
+                        "override": {
+                            "dieSize": "d6"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": "reinforced-stock",
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "two-hand-d6"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bmk4lwn3XpOj4PeB",
+            "_stats": {
+                "compendiumSource": "Actor.g4Tp2o4D9Gwzqf5L.Item.CN4GwNgOryN6LNFo"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "C9ZsCn6QkBtekUHd",
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "reinforcedStock": {
+                            "id": "e4VHT4CABCaoOthc",
+                            "onDelete": "detach"
+                        }
+                    },
+                    "linkedWeapon": "pdjCSwk0p00nszjy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Musket Staff",
+            "sort": 2500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+6",
+                        "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "flag": "reinforcedStock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock"
+                    }
+                ],
+                "slug": "musket-staff-of-force",
+                "traits": {
+                    "value": [
+                        "concussive",
+                        "fatal-d10",
+                        "magical",
+                        "range-increment-70",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nbGYZczLrjoPrNxy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Firearm Familiar",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The gunwitch's firearm acts as their familiar but remains a mindless item with no actions. The master abilities it grants are included in the stat block.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZU5kwu08GSIgB4Q1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.wCnsRCHvtZkZTmO0"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Acrobatic Dodge",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An attacker the gunwitch can observe targets them with an attack</p><hr /><p><strong>Effect</strong> The gunwitch gains a +2 circumstance bonus to AC against the triggering attack, and after the attack the gunwitch @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "acrobatic-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "acrobatic-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "nimble-dodge",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7McDPEFv5lCLd6gs",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Betwitched Shot",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded in it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch Casts a Spell that takes 1 or 2 actions to cast into their bullet, then Strikes with their firearm familiar, shooting the magic bullet. This counts as two attacks for the gunwitch's multiple attack penalty. On a hit, the target is also affected by the spell, though the target gets any normal defenses allowed by the spell.</p>\n<p>If the spell is targeted, it targets the creature that was hit and no one else. If the spell is an area, the target must be in the area. A burst is centered on a corner of the target's square if the target is Medium or smaller or the corner of a square closest to the creature's center if it's Large or larger. A cone or line emits from a square of the gunwitch's choice adjacent to the target.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U3D8UB50MVdn9owB",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bullet Storm",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gunwitch is wielding their firearm familiar and has a hex bullet loaded into it (see Hex Bullet)</p><hr /><p><strong>Effect</strong> The gunwitch unleashes a flurry of projectiles. Each creature in a @Template[type:emanation|distance:60] takes @Damage[8d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qUQ5fdfxmcMcuAX9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hex Bullet",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The gunwitch conjures a magical hex bullet in their firearm. It can be used as a normal bullet or for the Bewitched Shot and Bullet Storm abilities. The bullet vanishes if not fired by the end of the turn.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BCK488BYbofd6C0V",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Recall Firearm",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The gunwitch's firearm familiar is within 1 mile</p><hr /><p><strong>Effect</strong> The gunwitch summons their firearm into their hand or hands.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KlBSPZFmgxGnPWxY",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Patron Lore",
+            "sort": 3200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Gunwitch",

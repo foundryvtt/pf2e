@@ -4,170 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PvOU0sjeBm4bZvBa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rancid Spore Pods",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The sporeborn is covered in spore pods that rupture when it takes any piercing damage or a critical hit. In either case, adjacent creatures are hit with spores, causing them to become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} unless they succeed at a Fortitude save.</p>\n<p>@Check[fortitude|dc:18] save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disease",
-                        "fungus"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XVu0gS7iARTX5oWF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Pop",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>If a sporeborn myceloid is reduced to 0 HP by a critical hit, it pops, forcing it to immediately Emit Spores, even if it has already used the ability that day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SD8sEsvN3l80NkHQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Emit Spores",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The sporeborn myceloid expels spores in a @Template[burst|distance:10] centered on a corner of its own space. This cloud lasts until the start of the sporeborn myceloid's next turn. Each creature that is in the cloud or enters it is exposed to purple pox.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NRF64BOIB1YULXYz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Purple Pox",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Myceloids are immune</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:22];</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and the creature is compelled to seek out the nearest myceloid colony—this compulsion is a mental and emotion effect (1 day)</p>\n<p><strong>Stage 3</strong> The creature dies. Over 24 hours, its corpse becomes bloated and bursts, releasing a new, fully grown myceloid</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lTJbWBQBv5EcbRCb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Domination",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sporeborn myceloid targets one creature affected by purple pox within 60 feet. That creature must attempt a @Check[will|dc:24] save. It is then temporarily immune to spore domination for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Until the end of its next turn, the target is helpful to sporeborn myceloids and can't take hostile actions against them.</p>\n<p><strong>Failure</strong> As success, but for 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but until the purple pox is cured.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "yQLwQWRJtZBc1Xu6",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -209,6 +49,166 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "PvOU0sjeBm4bZvBa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rancid Spore Pods",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The sporeborn is covered in spore pods that rupture when it takes any piercing damage or a critical hit. In either case, adjacent creatures are hit with spores, causing them to become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} unless they succeed at a Fortitude save.</p>\n<p>@Check[fortitude|dc:18] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "fungus"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XVu0gS7iARTX5oWF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Pop",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>If a sporeborn myceloid is reduced to 0 HP by a critical hit, it pops, forcing it to immediately Emit Spores, even if it has already used the ability that day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SD8sEsvN3l80NkHQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Emit Spores",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The sporeborn myceloid expels spores in a @Template[burst|distance:10] centered on a corner of its own space. This cloud lasts until the start of the sporeborn myceloid's next turn. Each creature that is in the cloud or enters it is exposed to purple pox.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NRF64BOIB1YULXYz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Purple Pox",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Myceloids are immune</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:22];</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[6d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and the creature is compelled to seek out the nearest myceloid colony—this compulsion is a mental and emotion effect (1 day)</p>\n<p><strong>Stage 3</strong> The creature dies. Over 24 hours, its corpse becomes bloated and bursts, releasing a new, fully grown myceloid</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lTJbWBQBv5EcbRCb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Domination",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sporeborn myceloid targets one creature affected by purple pox within 60 feet. That creature must attempt a @Check[will|dc:24] save. It is then temporarily immune to spore domination for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Until the end of its next turn, the target is helpful to sporeborn myceloids and can't take hostile actions against them.</p>\n<p><strong>Failure</strong> As success, but for 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but until the purple pox is cured.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sporeborn Myceloid",

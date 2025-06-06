@@ -4,455 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Q1P280oyR2nAYIuc",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "skLKoLQHCp6qRt8f",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Divine Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NIJZV9ABMCIiFD7a",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.fmUBaLklyVmNt3VD"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Clutching Armor",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature attempts to move away from the graveknight</p>\n<hr />\n<p><strong>Effect</strong> The graveknight's armor animates and attempts to Grab the triggering creature. It makes an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] using the graveknight's Athletics modifier - 2. The armor can continue to Grapple the creature normally.</p>\n<p>Since the armor is grappling the creature, the graveknight doesn't need a free hand to do so.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #172: Secrets of the Temple-City"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "clutching-armor",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:grapple",
-                            "clutching-armor"
-                        ],
-                        "selector": "athletics",
-                        "value": -2
-                    }
-                ],
-                "slug": "graveknight-clutching-armor",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YrRTOgGiVvnaIvBj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZIFaA4jDQjM0vq8q"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/gmr 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]), transporting it to the Forge of Creation, or throwing it into the heart of a volcano.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-rejuvenation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1HFBMJ2dvcYHBNnn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "prp1eyvaopN5wPkz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.OMSsLUcnRj6ycEUa"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Channel Magic",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The graveknight redirects magical energies through its armor, allowing it to deliver magic through an attack.</p>\n<p>The graveknight Casts a Spell that takes 1 or 2 actions to cast and requires a spell attack roll. The effects of the spell don't occur immediately but are imbued into an attack instead. The graveknight then makes a melee Strike with a weapon or unarmed attack. The spell is coupled with the attack, using the attack roll result to determine the effects of both the Strike and the spell.</p>\n<p>This counts as two attacks for the graveknight's multiple attack penalty but doesn't apply the penalty until after it's completed Channeling Magic.</p>\n<p>The graveknight can't use Channel Magic again for [[/gmr 1d4 #Recharge Channel Magic]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #172: Secrets of the Temple-City"
-                },
-                "rules": [],
-                "slug": "graveknight-channel-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "UMyRwmu03NP1OaDn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IxJbFJ8dG5RbZWBD"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Devastating Blast",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The graveknight unleashes a @Template[cone|distance:30] of energy. Creatures in the area take @Damage[8d12[fire]] damage (@Check[reflex|dc:36|basic|traits:fire] save).</p>\n<p>The graveknight can use this ability once every [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-devastating-blast",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MaRy1P1W5DdCPIDq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.5dbzWZbiTyPKgwKS"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Graveknight's Curse",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[will|dc:36] save</p>\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, speed penalty of -10 feet, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "graveknight-graveknights-curse",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "curse"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ivsNAUrOafOxexf5",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.6isn9nqnvfRrC1wW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Weapon Master",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "CriticalSpecialization"
-                    }
-                ],
-                "slug": "graveknight-weapon-master",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rUTSwkniuKnVKwaT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
-            "name": "Full Plate",
-            "sort": 900000,
-            "system": {
-                "acBonus": 6,
-                "baseItem": "full-plate",
-                "bulk": {
-                    "value": 4
-                },
-                "category": "heavy",
-                "checkPenalty": -3,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
-                },
-                "dexCap": 0,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": false
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 2
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 2,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "full-plate",
-                "speedPenalty": -10,
-                "strength": 4,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "bulwark"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "MZPAaXzeHNZyyvXI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "Iww2BYZTfsBoCvBH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "<Deity> Lore",
-            "sort": 1100000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 27
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -461,168 +28,34 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8cmpySrr93cq7eJX",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "shCmYfLaCikPqgDt"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Greatpick",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "oq61i79krvprblv1uxad": {
-                        "damage": "3d10+16",
-                        "damageType": "slashing"
+                "slots": {
+                    "slot4": {
+                        "max": 1,
+                        "value": 1
                     },
-                    "f2pvlizrjjrxyiuy4vsp": {
-                        "damage": "1d6",
-                        "damageType": "fire"
+                    "slot5": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot6": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot7": {
+                        "max": 2
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fatal-d12",
-                        "fire",
-                        "magical"
-                    ]
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "LpypRuvgC2bm7Oq4",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6+16",
-                        "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "fire",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Lq5V4JBt7MGYWKpd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "xgvYGAW4OSTwj0Mg"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Shortbow",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "exaa8ts5piktl0ruak2b": {
-                        "damage": "3d6+10",
-                        "damageType": "piercing"
-                    },
-                    "v9yv518mpli2xc1sg60m": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "fire",
-                        "magical",
-                        "range-increment-60",
-                        "reload-0"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "NNsevKsIzfk4MFBZ",
@@ -631,7 +64,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +151,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Finger of Death",
-            "sort": 1600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -803,7 +236,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Cone of Cold",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -890,7 +323,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 1800000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -978,7 +411,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1900000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1066,7 +499,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 2000000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1154,7 +587,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
             "name": "Scorching Ray",
-            "sort": 2100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1285,7 +718,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 2200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1371,7 +804,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1458,7 +891,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1522,7 +955,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1578,67 +1011,13 @@
             "type": "spell"
         },
         {
-            "_id": "skLKoLQHCp6qRt8f",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Divine Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot4": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot7": {
-                        "max": 2
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "xgvYGAW4OSTwj0Mg",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e4NwsnPnpQKbDZ9F"
             },
             "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
             "name": "Greater Flaming Composite Shortbow",
-            "sort": 2700000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "composite-shortbow",
                 "bonus": {
@@ -1724,7 +1103,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatpick.webp",
             "name": "Greater Flaming Greatpick",
-            "sort": 2800000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "greatpick",
                 "bonus": {
@@ -1801,6 +1180,627 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "rUTSwkniuKnVKwaT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Gq1cZWSKOtJhKd2p"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+            "name": "Full Plate",
+            "sort": 1500000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "full-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": false
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 30
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 2,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "full-plate",
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "MZPAaXzeHNZyyvXI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "8cmpySrr93cq7eJX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "shCmYfLaCikPqgDt"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Greatpick",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "oq61i79krvprblv1uxad": {
+                        "damage": "3d10+16",
+                        "damageType": "slashing"
+                    },
+                    "f2pvlizrjjrxyiuy4vsp": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d12",
+                        "fire",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LpypRuvgC2bm7Oq4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6+16",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "fire",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Lq5V4JBt7MGYWKpd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xgvYGAW4OSTwj0Mg"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Shortbow",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "exaa8ts5piktl0ruak2b": {
+                        "damage": "3d6+10",
+                        "damageType": "piercing"
+                    },
+                    "v9yv518mpli2xc1sg60m": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "fire",
+                        "magical",
+                        "range-increment-60",
+                        "reload-0"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Q1P280oyR2nAYIuc",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NIJZV9ABMCIiFD7a",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.fmUBaLklyVmNt3VD"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Clutching Armor",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to move away from the graveknight</p>\n<hr />\n<p><strong>Effect</strong> The graveknight's armor animates and attempts to Grab the triggering creature. It makes an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] using the graveknight's Athletics modifier - 2. The armor can continue to Grapple the creature normally.</p>\n<p>Since the armor is grappling the creature, the graveknight doesn't need a free hand to do so.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #172: Secrets of the Temple-City"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "clutching-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:grapple",
+                            "clutching-armor"
+                        ],
+                        "selector": "athletics",
+                        "value": -2
+                    }
+                ],
+                "slug": "graveknight-clutching-armor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YrRTOgGiVvnaIvBj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZIFaA4jDQjM0vq8q"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a graveknight is destroyed, its armor rebuilds its body over the course of [[/gmr 1d10 #days]]{1d10 days}-or more quickly if the armor is worn by a living host. If the body is destroyed before then, the process restarts.</p>\n<p>A graveknight can only be permanently destroyed by obliterating its armor (such as with @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]), transporting it to the Forge of Creation, or throwing it into the heart of a volcano.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1HFBMJ2dvcYHBNnn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "prp1eyvaopN5wPkz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.OMSsLUcnRj6ycEUa"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Channel Magic",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The graveknight redirects magical energies through its armor, allowing it to deliver magic through an attack.</p>\n<p>The graveknight Casts a Spell that takes 1 or 2 actions to cast and requires a spell attack roll. The effects of the spell don't occur immediately but are imbued into an attack instead. The graveknight then makes a melee Strike with a weapon or unarmed attack. The spell is coupled with the attack, using the attack roll result to determine the effects of both the Strike and the spell.</p>\n<p>This counts as two attacks for the graveknight's multiple attack penalty but doesn't apply the penalty until after it's completed Channeling Magic.</p>\n<p>The graveknight can't use Channel Magic again for [[/gmr 1d4 #Recharge Channel Magic]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #172: Secrets of the Temple-City"
+                },
+                "rules": [],
+                "slug": "graveknight-channel-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UMyRwmu03NP1OaDn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IxJbFJ8dG5RbZWBD"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Devastating Blast",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The graveknight unleashes a @Template[cone|distance:30] of energy. Creatures in the area take @Damage[8d12[fire]] damage (@Check[reflex|dc:36|basic|traits:fire] save).</p>\n<p>The graveknight can use this ability once every [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-devastating-blast",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MaRy1P1W5DdCPIDq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.5dbzWZbiTyPKgwKS"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Graveknight's Curse",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[will|dc:36] save</p>\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, speed penalty of -10 feet, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "graveknight-graveknights-curse",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "curse"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ivsNAUrOafOxexf5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.6isn9nqnvfRrC1wW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Weapon Master",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization"
+                    }
+                ],
+                "slug": "graveknight-weapon-master",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Iww2BYZTfsBoCvBH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "<Deity> Lore",
+            "sort": 2800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Graveknight Champion",

@@ -3,20 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "71GJwFaE95Ae7SXJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mage Bond",
+            "_id": "gzbNuojJ54XXTTe3",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>After performing a 1-hour ritual, a scalescribe can bond with one willing creature capable of Casting Spells.</p>\n<p>The scalescribe can @UUID[Compendium.pf2e.actionspf2e.Item.Aid] their bonded caster in @UUID[Compendium.pf2e.actionspf2e.Item.Craft]{Crafting} a scroll, and they can make their Transcribed spell available to the caster so long as the spell is of the caster's tradition.</p>\n<p>A bonded prepared caster can prepare the spell. A bonded spontaneous caster can add the spell to their spell repertoire during their daily preparations, and it remains as long as the Transcribed scroll exists.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,259 +26,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "acq6pZafGJRNM5Um",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status Bonus on Saves vs. Linguistic Effects",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "linguistic"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gxkIdHdPIrnUNavf",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Transcribe",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Another creature targets the scalescribe with a spell requiring verbal components</p>\n<hr />\n<p><strong>Effect</strong> The scalescribe attempts to copy the incantation onto a scroll by attempting a counteract check (counteract rank 2, counteract modifier [[/r 1d20+10 #Counteract]]{+10}) with the following effects instead of the normal effects of counteracting. The spell still affects the scalescribe, regardless of the results of this check.</p>\n<p>The scalescribe can Cast a Spell from any scroll they Transcribe as if it were on their spell list. Transcribing a new scroll renders any previously Transcribed scroll inert.</p>\n<hr />\n<p><strong>Critical Success</strong> If the triggering spell's rank was no more than 3 higher than the scalescribe's counteract rank, the scalescribe captures a copy of the spell in a scroll that appears in their hand. This scroll can be used normally but fades after 24 hours if not used before then.</p>\n<p><strong>Success</strong> As critical success, but only if the spell's rank is no more than 1 higher than the scalescribe's counteract rank.</p>\n<p><strong>Failure</strong> As critical success, but only if the spell's rank is lower than the scalescribe's counteract rank.</p>\n<p><strong>Critical Failure</strong> The scalescribe fails to copy the spell.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HOEKikyuy4nwWSmn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Inkstain",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the scalescribe deals damage to a creature with their fountain pen, the creature takes @Damage[1d4[persistent,poison]].</p>\n<p>When a creature taking this damage attempts to take an action with the concentrate trait, it must succeed at a @Check[flat|dc:5] check or the action is disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "inkstain",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gjjjiArVeBThq31t",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Library Lore",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "PSRTnwfMOQYpIg4X",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Scribing Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "qzIjJHwF4eyLDmOh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fountain Pen",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "inkstain"
-                    ]
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "L3k41cRxvKs5ZH4L",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Morpheme Glyph",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6",
-                        "damageType": "force"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-40"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "9Ktdgzs5zKCnch0L",
@@ -285,7 +48,7 @@
             },
             "img": "icons/sundries/books/book-teal-lightning.webp",
             "name": "Secret Page",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -348,7 +111,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Comprehend Language (Self Only)",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -424,7 +187,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -487,7 +250,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -554,7 +317,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -629,7 +392,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -708,7 +471,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -765,22 +528,31 @@
             "type": "spell"
         },
         {
-            "_id": "gzbNuojJ54XXTTe3",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 1600000,
+            "_id": "qzIjJHwF4eyLDmOh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fountain Pen",
+            "sort": 900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "inkstain"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -788,20 +560,248 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "L3k41cRxvKs5ZH4L",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Morpheme Glyph",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "71GJwFaE95Ae7SXJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mage Bond",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>After performing a 1-hour ritual, a scalescribe can bond with one willing creature capable of Casting Spells.</p>\n<p>The scalescribe can @UUID[Compendium.pf2e.actionspf2e.Item.Aid] their bonded caster in @UUID[Compendium.pf2e.actionspf2e.Item.Craft]{Crafting} a scroll, and they can make their Transcribed spell available to the caster so long as the spell is of the caster's tradition.</p>\n<p>A bonded prepared caster can prepare the spell. A bonded spontaneous caster can add the spell to their spell repertoire during their daily preparations, and it remains as long as the Transcribed scroll exists.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "acq6pZafGJRNM5Um",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status Bonus on Saves vs. Linguistic Effects",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "linguistic"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gxkIdHdPIrnUNavf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Transcribe",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Another creature targets the scalescribe with a spell requiring verbal components</p>\n<hr />\n<p><strong>Effect</strong> The scalescribe attempts to copy the incantation onto a scroll by attempting a counteract check (counteract rank 2, counteract modifier [[/r 1d20+10 #Counteract]]{+10}) with the following effects instead of the normal effects of counteracting. The spell still affects the scalescribe, regardless of the results of this check.</p>\n<p>The scalescribe can Cast a Spell from any scroll they Transcribe as if it were on their spell list. Transcribing a new scroll renders any previously Transcribed scroll inert.</p>\n<hr />\n<p><strong>Critical Success</strong> If the triggering spell's rank was no more than 3 higher than the scalescribe's counteract rank, the scalescribe captures a copy of the spell in a scroll that appears in their hand. This scroll can be used normally but fades after 24 hours if not used before then.</p>\n<p><strong>Success</strong> As critical success, but only if the spell's rank is no more than 1 higher than the scalescribe's counteract rank.</p>\n<p><strong>Failure</strong> As critical success, but only if the spell's rank is lower than the scalescribe's counteract rank.</p>\n<p><strong>Critical Failure</strong> The scalescribe fails to copy the spell.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HOEKikyuy4nwWSmn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Inkstain",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the scalescribe deals damage to a creature with their fountain pen, the creature takes @Damage[1d4[persistent,poison]].</p>\n<p>When a creature taking this damage attempts to take an action with the concentrate trait, it must succeed at a @Check[flat|dc:5] check or the action is disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "inkstain",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gjjjiArVeBThq31t",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Library Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "PSRTnwfMOQYpIg4X",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Scribing Lore",
+            "sort": 1600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Scalescribe",

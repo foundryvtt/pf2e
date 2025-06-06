@@ -3,271 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lYCCv7NRnl6ZnNjT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "kU6LiydL3jldv5KQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e1txRyfONnCuYPny",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q78tMeRUfO7vehcO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 50 (Deactivated by Fire or Void)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "fire",
-                            "void"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 50
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EaWA2WkRjbpm2GiI",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Duplicate Victim",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The risen fetch critically hits a humanoid target with a fetch weapon Strike and has a @UUID[Compendium.pf2e.spells-srd.Item.Duplicate Foe] spell available</p>\n<p><strong>Effect</strong> The risen fetch casts <em>duplicate foe</em> on the target, who takes a -4 status penalty on the saving throw to resist.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8GzTttsR8tPUpy3a",
-            "_stats": {
-                "compendiumSource": "Actor.Hg01DmcsyhLbvkQ9.Item.UqivmeGpdoq5TEFp"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Manifest Fetch Weapon",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The fetch starts its turn</p>\n<p><strong>Effect</strong> A fetch weapon manifests in the fetch's hand. As soon as a fetch weapon is no longer wielded by a fetch, it vanishes. The fetch chooses the type of weapon it manifests, but it does not gain any of that weapon's standard weapon traits, instead using the traits listed above in the fetch weapon Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lqfoMvtMondVCDSV",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a reaction would disrupt the risen fetch's spellcasting action, the risen fetch attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EihtJU42yTV6LfVg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fetch Weapon",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 41
-                },
-                "damageRolls": {
-                    "mo8y6ATgjj6MZX2X": {
-                        "damage": "4d8+18",
-                        "damageType": "slashing"
-                    },
-                    "qNrNdfKe8mHQQbZF": {
-                        "damage": "4d6",
-                        "damageType": "mental"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "versatile-b",
-                        "versatile-p"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 45,
+                    "value": 37
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "SM85gPsRBeBLDHx7",
@@ -276,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/alter-reality.webp",
             "name": "Alter Reality",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -336,7 +108,7 @@
             },
             "img": "icons/magic/control/control-influence-crown-gold.webp",
             "name": "Overwhelming Presence",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -409,7 +181,7 @@
             },
             "img": "systems/pf2e/icons/spells/telepathic-demand.webp",
             "name": "Telepathic Demand",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -479,7 +251,7 @@
             },
             "img": "systems/pf2e/icons/spells/weird.webp",
             "name": "Weird",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -560,7 +332,7 @@
             },
             "img": "systems/pf2e/icons/spells/spirit-song.webp",
             "name": "Spirit Song",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -647,7 +419,7 @@
             },
             "img": "systems/pf2e/icons/spells/duplicate-foe.webp",
             "name": "Duplicate Foe",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -713,7 +485,7 @@
             },
             "img": "systems/pf2e/icons/spells/duplicate-foe.webp",
             "name": "Duplicate Foe",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -779,7 +551,7 @@
             },
             "img": "systems/pf2e/icons/spells/duplicate-foe.webp",
             "name": "Duplicate Foe",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -845,7 +617,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (to or from the First World only)",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -909,7 +681,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -973,7 +745,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1036,7 +808,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1098,7 +870,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1177,7 +949,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise (At Will)",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1241,7 +1013,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1320,7 +1092,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1438,22 +1210,32 @@
             "type": "spell"
         },
         {
-            "_id": "kU6LiydL3jldv5KQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 2400000,
+            "_id": "EihtJU42yTV6LfVg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fetch Weapon",
+            "sort": 1800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "mo8y6ATgjj6MZX2X": {
+                        "damage": "4d8+18",
+                        "damageType": "slashing"
+                    },
+                    "qNrNdfKe8mHQQbZF": {
+                        "damage": "4d6",
+                        "damageType": "mental"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1461,20 +1243,238 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 45,
-                    "value": 37
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "versatile-b",
+                        "versatile-p"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "lYCCv7NRnl6ZnNjT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e1txRyfONnCuYPny",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q78tMeRUfO7vehcO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 50 (Deactivated by Fire or Void)",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire",
+                            "void"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 50
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EaWA2WkRjbpm2GiI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Duplicate Victim",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The risen fetch critically hits a humanoid target with a fetch weapon Strike and has a @UUID[Compendium.pf2e.spells-srd.Item.Duplicate Foe] spell available</p>\n<p><strong>Effect</strong> The risen fetch casts <em>duplicate foe</em> on the target, who takes a -4 status penalty on the saving throw to resist.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8GzTttsR8tPUpy3a",
+            "_stats": {
+                "compendiumSource": "Actor.Hg01DmcsyhLbvkQ9.Item.UqivmeGpdoq5TEFp"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Manifest Fetch Weapon",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The fetch starts its turn</p>\n<p><strong>Effect</strong> A fetch weapon manifests in the fetch's hand. As soon as a fetch weapon is no longer wielded by a fetch, it vanishes. The fetch chooses the type of weapon it manifests, but it does not gain any of that weapon's standard weapon traits, instead using the traits listed above in the fetch weapon Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lqfoMvtMondVCDSV",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt the risen fetch's spellcasting action, the risen fetch attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Risen Fetch",

@@ -4,571 +4,187 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "H2rT9wdiejx3F1b0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
+            "_id": "U0rHQXceVqfe495h",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "G412UtVloe7PIpa4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Disease and Poison",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "disease",
-                                    "poison"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TQNX1SMxDrSXoQFI",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frenetic Casting",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Xiuli Strides up to her speed. At any point during her movement, Xiuli can Cast a Spell that normally takes two actions or fewer to cast.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3vycv9ThXOQbgNBf",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Instinctual Tinker",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a @Check[crafting|defense:fortitude] check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's.</p><hr /><p><strong>Critical Success</strong> The target gains @Damage[4d6[healing]] Hit Points and a +1 circumstance bonus to attack rolls for 1 minute.</p>\n<p><strong>Success</strong> The target gains @Damage[2d6[healing]] Hit Points.</p>\n<p><strong>Critical Failure</strong> The morlock injures itself, taking @Damage[2d6] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Instinctual Tinker (Critical Success)]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NXk6QjCfO8eW6Txp",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Xiuli deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 3,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Y6Rqq2ahFM07WKRm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swarming Stance",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "swarming-stance",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "swarming-stance"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KxAV41jwBR0MNE7p",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
-            },
-            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
-            "name": "Studded Leather Armor",
-            "sort": 700000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "studded-leather-armor",
-                "bulk": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 1
-                },
-                "size": "med",
-                "slug": "studded-leather-armor",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "5gw8z3c5EDAowOMB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Bone Symbol of Lamashtu",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "pZpBANIKQFCjSiRe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mFweSeoHRIiAjcqz"
-            },
-            "img": "icons/sundries/gaming/playing-cards-grey.webp",
-            "name": "The Lost",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p><strong>Epitome</strong> Some areas in Harrowheart's village become strangely quiet and deserted looking. A character can spend eight hours in Downtime here to focus on this loss and emptiness, taking those realities into themselves to emerge changed, with entirely new memories—be they old memories recovered for the first time or newly created memories. At the end of these eight hours, the PC can instantly Retrain a single feat, skill, or class feature, as if they had spent the normal amount of time required for that downtime activity. All the other normal restrictions for retraining apply. A PC can only use The Lost to retrain in this way once per level.</p>",
-                    "value": "<p><strong>Suit</strong> Stars (Wis)</p>\n<p><strong>Alignment</strong> chaotic evil</p>\n<hr />\n<p><em>The Lost</em> symbolizes loss of identity and a life filled with emptiness. As long as <em>The Lost</em> is invested, you gain resistance to mental damage equal to your level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> you fail a saving throw against a mental effect</p>\n<hr />\n<p><strong>Effect</strong> You reflexively flood your mind with emptiness, stripping away any element of identity that the mental effect might be trying to affect. Increase the result of your failed saving throw by one degree of success.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 20
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #191: The Destiny War"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "Resistance",
-                        "type": "mental",
-                        "value": "@actor.level"
-                    }
-                ],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "harrow-court",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "carried"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "afuXL7K8wJRSmNYX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VHxXMvBeBTq2FSdf"
-            },
-            "img": "icons/containers/bags/pack-engraved-leather-blue.webp",
-            "name": "Material Component Pouch",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This pouch contains material components for those spells that require them. Though the components are used up over time, you can refill spent components during your daily preparations.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "material-component-pouch",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "WjdfOh3H5jL4gm6b",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "2DI4ej8gkqgZ9xnF"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Falchion",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "Sv3SfLgpUGx00cSl": {
-                        "damage": "2d10+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "sU0PJEZ1GylVxhOt"
+                            },
+                            {
+                                "id": "0Ezl7Cf0Amo8JiXz"
+                            },
+                            {
+                                "id": "viNPKUfFyRm6kZOQ"
+                            },
+                            {
+                                "id": "SF24EWCx9ZOqg1bD"
+                            },
+                            {
+                                "id": "NfiWc1WK4q3CQguY"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "AIAac9AD4D8cnoaa"
+                            },
+                            {
+                                "id": "Z9jp3updnksfk1Ma"
+                            },
+                            {
+                                "id": "UOJDZiPiBLlMcufe"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "VhkOxtJ8HHstIfOK"
+                            },
+                            {
+                                "id": "4G5LB93HxI5dOb6c"
+                            },
+                            {
+                                "id": "v784FU2UXThKacdM"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "8ymU3Gpm7sxCfggC"
+                            },
+                            {
+                                "id": "hNNPsDKBbplTSlaC"
+                            },
+                            {
+                                "id": "IwWHvxdYD1szOivI"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "o5YiDAlGB7PaFejY"
+                            },
+                            {
+                                "id": "Lx6nUmT3z0W8kk5c"
+                            },
+                            {
+                                "id": "HeK2fMj6exGvrjgK"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "1BwiTC5U02ACYlhG"
+                            },
+                            {
+                                "id": "hNNPsDKBbplTSlaC"
+                            },
+                            {
+                                "id": "weSZyPjrRBqAqB3e"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "NjPhLqr4CzDGuy6g"
+                            },
+                            {
+                                "id": "hNNPsDKBbplTSlaC"
+                            },
+                            {
+                                "id": "zLLZWH2Jjwdl6GRp"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "JPSc7huZqIcFsrA6"
+                            },
+                            {
+                                "id": "GyT3MjBVpG3NMw55"
+                            },
+                            {
+                                "id": "GyT3MjBVpG3NMw55"
+                            },
+                            {
+                                "id": "GyT3MjBVpG3NMw55"
+                            },
+                            {
+                                "id": "GyT3MjBVpG3NMw55"
+                            },
+                            {
+                                "id": "M1VEQzDIguScfkfV"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "forceful",
-                        "magical",
-                        "sweep"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "MD7N4nLjXNokOTE9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 33,
                     "value": 25
                 },
-                "damageRolls": {
-                    "oUvq3tAqCChYnI2N": {
-                        "damage": "3d4+10",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "mV6cESOQunhUpsjc",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -576,18 +192,56 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "G1lcQmHGnQZufKGC",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Cleric Domain Spells",
+            "sort": 300000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                }
+            },
+            "type": "spellcastingEntry"
         },
         {
             "_id": "JPSc7huZqIcFsrA6",
@@ -596,7 +250,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-vessel.webp",
             "name": "Divine Vessel",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -656,7 +310,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +372,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
             "name": "Repulsion",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -786,7 +440,7 @@
             },
             "img": "systems/pf2e/icons/spells/drop-dead.webp",
             "name": "Drop Dead",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -847,7 +501,7 @@
             },
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -956,7 +610,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1017,7 +671,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1095,7 +749,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1183,7 +837,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1252,7 +906,7 @@
             },
             "img": "systems/pf2e/icons/spells/shared-nightmare.webp",
             "name": "Shared Nightmare",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1319,7 +973,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1387,7 +1041,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1472,7 +1126,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1538,7 +1192,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1604,7 +1258,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1666,7 +1320,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1728,7 +1382,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2900000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1797,7 +1451,7 @@
             },
             "img": "icons/tools/instruments/megaphone.webp",
             "name": "Bullhorn",
-            "sort": 3000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1876,7 +1530,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 3100000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1962,7 +1616,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3200000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2029,7 +1683,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 3300000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2223,7 +1877,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 3400000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2419,7 +2073,7 @@
             },
             "img": "systems/pf2e/icons/spells/protection.webp",
             "name": "Protection",
-            "sort": 3500000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2479,7 +2133,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 3600000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2558,7 +2212,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 3700000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2618,7 +2272,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3800000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2680,7 +2334,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-striped-web-red.webp",
             "name": "Waking Nightmare",
-            "sort": 3900000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2741,253 +2395,13 @@
             "type": "spell"
         },
         {
-            "_id": "U0rHQXceVqfe495h",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 4000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "sU0PJEZ1GylVxhOt"
-                            },
-                            {
-                                "id": "0Ezl7Cf0Amo8JiXz"
-                            },
-                            {
-                                "id": "viNPKUfFyRm6kZOQ"
-                            },
-                            {
-                                "id": "SF24EWCx9ZOqg1bD"
-                            },
-                            {
-                                "id": "NfiWc1WK4q3CQguY"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "AIAac9AD4D8cnoaa"
-                            },
-                            {
-                                "id": "Z9jp3updnksfk1Ma"
-                            },
-                            {
-                                "id": "UOJDZiPiBLlMcufe"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "VhkOxtJ8HHstIfOK"
-                            },
-                            {
-                                "id": "4G5LB93HxI5dOb6c"
-                            },
-                            {
-                                "id": "v784FU2UXThKacdM"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "8ymU3Gpm7sxCfggC"
-                            },
-                            {
-                                "id": "hNNPsDKBbplTSlaC"
-                            },
-                            {
-                                "id": "IwWHvxdYD1szOivI"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "o5YiDAlGB7PaFejY"
-                            },
-                            {
-                                "id": "Lx6nUmT3z0W8kk5c"
-                            },
-                            {
-                                "id": "HeK2fMj6exGvrjgK"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "1BwiTC5U02ACYlhG"
-                            },
-                            {
-                                "id": "hNNPsDKBbplTSlaC"
-                            },
-                            {
-                                "id": "weSZyPjrRBqAqB3e"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "NjPhLqr4CzDGuy6g"
-                            },
-                            {
-                                "id": "hNNPsDKBbplTSlaC"
-                            },
-                            {
-                                "id": "zLLZWH2Jjwdl6GRp"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "JPSc7huZqIcFsrA6"
-                            },
-                            {
-                                "id": "GyT3MjBVpG3NMw55"
-                            },
-                            {
-                                "id": "GyT3MjBVpG3NMw55"
-                            },
-                            {
-                                "id": "GyT3MjBVpG3NMw55"
-                            },
-                            {
-                                "id": "GyT3MjBVpG3NMw55"
-                            },
-                            {
-                                "id": "M1VEQzDIguScfkfV"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "mV6cESOQunhUpsjc",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 4100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "G1lcQmHGnQZufKGC",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Cleric Domain Spells",
-            "sort": 4200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "2DI4ej8gkqgZ9xnF",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XGtIUZ4ZNKuFx1uL"
             },
             "img": "systems/pf2e/icons/equipment/weapons/falchion.webp",
             "name": "Falchion",
-            "sort": 4300000,
+            "sort": 3100000,
             "system": {
                 "baseItem": "falchion",
                 "bonus": {
@@ -3067,6 +2481,592 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "KxAV41jwBR0MNE7p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
+            "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
+            "name": "Studded Leather Armor",
+            "sort": 3200000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "studded-leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 1
+                },
+                "size": "med",
+                "slug": "studded-leather-armor",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "5gw8z3c5EDAowOMB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Bone Symbol of Lamashtu",
+            "sort": 3300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "pZpBANIKQFCjSiRe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mFweSeoHRIiAjcqz"
+            },
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "The Lost",
+            "sort": 3400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p><strong>Epitome</strong> Some areas in Harrowheart's village become strangely quiet and deserted looking. A character can spend eight hours in Downtime here to focus on this loss and emptiness, taking those realities into themselves to emerge changed, with entirely new memories—be they old memories recovered for the first time or newly created memories. At the end of these eight hours, the PC can instantly Retrain a single feat, skill, or class feature, as if they had spent the normal amount of time required for that downtime activity. All the other normal restrictions for retraining apply. A PC can only use The Lost to retrain in this way once per level.</p>",
+                    "value": "<p><strong>Suit</strong> Stars (Wis)</p>\n<p><strong>Alignment</strong> chaotic evil</p>\n<hr />\n<p><em>The Lost</em> symbolizes loss of identity and a life filled with emptiness. As long as <em>The Lost</em> is invested, you gain resistance to mental damage equal to your level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> you fail a saving throw against a mental effect</p>\n<hr />\n<p><strong>Effect</strong> You reflexively flood your mind with emptiness, stripping away any element of identity that the mental effect might be trying to affect. Increase the result of your failed saving throw by one degree of success.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 20
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #191: The Destiny War"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "type": "mental",
+                        "value": "@actor.level"
+                    }
+                ],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "harrow-court",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "carried"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "afuXL7K8wJRSmNYX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VHxXMvBeBTq2FSdf"
+            },
+            "img": "icons/containers/bags/pack-engraved-leather-blue.webp",
+            "name": "Material Component Pouch",
+            "sort": 3500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This pouch contains material components for those spells that require them. Though the components are used up over time, you can refill spent components during your daily preparations.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "material-component-pouch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "WjdfOh3H5jL4gm6b",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2DI4ej8gkqgZ9xnF"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Falchion",
+            "sort": 3600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "Sv3SfLgpUGx00cSl": {
+                        "damage": "2d10+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "forceful",
+                        "magical",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MD7N4nLjXNokOTE9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 3700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "oUvq3tAqCChYnI2N": {
+                        "damage": "3d4+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "H2rT9wdiejx3F1b0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.I0HYG0ctCLP5JRsW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G412UtVloe7PIpa4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Disease and Poison",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "disease",
+                                    "poison"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TQNX1SMxDrSXoQFI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Frenetic Casting",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Xiuli Strides up to her speed. At any point during her movement, Xiuli can Cast a Spell that normally takes two actions or fewer to cast.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3vycv9ThXOQbgNBf",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Instinctual Tinker",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a @Check[crafting|defense:fortitude] check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's.</p><hr /><p><strong>Critical Success</strong> The target gains @Damage[4d6[healing]] Hit Points and a +1 circumstance bonus to attack rolls for 1 minute.</p>\n<p><strong>Success</strong> The target gains @Damage[2d6[healing]] Hit Points.</p>\n<p><strong>Critical Failure</strong> The morlock injures itself, taking @Damage[2d6] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Instinctual Tinker (Critical Success)]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NXk6QjCfO8eW6Txp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Xiuli deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y6Rqq2ahFM07WKRm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarming Stance",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "swarming-stance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "swarming-stance"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Xiuli Cachu",

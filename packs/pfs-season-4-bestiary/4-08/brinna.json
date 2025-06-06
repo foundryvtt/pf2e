@@ -4,51 +4,90 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CUkJIaXcAVXlBYoH",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smith's Fury",
+            "_id": "Rm6J4HPXVTN3FAQC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FibwLZ12EIEwLGhw"
+            },
+            "img": "icons/weapons/hammers/shorthammer-embossed-white.webp",
+            "name": "Light Hammer",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "baseItem": "light-hammer",
+                "bonus": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
+                "bonusDamage": {
+                    "value": 0
                 },
-                "category": "offensive",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
+                },
                 "description": {
-                    "value": "<p>The smith deals an additional 1d6 damage when they hit with a weapon they created.</p>"
+                    "value": "<p>This smaller version of the warhammer has a wooden or metal shaft ending in a metal head. Unlike its heavier cousin, it is light enough to throw.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "group": "hammer",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 3
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Attacking with a weapon the smith created",
-                        "option": "smiths-fury",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "smiths-fury"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "light-hammer",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "Xja3Z5ROmRPkUeeO",
@@ -178,31 +217,6 @@
             "type": "equipment"
         },
         {
-            "_id": "oSzvqCM5pgm1hIvZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Toymaking Lore",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "u3RFdo6uA3yPenzC",
             "flags": {
                 "pf2e": {
@@ -211,7 +225,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Hammer",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -262,7 +276,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Hammer",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -306,90 +320,76 @@
             "type": "melee"
         },
         {
-            "_id": "Rm6J4HPXVTN3FAQC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FibwLZ12EIEwLGhw"
-            },
-            "img": "icons/weapons/hammers/shorthammer-embossed-white.webp",
-            "name": "Light Hammer",
-            "sort": 700000,
+            "_id": "CUkJIaXcAVXlBYoH",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smith's Fury",
+            "sort": 600000,
             "system": {
-                "baseItem": "light-hammer",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This smaller version of the warhammer has a wooden or metal shaft ending in a metal head. Unlike its heavier cousin, it is light enough to throw.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "hammer",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 3
-                    }
+                    "value": "<p>The smith deals an additional 1d6 damage when they hit with a weapon they created.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "light-hammer",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Attacking with a weapon the smith created",
+                        "option": "smiths-fury",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "smiths-fury"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "oSzvqCM5pgm1hIvZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Toymaking Lore",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Brinna",

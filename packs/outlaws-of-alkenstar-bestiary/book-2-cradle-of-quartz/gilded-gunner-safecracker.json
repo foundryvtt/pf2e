@@ -4,579 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bOKl3XRelwg4R3Dg",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The safecracker deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fg54ChLRrTIRTObq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.M7Ful1B1IWeibSm7"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/golden-silencer.webp",
-            "name": "Golden Silencer (Standard) (Affixed to Dueling Pistol)",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "talisman",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Requirements</strong> You're an expert in Stealth.</p>\n<hr />\n<p>The Golden Gunners are dreaded for their use of their golden silencers, which they put to good use in clandestine raids. They silence both the loud gunshot and the screams of creatures wounded by its shot. A weapon with a golden silencer attached emits no light and makes no noise when fired. A target hit by a ranged Strike from the affixed weapon must succeed at a @Check[fortitude|dc:20] save or be silenced as well until the start of its next turn. A silenced creature can't call for help or use sonic abilities, nor can it use abilities with the auditory trait. This prevents it from casting spells that include verbal components.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #179: Cradle of Quartz"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "golden-silencer-standard",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "consumable",
-                        "illusion",
-                        "magical",
-                        "talisman"
-                    ]
-                },
-                "usage": {
-                    "value": "affixed-to-firearm"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "igrPwxC2vcPJlxE2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
-            },
-            "img": "icons/weapons/ammunition/shot-round-lead.webp",
-            "name": "Rounds (Dueling Pistol)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "rounds-dueling-pistol",
-                "stackGroup": "rounds10",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "SpyysjEfztDIsYiH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2"
-            },
-            "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-            "name": "Invisibility Potion",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>An invisibility potion is colorless and oddly lightweight. Upon drinking it, you gain the effects of a 2nd-rank invisibility spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 4
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "invisibility-potion",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "consumable",
-                        "illusion",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "PeLFNa5S89CVkCV1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.M0DMGUN84FQHapsF"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/dwarven-daisy.webp",
-            "name": "Alchemical Fuse",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>An alchemical fuse is a length of treated cord that can be used to time the detonation of an alchemical bomb or a stick of pyronite, or simply as a timer—at the GM's option, fuses can be used as timers to trigger other devices that can be triggered with a single appropriate action, as well.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You attach the alchemical fuse to an alchemical bomb, stick of pyronite, or other device that can be triggered by a fuse. Alternately, you can attach one fuse to another to extend its burn time by 1 round.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You light the alchemical fuse with an adjacent fire source or a fire source that you hold in a hand. If you have a tindertwig in your other hand, you can activate the tindertwig and use it to light a fuse with the same Interact action. A lit fuse takes 1 round per attached fuse to burn down. During the round that the fuse runs out, the device to which the fuse has been attached explodes or otherwise activates at the end of your turn. For a bomb, this deals splash damage, and for pyronite, it deals pyronite's normal damage. An alchemical fuse burns underwater or in up to moderate wind.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You extinguish the fuse.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #179: Cradle of Quartz"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "fire"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "MiCatjeMRn6Xqq6l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6CnuU7AhzzAMGzAM"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/pyronite.webp",
-            "name": "Pyronite",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>A stick of pyronite is a devastating explosive that fills an area with fire and concussive force when it detonates—as long as its fuse has been lit!</p>\n<p>Pyronite is an unstable material with a limited shelf life. Sticks of pyronite must be kept dry and cool; otherwise, the raw pyronite will leak out of the rods and collect as a semi-transparent goo that explodes on any impact or loud noise, with an explosive effect equal to half the number of rods.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> Activating a stick of pyronite is usually a two-action activity. First, you interact with the pyronite to light its fuse with a source of fire. This fire source can be an object you hold in another hand, such as a tindertwig or a lit torch, or it can be a free-standing adjacent fire. Once the fuse is lit, you throw it (an Interact action with the ranged trait) up to 50 feet away—if you hurl it into an existing fire, you don't need to take the initial action to light its fuse and can Activate the pyronite with only one action. You can toss the pyronite anywhere within 50 feet, though at the GM's discretion, you might need to make an attack roll if the throw is unusually challenging.</p>\n<p>Once a stick of pyronite's fuse is lit, it explodes at the end of your turn, regardless of whether you've thrown it or not. (A lit fuse can be extinguished with an Interact action.) If multiple sticks of pyronite detonate at the end of your turn, you can increase the area, but not the damage, of this effect. When the pyronite explodes, all creatures in a @Template[burst|distance:20] must attempt a @Check[reflex|dc:28] save or take @Damage[3d6[fire]] damage and @Damage[3d6[bludgeoning]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The creature takes full damage and is deafened for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}, and deafened for 1 hour.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 11
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 250
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #179: Cradle of Quartz"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "rare",
-                    "value": [
-                        "alchemical",
-                        "fire"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "RqwuIgnQQzWUFYt9",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3fHdvyWq5A9jvT9W"
-            },
-            "img": "icons/equipment/waist/belt-coiled-leather-steel.webp",
-            "name": "Concealed Holster",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This leather holster is crafted to better hide small firearms from view. Only firearms designed for use in one hand are small enough to disguise with this holster. You gain a +1 item bonus to Stealth checks and DCs to hide or conceal a firearm or hand crossbow in this holster.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 25
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Guns & Gears"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Concealing a Firearm",
-                        "option": "concealed-holster",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "concealed-holster"
-                        ],
-                        "selector": "stealth",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "concealed-holster",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "BAEEy8Qbuvb3Weux",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "uQlxfkaRyCl4V5k1"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "1ii9sy6822afc2jt9e4v": {
-                        "damage": "1d4+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "YboKlEjjoC95vcrc",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7ScEpKHO1ZWQIudN"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dueling Pistol",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "ph565f3s36shc7m9rjoi": {
-                        "damage": "1d6+4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concealable",
-                        "concussive",
-                        "fatal-d10",
-                        "range-increment-60",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "uQlxfkaRyCl4V5k1",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1000000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -664,7 +98,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dueling-pistol.webp",
             "name": "Dueling Pistol",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "baseItem": "dueling-pistol",
                 "bonus": {
@@ -743,6 +177,572 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "RqwuIgnQQzWUFYt9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3fHdvyWq5A9jvT9W"
+            },
+            "img": "icons/equipment/waist/belt-coiled-leather-steel.webp",
+            "name": "Concealed Holster",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This leather holster is crafted to better hide small firearms from view. Only firearms designed for use in one hand are small enough to disguise with this holster. You gain a +1 item bonus to Stealth checks and DCs to hide or conceal a firearm or hand crossbow in this holster.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 25
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Concealing a Firearm",
+                        "option": "concealed-holster",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "concealed-holster"
+                        ],
+                        "selector": "stealth",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "concealed-holster",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "fg54ChLRrTIRTObq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.M7Ful1B1IWeibSm7"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/golden-silencer.webp",
+            "name": "Golden Silencer (Standard) (Affixed to Dueling Pistol)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Requirements</strong> You're an expert in Stealth.</p>\n<hr />\n<p>The Golden Gunners are dreaded for their use of their golden silencers, which they put to good use in clandestine raids. They silence both the loud gunshot and the screams of creatures wounded by its shot. A weapon with a golden silencer attached emits no light and makes no noise when fired. A target hit by a ranged Strike from the affixed weapon must succeed at a @Check[fortitude|dc:20] save or be silenced as well until the start of its next turn. A silenced creature can't call for help or use sonic abilities, nor can it use abilities with the auditory trait. This prevents it from casting spells that include verbal components.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #179: Cradle of Quartz"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "golden-silencer-standard",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "consumable",
+                        "illusion",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-firearm"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "igrPwxC2vcPJlxE2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FKPuzveKRNJhA1mi"
+            },
+            "img": "icons/weapons/ammunition/shot-round-lead.webp",
+            "name": "Rounds (Dueling Pistol)",
+            "sort": 500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Guns & Gears"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "rounds-dueling-pistol",
+                "stackGroup": "rounds10",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "SpyysjEfztDIsYiH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2"
+            },
+            "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
+            "name": "Invisibility Potion",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>An invisibility potion is colorless and oddly lightweight. Upon drinking it, you gain the effects of a 2nd-rank invisibility spell.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "invisibility-potion",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "consumable",
+                        "illusion",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "PeLFNa5S89CVkCV1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.M0DMGUN84FQHapsF"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/dwarven-daisy.webp",
+            "name": "Alchemical Fuse",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>An alchemical fuse is a length of treated cord that can be used to time the detonation of an alchemical bomb or a stick of pyronite, or simply as a timer—at the GM's option, fuses can be used as timers to trigger other devices that can be triggered with a single appropriate action, as well.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You attach the alchemical fuse to an alchemical bomb, stick of pyronite, or other device that can be triggered by a fuse. Alternately, you can attach one fuse to another to extend its burn time by 1 round.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You light the alchemical fuse with an adjacent fire source or a fire source that you hold in a hand. If you have a tindertwig in your other hand, you can activate the tindertwig and use it to light a fuse with the same Interact action. A lit fuse takes 1 round per attached fuse to burn down. During the round that the fuse runs out, the device to which the fuse has been attached explodes or otherwise activates at the end of your turn. For a bomb, this deals splash damage, and for pyronite, it deals pyronite's normal damage. An alchemical fuse burns underwater or in up to moderate wind.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You extinguish the fuse.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #179: Cradle of Quartz"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "fire"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "MiCatjeMRn6Xqq6l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6CnuU7AhzzAMGzAM"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/pyronite.webp",
+            "name": "Pyronite",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>A stick of pyronite is a devastating explosive that fills an area with fire and concussive force when it detonates—as long as its fuse has been lit!</p>\n<p>Pyronite is an unstable material with a limited shelf life. Sticks of pyronite must be kept dry and cool; otherwise, the raw pyronite will leak out of the rods and collect as a semi-transparent goo that explodes on any impact or loud noise, with an explosive effect equal to half the number of rods.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> Activating a stick of pyronite is usually a two-action activity. First, you interact with the pyronite to light its fuse with a source of fire. This fire source can be an object you hold in another hand, such as a tindertwig or a lit torch, or it can be a free-standing adjacent fire. Once the fuse is lit, you throw it (an Interact action with the ranged trait) up to 50 feet away—if you hurl it into an existing fire, you don't need to take the initial action to light its fuse and can Activate the pyronite with only one action. You can toss the pyronite anywhere within 50 feet, though at the GM's discretion, you might need to make an attack roll if the throw is unusually challenging.</p>\n<p>Once a stick of pyronite's fuse is lit, it explodes at the end of your turn, regardless of whether you've thrown it or not. (A lit fuse can be extinguished with an Interact action.) If multiple sticks of pyronite detonate at the end of your turn, you can increase the area, but not the damage, of this effect. When the pyronite explodes, all creatures in a @Template[burst|distance:20] must attempt a @Check[reflex|dc:28] save or take @Damage[3d6[fire]] damage and @Damage[3d6[bludgeoning]] damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>\n<p><strong>Failure</strong> The creature takes full damage and is deafened for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone], @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}, and deafened for 1 hour.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 11
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 250
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #179: Cradle of Quartz"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "rare",
+                    "value": [
+                        "alchemical",
+                        "fire"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "BAEEy8Qbuvb3Weux",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uQlxfkaRyCl4V5k1"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "1ii9sy6822afc2jt9e4v": {
+                        "damage": "1d4+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YboKlEjjoC95vcrc",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7ScEpKHO1ZWQIudN"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dueling Pistol",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "ph565f3s36shc7m9rjoi": {
+                        "damage": "1d6+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concealable",
+                        "concussive",
+                        "fatal-d10",
+                        "range-increment-60",
+                        "reload-1"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bOKl3XRelwg4R3Dg",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The safecracker deals an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Gilded Gunner Safecracker",

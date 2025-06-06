@@ -4,393 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RRtEbi7LCsYVcq0p",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Entangling Net",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A Sallowdrudge uses their net to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature within 30 feet. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until it Escapes (DC 16) or until an adjacent creature Interacts to remove the net. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] rather than grabbed. The Sallowdrudge can't use Entangling Net again until they take 1 minute to refold their net.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YvpiKlId2of8rjcZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spear Fisher",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A Sallowdrudge attacking an @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] target rolls the attack roll twice and takes the better result.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "keep": "higher",
-                        "key": "RollTwice",
-                        "predicate": [
-                            "target:condition:immobilized"
-                        ],
-                        "selector": "attack-roll"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bZRmWeHPLhEEHYgv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
-            },
-            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
-            "name": "Scale Mail",
-            "sort": 300000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "scale-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "composite",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "scale-mail",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "5cW2Ad2G4d2U2Hu4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WQhnfj1LbrEzvh8z"
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-water-breathing.webp",
-            "name": "Potion of Water Breathing",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>This filmy, gray potion smells of an old fish midden and tastes even worse. After drinking this potion, you gain the effects of a 2nd level @UUID[Compendium.pf2e.spells-srd.Item.Water Breathing] spell for one hour.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 11
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "potion-of-water-breathing",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "aPi6FYh1ANetT5L6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.T8EopYZLT137CsdW"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.webp",
-            "name": "Net",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to [[/act grapple]] a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a [[/act force-open dc=16]]{DC 16 Athletics} check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded as a Concentrate action that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll against a Medium or smaller creature within 20 feet. On a hit, the target is off-guard and takes a -10-foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "net",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "iPOOFJx3TfTzCwx5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Sallowshore Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rJGMDN2QPvnkXyrw",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wRoU5yOJKkPAfbdk"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "gxy0dotr42khz0y5": {
-                        "damage": "1d8 + 4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "96QXRTaOo19KXLyM",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wRoU5yOJKkPAfbdk"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trident",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "8qp9gbpf6e5mxhof": {
-                        "damage": "1d8 + 4",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "wRoU5yOJKkPAfbdk",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9"
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
             "name": "Trident",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "trident",
                 "bonus": {
@@ -467,6 +87,386 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "bZRmWeHPLhEEHYgv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
+            },
+            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
+            "name": "Scale Mail",
+            "sort": 200000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "scale-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "composite",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "scale-mail",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "aPi6FYh1ANetT5L6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.T8EopYZLT137CsdW"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.webp",
+            "name": "Net",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to [[/act grapple]] a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a [[/act force-open dc=16]]{DC 16 Athletics} check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded as a Concentrate action that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll against a Medium or smaller creature within 20 feet. On a hit, the target is off-guard and takes a -10-foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "net",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "5cW2Ad2G4d2U2Hu4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.WQhnfj1LbrEzvh8z"
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-water-breathing.webp",
+            "name": "Potion of Water Breathing",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>This filmy, gray potion smells of an old fish midden and tastes even worse. After drinking this potion, you gain the effects of a 2nd level @UUID[Compendium.pf2e.spells-srd.Item.Water Breathing] spell for one hour.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 11
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "potion-of-water-breathing",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "rJGMDN2QPvnkXyrw",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wRoU5yOJKkPAfbdk"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "gxy0dotr42khz0y5": {
+                        "damage": "1d8 + 4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "96QXRTaOo19KXLyM",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wRoU5yOJKkPAfbdk"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trident",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "8qp9gbpf6e5mxhof": {
+                        "damage": "1d8 + 4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RRtEbi7LCsYVcq0p",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Entangling Net",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A Sallowdrudge uses their net to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a Medium or smaller creature within 30 feet. On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] until it Escapes (DC 16) or until an adjacent creature Interacts to remove the net. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] rather than grabbed. The Sallowdrudge can't use Entangling Net again until they take 1 minute to refold their net.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YvpiKlId2of8rjcZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spear Fisher",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A Sallowdrudge attacking an @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] target rolls the attack roll twice and takes the better result.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "keep": "higher",
+                        "key": "RollTwice",
+                        "predicate": [
+                            "target:condition:immobilized"
+                        ],
+                        "selector": "attack-roll"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iPOOFJx3TfTzCwx5",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Sallowshore Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Sallowdrudge",

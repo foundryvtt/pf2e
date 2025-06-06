@@ -4,258 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UDRLkUU6I38waiLi",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Tail Swipe",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the spawn's tail uses a move action or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The spawn of Dahak makes a tail Strike at the creature with a -2 penalty. If it hits, they disrupt the creature's action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "tail-swipe",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "tail-swipe"
-                        ],
-                        "selector": "tail-attack",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o10Yz3qVKjeI4Fxz",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The spawn breathes flames that deals @Damage[9d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:30] (@Check[reflex|dc:26|basic] save).</p>\n<p>They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o9eWNluFGesUiB9v",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draconic Frenzy",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The spawn makes two claw Strikes and one bite Strike in any order.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pqOaIKfZFro1QcD2",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Shrieking Frenzy",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The spawn's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The spawn is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the end of their turn, and can use the extra action to Stride or Strike. While in the frenzy, the spawn can't speak and automatically critically fails Stealth checks, due to their loud wailing.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Nyz0P3ikAyq0ud3H",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Thrown Weapon Mastery",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the spawn throws a weapon, the weapon gains the deadly d6 weapon trait. When they throw an improvised weapon, they don't take the -2 penalty for using an improvised weapon, nor do they take the penalty for using that weapon to make a lethal attack instead of a nonlethal attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "itemType": "weapon",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:thrown"
-                        ],
-                        "property": "traits",
-                        "value": "deadly-d6"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PHchx79CEjfq2wvf",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "maULl0NuobxnijiS"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Warhammer",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "IoKRXMopl4fYPk97": {
-                        "damage": "3d8+9",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Weapon Red-Hot",
-                        "option": "weapon-hot",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "weapon-hot"
-                        ],
-                        "selector": "warhammer-damage"
-                    }
-                ],
-                "slug": "warhammer",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "shove"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "maULl0NuobxnijiS",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ"
             },
             "img": "icons/weapons/hammers/hammer-war-rounding.webp",
             "name": "Warhammer",
-            "sort": 700000,
+            "sort": 100000,
             "system": {
                 "baseItem": "warhammer",
                 "bonus": {
@@ -332,6 +87,251 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "PHchx79CEjfq2wvf",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "maULl0NuobxnijiS"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Warhammer",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "IoKRXMopl4fYPk97": {
+                        "damage": "3d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Weapon Red-Hot",
+                        "option": "weapon-hot",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "weapon-hot"
+                        ],
+                        "selector": "warhammer-damage"
+                    }
+                ],
+                "slug": "warhammer",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "shove"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UDRLkUU6I38waiLi",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tail Swipe",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the spawn's tail uses a move action or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The spawn of Dahak makes a tail Strike at the creature with a -2 penalty. If it hits, they disrupt the creature's action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "tail-swipe",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tail-swipe"
+                        ],
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o10Yz3qVKjeI4Fxz",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The spawn breathes flames that deals @Damage[9d6[fire]|options:area-damage] damage to all creatures in a @Template[cone|distance:30] (@Check[reflex|dc:26|basic] save).</p>\n<p>They can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o9eWNluFGesUiB9v",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The spawn makes two claw Strikes and one bite Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pqOaIKfZFro1QcD2",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Shrieking Frenzy",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The spawn's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The spawn is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the end of their turn, and can use the extra action to Stride or Strike. While in the frenzy, the spawn can't speak and automatically critically fails Stealth checks, due to their loud wailing.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Nyz0P3ikAyq0ud3H",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thrown Weapon Mastery",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the spawn throws a weapon, the weapon gains the deadly d6 weapon trait. When they throw an improvised weapon, they don't take the -2 penalty for using an improvised weapon, nor do they take the penalty for using that weapon to make a lethal attack instead of a nonlethal attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "itemType": "weapon",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:thrown"
+                        ],
+                        "property": "traits",
+                        "value": "deadly-d6"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Spawn of Dahak",

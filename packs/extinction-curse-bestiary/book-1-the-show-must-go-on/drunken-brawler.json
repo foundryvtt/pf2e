@@ -4,111 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZV6wTo1kAYTI9DlU",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drunken Rage",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The drunken brawler isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p><strong>Effect</strong> The drunken brawler begins raging. They gain 4 temporary Hit Points and deal 1 additional damage with fist Strikes. They have a -1 penalty to AC and can't use actions with the concentrate trait unless those actions also have the rage trait. The drunken brawler can still @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while in a drunken rage. The rage lasts for 1 minute or until the drunken brawler falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. When the drunken rage is over, the drunken brawler is fatigued, loses all temporary Hit Points they received from the rage, and cannot rage again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "fist-damage",
-                        "type": "untyped",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CmEN8uWFDeuYp1rP",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Improvised Surprise",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The drunken brawler uses an Interact action to pick up an improvised weapon within reach and then Strikes with it. The drunken brawler has a +2 circumstance bonus to this attack.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack",
-                        "key": "RollOption",
-                        "option": "improvised-surprise",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "improvised-surprise"
-                        ],
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "w2SIKDxkcEI95ikC",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
             },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "acBonus": 1,
                 "baseItem": "leather-armor",
@@ -173,7 +75,7 @@
             "_id": "AcW2qid0dvfeGVR0",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -219,7 +121,7 @@
             "_id": "DqSmbwh963Ftosau",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Improvised Weapon",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -259,6 +161,104 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "ZV6wTo1kAYTI9DlU",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drunken Rage",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The drunken brawler isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p><strong>Effect</strong> The drunken brawler begins raging. They gain 4 temporary Hit Points and deal 1 additional damage with fist Strikes. They have a -1 penalty to AC and can't use actions with the concentrate trait unless those actions also have the rage trait. The drunken brawler can still @UUID[Compendium.pf2e.actionspf2e.Item.Seek] while in a drunken rage. The rage lasts for 1 minute or until the drunken brawler falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], whichever comes first. When the drunken rage is over, the drunken brawler is fatigued, loses all temporary Hit Points they received from the rage, and cannot rage again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "fist-damage",
+                        "type": "untyped",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "value": -1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CmEN8uWFDeuYp1rP",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Improvised Surprise",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The drunken brawler uses an Interact action to pick up an improvised weapon within reach and then Strikes with it. The drunken brawler has a +2 circumstance bonus to this attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack",
+                        "key": "RollOption",
+                        "option": "improvised-surprise",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "improvised-surprise"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Drunken Brawler",

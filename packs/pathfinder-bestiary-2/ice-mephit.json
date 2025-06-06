@@ -3,56 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "a29GFo7lbKhSTAYm",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fast Healing 2 (when touching ice or snow)",
+            "_id": "3PMo2s4e4A2PWtKx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FastHealing",
-                        "type": "fast-healing",
-                        "value": 2
-                    }
-                ],
-                "slug": "fast-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kFLwkDqwtyueOpyG",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ice mephit breathes shards of ice in a @Template[cone|distance:15] that deals @Damage[1d6[cold],1d6[piercing]|options:area-damage]{1d6 cold damage and 1d6 piercing damage} to each creature within the area (@Check[reflex|dc:17|basic|options:area-effect] save).</p>\n<p>The ice mephit can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -60,65 +27,19 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "cold"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vd8w1UZaLid8WPrA",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 17,
+                    "item": 0,
+                    "mod": 0,
                     "value": 9
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "tMLJwrzc7C9mSGWk",
@@ -127,7 +48,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -213,7 +134,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -288,23 +209,32 @@
             "type": "spell"
         },
         {
-            "_id": "3PMo2s4e4A2PWtKx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 600000,
+            "_id": "vd8w1UZaLid8WPrA",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "cold"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -312,19 +242,89 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 9
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "a29GFo7lbKhSTAYm",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 2 (when touching ice or snow)",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "fast-healing",
+                        "value": 2
+                    }
+                ],
+                "slug": "fast-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kFLwkDqwtyueOpyG",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ice mephit breathes shards of ice in a @Template[cone|distance:15] that deals @Damage[1d6[cold],1d6[piercing]|options:area-damage]{1d6 cold damage and 1d6 piercing damage} to each creature within the area (@Check[reflex|dc:17|basic|options:area-effect] save).</p>\n<p>The ice mephit can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "cold"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ice Mephit",

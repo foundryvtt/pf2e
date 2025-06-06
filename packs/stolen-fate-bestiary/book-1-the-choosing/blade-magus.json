@@ -4,490 +4,134 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "xPjPK1SHG0eVmzLW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "8xBnaZtk2WDkdwPl",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "FKdteth7KP1E5Ntd"
+                            },
+                            {
+                                "id": "7a45w8qf44YwKxam"
+                            },
+                            {
+                                "id": "M1Y4GGK3GA20X4t2"
+                            },
+                            {
+                                "id": "KBcgZjrLCcIbnYLt"
+                            },
+                            {
+                                "id": "KW7j6zuHzvRnpEpm"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "Hf8pXGPnK3IYkgE6"
+                            },
+                            {
+                                "id": "mifyTRPt54ovTYRV"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "belxl8Lpp4QygblS"
+                            },
+                            {
+                                "id": "gA0br2NoXBfnTcUX"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "6VUd9lWFbNfGNMfG"
+                            },
+                            {
+                                "id": "vTMLqZTszFifZvcj"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "KiAoLM1SFO8jCd1q",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Arcane Cascade",
+            "_id": "qlZowh7smklnSJxO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Magus Focus Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The Blade magi can enter this stance if their most recent action was to Cast a Spell or make a Spellstrike, but the Blade magi can remain in the stance even if they no longer meet the requirements</p>\n<hr />\n<p><strong>Effect</strong> When the Blade magi enters this stance and at the beginning of each of their turns while in it, the Blade magi gains 5 temporary Hit Points. While in this stance, the Blade magi's melee Strikes gain the arcane trait, deal an extra 2 force damage, and deal @Damage[(4[splash])[force]]{4 splash force} damage to foes adjacent to the target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "arcane-cascade",
-                        "toggleable": true
-                    },
-                    {
-                        "events": {
-                            "onTurnStart": true
-                        },
-                        "key": "TempHP",
-                        "predicate": [
-                            "arcane-cascade"
-                        ],
-                        "value": 5
-                    },
-                    {
-                        "itemType": "melee",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "arcane-cascade",
-                            "item:melee"
-                        ],
-                        "property": "traits",
-                        "value": "arcane"
-                    },
-                    {
-                        "damageType": "force",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "arcane-cascade"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "slug": "arcane-cascade",
-                        "value": 2
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "arcane-cascade"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "text": "PF2E.NPCAbility.BladeMagus.ArcaneCascade.Note",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uAHUnJY405tjt2Sr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Capture Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The Blade magi succeeds at a save against a foe's harmful spell, or a foe fails a spell attack roll against the Blade magi with a harmful spell</p>\n<hr />\n<p><strong>Effect</strong> The Blade magi enters their Arcane Cascade. If the Blade magi is already in Arcane Cascade, they gain a +2 status bonus to damage from Arcane Cascade until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Capture Magic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "w8IDjpwZmxEeCFUa",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spellstrike",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The Blade magi channels a spell into a melee Strike to deliver a magically charged attack. The Blade magi casts @UUID[Compendium.pf2e.spells-srd.Item.Acid Splash], @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost], or @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]. The effects of the spell don't occur immediately but are imbued into the Blade magi's attack instead. The Blade magi makes a melee Strike, which gains the arcane trait. The spell is coupled with the attack, using the Blade magi's attack roll to determine the effects of both the Strike and the spell. This counts as two attacks for their multiple attack penalty, but the penalty isn't applied until after the magus has completed the Spellstrike. After using Spellstrike, the Blade magi can't do so again until they recharge this ability as a single action, which has the concentrate trait. The Blade magi also recharges their Spellstrike when they cast @UUID[Compendium.pf2e.spells-srd.Item.Thunderous Strike].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qALwati8sBzDmrK2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
-            },
-            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
-            "name": "Scale Mail",
-            "sort": 500000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "scale-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "composite",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "scale-mail",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "VHvGV67IFIiTPdPj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fFq8nsGvSUgzVeND"
-            },
-            "img": "icons/commodities/materials/feather-blue.webp",
-            "name": "Steel-Colored Feather Token (Bird)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>Each feather token appears to be a simple feather from some exotic bird. The feather's shaft, dipped in gold, bears a single arcane rune. Activating a feather token causes it to transform into another object, which then can be used as normal for that object. Each feather can be activated only once, with most of them permanently becoming the item in their description.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>When activated, this token transforms into a small sparrow that waits on your finger for you to relay a message up to 1 minute in length, along with the name and rough location of a recipient. The recipient must be someone you have met, and the location must be somewhere you have visited. After receiving the message, the bird flies off to deliver it, traveling at 30 miles per hour and then searching for the target in the location you provided. If the bird finds the target, it moves adjacent to them, your words emanate from the bird, and the bird then flies off and vanishes. The bird also vanishes if it fails to find your target after 10 hours of searching the location you specified.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "feather-token-bird",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "by7KkKLcX0hagPmb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Moderate)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "3d8+10",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-moderate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "dfFiLsWBjXIscOgj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
-            },
-            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
-            "name": "Spellbook",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Chain Lightning]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Sure Strike]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Acid Splash]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "spellbook-blank",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "d3ST6KOQO6LIsMKe",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "P52v8Ogi8B8cxTDV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Halberd",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "H8GgL9H2Lee2z9PO": {
-                        "damage": "2d10 + 11",
-                        "damageType": "piercing"
-                    }
-                },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "versatile-s"
-                    ]
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "6VUd9lWFbNfGNMfG",
@@ -496,7 +140,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -563,7 +207,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -647,7 +291,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -718,7 +362,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -803,7 +447,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -865,7 +509,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1026,7 +670,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1107,7 +751,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1170,7 +814,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1251,7 +895,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1313,7 +957,7 @@
             },
             "img": "systems/pf2e/icons/spells/thunderous-strike.webp",
             "name": "Thunderous Strike",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1397,7 +1041,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1451,143 +1095,13 @@
             "type": "spell"
         },
         {
-            "_id": "8xBnaZtk2WDkdwPl",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "FKdteth7KP1E5Ntd"
-                            },
-                            {
-                                "id": "7a45w8qf44YwKxam"
-                            },
-                            {
-                                "id": "M1Y4GGK3GA20X4t2"
-                            },
-                            {
-                                "id": "KBcgZjrLCcIbnYLt"
-                            },
-                            {
-                                "id": "KW7j6zuHzvRnpEpm"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "Hf8pXGPnK3IYkgE6"
-                            },
-                            {
-                                "id": "mifyTRPt54ovTYRV"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "belxl8Lpp4QygblS"
-                            },
-                            {
-                                "id": "gA0br2NoXBfnTcUX"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "6VUd9lWFbNfGNMfG"
-                            },
-                            {
-                                "id": "vTMLqZTszFifZvcj"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "qlZowh7smklnSJxO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Magus Focus Spells",
-            "sort": 2300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "value": 22
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "P52v8Ogi8B8cxTDV",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dgWxsYm0DWHb27h6"
             },
             "img": "systems/pf2e/icons/equipment/weapons/halberd.webp",
             "name": "Halberd",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "baseItem": "halberd",
                 "bonus": {
@@ -1665,6 +1179,492 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "qALwati8sBzDmrK2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.YMQr577asquZIP65"
+            },
+            "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
+            "name": "Scale Mail",
+            "sort": 1600000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "scale-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "composite",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "scale-mail",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "dfFiLsWBjXIscOgj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE"
+            },
+            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+            "name": "Spellbook",
+            "sort": 1700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Chain Lightning]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Sure Strike]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Acid Splash]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Hand]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost]</p>\n<p>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "spellbook-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "VHvGV67IFIiTPdPj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fFq8nsGvSUgzVeND"
+            },
+            "img": "icons/commodities/materials/feather-blue.webp",
+            "name": "Steel-Colored Feather Token (Bird)",
+            "sort": 1800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>Each feather token appears to be a simple feather from some exotic bird. The feather's shaft, dipped in gold, bears a single arcane rune. Activating a feather token causes it to transform into another object, which then can be used as normal for that object. Each feather can be activated only once, with most of them permanently becoming the item in their description.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>When activated, this token transforms into a small sparrow that waits on your finger for you to relay a message up to 1 minute in length, along with the name and rough location of a recipient. The recipient must be someone you have met, and the location must be somewhere you have visited. After receiving the message, the bird flies off to deliver it, traveling at 30 miles per hour and then searching for the target in the location you provided. If the bird finds the target, it moves adjacent to them, your words emanate from the bird, and the bird then flies off and vanishes. The bird also vanishes if it fails to find your target after 10 hours of searching the location you specified.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "feather-token-bird",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "by7KkKLcX0hagPmb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Moderate)",
+            "sort": 1900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "3d8+10",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "d3ST6KOQO6LIsMKe",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "P52v8Ogi8B8cxTDV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Halberd",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "H8GgL9H2Lee2z9PO": {
+                        "damage": "2d10 + 11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xPjPK1SHG0eVmzLW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KiAoLM1SFO8jCd1q",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Arcane Cascade",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Blade magi can enter this stance if their most recent action was to Cast a Spell or make a Spellstrike, but the Blade magi can remain in the stance even if they no longer meet the requirements</p>\n<hr />\n<p><strong>Effect</strong> When the Blade magi enters this stance and at the beginning of each of their turns while in it, the Blade magi gains 5 temporary Hit Points. While in this stance, the Blade magi's melee Strikes gain the arcane trait, deal an extra 2 force damage, and deal @Damage[(4[splash])[force]]{4 splash force} damage to foes adjacent to the target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arcane-cascade",
+                        "toggleable": true
+                    },
+                    {
+                        "events": {
+                            "onTurnStart": true
+                        },
+                        "key": "TempHP",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "arcane-cascade",
+                            "item:melee"
+                        ],
+                        "property": "traits",
+                        "value": "arcane"
+                    },
+                    {
+                        "damageType": "force",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "slug": "arcane-cascade",
+                        "value": 2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "arcane-cascade"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "text": "PF2E.NPCAbility.BladeMagus.ArcaneCascade.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uAHUnJY405tjt2Sr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capture Magic",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Blade magi succeeds at a save against a foe's harmful spell, or a foe fails a spell attack roll against the Blade magi with a harmful spell</p>\n<hr />\n<p><strong>Effect</strong> The Blade magi enters their Arcane Cascade. If the Blade magi is already in Arcane Cascade, they gain a +2 status bonus to damage from Arcane Cascade until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Capture Magic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "w8IDjpwZmxEeCFUa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spellstrike",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Blade magi channels a spell into a melee Strike to deliver a magically charged attack. The Blade magi casts @UUID[Compendium.pf2e.spells-srd.Item.Acid Splash], @UUID[Compendium.pf2e.spells-srd.Item.Ray of Frost], or @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast]. The effects of the spell don't occur immediately but are imbued into the Blade magi's attack instead. The Blade magi makes a melee Strike, which gains the arcane trait. The spell is coupled with the attack, using the Blade magi's attack roll to determine the effects of both the Strike and the spell. This counts as two attacks for their multiple attack penalty, but the penalty isn't applied until after the magus has completed the Spellstrike. After using Spellstrike, the Blade magi can't do so again until they recharge this ability as a single action, which has the concentrate trait. The Blade magi also recharges their Spellstrike when they cast @UUID[Compendium.pf2e.spells-srd.Item.Thunderous Strike].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Blade Magus",

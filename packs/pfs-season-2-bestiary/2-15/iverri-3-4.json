@@ -4,96 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kmfFIa6RdDiAab9u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "q5MhdIKLqL49q0mH",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ipe3znrfNfiAvRCl",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yX383dEhKhkqSvA2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blight Dependent",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Instead of being bonded to a specific tree, Iverri is bonded to blighted areas formerly ravaged by the Abyss. If she does not remain within 300 feet of at least one blighted tree, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and is unable to recover. She must attempt a @Check[fortitude|dc:20] save every hour or increase the sickened value by 1 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}). After 24 hours, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -101,142 +27,39 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1L2j9nKYiWTY3CzC",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Parasitic Bond",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Iverri's last action was a successful thorn spike Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> Iverri transforms the thorns into burrowing maggots, infusing the target with a fell curse to bind it to her. The target must attempt a @Check[will|dc:22] save to resist the curse; on a failure, this binding lasts until the end of Iverri's next turn.</p>\n<p>While the binding is active, Iverri takes only half damage from all effects that deal Hit Point damage, and the target takes the remainder of the damage. When the target takes damage from the bond, it doesn't apply any resistances, weaknesses, or other abilities it has to that damage.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "curse",
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AoXqz3pQ3ea0LNMy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Branch",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "8g0ujazr1xkg0tla1dmk": {
-                        "damage": "2d8+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Cq283gv0oj7moO01",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Thorn Spike",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "fwmmvidbpfd4mb3blwwe": {
-                        "damage": "2d6",
-                        "damageType": "piercing"
+                "slots": {
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
                     },
-                    "6ti14r09g6g758cmooc9": {
-                        "damage": "1d6",
-                        "damageType": "poison"
+                    "slot3": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "value": 2
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical"
-                    ]
+                "spelldc": {
+                    "dc": 22,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 14
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "5i7I5KzdRqDf6FTO",
@@ -245,7 +68,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Tree Stride",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -311,7 +134,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -372,7 +195,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,7 +278,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle (At Will)",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -525,7 +348,7 @@
             },
             "img": "icons/consumables/mushrooms/umbontae-bumpy-purple.webp",
             "name": "Fungal Infestation",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -615,7 +438,7 @@
             },
             "img": "icons/magic/acid/dissolve-bone-white.webp",
             "name": "Sudden Blight",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -702,7 +525,7 @@
             },
             "img": "icons/magic/nature/tree-twisted-glow-yellow.webp",
             "name": "Tree Shape (At Will)",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -764,7 +587,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -821,22 +644,28 @@
             "type": "spell"
         },
         {
-            "_id": "q5MhdIKLqL49q0mH",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1500000,
+            "_id": "AoXqz3pQ3ea0LNMy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "8g0ujazr1xkg0tla1dmk": {
+                        "damage": "2d8+2",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -844,39 +673,210 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 14
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "Cq283gv0oj7moO01",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Thorn Spike",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "fwmmvidbpfd4mb3blwwe": {
+                        "damage": "2d6",
+                        "damageType": "piercing"
+                    },
+                    "6ti14r09g6g758cmooc9": {
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kmfFIa6RdDiAab9u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ipe3znrfNfiAvRCl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yX383dEhKhkqSvA2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blight Dependent",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Instead of being bonded to a specific tree, Iverri is bonded to blighted areas formerly ravaged by the Abyss. If she does not remain within 300 feet of at least one blighted tree, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and is unable to recover. She must attempt a @Check[fortitude|dc:20] save every hour or increase the sickened value by 1 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4}). After 24 hours, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1L2j9nKYiWTY3CzC",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Parasitic Bond",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Iverri's last action was a successful thorn spike Strike that damaged the target</p>\n<hr />\n<p><strong>Effect</strong> Iverri transforms the thorns into burrowing maggots, infusing the target with a fell curse to bind it to her. The target must attempt a @Check[will|dc:22] save to resist the curse; on a failure, this binding lasts until the end of Iverri's next turn.</p>\n<p>While the binding is active, Iverri takes only half damage from all effects that deal Hit Point damage, and the target takes the remainder of the damage. When the target takes damage from the bond, it doesn't apply any resistances, weaknesses, or other abilities it has to that damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Iverri (3-4)",

@@ -4,136 +4,1023 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "DTedhVMLqvFhCkL5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Guileful Charm",
+            "_id": "GKVeldXZAyiscXnw",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Spontaneous Occult Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Any creature that converses with a gumiho must attempt a @Check[will|dc:35] save. The creature then becomes temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected but knows the gumiho tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is affected by the failure effects of 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm].</p>\n<p><strong>Critical Failure</strong> The target is affected by the failure effects of @UUID[Compendium.pf2e.spells-srd.Item.Dominate].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EqE0X6a45HrwHKiM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Charm Immunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot7": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot8": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot9": {
+                        "max": 1,
+                        "value": 1
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 38,
+                    "mod": 0,
+                    "value": 30
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "A4xLk4ci3ODqZPTp",
+            "_id": "uxqTMYwrQhjUfhfR",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.m3lcOFm400lQCUps"
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
+            "img": "icons/magic/death/projectile-skull-fire-orange.webp",
+            "name": "Power Word Kill",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": 1
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "50",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
                 },
-                "category": "offensive",
+                "defense": null,
                 "description": {
-                    "value": "<p>The gumiho changes into humanoid or fox shape. Their humanoid shape has a specific, persistent appearance but their true form is their fox shape. In humanoid shape, the gumiho uses their original size, loses their jaws strike but retains their claws strike, and their Speed is reduced to 25 feet. A gumiho is never able to completely conceal one of their nine tails through this transformation.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>You utter the most powerful arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 14th or Lower The target dies instantly. 15th If the target has 50 Hit Points or fewer, it dies instantly; otherwise, it drops to 0 Hit Points and becomes @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 1}, or increases its Dying condition by 1 if it's already Dying. 16th or Higher The target takes 50 damage; if this brings the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The levels at which each outcome applies increase by 2.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "change-shape",
+                "slug": "power-word-kill",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
                     "rarity": "common",
+                    "traditions": [
+                        "arcane"
+                    ],
                     "value": [
+                        "auditory",
                         "concentrate",
-                        "occult",
-                        "polymorph"
+                        "death",
+                        "mental"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
         },
         {
-            "_id": "JTflJ5tu9qcgd1Kz",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Snapping Critical",
-            "sort": 400000,
+            "_id": "bxbTLjPieDR8wIep",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wfleiawxsfhpRRwf"
+            },
+            "img": "systems/pf2e/icons/spells/disapperance.webp",
+            "name": "Disappearance",
+            "sort": 300000,
             "system": {
-                "actionType": {
-                    "value": "free"
+                "area": null,
+                "cost": {
+                    "value": ""
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The gumiho critically hits with a claw or jaws Strike</p>\n<hr />\n<p><strong>Effect</strong> The gumiho uses its fox marble to channel the life force lost by the target and heal for half the amount of damage dealt.</p>"
+                    "value": "<p>You shroud a creature from others' senses. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Undetected], not just to sight but to all senses, allowing the target to count as @UUID[Compendium.pf2e.conditionitems.Item.Invisible] no matter what precise and imprecise senses an observer might have. It's still possible for a creature to find the target by Seeking, looking for disturbed dust, hearing gaps in the sound spectrum, or finding some other way to discover the presence of an otherwise-undetectable creature.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "disappearance",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "illusion",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "HLX1yJurzRAWeA5l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.7PJSqUeKxTqOVrPk"
+            },
+            "img": "systems/pf2e/icons/spells/power-word-stun.webp",
+            "name": "Power Word Stun",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes.</p>\n<p>The effect of the spell depends on the target's level.</p>\n<ul>\n<li><strong>13th or Lower</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for [[/gmr 1d6 #rounds]]{1d6 rounds}.</li>\n<li><strong>14th-15th</strong> The target is Stunned for 1 round.</li>\n<li><strong>16th or Higher</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "power-word-stun",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane"
+                    ],
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "S3KobLzxKajMgr4Q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0873MWM0qKDDv81O"
+            },
+            "img": "systems/pf2e/icons/spells/project-image.webp",
+            "name": "Project Image",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You project an illusory image of yourself. You must stay within range of the image, and if at any point you can't see the image, the spell ends. Whenever you Cast a Spell other than one whose area is an emanation, you can cause the spell effect to originate from either yourself or the image. Because the image is an illusion, it can't benefit from spells, though visual manifestations of the spell appear. The image has the same AC and saves as you. If it is hit by an attack or fails a save, the spell ends.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The maximum duration you can Sustain the Spell increases to 10 minutes.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "project-image",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "oPua2sCcwJCwupU2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8kJbiBEjMWG4VUjs"
+            },
+            "img": "systems/pf2e/icons/spells/warp-mind.webp",
+            "name": "Warp Mind",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so dispel magic and other effects that counteract spells can't counteract them. However, alter reality, miracle, primal phenomenon, restoration, or wish can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "warp-mind",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "2zJPH7oVEu4q3IeW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P"
+            },
+            "img": "systems/pf2e/icons/spells/dominate.webp",
+            "name": "Dominate",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the next time you make your daily preparations"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dominate",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "bFX6zhnYZFijhYxw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yrZA4k2VAqEP8xx7"
+            },
+            "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+            "name": "Repulsion",
+            "sort": 800000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You manifest an aura that prevents creatures from approaching you. When casting the spell, you can make the area any radius you choose, up to 40 feet. A creature must attempt a Will save if it's within the area when you cast the spell or as soon as it enters the area while the spell is in effect. Once a creature has attempted the save, it uses the same result for that casting of repulsion. Any restrictions on a creature's movement apply only if it voluntarily moves toward you. For example, if you move closer to a creature, it doesn't then need to move away.</p>\n<hr /><p><strong>Critical Success</strong> The creature's movement is not restricted.</p>\n<p><strong>Success</strong> The creature treats each square in the area as difficult terrain when moving closer to you.</p>\n<p><strong>Failure</strong> The creature can't move closer to you within the area.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "emanation up to 40-feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "repulsion",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "aura",
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "LSCJdcmi50IBpB2u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GP3wewkQXEPrLxYj"
+            },
+            "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
+            "name": "Subconscious Suggestion",
+            "sort": 900000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You implant a subconscious suggestion deep within the target's mind for them to follow when a trigger you specify occurs. You suggest a course of action to the target. Your directive must be phrased in such a way as to seem like a logical course of action to the target, and it can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.</p>\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The suggestion remains in the target's subconscious until the next time you prepare. If the trigger occurs before then, the target immediately follows your suggestion. The effect has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 hour.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "target": {
+                                "value": "up to 10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "subconscious-suggestion",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "linguistic",
+                        "manipulate",
+                        "mental",
+                        "subtle"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "MvDMjWuVwIGciKPS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
+            },
+            "img": "systems/pf2e/icons/spells/charm.webp",
+            "name": "Charm",
+            "sort": 1000000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @UUID[Compendium.pf2e.conditionitems.Item.Friendly] toward you. If it was Friendly, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Helpful]. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "charm",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "tzNBO1AtAyD7CVde",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
+            },
+            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+            "name": "Invisibility",
+            "sort": 1100000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "invisibility",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "illusion",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "0wqaiuhMP7g9n33u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o4lRVTwSxnOOn5vl"
+            },
+            "img": "systems/pf2e/icons/spells/sleep.webp",
+            "name": "Sleep",
+            "sort": 1200000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from this spell doesn't fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sleep",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "manipulate",
+                        "mental",
+                        "sleep"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "g7VD1Iy9ksY30UIy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IihxWhRfpsBgQ5jS"
+            },
+            "img": "systems/pf2e/icons/spells/enthrall.webp",
+            "name": "Enthrall",
+            "sort": 1300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Your words fascinate your targets. You speak or sing without interruption throughout the casting and duration. Targets who notice your speech or song might give their undivided attention; each target must attempt a Will save. The GM might grant a circumstance bonus (to a maximum of +4) if the target is of an opposing religion, ancestry, or political leaning, or is otherwise unlikely to agree with what you're saying.</p>\n<p>Each creature that comes within range has to attempt a save when you Sustain the Spell. If you're speaking, enthrall gains the linguistic trait.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and notices that you tried to use magic.</p>\n<p><strong>Success</strong> The target needn't pay attention but doesn't notice you tried to use magic (it might notice others are enthralled).</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you. It can attempt another Will save if it witnesses actions or speech with which it disagrees. If it succeeds, it's no longer Fascinated and is temporarily immune for 1 hour. If the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it, the fascination ends immediately.</p>\n<p><strong>Critical Failure</strong> As failure, but the target can't attempt a save to end the fascination if it disagrees with you.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "enthrall",
+                "target": {
+                    "value": "all creatures in range"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "emotion",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "HJasSkn9mjKy9SMu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kl2q6JvBZwed4B6v"
+            },
+            "img": "systems/pf2e/icons/spells/dancing-lights.webp",
+            "name": "Dancing Lights",
+            "sort": 1400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create up to four floating lights, no two of which are more than 10 feet apart. Each sheds light like a torch. When you Sustain the Spell, you can move any number of lights up to 60 feet. Each light must remain within 120 feet of you and within 10 feet of all others, or it winks out.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dancing-lights",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "HUzMWxmlOx56waGA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 1500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": true,
+                        "category": null,
+                        "formula": "0",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "GKVeldXZAyiscXnw"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
         },
         {
             "_id": "12NbBWM5piSrRxih",
@@ -142,7 +1029,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Fox Marble",
-            "sort": 500000,
+            "sort": 1600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -258,7 +1145,7 @@
             "_id": "EBVWFepF56tifH0b",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 600000,
+            "sort": 1700000,
             "system": {
                 "attack": {
                     "value": ""
@@ -303,7 +1190,7 @@
             "_id": "NAe93WhBGHCbQaKy",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 700000,
+            "sort": 1800000,
             "system": {
                 "attack": {
                     "value": ""
@@ -344,975 +1231,20 @@
             "type": "melee"
         },
         {
-            "_id": "uxqTMYwrQhjUfhfR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.m3lcOFm400lQCUps"
-            },
-            "img": "icons/magic/death/projectile-skull-fire-orange.webp",
-            "name": "Power Word Kill",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "50",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You utter the most powerful arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 14th or Lower The target dies instantly. 15th If the target has 50 Hit Points or fewer, it dies instantly; otherwise, it drops to 0 Hit Points and becomes @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 1}, or increases its Dying condition by 1 if it's already Dying. 16th or Higher The target takes 50 damage; if this brings the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The levels at which each outcome applies increase by 2.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "power-word-kill",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane"
-                    ],
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "death",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "bxbTLjPieDR8wIep",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.wfleiawxsfhpRRwf"
-            },
-            "img": "systems/pf2e/icons/spells/disapperance.webp",
-            "name": "Disappearance",
-            "sort": 900000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You shroud a creature from others' senses. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Undetected], not just to sight but to all senses, allowing the target to count as @UUID[Compendium.pf2e.conditionitems.Item.Invisible] no matter what precise and imprecise senses an observer might have. It's still possible for a creature to find the target by Seeking, looking for disturbed dust, hearing gaps in the sound spectrum, or finding some other way to discover the presence of an otherwise-undetectable creature.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "disappearance",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "illusion",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HLX1yJurzRAWeA5l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.7PJSqUeKxTqOVrPk"
-            },
-            "img": "systems/pf2e/icons/spells/power-word-stun.webp",
-            "name": "Power Word Stun",
-            "sort": 1000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes.</p>\n<p>The effect of the spell depends on the target's level.</p>\n<ul>\n<li><strong>13th or Lower</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for [[/gmr 1d6 #rounds]]{1d6 rounds}.</li>\n<li><strong>14th-15th</strong> The target is Stunned for 1 round.</li>\n<li><strong>16th or Higher</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "power-word-stun",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane"
-                    ],
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "S3KobLzxKajMgr4Q",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.0873MWM0qKDDv81O"
-            },
-            "img": "systems/pf2e/icons/spells/project-image.webp",
-            "name": "Project Image",
-            "sort": 1100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You project an illusory image of yourself. You must stay within range of the image, and if at any point you can't see the image, the spell ends. Whenever you Cast a Spell other than one whose area is an emanation, you can cause the spell effect to originate from either yourself or the image. Because the image is an illusion, it can't benefit from spells, though visual manifestations of the spell appear. The image has the same AC and saves as you. If it is hit by an attack or fails a save, the spell ends.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The maximum duration you can Sustain the Spell increases to 10 minutes.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "project-image",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "illusion",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "oPua2sCcwJCwupU2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.8kJbiBEjMWG4VUjs"
-            },
-            "img": "systems/pf2e/icons/spells/warp-mind.webp",
-            "name": "Warp Mind",
-            "sort": 1200000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": true,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so dispel magic and other effects that counteract spells can't counteract them. However, alter reality, miracle, primal phenomenon, restoration, or wish can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "warp-mind",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "incapacitation",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "2zJPH7oVEu4q3IeW",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P"
-            },
-            "img": "systems/pf2e/icons/spells/dominate.webp",
-            "name": "Dominate",
-            "sort": 1300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dominate",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "bFX6zhnYZFijhYxw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.yrZA4k2VAqEP8xx7"
-            },
-            "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
-            "name": "Repulsion",
-            "sort": 1400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You manifest an aura that prevents creatures from approaching you. When casting the spell, you can make the area any radius you choose, up to 40 feet. A creature must attempt a Will save if it's within the area when you cast the spell or as soon as it enters the area while the spell is in effect. Once a creature has attempted the save, it uses the same result for that casting of repulsion. Any restrictions on a creature's movement apply only if it voluntarily moves toward you. For example, if you move closer to a creature, it doesn't then need to move away.</p>\n<hr /><p><strong>Critical Success</strong> The creature's movement is not restricted.</p>\n<p><strong>Success</strong> The creature treats each square in the area as difficult terrain when moving closer to you.</p>\n<p><strong>Failure</strong> The creature can't move closer to you within the area.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "emanation up to 40-feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "repulsion",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "aura",
-                        "concentrate",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "LSCJdcmi50IBpB2u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.GP3wewkQXEPrLxYj"
-            },
-            "img": "icons/magic/symbols/runes-carved-stone-yellow.webp",
-            "name": "Subconscious Suggestion",
-            "sort": 1500000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You implant a subconscious suggestion deep within the target's mind for them to follow when a trigger you specify occurs. You suggest a course of action to the target. Your directive must be phrased in such a way as to seem like a logical course of action to the target, and it can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.</p>\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The suggestion remains in the target's subconscious until the next time you prepare. If the trigger occurs before then, the target immediately follows your suggestion. The effect has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 hour.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "varies"
-                },
-                "heightening": {
-                    "levels": {
-                        "9": {
-                            "target": {
-                                "value": "up to 10 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "subconscious-suggestion",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "linguistic",
-                        "manipulate",
-                        "mental",
-                        "subtle"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "MvDMjWuVwIGciKPS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
-            },
-            "img": "systems/pf2e/icons/spells/charm.webp",
-            "name": "Charm",
-            "sort": 1600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @UUID[Compendium.pf2e.conditionitems.Item.Friendly] toward you. If it was Friendly, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Helpful]. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "charm",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "emotion",
-                        "incapacitation",
-                        "manipulate",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "tzNBO1AtAyD7CVde",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
-            },
-            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
-            "name": "Invisibility",
-            "sort": 1700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "10 minutes"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "invisibility",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "illusion",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "0wqaiuhMP7g9n33u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.o4lRVTwSxnOOn5vl"
-            },
-            "img": "systems/pf2e/icons/spells/sleep.webp",
-            "name": "Sleep",
-            "sort": 1800000,
-            "system": {
-                "area": {
-                    "type": "burst",
-                    "value": 5
-                },
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] from this spell doesn't fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "sleep",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "incapacitation",
-                        "manipulate",
-                        "mental",
-                        "sleep"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "g7VD1Iy9ksY30UIy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IihxWhRfpsBgQ5jS"
-            },
-            "img": "systems/pf2e/icons/spells/enthrall.webp",
-            "name": "Enthrall",
+            "_id": "DTedhVMLqvFhCkL5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Guileful Charm",
             "sort": 1900000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>Your words fascinate your targets. You speak or sing without interruption throughout the casting and duration. Targets who notice your speech or song might give their undivided attention; each target must attempt a Will save. The GM might grant a circumstance bonus (to a maximum of +4) if the target is of an opposing religion, ancestry, or political leaning, or is otherwise unlikely to agree with what you're saying.</p>\n<p>Each creature that comes within range has to attempt a save when you Sustain the Spell. If you're speaking, enthrall gains the linguistic trait.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and notices that you tried to use magic.</p>\n<p><strong>Success</strong> The target needn't pay attention but doesn't notice you tried to use magic (it might notice others are enthralled).</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you. It can attempt another Will save if it witnesses actions or speech with which it disagrees. If it succeeds, it's no longer Fascinated and is temporarily immune for 1 hour. If the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it, the fascination ends immediately.</p>\n<p><strong>Critical Failure</strong> As failure, but the target can't attempt a save to end the fascination if it disagrees with you.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "enthrall",
-                "target": {
-                    "value": "all creatures in range"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "emotion",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HJasSkn9mjKy9SMu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.kl2q6JvBZwed4B6v"
-            },
-            "img": "systems/pf2e/icons/spells/dancing-lights.webp",
-            "name": "Dancing Lights",
-            "sort": 2000000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>You create up to four floating lights, no two of which are more than 10 feet apart. Each sheds light like a torch. When you Sustain the Spell, you can move any number of lights up to 60 feet. Each light must remain within 120 feet of you and within 10 feet of all others, or it winks out.</p>"
-                },
-                "duration": {
-                    "sustained": true,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "dancing-lights",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "light",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HUzMWxmlOx56waGA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
-            },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 2100000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "0",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "mental"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "will"
-                    }
-                },
-                "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 round"
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "GKVeldXZAyiscXnw"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "daze",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "GKVeldXZAyiscXnw",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Occult Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "interaction",
                 "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
+                    "value": "<p>Any creature that converses with a gumiho must attempt a @Check[will|dc:35] save. The creature then becomes temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected but knows the gumiho tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is affected by the failure effects of 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm].</p>\n<p><strong>Critical Failure</strong> The target is affected by the failure effects of @UUID[Compendium.pf2e.spells-srd.Item.Dominate].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1320,47 +1252,115 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot7": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot8": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot9": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "mod": 0,
-                    "value": 30
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "EqE0X6a45HrwHKiM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Charm Immunity",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A4xLk4ci3ODqZPTp",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gumiho changes into humanoid or fox shape. Their humanoid shape has a specific, persistent appearance but their true form is their fox shape. In humanoid shape, the gumiho uses their original size, loses their jaws strike but retains their claws strike, and their Speed is reduced to 25 feet. A gumiho is never able to completely conceal one of their nine tails through this transformation.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JTflJ5tu9qcgd1Kz",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Snapping Critical",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The gumiho critically hits with a claw or jaws Strike</p>\n<hr />\n<p><strong>Effect</strong> The gumiho uses its fox marble to channel the life force lost by the target and heal for half the amount of damage dealt.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Gumiho",

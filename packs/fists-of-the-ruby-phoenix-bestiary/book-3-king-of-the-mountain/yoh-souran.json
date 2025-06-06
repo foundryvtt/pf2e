@@ -4,302 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "SsLK2tGBiHAb784J",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Punch It",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<hr />\n<p><strong>Effect</strong> Yoh pushes the ship, tripling its speed for 1 round. After this point, the ship stalls-though it Hovers in place, it can't move under its own power for 1 round.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7KVyaHgB8ZdUAKQC",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ancestral Airship Link",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The Solar Jian II recognizes Yoh as a descendent of its creator, and the magical ship extends him protections beyond those that would be given to most other pilots. If Yoh is piloting the Solar Jian II, his AC and saves are increased by 4.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "ancestral-airship-link"
-                        ],
-                        "selector": "ac",
-                        "value": 4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "ancestral-airship-link"
-                        ],
-                        "selector": "saving-throw",
-                        "value": 4
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Piloting the Solar Jian II",
-                        "option": "ancestral-airship-link",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fH16wlrnHfTktX3t",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shake 'Em!",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<p><strong>Trigger</strong> One or more creatures aboard Yoh's vessel are the target of an attack or attempt a Reflex save and the attacker is not aboard the ship</p>\n<hr />\n<p><strong>Effect</strong> Yoh attempts evasive maneuvers. All creatures aboard the vessel gain a +2 status bonus to their AC and saves against the triggering effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WlJ1X90yzVBdZRwG",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Deploy Countermeasures",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> Yoh is piloting the Solar Jian II</p>\n<hr />\n<p><strong>Effect</strong> While the Solar Jian II is not a combat vessel, it does have a magically renewing supply of fireworks for victory parades and the like. Yoh fires them at a @Template[burst|distance:20] within 60 feet. Creatures in the area take @Damage[3d6[fire]] damage and @Damage[3d6[sonic]] damage with a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The target takes full damage and is dazzled for 3 rounds.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, takes @Damage[3d4[persistent,fire]] damage, and is dazzled for 1 minute.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "l3Jye2wtDn71XMXP",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "I'll Get You into Position!",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<hr />\n<p><strong>Effect</strong> Yoh pumps the brakes, banks quickly, or performs some other aerial maneuver to get the drop on an enemy. He attempts a Piloting Lore check against the enemy's Perception DC. If he succeeds, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the next attack from a creature onboard as long as it is made before Yoh's next turn. All enemies who witnessed the maneuver are then temporarily immune for 1 day.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Z6iJLnWxjo46j565",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Piloting Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 38
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Go0i8Osecc4d0Q8S",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Ruby Phoenix Tournament Lore",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 38
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "r7R4g3TMuhJiYbzA",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "CBpcfdKusYsMdvZ6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Heavy Crossbow",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "tydennrqb2chtjvv66e0": {
-                        "damage": "4d10+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-120",
-                        "reload-2"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "CBpcfdKusYsMdvZ6",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.giO4LwIKGzJZoaxa"
             },
             "img": "systems/pf2e/icons/equipment/weapons/heavy-crossbow.webp",
             "name": "Heavy Crossbow",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "heavy-crossbow",
                 "bonus": {
@@ -374,6 +85,295 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "r7R4g3TMuhJiYbzA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "CBpcfdKusYsMdvZ6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Heavy Crossbow",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "tydennrqb2chtjvv66e0": {
+                        "damage": "4d10+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-120",
+                        "reload-2"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SsLK2tGBiHAb784J",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Punch It",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<hr />\n<p><strong>Effect</strong> Yoh pushes the ship, tripling its speed for 1 round. After this point, the ship stalls-though it Hovers in place, it can't move under its own power for 1 round.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7KVyaHgB8ZdUAKQC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ancestral Airship Link",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Solar Jian II recognizes Yoh as a descendent of its creator, and the magical ship extends him protections beyond those that would be given to most other pilots. If Yoh is piloting the Solar Jian II, his AC and saves are increased by 4.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ancestral-airship-link"
+                        ],
+                        "selector": "ac",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ancestral-airship-link"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 4
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Piloting the Solar Jian II",
+                        "option": "ancestral-airship-link",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fH16wlrnHfTktX3t",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shake 'Em!",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<p><strong>Trigger</strong> One or more creatures aboard Yoh's vessel are the target of an attack or attempt a Reflex save and the attacker is not aboard the ship</p>\n<hr />\n<p><strong>Effect</strong> Yoh attempts evasive maneuvers. All creatures aboard the vessel gain a +2 status bonus to their AC and saves against the triggering effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WlJ1X90yzVBdZRwG",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Deploy Countermeasures",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> Yoh is piloting the Solar Jian II</p>\n<hr />\n<p><strong>Effect</strong> While the Solar Jian II is not a combat vessel, it does have a magically renewing supply of fireworks for victory parades and the like. Yoh fires them at a @Template[burst|distance:20] within 60 feet. Creatures in the area take @Damage[3d6[fire]] damage and @Damage[3d6[sonic]] damage with a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The target takes full damage and is dazzled for 3 rounds.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, takes @Damage[3d4[persistent,fire]] damage, and is dazzled for 1 minute.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l3Jye2wtDn71XMXP",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "I'll Get You into Position!",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Yoh is piloting an airborne vessel</p>\n<hr />\n<p><strong>Effect</strong> Yoh pumps the brakes, banks quickly, or performs some other aerial maneuver to get the drop on an enemy. He attempts a Piloting Lore check against the enemy's Perception DC. If he succeeds, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the next attack from a creature onboard as long as it is made before Yoh's next turn. All enemies who witnessed the maneuver are then temporarily immune for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z6iJLnWxjo46j565",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Piloting Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 38
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Go0i8Osecc4d0Q8S",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Ruby Phoenix Tournament Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 38
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Yoh Souran",

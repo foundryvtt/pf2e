@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "tWnV5NxscBllgsSs",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magic Sense",
+            "_id": "6FmfnLeOcKMh8v5n",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Belcorra can sense the presence of magic auras as though she were always using a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] spell. When she @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks}, she gains the benefits of a 3rd-rank <em>detect magic</em> spell on things she sees.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,247 +28,61 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "detection"
-                    ]
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "IHcY0GaB5rFEpIJT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
+            "_id": "jl8TRoHirSz5Q9Mt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Sorcerer Bloodline Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Lowest three levels of the Abomination Vaults</p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-site-bound",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2NEvfMuBqdlReHe7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XETiXceuUZEG0el1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When Belcorra is destroyed, she re-forms in [[/br 2d4 #Rejuvenation]]{2d4 days} within the Empty Vault (though she can reduce that time by empowering herself with glimmers of Nhimbaloth's essence using the @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]).</p>\n<p>Belcorra can only be permanently destroyed if she enacts her full revenge on Absalom or if Nhimbaloth devours her soul.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "ghost-rejuvenation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JxMkMIPvp1ErxI39",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GDIw4d1nppVwAcDM",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood Magic",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each time Belcorra casts a sorcerer bloodline spell or an aberrant bloodline granted spell, she can grant herself or a target of the spell a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Magic]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QSEVW6fObs2AVajU",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Corrupting Gaze",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Belcorra stares at a creature she can see within 30 feet. The target takes @Damage[9d6[mental]] damage (@Check[will|dc:33|basic] save).</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oMcchH9BcuFxkNKA",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Haunted Lighthouse",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once every 10 minutes</p>\n<hr />\n<p><strong>Effect</strong> Belcorra extends her presence throughout the lowest three levels of Gauntlight until the end of her next turn. She can see with the benefits of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.All-Around Vision] and can make ghostly hand attacks or use special abilities originating from any surface in this area.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -274,94 +91,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 33,
+                    "mod": 0,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "hZ7GydaiKm8Egcxd",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Quickened Casting",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> If Belcorra's next action is to cast a sorcerer spell of 4th rank or lower, she reduces the number of actions to cast it by 1 (minimum 1 action).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sVvkzILqsBCfcw03",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Ghostly Hand",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "s2552ppi00l2w15cgblz": {
-                        "damage": "3d8+12",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "eTvR8u6anb7nKUc9",
@@ -370,7 +111,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-runed-brown-purple.webp",
             "name": "Legend Lore",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -433,7 +174,7 @@
             },
             "img": "icons/skills/targeting/target-strike-gray.webp",
             "name": "Teleportation Circle",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -498,7 +239,7 @@
             },
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Feeblemind",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -567,7 +308,7 @@
             },
             "img": "icons/magic/earth/explosion-lava-stone-red.webp",
             "name": "Phantasmal Calamity",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -656,7 +397,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Planar Binding",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -719,7 +460,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -783,7 +524,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -865,7 +606,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -947,7 +688,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Illusory Scene",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1015,7 +756,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1077,7 +818,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1155,7 +896,7 @@
             },
             "img": "systems/pf2e/icons/spells/globe-of-invulnerability.webp",
             "name": "Globe of Invulnerability",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1217,7 +958,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1305,7 +1046,7 @@
             },
             "img": "icons/magic/light/orb-shadow-blue.webp",
             "name": "Spell Immunity",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1367,7 +1108,7 @@
             },
             "img": "icons/creatures/magical/spirit-fire-yellow.webp",
             "name": "Aberrant Whispers",
-            "sort": 2500000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "details": "5-foot emanation or more",
@@ -1484,7 +1225,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 2600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1552,7 +1293,7 @@
             },
             "img": "icons/environment/settlement/lighthouse-rock-red.webp",
             "name": "Nondetection",
-            "sort": 2700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1614,7 +1355,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 2800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1692,7 +1433,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
-            "sort": 2900000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1778,7 +1519,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 3000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1845,7 +1586,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 3100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1908,7 +1649,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 3200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1971,7 +1712,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 3300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2034,7 +1775,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 3400000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2101,7 +1842,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 3500000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2188,7 +1929,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 3600000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2266,7 +2007,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 3700000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2347,7 +2088,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 3800000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2422,7 +2163,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 3900000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2483,7 +2224,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 4000000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2551,7 +2292,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4100000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2630,7 +2371,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 4200000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2692,7 +2433,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 4300000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2770,7 +2511,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 4400000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2894,7 +2635,7 @@
             },
             "img": "systems/pf2e/icons/spells/tentacular-limbs.webp",
             "name": "Tentacular Limbs",
-            "sort": 4500000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2953,7 +2694,7 @@
             },
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "True Strike",
-            "sort": 4600000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3008,85 +2749,314 @@
             "type": "spell"
         },
         {
-            "_id": "6FmfnLeOcKMh8v5n",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 4700000,
+            "_id": "sVvkzILqsBCfcw03",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ghostly Hand",
+            "sort": 3900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 1
+                "bonus": {
+                    "value": 24
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
+                "damageRolls": {
+                    "s2552ppi00l2w15cgblz": {
+                        "damage": "3d8+12",
+                        "damageType": "void"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "jl8TRoHirSz5Q9Mt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Sorcerer Bloodline Spells",
-            "sort": 4800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tWnV5NxscBllgsSs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magic Sense",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Belcorra can sense the presence of magic auras as though she were always using a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] spell. When she @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks}, she gains the benefits of a 3rd-rank <em>detect magic</em> spell on things she sees.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "detection"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IHcY0GaB5rFEpIJT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.BcSlVpaN72LoQ5BV"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Lowest three levels of the Abomination Vaults</p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-site-bound",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2NEvfMuBqdlReHe7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XETiXceuUZEG0el1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When Belcorra is destroyed, she re-forms in [[/br 2d4 #Rejuvenation]]{2d4 days} within the Empty Vault (though she can reduce that time by empowering herself with glimmers of Nhimbaloth's essence using the @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]).</p>\n<p>Belcorra can only be permanently destroyed if she enacts her full revenge on Absalom or if Nhimbaloth devours her soul.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JxMkMIPvp1ErxI39",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GDIw4d1nppVwAcDM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Magic",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each time Belcorra casts a sorcerer bloodline spell or an aberrant bloodline granted spell, she can grant herself or a target of the spell a +2 status bonus to Will saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blood Magic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QSEVW6fObs2AVajU",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Corrupting Gaze",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Belcorra stares at a creature she can see within 30 feet. The target takes @Damage[9d6[mental]] damage (@Check[will|dc:33|basic] save).</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oMcchH9BcuFxkNKA",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Haunted Lighthouse",
+            "sort": 4700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once every 10 minutes</p>\n<hr />\n<p><strong>Effect</strong> Belcorra extends her presence throughout the lowest three levels of Gauntlight until the end of her next turn. She can see with the benefits of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.All-Around Vision] and can make ghostly hand attacks or use special abilities originating from any surface in this area.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M",
                     "value": 1
                 },
                 "publication": {
@@ -3095,18 +3065,48 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 33,
-                    "mod": 0,
-                    "value": 25
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "hZ7GydaiKm8Egcxd",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Quickened Casting",
+            "sort": 4800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> If Belcorra's next action is to cast a sorcerer spell of 4th rank or lower, she reduces the number of actions to cast it by 1 (minimum 1 action).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Belcorra Haruvex",

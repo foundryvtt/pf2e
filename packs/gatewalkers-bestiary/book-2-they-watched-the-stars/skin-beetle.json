@@ -4,116 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UUujdk5FEdvS7yP5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surgical Mandibles",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A skin beetle can use its mandibles as a @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Toolkit].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FXG457LYOZ4Xpy5S",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Anesthetic Saliva",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature exposed to a skin beetle's saliva must succeed on a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CpeEBFGSWeCWxi86",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Harvest Flesh",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The skin beetle makes a mandibles Strike against an animal or humanoid. If the Strike deals damage, the beetle tears of a large portion of flesh, dealing an additional @Damage[1d6[bleed]].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "harvest-flesh",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "bleed",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "harvest-flesh"
-                        ],
-                        "selector": "mandibles-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Oy7mJh40617N6Xm6",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -156,7 +50,7 @@
             "_id": "RW9Fim0Uczx3gnEN",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spit",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -196,6 +90,112 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "UUujdk5FEdvS7yP5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surgical Mandibles",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A skin beetle can use its mandibles as a @UUID[Compendium.pf2e.equipment-srd.Item.Healer's Toolkit].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FXG457LYOZ4Xpy5S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Anesthetic Saliva",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature exposed to a skin beetle's saliva must succeed on a @Check[fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CpeEBFGSWeCWxi86",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Harvest Flesh",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The skin beetle makes a mandibles Strike against an animal or humanoid. If the Strike deals damage, the beetle tears of a large portion of flesh, dealing an additional @Damage[1d6[bleed]].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "harvest-flesh",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "harvest-flesh"
+                        ],
+                        "selector": "mandibles-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Skin Beetle",

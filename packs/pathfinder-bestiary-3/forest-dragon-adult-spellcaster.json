@@ -3,96 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "w6hxoqW1tHgrDy7z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "9h6KJeGxzm8rEPaD",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "autoHeightenLevel": {
+                    "value": 6
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uara7mD6sRfBQr3k",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DF8EHlGsG4hDnHIf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Countered by Metal",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If the forest dragon takes damage from a metal item, they lose woodland stride and @UUID[Compendium.pf2e.spells-srd.Item.Vanishing Tracks] until the end of their next turn.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -100,151 +27,144 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tHyoisfllt6q3L0n",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Fed by Water",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> The forest dragon is targeted with a water spell or effect</p>\n<hr />\n<p><strong>Effect</strong> The forest dragon gains [[/r 35 #Temporary Hit Points]]{35 temporary Hit Points}.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n7ZxA7v0OJE04AGq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>90 feet. @Check[will|dc:32]</p>\n<p>Animals, fungi, and plants take a -2 circumstance penalty to the save.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 90,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "cgw07bSj0UprtiUE"
+                            },
+                            {
+                                "id": "GeRqpkpFNtXrmbgm"
+                            },
+                            {
+                                "id": "tLuFR0oqghOXKzbd"
+                            },
+                            {
+                                "id": "wmqu97fbZeHaDCYh"
+                            },
+                            {
+                                "id": "ELMWrZpjcRl1T4RG"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "K2hzbKGlsnbs4Oim"
+                            },
+                            {
+                                "id": "YfWayh8Vf56Z3brL"
+                            },
+                            {
+                                "id": "ZiYYZgtUKyVmJTXf"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "lyHhpzUmgixU51K3"
+                            },
+                            {
+                                "id": "JxsY3WYSjn7MwRgz"
+                            },
+                            {
+                                "id": "9YyN3ZnrZrlMGETw"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "uu8jCMiKsmK3daVq"
+                            },
+                            {
+                                "id": "kKqJb4vg5dRnYkWw"
+                            },
+                            {
+                                "id": "gSRFsZkX8Qu19CEz"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Pc8OabeDh0D0QoNn"
+                            },
+                            {
+                                "id": "T6VXVjgqGBXusSVY"
+                            },
+                            {
+                                "id": "VVTdSugZYXwWMIqG"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Pr9Ih78tzMSQfxvf"
+                            },
+                            {
+                                "id": "7YdPP01kBJ4BN5CS"
+                            },
+                            {
+                                "id": "D5sHvAzd2vbdfA3E"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "iUZaBJdkAt5wfkw9"
+                            },
+                            {
+                                "id": "Qc0rR7NFVpIq7lgF"
+                            },
+                            {
+                                "id": "ECGCJIVLGkNeDpoK"
+                            }
                         ]
                     }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k2Num39uDHGiZwTm",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon unleashes a swarm of insects that deals @Damage[14d6[piercing]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:34|basic|options:area-effect] save) before dispersing.</p>\n<p>A creature that critically fails is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} from the insects' venom; this is a poison effect.</p>\n<p>The dragon can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 34,
+                    "mod": 0,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "aA0Li6f8IO68qqXw",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Draining Blight",
-            "sort": 700000,
+            "_id": "CGIXYmLYYlMz2iRx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": 4
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws moisture from the living creatures surrounding them, using the energy to heal their own wounds. Each living creature in a @Template[emanation|distance:30] takes @Damage[7d10[void]] damage (@Check[fortitude|dc:34|basic] save). Creatures made entirely of water and plant creatures use the outcome one degree of success worse than they rolled. The dragon regains Hit Points equal to half of the highest damage a single creature takes from this effect.</p>\n<p>In addition, all non-creature plant life in the area withers and dies, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. Water is also consumed in the same way, typically lowering any standing body of water fully within the area by 1 foot.</p>"
+                    "value": ""
                 },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -253,289 +173,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "primal",
-                        "void"
-                    ]
+                "spelldc": {
+                    "dc": 34,
+                    "mod": 0,
+                    "value": 26
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "BISNEn6kmVke1CIR",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Forest Shape",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.One with Plants], a forest dragon can become a tree of the same size and age as themself.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7101NEoU5qf7eU5R",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Greater Constrict",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Damage[(3d8+10)[bludgeoning]], @Check[fortitude|dc:34|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-constrict",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gKuOYzPHRi2J8prN",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Woodland Stride",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The forest dragon ignores difficult terrain and greater difficult terrain from non-magical foliage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LIQcObuGu1wqBnEw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7SJO477OusJy7wpB",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d10+13",
-                        "damageType": "piercing"
-                    },
-                    "e30481rbp6g1b2cgivij": {
-                        "damage": "2d6",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "An7ZmOxkCPkGUuBN",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+13",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "icUrUnsfgvWuac89",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "tail",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-25"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "iUZaBJdkAt5wfkw9",
@@ -544,7 +196,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Baleful Polymorph",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -611,7 +263,7 @@
             },
             "img": "icons/environment/creatures/horses.webp",
             "name": "Commune with Nature",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -676,7 +328,7 @@
             },
             "img": "systems/pf2e/icons/spells/purple-worm-sting.webp",
             "name": "Purple Worm Sting",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -752,7 +404,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -815,7 +467,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -903,7 +555,7 @@
             },
             "img": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
             "name": "Moon Frenzy",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -963,7 +615,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Tree Stride",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1024,7 +676,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Gaseous Form",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1086,7 +738,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1151,7 +803,7 @@
             },
             "img": "icons/environment/wilderness/tree-spruce.webp",
             "name": "Plant Growth",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1217,7 +869,7 @@
             },
             "img": "systems/pf2e/icons/spells/solid-fog.webp",
             "name": "Solid Fog",
-            "sort": 2500000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1281,7 +933,7 @@
             },
             "img": "icons/creatures/mammals/dog-husky-white-blue.webp",
             "name": "Animal Vision",
-            "sort": 2600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1341,7 +993,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Stinking Cloud",
-            "sort": 2700000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1410,7 +1062,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 2800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1487,7 +1139,7 @@
             },
             "img": "icons/creatures/birds/raptor-owl-flying-moon.webp",
             "name": "Animal Messenger",
-            "sort": 2900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1547,7 +1199,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 3000000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1613,7 +1265,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle",
-            "sort": 3100000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -1683,7 +1335,7 @@
             },
             "img": "icons/magic/nature/tree-twisted-glow-yellow.webp",
             "name": "Tree Shape (See Forest Shape)",
-            "sort": 3200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1745,7 +1397,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 3300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1806,7 +1458,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 3400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1967,7 +1619,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 3500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2029,7 +1681,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 3600000,
+            "sort": 2400000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2096,7 +1748,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Goblin Pox",
-            "sort": 3700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2162,7 +1814,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 3800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2223,7 +1875,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 3900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2286,7 +1938,7 @@
             },
             "img": "icons/magic/nature/stealth-hide-eyes-green.webp",
             "name": "Pass Without Trace (Constant) (Forest Terrain Only)",
-            "sort": 4000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2360,7 +2012,7 @@
             },
             "img": "systems/pf2e/icons/spells/pest-form.webp",
             "name": "Pest Form",
-            "sort": 4100000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2421,7 +2073,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2500,7 +2152,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 4300000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2557,168 +2209,394 @@
             "type": "spell"
         },
         {
-            "_id": "9h6KJeGxzm8rEPaD",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 4400000,
+            "_id": "7SJO477OusJy7wpB",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 3200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 6
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 1
+                "bonus": {
+                    "value": 29
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "cgw07bSj0UprtiUE"
-                            },
-                            {
-                                "id": "GeRqpkpFNtXrmbgm"
-                            },
-                            {
-                                "id": "tLuFR0oqghOXKzbd"
-                            },
-                            {
-                                "id": "wmqu97fbZeHaDCYh"
-                            },
-                            {
-                                "id": "ELMWrZpjcRl1T4RG"
-                            }
-                        ]
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d10+13",
+                        "damageType": "piercing"
                     },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "K2hzbKGlsnbs4Oim"
-                            },
-                            {
-                                "id": "YfWayh8Vf56Z3brL"
-                            },
-                            {
-                                "id": "ZiYYZgtUKyVmJTXf"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "lyHhpzUmgixU51K3"
-                            },
-                            {
-                                "id": "JxsY3WYSjn7MwRgz"
-                            },
-                            {
-                                "id": "9YyN3ZnrZrlMGETw"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "uu8jCMiKsmK3daVq"
-                            },
-                            {
-                                "id": "kKqJb4vg5dRnYkWw"
-                            },
-                            {
-                                "id": "gSRFsZkX8Qu19CEz"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Pc8OabeDh0D0QoNn"
-                            },
-                            {
-                                "id": "T6VXVjgqGBXusSVY"
-                            },
-                            {
-                                "id": "VVTdSugZYXwWMIqG"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Pr9Ih78tzMSQfxvf"
-                            },
-                            {
-                                "id": "7YdPP01kBJ4BN5CS"
-                            },
-                            {
-                                "id": "D5sHvAzd2vbdfA3E"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "iUZaBJdkAt5wfkw9"
-                            },
-                            {
-                                "id": "Qc0rR7NFVpIq7lgF"
-                            },
-                            {
-                                "id": "ECGCJIVLGkNeDpoK"
-                            }
-                        ]
+                    "e30481rbp6g1b2cgivij": {
+                        "damage": "2d6",
+                        "damageType": "poison"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "mod": 0,
-                    "value": 28
+                "description": {
+                    "value": ""
                 },
-                "tradition": {
-                    "value": "primal"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
         },
         {
-            "_id": "CGIXYmLYYlMz2iRx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 4500000,
+            "_id": "An7ZmOxkCPkGUuBN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 3300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 4
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+13",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "icUrUnsfgvWuac89",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 3400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-25"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "w6hxoqW1tHgrDy7z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uara7mD6sRfBQr3k",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DF8EHlGsG4hDnHIf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Countered by Metal",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the forest dragon takes damage from a metal item, they lose woodland stride and @UUID[Compendium.pf2e.spells-srd.Item.Vanishing Tracks] until the end of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tHyoisfllt6q3L0n",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Fed by Water",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> The forest dragon is targeted with a water spell or effect</p>\n<hr />\n<p><strong>Effect</strong> The forest dragon gains [[/r 35 #Temporary Hit Points]]{35 temporary Hit Points}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n7ZxA7v0OJE04AGq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>90 feet. @Check[will|dc:32]</p>\n<p>Animals, fungi, and plants take a -2 circumstance penalty to the save.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k2Num39uDHGiZwTm",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon unleashes a swarm of insects that deals @Damage[14d6[piercing]|options:area-damage] damage in a @Template[cone|distance:40] (@Check[reflex|dc:34|basic|options:area-effect] save) before dispersing.</p>\n<p>A creature that critically fails is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2} from the insects' venom; this is a poison effect.</p>\n<p>The dragon can't use Breath Weapon again for [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aA0Li6f8IO68qqXw",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draining Blight",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws moisture from the living creatures surrounding them, using the energy to heal their own wounds. Each living creature in a @Template[emanation|distance:30] takes @Damage[7d10[void]] damage (@Check[fortitude|dc:34|basic] save). Creatures made entirely of water and plant creatures use the outcome one degree of success worse than they rolled. The dragon regains Hit Points equal to half of the highest damage a single creature takes from this effect.</p>\n<p>In addition, all non-creature plant life in the area withers and dies, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. Water is also consumed in the same way, typically lowering any standing body of water fully within the area by 1 foot.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -2727,21 +2605,143 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 34,
-                    "mod": 0,
-                    "value": 26
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "primal",
+                        "void"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "BISNEn6kmVke1CIR",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Forest Shape",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When casting @UUID[Compendium.pf2e.spells-srd.Item.One with Plants], a forest dragon can become a tree of the same size and age as themself.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7101NEoU5qf7eU5R",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OmV6E3aELvq9CkK1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Greater Constrict",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(3d8+10)[bludgeoning]], @Check[fortitude|dc:34|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gKuOYzPHRi2J8prN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Woodland Stride",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The forest dragon ignores difficult terrain and greater difficult terrain from non-magical foliage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LIQcObuGu1wqBnEw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Forest Dragon (Adult, Spellcaster)",

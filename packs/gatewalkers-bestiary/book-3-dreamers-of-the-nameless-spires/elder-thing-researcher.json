@@ -4,126 +4,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v9z1taBmlGuVM7Zm",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
+            "_id": "liouO7rHySVjJsMQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.flanking.flankable",
-                        "value": false
-                    }
-                ],
-                "slug": "all-around-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DCbuVdQclevXPjUY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No Breath",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The elder thing doesn't breathe and is immune to effects that require breathing (such as inhaled poison).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IqLj0uUzcI9grDrX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Damage[(2d8+11)[bludgeoning]], @Check[fortitude|dc:29|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constrict",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RmKdsKEfoNudv9pM",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Eldritch Insight",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By focusing its senses and thoughts on a single concept, an elder thing researcher can draw upon the thousands of years of deep memories. It then selects one of the following skills: Arcana, any Lore, Nature, Religion, or Society. Once the skill is chosen, the elder thing researcher can attempt checks for the selected skill using its Occultism modifier. This effect lasts until the elder thing researcher uses Eldritch Insight again to change its focus. If no focus is predetermined, assume an elder thing researcher has chosen to focus on Library Lore.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -132,194 +27,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "LK4VNOVpPq6RL0yt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hibernate",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elder thing enters a state of hibernation after focusing its thoughts for 1 minute. While hibernating, an elder thing is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. The elder thing can remain in hibernation as long as it wishes—while hibernating, it doesn't need to eat or drink, nor does it age. Time effectively stands still for a hibernating elder thing. Any effect that would normally rouse an unconscious creature can end an elder thing's hibernation, but the elder thing must attempt a @Check[will|dc:25] save. On a success, the elder thing awakens in [[/br 2d4 #rounds]]{2d4 rounds}; otherwise it takes [[/gmr 1d4 #days]]{1d4 days} to wake from hibernation. The elder thing can set the length of its hibernation when it enters this state, so that it can awaken after a set amount of time has passed. When awakening in this way, the elder thing does so in only [[/gmr 1d4 #rounds]]{1d4 rounds}, with no Will save necessary.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "u5GTApHX3VzknRwK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unnatural Flight",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elder thing's wings allow it to fly in regions where flight is normally impossible, such as outer space. It gains a +2 circumstance bonus to checks made to Maneuver in Flight, and on saving throws against effects that impede flight.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:maneuver-in-flight",
-                                    "impedes-flight"
-                                ]
-                            }
-                        ],
-                        "selector": [
-                            "acrobatics",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dgU39yt7vi6DMS4l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xxTLEQsMjvG8rGrK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Astronomy Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "P8IQ6ZCkBlpXu99p",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tentacle",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "L0pkWjYXoOcTYmrM": {
-                        "damage": "2d8+11",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "9SGsVPJWMvkVzgsv",
@@ -328,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/black-tentacles.webp",
             "name": "Black Tentacles",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "details": "20-foot burst adjacent to a flat surface",
@@ -410,7 +131,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-probe.webp",
             "name": "Mind Probe",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -478,7 +199,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-entity.webp",
             "name": "Summon Entity",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -538,7 +259,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -610,7 +331,7 @@
             },
             "img": "icons/magic/light/orb-lightbulb-gray.webp",
             "name": "Hypercognition",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -669,7 +390,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -737,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -824,7 +545,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -905,7 +626,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -991,7 +712,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1070,7 +791,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1133,7 +854,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1251,21 +972,172 @@
             "type": "spell"
         },
         {
-            "_id": "liouO7rHySVjJsMQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2200000,
+            "_id": "P8IQ6ZCkBlpXu99p",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 1400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "L0pkWjYXoOcTYmrM": {
+                        "damage": "2d8+11",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "v9z1taBmlGuVM7Zm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DCbuVdQclevXPjUY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No Breath",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The elder thing doesn't breathe and is immune to effects that require breathing (such as inhaled poison).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IqLj0uUzcI9grDrX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(2d8+11)[bludgeoning]], @Check[fortitude|dc:29|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RmKdsKEfoNudv9pM",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Eldritch Insight",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> By focusing its senses and thoughts on a single concept, an elder thing researcher can draw upon the thousands of years of deep memories. It then selects one of the following skills: Arcana, any Lore, Nature, Religion, or Society. Once the skill is chosen, the elder thing researcher can attempt checks for the selected skill using its Occultism modifier. This effect lasts until the elder thing researcher uses Eldritch Insight again to change its focus. If no focus is predetermined, assume an elder thing researcher has chosen to focus on Library Lore.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
                     "value": 1
                 },
                 "publication": {
@@ -1274,20 +1146,148 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "occult"
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "LK4VNOVpPq6RL0yt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hibernate",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elder thing enters a state of hibernation after focusing its thoughts for 1 minute. While hibernating, an elder thing is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. The elder thing can remain in hibernation as long as it wishes—while hibernating, it doesn't need to eat or drink, nor does it age. Time effectively stands still for a hibernating elder thing. Any effect that would normally rouse an unconscious creature can end an elder thing's hibernation, but the elder thing must attempt a @Check[will|dc:25] save. On a success, the elder thing awakens in [[/br 2d4 #rounds]]{2d4 rounds}; otherwise it takes [[/gmr 1d4 #days]]{1d4 days} to wake from hibernation. The elder thing can set the length of its hibernation when it enters this state, so that it can awaken after a set amount of time has passed. When awakening in this way, the elder thing does so in only [[/gmr 1d4 #rounds]]{1d4 rounds}, with no Will save necessary.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u5GTApHX3VzknRwK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unnatural Flight",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elder thing's wings allow it to fly in regions where flight is normally impossible, such as outer space. It gains a +2 circumstance bonus to checks made to Maneuver in Flight, and on saving throws against effects that impede flight.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:maneuver-in-flight",
+                                    "impedes-flight"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "acrobatics",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dgU39yt7vi6DMS4l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xxTLEQsMjvG8rGrK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Astronomy Lore",
+            "sort": 2200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Elder Thing Researcher",

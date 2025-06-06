@@ -4,464 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1ybGVGiiZvKRpwj6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Keen Eyes",
+            "_id": "HWKqS2hb8WK0TBCm",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to @Check[flat|dc:3] for a concealed target or @Check[flat|dc:9] for a hidden one.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:seek",
-                            {
-                                "lte": [
-                                    "target:distance",
-                                    30
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "target:hidden",
-                                    "target:undetected"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IQNTWspsqaGDIDRb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tale Specialist",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving storytelling, local history, or lore, the yarnspinner is a 10th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7r5gV2gIAB62lc4v",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Guidance Through Tales",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally the yarnspinner can see fails a skill check</p><hr /><p><strong>Effect</strong> The yarnspinner offers a brief reminder about a legendary hero, granting their ally a +2 circumstance bonus to the triggering skill check, potentially turning the failure into a success.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1lH0btC4rnVMf7RA",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Mesmerizing Tale",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The yarnspinner weaves a long-winded but captivating narrative that enchants those nearby. Any creature that's in a @Template[type:emanation|distance:20] or starts its turn in the aura must attempt a @Check[will|dc:24] save. The Mesmerizing Tale lasts until the end of the yarnspinner's next turn, but can be Sustained. The first time the yarnspinner Sustains the aura on subsequent rounds, the aura expands by 10 feet, to a maximum of 60 feet.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the yarnspinner until the start of its next turn, and must spend all its actions to move closer to the yarnspinner and listen to the tale.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "mesmerizing-tale",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.Foot.Preformatted.20",
-                                "value": "20"
-                            },
-                            {
-                                "label": "PF2E.Foot.Preformatted.30",
-                                "value": "30"
-                            },
-                            {
-                                "label": "PF2E.Foot.Preformatted.40",
-                                "value": "40"
-                            },
-                            {
-                                "label": "PF2E.Foot.Preformatted.50",
-                                "value": "50"
-                            },
-                            {
-                                "label": "PF2E.Foot.Preformatted.60",
-                                "value": "60"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "mesmerizing-tale"
-                        ],
-                        "radius": "{item|flags.pf2e.rulesSelections.mesmerizingTale}",
-                        "slug": "mesmerizing-tale",
-                        "traits": [
-                            "auditory",
-                            "incapacitation",
-                            "linguistic",
-                            "mental",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "aura",
-                        "incapacitation",
-                        "linguistic",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uZGRPTmda1grN4Gf",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resonant Weapons",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If the yarnspinner's Mesmerizing Tale aura is active or they have cast a spell within the last round, their Strikes with magic weapons deal an additional 2d10 sonic damage.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "resonant-weapons",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "sonic",
-                        "diceNumber": 2,
-                        "dieSize": "d10",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "item:magical",
-                            {
-                                "or": [
-                                    "mesmerizing-tale",
-                                    "resonant-weapons"
-                                ]
-                            },
-                            {
-                                "not": "item:category:unarmed"
-                            }
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CtWDTtX86WiDyl3u",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt",
-            "sort": 600000,
-            "system": {
-                "acBonus": 2,
-                "baseItem": "chain-shirt",
-                "bulk": {
-                    "value": 1
-                },
-                "category": "light",
-                "checkPenalty": -1,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
-                },
-                "dexCap": 3,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-shirt",
-                "speedPenalty": 0,
-                "strength": 1,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "lPov4EAeXKaFF5JL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
-            "name": "Sling Bullets",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "sling-bullets",
-                "stackGroup": "slingBullets",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "Da7KmnELYeHkJjdV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
-            },
-            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
-            "name": "Book of Fables",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "formula-book-blank",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Zq592UUZaG6Owfy6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "History Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -469,141 +27,35 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "j2P95efbrgCVUIXt",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "BA90gIL1Ofulq93p"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "resonant-weapons"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "BgdgAecczjE9JrDe": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "shortsword",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "qTJjqZQCHmflRtgY",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "NVA7MIeNeAnSQB0f": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "onTPM7z5PRs6b9q6",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "4irqDuKeCefDuj3V"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Halfling Sling Staff",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "resonant-weapons"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "H37Z2ODjcleRiYX1": {
-                        "damage": "1d10+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "halfling-sling-staff",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "propulsive",
-                        "range-increment-30",
-                        "reload-1"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "KwbOiR6yBuCKocsR",
@@ -612,7 +64,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -690,7 +142,7 @@
             },
             "img": "systems/pf2e/icons/spells/glibness.webp",
             "name": "Honeyed Words",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -751,7 +203,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -823,7 +275,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 1600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -895,7 +347,7 @@
             },
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 1700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -957,7 +409,7 @@
             },
             "img": "icons/magic/symbols/star-inverted-yellow.webp",
             "name": "Ring of Truth",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1028,7 +480,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1090,7 +542,7 @@
             },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Laughing Fit",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1158,7 +610,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1230,7 +682,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1317,7 +769,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2300000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1384,7 +836,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1447,7 +899,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 2500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1510,7 +962,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 2600000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1576,7 +1028,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1640,7 +1092,7 @@
             },
             "img": "systems/pf2e/icons/spells/mindlink.webp",
             "name": "Mindlink",
-            "sort": 2800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1702,7 +1154,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1781,7 +1233,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 3000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1862,7 +1314,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 3100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1943,7 +1395,7 @@
             },
             "img": "icons/magic/control/control-influence-puppet.webp",
             "name": "Ventriloquism",
-            "sort": 3200000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2002,67 +1454,13 @@
             "type": "spell"
         },
         {
-            "_id": "HWKqS2hb8WK0TBCm",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 3300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "4irqDuKeCefDuj3V",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.DV4qelKHrviM0O5i"
             },
             "img": "icons/weapons/staves/staff-ornate-wood.webp",
             "name": "Halfling Sling Staff",
-            "sort": 3400000,
+            "sort": 2200000,
             "system": {
                 "baseItem": "halfling-sling-staff",
                 "bonus": {
@@ -2148,7 +1546,7 @@
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 3500000,
+            "sort": 2300000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -2227,6 +1625,608 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "CtWDTtX86WiDyl3u",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MPcM4Wt6KmWE2kGL"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
+            "name": "Chain Shirt",
+            "sort": 2400000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "chain-shirt",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-shirt",
+                "speedPenalty": 0,
+                "strength": 1,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "Da7KmnELYeHkJjdV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Book of Fables",
+            "sort": 2500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "formula-book-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "lPov4EAeXKaFF5JL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
+            "name": "Sling Bullets",
+            "sort": 2600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "sling-bullets",
+                "stackGroup": "slingBullets",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "j2P95efbrgCVUIXt",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "BA90gIL1Ofulq93p"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 2700000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "resonant-weapons"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "BgdgAecczjE9JrDe": {
+                        "damage": "1d6+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shortsword",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qTJjqZQCHmflRtgY",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "NVA7MIeNeAnSQB0f": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "onTPM7z5PRs6b9q6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "4irqDuKeCefDuj3V"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Halfling Sling Staff",
+            "sort": 2900000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "resonant-weapons"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "H37Z2ODjcleRiYX1": {
+                        "damage": "1d10+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "halfling-sling-staff",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "propulsive",
+                        "range-increment-30",
+                        "reload-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1ybGVGiiZvKRpwj6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Keen Eyes",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to @Check[flat|dc:3] for a concealed target or @Check[flat|dc:9] for a hidden one.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    30
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IQNTWspsqaGDIDRb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tale Specialist",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving storytelling, local history, or lore, the yarnspinner is a 10th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7r5gV2gIAB62lc4v",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Guidance Through Tales",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally the yarnspinner can see fails a skill check</p><hr /><p><strong>Effect</strong> The yarnspinner offers a brief reminder about a legendary hero, granting their ally a +2 circumstance bonus to the triggering skill check, potentially turning the failure into a success.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1lH0btC4rnVMf7RA",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Mesmerizing Tale",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The yarnspinner weaves a long-winded but captivating narrative that enchants those nearby. Any creature that's in a @Template[type:emanation|distance:20] or starts its turn in the aura must attempt a @Check[will|dc:24] save. The Mesmerizing Tale lasts until the end of the yarnspinner's next turn, but can be Sustained. The first time the yarnspinner Sustains the aura on subsequent rounds, the aura expands by 10 feet, to a maximum of 60 feet.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the yarnspinner until the start of its next turn, and must spend all its actions to move closer to the yarnspinner and listen to the tale.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mesmerizing-tale",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Foot.Preformatted.20",
+                                "value": "20"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.30",
+                                "value": "30"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.40",
+                                "value": "40"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.50",
+                                "value": "50"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.60",
+                                "value": "60"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "mesmerizing-tale"
+                        ],
+                        "radius": "{item|flags.pf2e.rulesSelections.mesmerizingTale}",
+                        "slug": "mesmerizing-tale",
+                        "traits": [
+                            "auditory",
+                            "incapacitation",
+                            "linguistic",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "incapacitation",
+                        "linguistic",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uZGRPTmda1grN4Gf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resonant Weapons",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the yarnspinner's Mesmerizing Tale aura is active or they have cast a spell within the last round, their Strikes with magic weapons deal an additional 2d10 sonic damage.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "resonant-weapons",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "sonic",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:magical",
+                            {
+                                "or": [
+                                    "mesmerizing-tale",
+                                    "resonant-weapons"
+                                ]
+                            },
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zq592UUZaG6Owfy6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "History Lore",
+            "sort": 3500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Halfling Yarnspinner",

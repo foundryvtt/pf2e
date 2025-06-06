@@ -4,338 +4,175 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "FByIi64kp8hJjz6z",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
+            "_id": "iANjSUKpA2j8q0g1",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3QJY9QrJIcqYhDrN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Es8g7kZrLAuNdiD1"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Miasma",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 foot, @Check[fortitude|dc:37]{DC equal to the siabrae's spell DC - 4}.</p>\n<hr />\n<p>A creature that enters the aura or begins its turn there becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a failure (or sickened 4 on a critical failure). An animal, fey, or plant that rolls a failure gets a critical failure instead. Regardless of the result of the saving throw, the creature is temporarily immune to the siabrae's miasma for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Book of the Dead"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "miasma",
-                        "traits": [
-                            "disease",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": "siabrae-miasma",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "disease",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SQt7rET9Z2MgoK8E",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.gbKpCw21tEmehq6e"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a siabrae is destroyed, they can attempt a @Check[flat|dc:10] (they automatically succeed if they're standing on blighted or diseased terrain, and automatically fail if they're standing on sacred ground). If the flat check succeeds, the siabrae's body crumbles to dust and absorbs into the earth. After [[/gmr 1d10 #days]]{1d10 days}, the siabrae's body reforms from a mass of unworked stone large enough to create a new body; this stone is in a random location within 1d10 miles of where the siabrae was destroyed. The siabrae emerges from the stone with a peal of thunder, though without any of their gear.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Book of the Dead"
-                },
-                "rules": [],
-                "slug": "siabrae-rejuvenation",
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IWjuKGNq99Q9FpWw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    },
-                    {
-                        "exceptions": [
-                            {
-                                "definition": [
-                                    "item:magical",
-                                    "damage:type:bludgeoning"
-                                ],
-                                "label": "PF2E.IWR.Custom.MagicalBludgeoning"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "type": "physical",
-                        "value": 15
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qDKNtEMBCrIlKW6A",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.jciRdEHgGNGFXLsg"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blight Mastery",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any of the siabrae's spells or effects that would normally be restricted to affecting animals can also affect undead animals. Furthermore, any animals the siabrae takes the form of or summons appear to be diseased, malnourished, or even dead and rotting. (This doesn't affect their statistics.)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Book of the Dead"
-                },
-                "rules": [],
-                "slug": "siabrae-blight-mastery",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aU4ED1uwXIfy7MTJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.DIYZNvVP28U2UnDb"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Earth Glide",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The siabrae can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through any earthen matter, including rock. When it does so, the siabrae moves at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Book of the Dead"
-                },
-                "rules": [],
-                "slug": "siabrae-earth-glide",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xrhhvmqzd4qp9cx9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a reaction would disrupt the siabrae's spellcasting action, the siabrae attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DLfsz7D9pLNSqIlT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.WUXY9F8SLVQSC2b8"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stony Shards",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Tiny shards break off the siabrae's antlers when they attack, lodging in the target's wounds and inflicting a terrible curse. A creature damaged by a siabrae's stone antlers Strike must succeed at a @Check[fortitude|dc:37] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for [[/r 1d4 #rounds]]{1d4 rounds} on a failure. If the creature critically fails, or fails while already clumsy 2 or greater, the creature is petrified.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Book of the Dead"
-                },
-                "rules": [],
-                "slug": "siabrae-stony-shards",
-                "traits": {
-                    "value": [
-                        "curse",
-                        "earth",
-                        "incapacitation",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qbupjn2tlljiraow",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Stone Antler",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "siabrae-stony-shards"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "bR98KFk2tL9DD7Ey": {
-                        "damage": "5d6+12",
-                        "damageType": "bludgeoning"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "rQoDQleJ6FlwIVQE"
+                            },
+                            {
+                                "id": "YNrca3VfTXpgW1Ff"
+                            },
+                            {
+                                "id": "78NWBfui6g4VEsRX"
+                            },
+                            {
+                                "id": "h8mOxqF564n3nk4q"
+                            },
+                            {
+                                "id": "PVZ499Xmuk0XpWQB"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "zNWXDcM7nneabctY"
+                            },
+                            {
+                                "id": "DMIjPc92jrseM4Bf"
+                            },
+                            {
+                                "id": "mmEXwgX5Fhj3S9pn"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "861QJMFJ1SqpdK5e"
+                            },
+                            {
+                                "id": "kZXj0QJ7UY9QvhJs"
+                            },
+                            {
+                                "id": "dvACWIY7VTgSscxe"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "nXXEsE47ec3GnYE3"
+                            },
+                            {
+                                "id": "0qKL5VwZ0LOszZQb"
+                            },
+                            {
+                                "id": "Y1oKBuh6NnlTaehL"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "1kdxjXBulTVsrhIf"
+                            },
+                            {
+                                "id": "A5wljCTgVrS97TVo"
+                            },
+                            {
+                                "id": "PNugstzd466Ewb1c"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "dkoUTQa64laavj2n"
+                            },
+                            {
+                                "id": "fneYq7OhkM4bZ7bF"
+                            },
+                            {
+                                "id": "d82xkS1eNAMmLJBQ"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "eWK4X68upEQwyAV7"
+                            },
+                            {
+                                "id": "ozAVRh3AqL1p8MZB"
+                            },
+                            {
+                                "id": "MyVj5dmQDI3k4Z1D"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "IcKJSKyJHVvtRRCc"
+                            },
+                            {
+                                "id": "aQrpNdr8QmcCiY9b"
+                            },
+                            {
+                                "id": "KyEpsS0ner0TTpcy"
+                            }
+                        ]
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "v1N9dTAHIjWHuEq1"
+                            },
+                            {
+                                "id": "KyEpsS0ner0TTpcy"
+                            },
+                            {
+                                "id": "YrofZ2VA2na78Cr5"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 41,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "aQrpNdr8QmcCiY9b",
@@ -344,7 +181,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +296,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -543,7 +380,7 @@
             },
             "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
             "name": "Cursed Metamorphosis",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -612,7 +449,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Petrify",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -678,7 +515,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -741,7 +578,7 @@
             },
             "img": "systems/pf2e/icons/spells/impaling-spike.webp",
             "name": "Impaling Spike",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -827,7 +664,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -889,7 +726,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -950,7 +787,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1029,7 +866,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1097,7 +934,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1163,7 +1000,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1250,7 +1087,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1337,7 +1174,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1413,7 +1250,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1493,7 +1330,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1555,7 +1392,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Mist",
-            "sort": 2600000,
+            "sort": 1800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1619,7 +1456,7 @@
             },
             "img": "icons/magic/nature/tree-twisted-glow-yellow.webp",
             "name": "One with Plants",
-            "sort": 2700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1681,7 +1518,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Revealing Light",
-            "sort": 2800000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1752,7 +1589,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 2900000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1840,7 +1677,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1920,7 +1757,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 3100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2005,7 +1842,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 3200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2085,7 +1922,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 3300000,
+            "sort": 2500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -2165,7 +2002,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 3400000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2359,7 +2196,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 3500000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2469,7 +2306,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 3600000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2532,7 +2369,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 3700000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2590,184 +2427,13 @@
             "type": "spell"
         },
         {
-            "_id": "iANjSUKpA2j8q0g1",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 3800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "rQoDQleJ6FlwIVQE"
-                            },
-                            {
-                                "id": "YNrca3VfTXpgW1Ff"
-                            },
-                            {
-                                "id": "78NWBfui6g4VEsRX"
-                            },
-                            {
-                                "id": "h8mOxqF564n3nk4q"
-                            },
-                            {
-                                "id": "PVZ499Xmuk0XpWQB"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "zNWXDcM7nneabctY"
-                            },
-                            {
-                                "id": "DMIjPc92jrseM4Bf"
-                            },
-                            {
-                                "id": "mmEXwgX5Fhj3S9pn"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "861QJMFJ1SqpdK5e"
-                            },
-                            {
-                                "id": "kZXj0QJ7UY9QvhJs"
-                            },
-                            {
-                                "id": "dvACWIY7VTgSscxe"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "nXXEsE47ec3GnYE3"
-                            },
-                            {
-                                "id": "0qKL5VwZ0LOszZQb"
-                            },
-                            {
-                                "id": "Y1oKBuh6NnlTaehL"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "1kdxjXBulTVsrhIf"
-                            },
-                            {
-                                "id": "A5wljCTgVrS97TVo"
-                            },
-                            {
-                                "id": "PNugstzd466Ewb1c"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "dkoUTQa64laavj2n"
-                            },
-                            {
-                                "id": "fneYq7OhkM4bZ7bF"
-                            },
-                            {
-                                "id": "d82xkS1eNAMmLJBQ"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "eWK4X68upEQwyAV7"
-                            },
-                            {
-                                "id": "ozAVRh3AqL1p8MZB"
-                            },
-                            {
-                                "id": "MyVj5dmQDI3k4Z1D"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "IcKJSKyJHVvtRRCc"
-                            },
-                            {
-                                "id": "aQrpNdr8QmcCiY9b"
-                            },
-                            {
-                                "id": "KyEpsS0ner0TTpcy"
-                            }
-                        ]
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "v1N9dTAHIjWHuEq1"
-                            },
-                            {
-                                "id": "KyEpsS0ner0TTpcy"
-                            },
-                            {
-                                "id": "YrofZ2VA2na78Cr5"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "1C0uyPyZIw78ORKB",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.RDoxgjEFsherGA5x"
             },
             "img": "icons/weapons/staves/staff-simple-wrapped.webp",
             "name": "Staff of the Tempest (Major)",
-            "sort": 3900000,
+            "sort": 3000000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -2846,6 +2512,340 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "qbupjn2tlljiraow",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stone Antler",
+            "sort": 3100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "siabrae-stony-shards"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "bR98KFk2tL9DD7Ey": {
+                        "damage": "5d6+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FByIi64kp8hJjz6z",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3QJY9QrJIcqYhDrN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.Es8g7kZrLAuNdiD1"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Miasma",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 foot, @Check[fortitude|dc:37]{DC equal to the siabrae's spell DC - 4}.</p>\n<hr />\n<p>A creature that enters the aura or begins its turn there becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a failure (or sickened 4 on a critical failure). An animal, fey, or plant that rolls a failure gets a critical failure instead. Regardless of the result of the saving throw, the creature is temporarily immune to the siabrae's miasma for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Book of the Dead"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "miasma",
+                        "traits": [
+                            "disease",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": "siabrae-miasma",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "disease",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SQt7rET9Z2MgoK8E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.gbKpCw21tEmehq6e"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a siabrae is destroyed, they can attempt a @Check[flat|dc:10] (they automatically succeed if they're standing on blighted or diseased terrain, and automatically fail if they're standing on sacred ground). If the flat check succeeds, the siabrae's body crumbles to dust and absorbs into the earth. After [[/gmr 1d10 #days]]{1d10 days}, the siabrae's body reforms from a mass of unworked stone large enough to create a new body; this stone is in a random location within 1d10 miles of where the siabrae was destroyed. The siabrae emerges from the stone with a peal of thunder, though without any of their gear.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Book of the Dead"
+                },
+                "rules": [],
+                "slug": "siabrae-rejuvenation",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IWjuKGNq99Q9FpWw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    },
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "damage:type:bludgeoning"
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalBludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qDKNtEMBCrIlKW6A",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.jciRdEHgGNGFXLsg"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blight Mastery",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any of the siabrae's spells or effects that would normally be restricted to affecting animals can also affect undead animals. Furthermore, any animals the siabrae takes the form of or summons appear to be diseased, malnourished, or even dead and rotting. (This doesn't affect their statistics.)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Book of the Dead"
+                },
+                "rules": [],
+                "slug": "siabrae-blight-mastery",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aU4ED1uwXIfy7MTJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.DIYZNvVP28U2UnDb"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Earth Glide",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The siabrae can @UUID[Compendium.pf2e.actionspf2e.Item.Burrow] through any earthen matter, including rock. When it does so, the siabrae moves at its full burrow Speed, leaving no tunnels or signs of its passing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Book of the Dead"
+                },
+                "rules": [],
+                "slug": "siabrae-earth-glide",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xrhhvmqzd4qp9cx9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If a reaction would disrupt the siabrae's spellcasting action, the siabrae attempts a @Check[flat|dc:15]. On a success, the action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DLfsz7D9pLNSqIlT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.WUXY9F8SLVQSC2b8"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stony Shards",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Tiny shards break off the siabrae's antlers when they attack, lodging in the target's wounds and inflicting a terrible curse. A creature damaged by a siabrae's stone antlers Strike must succeed at a @Check[fortitude|dc:37] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for [[/r 1d4 #rounds]]{1d4 rounds} on a failure. If the creature critically fails, or fails while already clumsy 2 or greater, the creature is petrified.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Book of the Dead"
+                },
+                "rules": [],
+                "slug": "siabrae-stony-shards",
+                "traits": {
+                    "value": [
+                        "curse",
+                        "earth",
+                        "incapacitation",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Irshandi",

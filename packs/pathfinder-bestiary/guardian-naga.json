@@ -3,50 +3,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "sTnyQQeOWiyHDhNt",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Guardian Naga Venom",
+            "_id": "bcGhVPJyGDyUGvLK",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "guardian-naga-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4jjv1SXoMY3MpGjE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Heaven Lore",
-            "sort": 200000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 21
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "proficient": {
+                "proficiency": {
                     "value": 0
                 },
                 "publication": {
@@ -55,99 +27,42 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xxW4UJbrz9uwTSQs",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "guardian-naga-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "uzw2c90f7a88rx6pdiky": {
-                        "damage": "2d8+8",
-                        "damageType": "piercing"
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 21
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "ocNVtm84bTjxf93b",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spit",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "guardian-naga-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "poison",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Ebpc0Vj66PXeGoNb",
@@ -156,7 +71,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -228,7 +143,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Death Ward",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -290,7 +205,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -378,7 +293,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -440,7 +355,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -502,7 +417,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -564,7 +479,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Neutralize Poison",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -626,7 +541,7 @@
             },
             "img": "icons/magic/death/skull-poison-green.webp",
             "name": "Remove Disease",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -688,7 +603,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 1300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -787,7 +702,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm Emotions",
-            "sort": 1400000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -859,7 +774,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1500000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -922,7 +837,7 @@
             },
             "img": "icons/magic/life/heart-cross-strong-green.webp",
             "name": "Restoration",
-            "sort": 1600000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -985,7 +900,7 @@
             },
             "img": "icons/magic/life/heart-cross-strong-green.webp",
             "name": "Restoration",
-            "sort": 1700000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1048,7 +963,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 1800000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1111,7 +1026,7 @@
             },
             "img": "icons/magic/fire/orb-vortex.webp",
             "name": "Sound Burst",
-            "sort": 1900000,
+            "sort": 1600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1198,7 +1113,7 @@
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 2000000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1260,7 +1175,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2100000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1347,7 +1262,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2200000,
+            "sort": 1900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1414,7 +1329,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2300000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1611,7 +1526,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2400000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1675,7 +1590,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 2500000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1756,7 +1671,7 @@
             },
             "img": "systems/pf2e/icons/spells/protection.webp",
             "name": "Protection",
-            "sort": 2600000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1817,7 +1732,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 2700000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1898,7 +1813,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2800000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1977,7 +1892,7 @@
             },
             "img": "icons/magic/control/energy-stream-link-teal.webp",
             "name": "Spirit Link",
-            "sort": 2900000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2057,7 +1972,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 3000000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2114,22 +2029,140 @@
             "type": "spell"
         },
         {
-            "_id": "bcGhVPJyGDyUGvLK",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Spontaneous Spells",
-            "sort": 3100000,
+            "_id": "xxW4UJbrz9uwTSQs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "guardian-naga-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "uzw2c90f7a88rx6pdiky": {
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ocNVtm84bTjxf93b",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spit",
+            "sort": 2900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "guardian-naga-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "poison",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sTnyQQeOWiyHDhNt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Guardian Naga Venom",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:29]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "guardian-naga-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4jjv1SXoMY3MpGjE",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Heaven Lore",
+            "sort": 3100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
                     "value": 0
                 },
                 "publication": {
@@ -2138,42 +2171,9 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                }
+                "slug": null
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Guardian Naga",

@@ -4,416 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qsM56DgJzGj32GeV",
-            "_stats": {
-                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Herbalism Specialist",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving collecting herbs or making medicine from them, the local herbalist is a 3rd-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "izSaCIw4v1IAkBWC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Natural Medicine",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The herbalist can use Nature instead of Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] or @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], and gains a +3 circumstance bonus to the check if they're in the wilderness with access to fresh herbal ingredients.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:treat-wounds",
-                                    "action:administer-first-aid"
-                                ]
-                            },
-                            "fresh-ingredients"
-                        ],
-                        "selector": "nature",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": "natural-medicine",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LRgxvPy1oxQ9T5tz",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Saving Touch",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> An ally close enough for the herbalist to reach with a Stride is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The herbalist Strides until adjacent to the ally and @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid]{Administers First Aid} to that ally.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FsPGffsbBkLFFt7B",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Prompt Poultice",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The local herbalist quickly mixes together a potent healing salve with the most precious ingredients from their medicine bag. They create a temporary @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)]{lesser elixir of life}. This elixir remains potent for 1 round before becoming sour and useless.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8YMHUOAUiqhBEHAU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yf7maiRDmmHAyF82"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/cookware.webp",
-            "name": "Cooking Pot",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 2
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "cookware",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Om2pp8mnsEHdwCUT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
-            },
-            "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Medicine Bag (Functions as a Healer's Toolkit)",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "healers-toolkit",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "qO0RYh2SGAN4xp3N",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "W2OH0N8lRkDyBZx6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "SHJOJOR1VUD4Ea33": {
-                        "damage": "1d4+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageDice",
-                        "label": "PF2E.TraitTwoHandD8",
-                        "override": {
-                            "dieSize": "d8"
-                        },
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    }
-                ],
-                "slug": "staff",
-                "traits": {
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "h1XHTb5q3a6J1D81",
-            "_stats": {
-                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.DV9NQLrI4FouRCpe"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "OOs2CeoJ0b6QQtF5": {
-                        "damage": "1d4+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Qm4xkx5fQOkUH1XS",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fungal Spores",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "Ts4qewlqKEcFUOlp": {
-                        "damage": "1d4",
-                        "damageType": "poison"
-                    },
-                    "xofSWjdDseJygaOJ": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fungus",
-                        "poison",
-                        "range-increment-10"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "W2OH0N8lRkDyBZx6",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU"
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 1000000,
+            "sort": 100000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -489,6 +86,409 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "8YMHUOAUiqhBEHAU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yf7maiRDmmHAyF82"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/cookware.webp",
+            "name": "Cooking Pot",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 2
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "cookware",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Om2pp8mnsEHdwCUT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Medicine Bag (Functions as a Healer's Toolkit)",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace its tools as part of the action that uses them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qO0RYh2SGAN4xp3N",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "W2OH0N8lRkDyBZx6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "SHJOJOR1VUD4Ea33": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    }
+                ],
+                "slug": "staff",
+                "traits": {
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "h1XHTb5q3a6J1D81",
+            "_stats": {
+                "compendiumSource": "Actor.HjaMnN9ugE03tr7a.Item.DV9NQLrI4FouRCpe"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "OOs2CeoJ0b6QQtF5": {
+                        "damage": "1d4+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Qm4xkx5fQOkUH1XS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fungal Spores",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "Ts4qewlqKEcFUOlp": {
+                        "damage": "1d4",
+                        "damageType": "poison"
+                    },
+                    "xofSWjdDseJygaOJ": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fungus",
+                        "poison",
+                        "range-increment-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qsM56DgJzGj32GeV",
+            "_stats": {
+                "compendiumSource": "Actor.hHQNqQlKh6AEHmW9.Item.zNtJDSruQtC6hlYE"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Herbalism Specialist",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving collecting herbs or making medicine from them, the local herbalist is a 3rd-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "izSaCIw4v1IAkBWC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Natural Medicine",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The herbalist can use Nature instead of Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] or @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], and gains a +3 circumstance bonus to the check if they're in the wilderness with access to fresh herbal ingredients.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:treat-wounds",
+                                    "action:administer-first-aid"
+                                ]
+                            },
+                            "fresh-ingredients"
+                        ],
+                        "selector": "nature",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": "natural-medicine",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LRgxvPy1oxQ9T5tz",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Saving Touch",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> An ally close enough for the herbalist to reach with a Stride is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The herbalist Strides until adjacent to the ally and @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid]{Administers First Aid} to that ally.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FsPGffsbBkLFFt7B",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Prompt Poultice",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The local herbalist quickly mixes together a potent healing salve with the most precious ingredients from their medicine bag. They create a temporary @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)]{lesser elixir of life}. This elixir remains potent for 1 round before becoming sour and useless.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Local Herbalist",

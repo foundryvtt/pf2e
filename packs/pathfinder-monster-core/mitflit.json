@@ -3,135 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3TfIMe12rJpDf9LZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Self-Loathing",
+            "_id": "RUcX4XrsDpkjIiPy",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A mitflit's self-loathing makes it easy to influence. It takes a -4 penalty to its Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], and @UUID[Compendium.pf2e.actionspf2e.Item.Request].</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:coerce",
-                                    "action:demoralize",
-                                    "action:make-an-impression",
-                                    "action:request"
-                                ]
-                            }
-                        ],
-                        "selector": "will",
-                        "value": -4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CiirPvlIj0ZtuHce",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vengeful Anger",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>As long as it isn't @UUID[Compendium.pf2e.conditionitems.Item.Frightened], a mitflit gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "vengeful-anger",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "vengeful-anger",
-                            {
-                                "not": "self:condition:frightened"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LRT2YJWR1S18u4vp",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5BocjA6rG31MrfjU"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Shortsword",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "v2owiwtq9qenlunw27s0": {
-                        "damage": "1d6-1",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -139,70 +27,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Fa3Nn9PdJzbO1Fwg",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "6NikyAbgOET6bEOx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 16,
+                    "mod": 0,
                     "value": 8
                 },
-                "damageRolls": {
-                    "43o7xqnvnzqdq19bdyue": {
-                        "damage": "1d4-1",
-                        "damageType": "piercing"
-                    }
+                "tradition": {
+                    "value": "primal"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "QLpCft5YSm98kbx4",
@@ -211,7 +51,7 @@
             },
             "img": "icons/creatures/mammals/ox-buffalo-horned-green.webp",
             "name": "Speak with Animals (Arthropods Only, At Will)",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -270,7 +110,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -340,7 +180,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -397,55 +237,13 @@
             "type": "spell"
         },
         {
-            "_id": "RUcX4XrsDpkjIiPy",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 16,
-                    "mod": 0,
-                    "value": 8
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "5BocjA6rG31MrfjU",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
             },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "baseItem": "shortsword",
                 "bonus": {
@@ -532,7 +330,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -611,6 +409,208 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "LRT2YJWR1S18u4vp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5BocjA6rG31MrfjU"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shortsword",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "v2owiwtq9qenlunw27s0": {
+                        "damage": "1d6-1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Fa3Nn9PdJzbO1Fwg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6NikyAbgOET6bEOx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "43o7xqnvnzqdq19bdyue": {
+                        "damage": "1d4-1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3TfIMe12rJpDf9LZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Self-Loathing",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A mitflit's self-loathing makes it easy to influence. It takes a -4 penalty to its Will DC against checks to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce], @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], and @UUID[Compendium.pf2e.actionspf2e.Item.Request].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:coerce",
+                                    "action:demoralize",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
+                        "selector": "will",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CiirPvlIj0ZtuHce",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vengeful Anger",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As long as it isn't @UUID[Compendium.pf2e.conditionitems.Item.Frightened], a mitflit gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "vengeful-anger",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vengeful-anger",
+                            {
+                                "not": "self:condition:frightened"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Mitflit",

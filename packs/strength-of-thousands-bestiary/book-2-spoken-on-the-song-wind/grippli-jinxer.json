@@ -4,252 +4,96 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hsbe42545jfoe7te",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hypnotic Tattoos",
+            "_id": "rcfKJc8eFk2r7nEO",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a @Check[will|dc:22|name:Hypnotic Pattern|traits:grippli,humanoid] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @UUID[Compendium.pf2e.conditionitems.Item.Hidden] until the end of its turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D5SkUKuoy3RDeG52",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Baneback Poison",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d4[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "n4yyrfqm96flht4j",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Curse of Baneful Venom",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The jinxer magically intensifies toxins in their foes. Creatures within 30 feet of the jinxer that are currently afflicted by a poison immediately attempt their next saving throw against the poison with a -2 status penalty, then are temporarily immune to Curse of Baleful Venom for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Curse of the Baneful Venom]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hv2c8lpn9yu93j0v",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Jungle Stride",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Gripplis ignore difficult terrain in forests and jungles.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5rtp8utv175byoka",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "gYR7jSm4ZS1UOYJ4"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "baneback-poison"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "7NmXY4swAtlrujkY": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "label": "Spellcasting Type",
+                    "type": "String",
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "LCBDGAmuo44YAavB"
+                            },
+                            {
+                                "id": "qK1LfmmSASKKPWKB"
+                            },
+                            {
+                                "id": "4kwnmDzJcrx52Clh"
+                            },
+                            {
+                                "id": "a21em2OJsYuQ2BeF"
+                            },
+                            {
+                                "id": "ih4DHaZ2zEmq9BlH"
+                            }
+                        ],
+                        "value": 5
                     },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "YRC888LCDMpV1SWl"
+                            },
+                            {
+                                "id": "qamo6B2DJk7OkJh9"
+                            }
                         ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "qr7nF6Zk5iD7jW25"
+                            },
+                            {
+                                "id": "Qh0YBjgGGYpFQ7Px"
+                            }
                         ],
-                        "slug": "base",
-                        "value": 8
+                        "value": 3
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "p4zk0a2k91fz4tmg",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "klI26PoXAjFWb1bf"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "baneback-poison"
-                    ]
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 24,
+                    "item": 0,
+                    "label": "Class DC",
+                    "mod": 0,
+                    "type": "String",
                     "value": 16
                 },
-                "damageRolls": {
-                    "7q6iLjYjvjjaxVGv": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "llhYZbu1vKiLKYiM",
@@ -258,7 +102,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -327,7 +171,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -394,7 +238,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -457,7 +301,7 @@
             },
             "img": "icons/creatures/invertebrates/spider-beetle-runed-green.webp",
             "name": "Vomit Swarm",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -544,7 +388,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -614,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -700,7 +544,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -771,7 +615,7 @@
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -832,7 +676,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know Direction",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -895,7 +739,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -962,7 +806,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1024,7 +868,7 @@
             },
             "img": "icons/creatures/invertebrates/tick-cross-glowing-purple.webp",
             "name": "Spider Sting",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1101,7 +945,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-animal.webp",
             "name": "Summon Animal (Giant Cockroach, Giant Fly or Giant Tick only)",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1162,7 +1006,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1280,105 +1124,13 @@
             "type": "spell"
         },
         {
-            "_id": "rcfKJc8eFk2r7nEO",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Spellcasting Type",
-                    "type": "String",
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "LCBDGAmuo44YAavB"
-                            },
-                            {
-                                "id": "qK1LfmmSASKKPWKB"
-                            },
-                            {
-                                "id": "4kwnmDzJcrx52Clh"
-                            },
-                            {
-                                "id": "a21em2OJsYuQ2BeF"
-                            },
-                            {
-                                "id": "ih4DHaZ2zEmq9BlH"
-                            }
-                        ],
-                        "value": 5
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "YRC888LCDMpV1SWl"
-                            },
-                            {
-                                "id": "qamo6B2DJk7OkJh9"
-                            }
-                        ],
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "qr7nF6Zk5iD7jW25"
-                            },
-                            {
-                                "id": "Qh0YBjgGGYpFQ7Px"
-                            }
-                        ],
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 24,
-                    "item": 0,
-                    "label": "Class DC",
-                    "mod": 0,
-                    "type": "String",
-                    "value": 16
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "klI26PoXAjFWb1bf",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Tt4Qw64fwrxhr5gT"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "baseItem": "dart",
                 "bonus": {
@@ -1464,7 +1216,7 @@
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1539,6 +1291,254 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "5rtp8utv175byoka",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "gYR7jSm4ZS1UOYJ4"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "baneback-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "7NmXY4swAtlrujkY": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "p4zk0a2k91fz4tmg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "klI26PoXAjFWb1bf"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "baneback-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "7q6iLjYjvjjaxVGv": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hsbe42545jfoe7te",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hypnotic Tattoos",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a @Check[will|dc:22|name:Hypnotic Pattern|traits:grippli,humanoid] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @UUID[Compendium.pf2e.conditionitems.Item.Hidden] until the end of its turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D5SkUKuoy3RDeG52",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Baneback Poison",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d4[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d4[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}, and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n4yyrfqm96flht4j",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Curse of Baneful Venom",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jinxer magically intensifies toxins in their foes. Creatures within 30 feet of the jinxer that are currently afflicted by a poison immediately attempt their next saving throw against the poison with a -2 status penalty, then are temporarily immune to Curse of Baleful Venom for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Curse of the Baneful Venom]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hv2c8lpn9yu93j0v",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Jungle Stride",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Gripplis ignore difficult terrain in forests and jungles.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Grippli Jinxer",

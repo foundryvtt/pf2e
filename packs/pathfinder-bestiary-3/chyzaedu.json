@@ -3,345 +3,145 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "IyQeFgzzdZuwWSrh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 60 feet",
+            "_id": "XCtNEYFEjjOTsfCx",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fXjJYcC6HHWIClZe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6D8hv3P04IeQWepE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Alien Vestment",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The chyzaedu wears an eerie, alien layer of shimmering violet mucus that slithers and crawls over its flesh, but is hard as iron to the touch.</p>\n<p>If a chyzaedu takes bludgeoning damage from a critical hit, its alien vestment is shattered—this reduces its AC to 27 and causes it to lose its resistance to mental and physical damage; it can grow a new alien vestment by concentrating for 1 hour.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChyzaeduAlienVestment",
-                        "option": "alien-vestment",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "alien-vestment"
-                        ],
-                        "selector": "ac",
-                        "value": -3
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "not": "alien-vestment"
+                                "id": "pbckehqwNqlVNULB"
+                            },
+                            {
+                                "id": "rxpma3UDfp57SNRz"
+                            },
+                            {
+                                "id": "lYiY9C33J3m981R5"
+                            },
+                            {
+                                "id": "VQ6bJiJIem3Mlcfs"
+                            },
+                            {
+                                "id": "LlGdIOIvDcPLsIWN"
                             }
-                        ],
-                        "type": [
-                            "mental",
-                            "physical"
-                        ],
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KRjbKjp9iT8REk4M",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ecstatic Hunger",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. A chyzaedu gains sustenance by feeding upon the metabolisms of organic victims. A living creature that ends its turn in the aura must attempt a @Check[will|dc:27] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature suffers a painful hunger pang, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> If possible, the creature spends its first 2 actions on its next turn eating or drinking (or spending actions to procure food or drink from its possessions or the surroundings, if necessary). The creature won't consume anything dangerous, but will eat things it normally has no appetite for.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature will eat or drink dangerous consumables, such as poison or rotten food, if other food or drink are not immediately available. The creature must spend its first 2 actions each round consuming for as long as it remains in the chyzaedu's aura plus 1 minute thereafter, but the creature can attempt a new saving throw at the end of its turn each round to end the effect early.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "ecstatic-hunger",
-                        "traits": [
-                            "emotion",
-                            "incapacitation",
-                            "mental",
-                            "occult"
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "jz3YLMCaj5QPYoqu"
+                            },
+                            {
+                                "id": "EBmFLjjKC37rVhtw"
+                            },
+                            {
+                                "id": "vXdLPHRtjMuYyKKf"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "XFDRUwmbbJwypar6"
+                            },
+                            {
+                                "id": "o7xACFUAwuevLRNX"
+                            },
+                            {
+                                "id": "bgqxa7Rx5qRFJAIs"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ErzZU3NAHHrtbahp"
+                            },
+                            {
+                                "id": "wBLuYhPkaf0AQvCW"
+                            },
+                            {
+                                "id": "UwM5CQkNk3emjiIs"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "35LMTc5NVmlcmU91"
+                            },
+                            {
+                                "id": "ypeV6N2UWt7PDEgp"
+                            },
+                            {
+                                "id": "UwM5CQkNk3emjiIs"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "jz3YLMCaj5QPYoqu"
+                            },
+                            {
+                                "id": "3vtergrOqGyP0q66"
+                            },
+                            {
+                                "id": "3vtergrOqGyP0q66"
+                            },
+                            {
+                                "id": "3vtergrOqGyP0q66"
+                            },
+                            {
+                                "id": "3vtergrOqGyP0q66"
+                            },
+                            {
+                                "id": "BLRM1MWTdrZDmEq2"
+                            }
                         ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BE8uoWMEnODt0Xw7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Medium, @Damage[(3d8+7)[bludgeoning]], Rupture 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "p58AYJyyu8cSum0T",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cdmwwMzpk0Bsc4Jg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
                     "value": 21
                 },
-                "damageRolls": {
-                    "jlze6obl9t01ticuowg7": {
-                        "damage": "2d12+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "FYQBhz6UyHtF4h3Q",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "267uqw4p10t14pt5awfd": {
-                        "damage": "2d8+9",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "BLRM1MWTdrZDmEq2",
@@ -350,7 +150,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -412,7 +212,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -473,7 +273,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -544,7 +344,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -612,7 +412,7 @@
             },
             "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
             "name": "Chilling Darkness",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -692,7 +492,7 @@
             },
             "img": "icons/containers/kitchenware/goblet-gold-red.webp",
             "name": "Enhance Victuals",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -752,7 +552,7 @@
             },
             "img": "icons/creatures/fish/fish-fangtooth-skeletal-green.webp",
             "name": "Ghoulish Cravings",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -819,7 +619,7 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -879,7 +679,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +758,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1037,7 +837,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1124,7 +924,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1205,7 +1005,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2100000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1285,7 +1085,7 @@
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2200000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1479,7 +1279,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2300000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1675,7 +1475,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2400000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1750,7 +1550,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 2500000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1829,7 +1629,7 @@
             },
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
-            "sort": 2600000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1889,7 +1689,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2700000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1946,23 +1746,31 @@
             "type": "spell"
         },
         {
-            "_id": "XCtNEYFEjjOTsfCx",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2800000,
+            "_id": "cdmwwMzpk0Bsc4Jg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 2100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "jlze6obl9t01ticuowg7": {
+                        "damage": "2d12+9",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1970,121 +1778,313 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "pbckehqwNqlVNULB"
-                            },
-                            {
-                                "id": "rxpma3UDfp57SNRz"
-                            },
-                            {
-                                "id": "lYiY9C33J3m981R5"
-                            },
-                            {
-                                "id": "VQ6bJiJIem3Mlcfs"
-                            },
-                            {
-                                "id": "LlGdIOIvDcPLsIWN"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "jz3YLMCaj5QPYoqu"
-                            },
-                            {
-                                "id": "EBmFLjjKC37rVhtw"
-                            },
-                            {
-                                "id": "vXdLPHRtjMuYyKKf"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "XFDRUwmbbJwypar6"
-                            },
-                            {
-                                "id": "o7xACFUAwuevLRNX"
-                            },
-                            {
-                                "id": "bgqxa7Rx5qRFJAIs"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ErzZU3NAHHrtbahp"
-                            },
-                            {
-                                "id": "wBLuYhPkaf0AQvCW"
-                            },
-                            {
-                                "id": "UwM5CQkNk3emjiIs"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "35LMTc5NVmlcmU91"
-                            },
-                            {
-                                "id": "ypeV6N2UWt7PDEgp"
-                            },
-                            {
-                                "id": "UwM5CQkNk3emjiIs"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "jz3YLMCaj5QPYoqu"
-                            },
-                            {
-                                "id": "3vtergrOqGyP0q66"
-                            },
-                            {
-                                "id": "3vtergrOqGyP0q66"
-                            },
-                            {
-                                "id": "3vtergrOqGyP0q66"
-                            },
-                            {
-                                "id": "3vtergrOqGyP0q66"
-                            },
-                            {
-                                "id": "BLRM1MWTdrZDmEq2"
-                            }
-                        ]
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 21
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "FYQBhz6UyHtF4h3Q",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 2200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "267uqw4p10t14pt5awfd": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IyQeFgzzdZuwWSrh",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fXjJYcC6HHWIClZe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6D8hv3P04IeQWepE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Alien Vestment",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The chyzaedu wears an eerie, alien layer of shimmering violet mucus that slithers and crawls over its flesh, but is hard as iron to the touch.</p>\n<p>If a chyzaedu takes bludgeoning damage from a critical hit, its alien vestment is shattered—this reduces its AC to 27 and causes it to lose its resistance to mental and physical damage; it can grow a new alien vestment by concentrating for 1 hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChyzaeduAlienVestment",
+                        "option": "alien-vestment",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "alien-vestment"
+                        ],
+                        "selector": "ac",
+                        "value": -3
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "alien-vestment"
+                            }
+                        ],
+                        "type": [
+                            "mental",
+                            "physical"
+                        ],
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KRjbKjp9iT8REk4M",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ecstatic Hunger",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A chyzaedu gains sustenance by feeding upon the metabolisms of organic victims. A living creature that ends its turn in the aura must attempt a @Check[will|dc:27] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature suffers a painful hunger pang, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> If possible, the creature spends its first 2 actions on its next turn eating or drinking (or spending actions to procure food or drink from its possessions or the surroundings, if necessary). The creature won't consume anything dangerous, but will eat things it normally has no appetite for.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature will eat or drink dangerous consumables, such as poison or rotten food, if other food or drink are not immediately available. The creature must spend its first 2 actions each round consuming for as long as it remains in the chyzaedu's aura plus 1 minute thereafter, but the creature can attempt a new saving throw at the end of its turn each round to end the effect early.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "ecstatic-hunger",
+                        "traits": [
+                            "emotion",
+                            "incapacitation",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BE8uoWMEnODt0Xw7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium, @Damage[(3d8+7)[bludgeoning]], Rupture 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p58AYJyyu8cSum0T",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Chyzaedu",

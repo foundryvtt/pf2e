@@ -4,141 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UeglSidvVMCLbnxe",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Crying Bell Stance",
+            "_id": "ZrAYNKuXnQjaVyaS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The disciple cups one hand and poses the other to strike it, like the Rai Sho Monastery's central bell. In this stance, they can make temple bell Strikes (see Strikes). While in this stance, a disciple gains a +2 status bonus to AC against ranged attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Crying Bell Stance (vs. ranged attacks)",
-                        "option": "crying-bell",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "crying-bell"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "d1HzrS1YEwvx7xOD",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Falling Sal Stance",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The disciple joins their palms together in the shape of a sal flower, evoking the truth that all things eventually decay. In this stance, they can make sal blossom Strikes (see Strikes) and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and can use the extra action only to cast wholeness of body.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3I80FV9CxfLYlMpg",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 status to all saves vs. mental",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:mental"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "G2BHNUxndDmcBo6s",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Nine Seals Spellcasting",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The Rai Sho disciples have learned a technique that allows them to cast their ki spells more effectively by way of specialized hand postures. They replace the normal somatic and verbal components of their spells with nine seals components; these require that the caster have a hand free, but don't add any traits to the Cast a Spell action (preventing the Rai Sho disciples from triggering certain reactions, such as Attack of Opportunity, when they Cast a Spell).</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -146,186 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 37,
+                    "mod": 0,
+                    "value": 29
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "2GfmPunszXlRPFhb",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The Rai Sho disciple makes two Strikes, each of which must be an unarmed Strike or temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IIRNtUJljhQyVJqa",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "bsl31lstxsh08t5wl1sa": {
-                        "damage": "4d6+14",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "9BGKQFzzNJJrT0TX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sal Blossom",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "0erbmwybxl6sp3jgo3kz": {
-                        "damage": "4d10+14",
-                        "damageType": "void"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d10",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ArpXfKBOw8JdkHSk",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Temple Bell",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 33
-                },
-                "damageRolls": {
-                    "0rgeoav7etsifhq57pcp": {
-                        "damage": "4d10+6",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-increment-60",
-                        "sonic"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "rPnNPCpPsO6ybWnP",
@@ -334,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
             "name": "Wholeness of Body",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -410,7 +123,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -467,7 +180,7 @@
             },
             "img": "systems/pf2e/icons/spells/ki-strike.webp",
             "name": "Ki Strike",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -535,22 +248,28 @@
             "type": "spell"
         },
         {
-            "_id": "ZrAYNKuXnQjaVyaS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 1200000,
+            "_id": "IIRNtUJljhQyVJqa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "bsl31lstxsh08t5wl1sa": {
+                        "damage": "4d6+14",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -558,18 +277,299 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 29
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "9BGKQFzzNJJrT0TX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sal Blossom",
+            "sort": 600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "0erbmwybxl6sp3jgo3kz": {
+                        "damage": "4d10+14",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ArpXfKBOw8JdkHSk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Temple Bell",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "0rgeoav7etsifhq57pcp": {
+                        "damage": "4d10+6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-increment-60",
+                        "sonic"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UeglSidvVMCLbnxe",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Crying Bell Stance",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The disciple cups one hand and poses the other to strike it, like the Rai Sho Monastery's central bell. In this stance, they can make temple bell Strikes (see Strikes). While in this stance, a disciple gains a +2 status bonus to AC against ranged attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Crying Bell Stance (vs. ranged attacks)",
+                        "option": "crying-bell",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "crying-bell"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "d1HzrS1YEwvx7xOD",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Falling Sal Stance",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The disciple joins their palms together in the shape of a sal flower, evoking the truth that all things eventually decay. In this stance, they can make sal blossom Strikes (see Strikes) and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened], and can use the extra action only to cast wholeness of body.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3I80FV9CxfLYlMpg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. mental",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:mental"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G2BHNUxndDmcBo6s",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nine Seals Spellcasting",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Rai Sho disciples have learned a technique that allows them to cast their ki spells more effectively by way of specialized hand postures. They replace the normal somatic and verbal components of their spells with nine seals components; these require that the caster have a hand free, but don't add any traits to the Cast a Spell action (preventing the Rai Sho disciples from triggering certain reactions, such as Attack of Opportunity, when they Cast a Spell).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2GfmPunszXlRPFhb",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The Rai Sho disciple makes two Strikes, each of which must be an unarmed Strike or temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Rai Sho Disciple",

@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8AZlaMs2Q4MqXIZZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Legal Specialist",
+            "_id": "yXIorWzVkK3BGFi9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>For encounters involving contracts and negotiations, the fiend caller is an 8th-level challenge.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -25,211 +28,88 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s0t39CToxCO0bv1k",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fiendish Contract",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fiend caller spends 1 day of downtime setting up a bargain between a mortal creature and a fiend the fiend caller knows well. The fiend caller attempts a Legal Lore check against the higher of the fiend's @Check[legal-lore|against:will]{Will DC} or @Check[legal-lore|against:diplomacy]{Diplomacy DC}.</p><hr /><p><strong>Success</strong> The mortal party receives one favor from the fiend, or the fiend becomes the mortal's minion for [[/gmr 1d4 #days]]{1d4 days} if they're on the same plane. Alternatively, if the GM allows the option, the mortal can receive a bargained contract of the fiend's level or lower.</p>\n<p><strong>Failure</strong> The fiend caller fails to strike the bargain.</p>\n<p><strong>Critical Failure</strong> The process fails, and the magical backlash makes the fiend caller @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "downtime",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hbvWnnuQXeSYbh5d",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fiendish Ritualist",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A fiend caller can cast @UUID[Compendium.pf2e.spells-srd.Item.Binding Circle] and @UUID[Compendium.pf2e.spells-srd.Item.Commune] to contact fiends even though the rituals are beyond the normal rank the fiend caller could cast. Furthermore, they can use Legal Lore for the primary check when they do so instead of the listed skill.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fQc2VOadDzyNn25L",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Planar Communique",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A fiend caller can cast @UUID[Compendium.pf2e.spells-srd.Item.Sending] at will as an occult innate spell, but only to target a fiend they know well. The fiend can be on any plane.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            "item:slug:sending",
-                            "spellcasting:category:innate"
-                        ],
-                        "property": "description",
-                        "value": [
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
                             {
-                                "text": "{item|description}"
+                                "id": "5HsEq3owQWtXIqGg"
+                            },
+                            {
+                                "id": "AznMTAGw15KhBdFn"
+                            },
+                            {
+                                "id": "hcXtRS7ugoVRYTdd"
+                            },
+                            {
+                                "id": "1JMXFXHKgEoJhjK8"
+                            },
+                            {
+                                "id": "J66Pno9bvYavhaSe"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "eWYMU9OcVtVvcYEy"
+                            },
+                            {
+                                "id": "OnD7fBMfducivvoC"
+                            },
+                            {
+                                "id": "bK18TicIFP068ezS"
+                            },
+                            {
+                                "id": "6jmw9EfndcPBUnRj"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "4iKMZ6dgpLrIW9Qk"
+                            },
+                            {
+                                "id": "8tXZoqJdv8wieE5w"
+                            },
+                            {
+                                "id": "PJ6UHZGfSbx91UhQ"
                             }
                         ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GIK1QNr0MtFyxRUx",
-            "img": "icons/tools/scribal/ink-quill-red.webp",
-            "name": "Ritual Materials",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
                 },
-                "containerId": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Candle]{Candles}, @UUID[Compendium.pf2e.equipment-srd.Item.Chalk], ink, parchment, quill, vial of blood.</p>"
+                "tradition": {
+                    "value": "occult"
                 },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "LOTZ6PVeSRWSVMio",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fiend Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "1YjiklqJDvWKIRxe",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 700000,
+            "_id": "L4Fu7guo4LfcMfe9",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
             "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 18
+                "prepared": {
+                    "value": "innate"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -237,148 +117,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
-        },
-        {
-            "_id": "hwjSVaTmDfZSkYI1",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "MKLuCFuEpwcJibjf"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 800000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0dEOiUqz22PQ0sJU": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    },
-                    "cqIcAMsIoppmRq9n": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "QcdJFwU1smZJflNQ",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "MKLuCFuEpwcJibjf"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "1N4xrGxD5xpL5TOn": {
-                        "category": "persistent",
-                        "damage": "1d4",
-                        "damageType": "bleed"
-                    },
-                    "eMEOkZi7fx10uM3I": {
-                        "damage": "1d4+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8sD9UyZguY7T3flW",
-            "_stats": {
-                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "iswR188zNNz1VJHP": {
-                        "damage": "1d4+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder NPC Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "yENWh237U154qPTH",
@@ -387,7 +140,7 @@
             },
             "img": "icons/magic/perception/orb-crystal-ball-scrying-blue.webp",
             "name": "Binding Circle",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -450,7 +203,7 @@
             },
             "img": "systems/pf2e/icons/spells/commune.webp",
             "name": "Commune",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -515,7 +268,7 @@
             },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending (At-Will)",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -581,7 +334,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -652,7 +405,7 @@
             },
             "img": "icons/magic/fire/flame-burning-eye.webp",
             "name": "Paranoia",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -728,7 +481,7 @@
             },
             "img": "icons/skills/melee/strike-sword-slashing-red.webp",
             "name": "Spiritual Armament",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -879,7 +632,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -958,7 +711,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1025,7 +778,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1105,7 +858,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1178,7 +931,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1265,7 +1018,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1341,7 +1094,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1404,7 +1157,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1485,7 +1238,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 2500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1565,143 +1318,13 @@
             "type": "spell"
         },
         {
-            "_id": "yXIorWzVkK3BGFi9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "5HsEq3owQWtXIqGg"
-                            },
-                            {
-                                "id": "AznMTAGw15KhBdFn"
-                            },
-                            {
-                                "id": "hcXtRS7ugoVRYTdd"
-                            },
-                            {
-                                "id": "1JMXFXHKgEoJhjK8"
-                            },
-                            {
-                                "id": "J66Pno9bvYavhaSe"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "eWYMU9OcVtVvcYEy"
-                            },
-                            {
-                                "id": "OnD7fBMfducivvoC"
-                            },
-                            {
-                                "id": "bK18TicIFP068ezS"
-                            },
-                            {
-                                "id": "6jmw9EfndcPBUnRj"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "4iKMZ6dgpLrIW9Qk"
-                            },
-                            {
-                                "id": "8tXZoqJdv8wieE5w"
-                            },
-                            {
-                                "id": "PJ6UHZGfSbx91UhQ"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "L4Fu7guo4LfcMfe9",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "MKLuCFuEpwcJibjf",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2800000,
+            "sort": 1800000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1782,6 +1405,383 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "GIK1QNr0MtFyxRUx",
+            "img": "icons/tools/scribal/ink-quill-red.webp",
+            "name": "Ritual Materials",
+            "sort": 1900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Candle]{Candles}, @UUID[Compendium.pf2e.equipment-srd.Item.Chalk], ink, parchment, quill, vial of blood.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "hwjSVaTmDfZSkYI1",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MKLuCFuEpwcJibjf"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0dEOiUqz22PQ0sJU": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    },
+                    "cqIcAMsIoppmRq9n": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "QcdJFwU1smZJflNQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "MKLuCFuEpwcJibjf"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "1N4xrGxD5xpL5TOn": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    },
+                    "eMEOkZi7fx10uM3I": {
+                        "damage": "1d4+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8sD9UyZguY7T3flW",
+            "_stats": {
+                "compendiumSource": "Actor.OnQ779U03HyImPcw.Item.0vVEiwK17dpFzgYu"
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "iswR188zNNz1VJHP": {
+                        "damage": "1d4+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "8AZlaMs2Q4MqXIZZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Legal Specialist",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving contracts and negotiations, the fiend caller is an 8th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s0t39CToxCO0bv1k",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fiendish Contract",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fiend caller spends 1 day of downtime setting up a bargain between a mortal creature and a fiend the fiend caller knows well. The fiend caller attempts a Legal Lore check against the higher of the fiend's @Check[legal-lore|against:will]{Will DC} or @Check[legal-lore|against:diplomacy]{Diplomacy DC}.</p><hr /><p><strong>Success</strong> The mortal party receives one favor from the fiend, or the fiend becomes the mortal's minion for [[/gmr 1d4 #days]]{1d4 days} if they're on the same plane. Alternatively, if the GM allows the option, the mortal can receive a bargained contract of the fiend's level or lower.</p>\n<p><strong>Failure</strong> The fiend caller fails to strike the bargain.</p>\n<p><strong>Critical Failure</strong> The process fails, and the magical backlash makes the fiend caller @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "downtime",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hbvWnnuQXeSYbh5d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fiendish Ritualist",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A fiend caller can cast @UUID[Compendium.pf2e.spells-srd.Item.Binding Circle] and @UUID[Compendium.pf2e.spells-srd.Item.Commune] to contact fiends even though the rituals are beyond the normal rank the fiend caller could cast. Furthermore, they can use Legal Lore for the primary check when they do so instead of the listed skill.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fQc2VOadDzyNn25L",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Planar Communique",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A fiend caller can cast @UUID[Compendium.pf2e.spells-srd.Item.Sending] at will as an occult innate spell, but only to target a fiend they know well. The fiend can be on any plane.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:sending",
+                            "spellcasting:category:innate"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "{item|description}"
+                            }
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LOTZ6PVeSRWSVMio",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fiend Lore",
+            "sort": 2700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "1YjiklqJDvWKIRxe",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Legal Lore",
+            "sort": 2800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Fiend Caller",

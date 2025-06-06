@@ -4,270 +4,79 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "W2mLHIkZtfWrmqpV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Darkvision",
+            "_id": "aXg0aqMqVzoqMHpi",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "greater-darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1BNpjsQBcfKsXqRL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "hy1vFv0oZKatHfza",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HsC6ySk716Gsub4e",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Every Dagger",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The uniila wields four daggers</p>\n<hr />\n<p><strong>Effect</strong> The uniila attempts a single dagger Strike against a target. If this Strike hits, the uniila deals three extra dice of weapon damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "every-dagger",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 3,
-                        "key": "DamageDice",
-                        "predicate": [
-                            "every-dagger"
-                        ],
-                        "selector": "dagger-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "096n5xYSW4vlYVne",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Fearsome Magic",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> Once per hour</p>\n<hr />\n<p><strong>Effect</strong> If the uniila's next action is to cast a harmful spell, creatures who fail their saving throw against the spell are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure), in addition to the spell's other effects.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1H"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "fear",
-                        "mental",
-                        "spellshape"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "9DWFP5Oegeo1olZk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Witch Token",
-            "sort": 600000,
+            "_id": "er4PR9l2xkq1VzZL",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> Once per day</p>\n<hr />\n<p><strong>Effect</strong> As an activity that takes 1 hour, the uniila creates a token in the shape of a piece of jewelry. When the <em>witch token</em> is invested by a mortal, all of the mortal's spells, except those cast at the highest level the mortal can cast, count as 1 level higher for the purpose of counteracting other spells and being counteracted. The creature can also Activate the <em>witch token</em> to Cast a Spell once per day. This spell is chosen from one of the uniila's arcane spontaneous spells of rank 4 or lower when the uniila creates the token. While a creature has the <em>witch token</em> invested, it treats its saving throws against the uniila's spells as one degree of success worse, and the uniila always knows the distance and direction to the creature. A creature can't have more than one <em>witch token</em> invested, and an uniila can't have more than one <em>witch token</em> in existence. The uniila can destroy their <em>witch token</em> as a free action with the concentrate trait; if the <em>witch token</em> is invested when the uniila does so, the creature that has the <em>witch token</em> invested takes @Damage[9d8[mental]] damage (@Check[will|dc:29|basic]).</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Witch Token]</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "self:uniila"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7WUsxorWZIKhPB7q",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "v04OQQn5dIkb37YA"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "1DCQBANbjHffJlP8": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "rjVWSWsYuNA9gRZV": {
-                        "damage": "1d4 + 9",
-                        "damageType": "piercing"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -275,23 +84,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "deadly-d10",
-                        "evil",
-                        "finesse",
-                        "magical",
-                        "unholy",
-                        "versatile-s"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "vjScBstond4o2cnl",
@@ -300,7 +106,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -382,7 +188,7 @@
             },
             "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
             "name": "Shadow Siphon",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -444,7 +250,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -506,7 +312,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -584,7 +390,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -656,7 +462,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -728,7 +534,7 @@
             },
             "img": "systems/pf2e/icons/spells/discern-lies.webp",
             "name": "Discern Lies",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -792,7 +598,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-melting-green.webp",
             "name": "Outcast's Curse",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -862,7 +668,7 @@
             },
             "img": "icons/sundries/gaming/playing-cards-black.webp",
             "name": "Read Omens",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -924,7 +730,7 @@
             },
             "img": "icons/magic/unholy/orb-beam-pink.webp",
             "name": "Resilient Sphere",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -986,7 +792,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1054,7 +860,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1142,7 +948,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1230,7 +1036,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1293,7 +1099,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1362,7 +1168,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1423,7 +1229,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 2400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1486,7 +1292,7 @@
             },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
-            "sort": 2500000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1553,7 +1359,7 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
-            "sort": 2600000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1639,7 +1445,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2700000,
+            "sort": 2200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1706,7 +1512,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 2800000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1769,7 +1575,7 @@
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Infernal Pact",
-            "sort": 2900000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1832,7 +1638,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 3000000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1906,7 +1712,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 3100000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1981,7 +1787,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 3200000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2049,7 +1855,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 3300000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2130,7 +1936,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3400000,
+            "sort": 2900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2192,7 +1998,7 @@
             },
             "img": "icons/magic/air/wind-stream-blue-gray.webp",
             "name": "Unseen Servant",
-            "sort": 3500000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2247,109 +2053,13 @@
             "type": "spell"
         },
         {
-            "_id": "aXg0aqMqVzoqMHpi",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 3600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "er4PR9l2xkq1VzZL",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 3700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "v04OQQn5dIkb37YA",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 3800000,
+            "sort": 3100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -2429,6 +2139,296 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "7WUsxorWZIKhPB7q",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "v04OQQn5dIkb37YA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 3200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "1DCQBANbjHffJlP8": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "rjVWSWsYuNA9gRZV": {
+                        "damage": "1d4 + 9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "deadly-d10",
+                        "evil",
+                        "finesse",
+                        "magical",
+                        "unholy",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "W2mLHIkZtfWrmqpV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1BNpjsQBcfKsXqRL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hy1vFv0oZKatHfza",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HsC6ySk716Gsub4e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Every Dagger",
+            "sort": 3600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The uniila wields four daggers</p>\n<hr />\n<p><strong>Effect</strong> The uniila attempts a single dagger Strike against a target. If this Strike hits, the uniila deals three extra dice of weapon damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "every-dagger",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "every-dagger"
+                        ],
+                        "selector": "dagger-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "096n5xYSW4vlYVne",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fearsome Magic",
+            "sort": 3700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> Once per hour</p>\n<hr />\n<p><strong>Effect</strong> If the uniila's next action is to cast a harmful spell, creatures who fail their saving throw against the spell are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure), in addition to the spell's other effects.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9DWFP5Oegeo1olZk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Witch Token",
+            "sort": 3800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> Once per day</p>\n<hr />\n<p><strong>Effect</strong> As an activity that takes 1 hour, the uniila creates a token in the shape of a piece of jewelry. When the <em>witch token</em> is invested by a mortal, all of the mortal's spells, except those cast at the highest level the mortal can cast, count as 1 level higher for the purpose of counteracting other spells and being counteracted. The creature can also Activate the <em>witch token</em> to Cast a Spell once per day. This spell is chosen from one of the uniila's arcane spontaneous spells of rank 4 or lower when the uniila creates the token. While a creature has the <em>witch token</em> invested, it treats its saving throws against the uniila's spells as one degree of success worse, and the uniila always knows the distance and direction to the creature. A creature can't have more than one <em>witch token</em> invested, and an uniila can't have more than one <em>witch token</em> in existence. The uniila can destroy their <em>witch token</em> as a free action with the concentrate trait; if the <em>witch token</em> is invested when the uniila does so, the creature that has the <em>witch token</em> invested takes @Damage[9d8[mental]] damage (@Check[will|dc:29|basic]).</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Witch Token]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:uniila"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Uniila",

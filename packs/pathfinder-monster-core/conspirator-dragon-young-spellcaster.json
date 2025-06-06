@@ -3,345 +3,26 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UqzJSLnhM806Vpw7",
+            "_id": "Eq1ioA5936SrvNul",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+                "compendiumSource": "Actor.tpGPNQhtIXIh1aIB.Item.Eq1ioA5936SrvNul"
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EHlHjhHk7jncKixn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Occult",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:occult"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OpdWoyPywj7o3f4N",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Retract Body",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon is hit or critically hit by an attack made by a creature the dragon can see</p>\n<hr />\n<p><strong>Effect</strong> The dragon retracts the targeted body part or twists away to avoid the attack, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "retract-body",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "retract-body"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mVB17TASKITmaKOR",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Conjure Disguise",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon conjures a perfect flesh-suit replica of a humanoid they've seen of their size or smaller and compresses themself into it, along with generating appropriate clothing for the humanoid. This process takes 1 minute to complete, during which the dragon is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]. If the dragon stops or is interrupted in this process, the suit is destroyed. Once the process is complete, the dragon can remain in this disguise indefinitely.</p>\n<p>The transformation has the effects of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Shape], except that the disguise is not actively magical in nature and doesn't register as magical to detect magic and similar effects. The dragon loses Retract Body while transformed.</p>\n<p>If the dragon is critically hit while wearing the disguise, the suit is destroyed and immediately explodes. This has the effects of Detonate Disguise, except that creatures use the outcome one degree of success better than they rolled on their save.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ChangeShape.Label",
-                        "option": "change-shape",
-                        "selection": "dragon",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.Dragon",
-                                "value": "dragon"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidSmall",
-                                "value": "humanoid-small"
-                            },
-                            {
-                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
-                                "value": "humanoid-medium"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "manipulate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kK41S41L533fMggZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Detonate Disguise",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon is wearing their conjured disguise</p>\n<hr />\n<p><strong>Effect</strong> The dragon erupts from the disguise, destroying it. The explosive revelation deals @Damage[9d6[bludgeoning]] damage to creatures in a @Template[emanation|distance:5] with a @Check[reflex|dc:26|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round as it becomes covered in scraps from the disguise.</p>\n<p>Any creature sharing a space with the dragon after they erupt is pushed into the nearest empty space.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uyo6N99p8gLhdfCs",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rushed Transformation",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": 3
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Using the aid of magic and an exhausting amount of effort, the dragon quickly reshapes their body into the form of a generic humanoid figure. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form] except that it lasts only 1 minute, and the dragon doesn't gain the +4 status bonus to Deception as the transformation makes use of the dragon's body to crudely mimic a humanoid form. The dragon can Dismiss the effect.</p>\n<p>Whenever the effect ends, the dragon leaves behind scraps of magically conjured flesh, which could give away the dragon's presence.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "occult",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ab0Z4gMjfbVX1DVf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Smoke Breath",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon unleashes a noxious cloud of smoke that deals @Damage[7d6[poison]] damage in a @Template[cone|distance:40] (@Check[fortitude|dc:26|basic] save). The smoke remains for 1 minute. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist], except it fills the cone's area.</p>\n<p>The dragon can't use Smoke Breath again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "occult",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lhnqwfK5RkPmG7XJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sneak Attack",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The dragon's Strikes deal an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] targets.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    },
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:condition:off-guard"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BXRE4OLcT4DK8VgJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (any one region or settlement)",
-            "sort": 900000,
-            "system": {
                 "description": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 16
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "proficient": {
-                    "value": 0
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -349,34 +30,105 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "SLtHLEBJ8OqkujFO"
+                            },
+                            {
+                                "id": "iXXGYKVaUH4G4coE"
+                            },
+                            {
+                                "id": "FGIJqdgy1DnR3g97"
+                            },
+                            {
+                                "id": "2y7vEkCiRLsU8HIp"
+                            },
+                            {
+                                "id": "uHmdx9Dz6DHddcmW"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "18pisLR4R0tH4xlc"
+                            },
+                            {
+                                "id": "u9fKO8Sla2GX9mS8"
+                            },
+                            {
+                                "id": "M67C0SpqUw1bm25K"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "Gi4D8PoW4ENMrPIK"
+                            },
+                            {
+                                "id": "kynuZl57xDvsIrjU"
+                            },
+                            {
+                                "id": "0zHaUiX17C8cCcNn"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "4kOQ5UQC51ny5x0q"
+                            },
+                            {
+                                "id": "R7z2CuxCiu9284QM"
+                            },
+                            {
+                                "id": "RTSDrptSpaXHH7zb"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "occult"
+                },
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "QWLB0M0TCS4KHd4W",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1000000,
+            "_id": "vMzkI80zGmPn011P",
+            "_stats": {
+                "compendiumSource": "Actor.tpGPNQhtIXIh1aIB.Item.vMzkI80zGmPn011P"
+            },
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "JvY6ZS7dCmoVrPKd": {
-                        "damage": "2d8+8",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -384,149 +136,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "aHZHZh4OikvB5foL",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1100000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "BLMw6HFRj9LbhFIF": {
-                        "damage": "2d6+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "WYzVKov6bCQKHrul",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "3rzyFeKDLqtbwSHu": {
-                        "damage": "1d10+8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ece3eTIYzV4ZCJsH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mental Blast",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 26,
                     "value": 18
                 },
-                "damageRolls": {
-                    "92ZGz7RPCPFgUlve": {
-                        "damage": "3d6+3",
-                        "damageType": "mental"
-                    }
+                "tradition": {
+                    "value": "occult"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "range-100"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "kJfHKnZbhbgRt7Yx",
@@ -535,7 +159,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Rewrite Memory",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -607,7 +231,7 @@
             },
             "img": "icons/magic/light/orb-hand-green.webp",
             "name": "Clairaudience",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -668,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading (At Will)",
-            "sort": 1600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -736,7 +360,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -813,7 +437,7 @@
             },
             "img": "icons/environment/settlement/lighthouse-rock-red.webp",
             "name": "Veil of Privacy",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -874,7 +498,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -945,7 +569,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1006,7 +630,7 @@
             },
             "img": "icons/magic/fire/flame-burning-eye.webp",
             "name": "Paranoia",
-            "sort": 2100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1082,7 +706,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2200000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1152,7 +776,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1233,7 +857,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 2400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1314,7 +938,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 2500000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1401,7 +1025,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2600000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1468,7 +1092,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1548,7 +1172,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1611,7 +1235,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 2900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1687,7 +1311,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 3000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1772,7 +1396,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 3100000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1890,132 +1514,28 @@
             "type": "spell"
         },
         {
-            "_id": "Eq1ioA5936SrvNul",
-            "_stats": {
-                "compendiumSource": "Actor.tpGPNQhtIXIh1aIB.Item.Eq1ioA5936SrvNul"
-            },
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
-            "sort": 3200000,
+            "_id": "QWLB0M0TCS4KHd4W",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 2100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": 3
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "attackEffects": {
+                    "value": []
                 },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "SLtHLEBJ8OqkujFO"
-                            },
-                            {
-                                "id": "iXXGYKVaUH4G4coE"
-                            },
-                            {
-                                "id": "FGIJqdgy1DnR3g97"
-                            },
-                            {
-                                "id": "2y7vEkCiRLsU8HIp"
-                            },
-                            {
-                                "id": "uHmdx9Dz6DHddcmW"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "18pisLR4R0tH4xlc"
-                            },
-                            {
-                                "id": "u9fKO8Sla2GX9mS8"
-                            },
-                            {
-                                "id": "M67C0SpqUw1bm25K"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "Gi4D8PoW4ENMrPIK"
-                            },
-                            {
-                                "id": "kynuZl57xDvsIrjU"
-                            },
-                            {
-                                "id": "0zHaUiX17C8cCcNn"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "4kOQ5UQC51ny5x0q"
-                            },
-                            {
-                                "id": "R7z2CuxCiu9284QM"
-                            },
-                            {
-                                "id": "RTSDrptSpaXHH7zb"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
+                "bonus": {
                     "value": 19
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "vMzkI80zGmPn011P",
-            "_stats": {
-                "compendiumSource": "Actor.tpGPNQhtIXIh1aIB.Item.vMzkI80zGmPn011P"
-            },
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 3300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "damageRolls": {
+                    "JvY6ZS7dCmoVrPKd": {
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -2023,21 +1543,501 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aHZHZh4OikvB5foL",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 2200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "BLMw6HFRj9LbhFIF": {
+                        "damage": "2d6+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WYzVKov6bCQKHrul",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 2300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "3rzyFeKDLqtbwSHu": {
+                        "damage": "1d10+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ece3eTIYzV4ZCJsH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mental Blast",
+            "sort": 2400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
                     "value": 18
                 },
-                "tradition": {
-                    "value": "occult"
+                "damageRolls": {
+                    "92ZGz7RPCPFgUlve": {
+                        "damage": "3d6+3",
+                        "damageType": "mental"
+                    }
                 },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "range-100"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UqzJSLnhM806Vpw7",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EHlHjhHk7jncKixn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Occult",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:occult"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OpdWoyPywj7o3f4N",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Retract Body",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The dragon is hit or critically hit by an attack made by a creature the dragon can see</p>\n<hr />\n<p><strong>Effect</strong> The dragon retracts the targeted body part or twists away to avoid the attack, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "retract-body",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "retract-body"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mVB17TASKITmaKOR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Conjure Disguise",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon conjures a perfect flesh-suit replica of a humanoid they've seen of their size or smaller and compresses themself into it, along with generating appropriate clothing for the humanoid. This process takes 1 minute to complete, during which the dragon is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard]. If the dragon stops or is interrupted in this process, the suit is destroyed. Once the process is complete, the dragon can remain in this disguise indefinitely.</p>\n<p>The transformation has the effects of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Change Shape], except that the disguise is not actively magical in nature and doesn't register as magical to detect magic and similar effects. The dragon loses Retract Body while transformed.</p>\n<p>If the dragon is critically hit while wearing the disguise, the suit is destroyed and immediately explodes. This has the effects of Detonate Disguise, except that creatures use the outcome one degree of success better than they rolled on their save.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "option": "change-shape",
+                        "selection": "dragon",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Dragon",
+                                "value": "dragon"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidSmall",
+                                "value": "humanoid-small"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.HumanoidMedium",
+                                "value": "humanoid-medium"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kK41S41L533fMggZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Detonate Disguise",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon is wearing their conjured disguise</p>\n<hr />\n<p><strong>Effect</strong> The dragon erupts from the disguise, destroying it. The explosive revelation deals @Damage[9d6[bludgeoning]] damage to creatures in a @Template[emanation|distance:5] with a @Check[reflex|dc:26|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round as it becomes covered in scraps from the disguise.</p>\n<p>Any creature sharing a space with the dragon after they erupt is pushed into the nearest empty space.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uyo6N99p8gLhdfCs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rushed Transformation",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Using the aid of magic and an exhausting amount of effort, the dragon quickly reshapes their body into the form of a generic humanoid figure. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form] except that it lasts only 1 minute, and the dragon doesn't gain the +4 status bonus to Deception as the transformation makes use of the dragon's body to crudely mimic a humanoid form. The dragon can Dismiss the effect.</p>\n<p>Whenever the effect ends, the dragon leaves behind scraps of magically conjured flesh, which could give away the dragon's presence.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "occult",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ab0Z4gMjfbVX1DVf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Smoke Breath",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon unleashes a noxious cloud of smoke that deals @Damage[7d6[poison]] damage in a @Template[cone|distance:40] (@Check[fortitude|dc:26|basic] save). The smoke remains for 1 minute. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Mist], except it fills the cone's area.</p>\n<p>The dragon can't use Smoke Breath again for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lhnqwfK5RkPmG7XJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sneak Attack",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon's Strikes deal an additional 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] targets.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BXRE4OLcT4DK8VgJ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (any one region or settlement)",
+            "sort": 3300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Conspirator Dragon (Young, Spellcaster)",

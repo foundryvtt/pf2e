@@ -3,82 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ROtcz4ACRnmedQua",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Darting Strike",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The deinonychus Strides up to 10 feet and then makes a Strike, or makes a Strike and then Strides up to 10 feet.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0xo9GafMlJXTsSNk",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Predator's Advantage",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Bleeding creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the deinonychus.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "target:condition:persistent-damage:bleed"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "strike-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "JBSyvkullKxEJ94w",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 300000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -122,7 +50,7 @@
             "_id": "LLDqAQlq7w0YWyO0",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Talon",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -166,6 +94,78 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "ROtcz4ACRnmedQua",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Darting Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The deinonychus Strides up to 10 feet and then makes a Strike, or makes a Strike and then Strides up to 10 feet.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0xo9GafMlJXTsSNk",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Predator's Advantage",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Bleeding creatures are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the deinonychus.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "target:condition:persistent-damage:bleed"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Deinonychus",

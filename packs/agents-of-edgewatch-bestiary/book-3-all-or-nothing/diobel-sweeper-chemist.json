@@ -4,64 +4,279 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "f6aAjLfElEhbsLCC",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dirty Bomb",
+            "_id": "NOvbOqZ37Tq8TaMA",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SgtqZxt26BdjUmEB"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
+            "name": "Acid Flask (Moderate)",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The chemist has at least one bomb in their possession</p>\n<hr />\n<p><strong>Effect</strong> The chemist adds a hasty mix of noxious substances to the bomb and makes a ranged Strike with it. If it hits and deals damage, the target must attempt a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for [[/gmr 1d6 #rounds]]{1d6 rounds}; if the result of the save is a critical failure, this increases to @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}. For the next 24 hours, the affected target takes a -2 circumstance penalty (-3 on a critical failure) to additional Fortitude saving throws against the same chemist's Crude Bombs.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dirty Bomb]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dirty Bomb (Critical Failure)]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2FxUvyDjnESqE9bl",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Brew",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "baseItem": "alchemical-bomb",
+                "bonus": {
                     "value": 1
                 },
-                "category": "offensive",
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "acid",
+                    "dice": 1,
+                    "die": "",
+                    "persistent": {
+                        "faces": 6,
+                        "number": 2,
+                        "type": "acid"
+                    }
+                },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The chemist has their alchemist's tools, formula book, and a free hand</p>\n<hr />\n<p><strong>Effect</strong> The chemist creates a @UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Moderate)]{Moderate Acid Flask} or @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Moderate)]{Alchemist's Fire} that they must use before the end of their next turn or else it becomes inert.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "acid-flask-moderate",
+                "splashDamage": {
+                    "value": 2
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "b45B3Ns6mwEya56I",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gWr4q4HiyGhETA8H"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate)",
+            "sort": 200000,
+            "system": {
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "persistent": {
+                        "faces": null,
+                        "number": 2,
+                        "type": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "alchemists-fire-moderate",
+                "splashDamage": {
+                    "value": 2
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "pqU7Jju4NexrS8E1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
+            "name": "+1 Striking Sickle",
+            "sort": 300000,
+            "system": {
+                "baseItem": "sickle",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
-                "slug": null,
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sickle",
+                "splashDamage": {
+                    "value": 0
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 }
             },
-            "type": "action"
+            "type": "weapon"
         },
         {
             "_id": "hwWZSwxCvpgbQsMo",
@@ -70,7 +285,7 @@
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "studded-leather-armor",
@@ -138,7 +353,7 @@
             },
             "img": "icons/tools/laboratory/vials-blue-pink.webp",
             "name": "Alchemist's Tools",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -196,7 +411,7 @@
             },
             "img": "icons/sundries/books/book-tooled-brass-brown.webp",
             "name": "Formula Book",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -246,31 +461,6 @@
                 }
             },
             "type": "equipment"
-        },
-        {
-            "_id": "VZSNVQOWLrMXeg03",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Alchemy Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         },
         {
             "_id": "TiZR6umibymo5txc",
@@ -448,279 +638,89 @@
             "type": "melee"
         },
         {
-            "_id": "NOvbOqZ37Tq8TaMA",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.SgtqZxt26BdjUmEB"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
-            "name": "Acid Flask (Moderate)",
+            "_id": "f6aAjLfElEhbsLCC",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dirty Bomb",
             "sort": 1000000,
             "system": {
-                "baseItem": "alchemical-bomb",
-                "bonus": {
-                    "value": 1
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "acid",
-                    "dice": 1,
-                    "die": "",
-                    "persistent": {
-                        "faces": 6,
-                        "number": 2,
-                        "type": "acid"
-                    }
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bomb",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 3,
-                "range": 20,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "acid-flask-moderate",
-                "splashDamage": {
+                "actions": {
                     "value": 2
                 },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "b45B3Ns6mwEya56I",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.gWr4q4HiyGhETA8H"
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
-            "name": "Alchemist's Fire (Moderate)",
-            "sort": 1100000,
-            "system": {
-                "baseItem": "alchemical-bomb",
-                "bonus": {
-                    "value": 1
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "fire",
-                    "dice": 2,
-                    "die": "d8",
-                    "persistent": {
-                        "faces": null,
-                        "number": 2,
-                        "type": "fire"
-                    }
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "bomb",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 3,
-                "range": 20,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "alchemists-fire-moderate",
-                "splashDamage": {
-                    "value": 2
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "fire",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "pqU7Jju4NexrS8E1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
-            "name": "+1 Striking Sickle",
-            "sort": 1200000,
-            "system": {
-                "baseItem": "sickle",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d4"
-                },
-                "description": {
-                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 100
-                    }
+                    "value": "<p><strong>Requirements</strong> The chemist has at least one bomb in their possession</p>\n<hr />\n<p><strong>Effect</strong> The chemist adds a hasty mix of noxious substances to the bomb and makes a ranged Strike with it. If it hits and deals damage, the target must attempt a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for [[/gmr 1d6 #rounds]]{1d6 rounds}; if the result of the save is a critical failure, this increases to @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3}. For the next 24 hours, the affected target takes a -2 circumstance penalty (-3 on a critical failure) to additional Fortitude saving throws against the same chemist's Crude Bombs.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dirty Bomb]</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Dirty Bomb (Critical Failure)]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
                 "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "sickle",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "trip"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
+        },
+        {
+            "_id": "2FxUvyDjnESqE9bl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Brew",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The chemist has their alchemist's tools, formula book, and a free hand</p>\n<hr />\n<p><strong>Effect</strong> The chemist creates a @UUID[Compendium.pf2e.equipment-srd.Item.Acid Flask (Moderate)]{Moderate Acid Flask} or @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Fire (Moderate)]{Alchemist's Fire} that they must use before the end of their next turn or else it becomes inert.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VZSNVQOWLrMXeg03",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Alchemy Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Diobel Sweeper Chemist",

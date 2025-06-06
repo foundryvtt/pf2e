@@ -3,369 +3,40 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wYGShO3Tg6PQD3Qj",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Inspiring Influence",
+            "_id": "s6NQpVpMrGGFUtYA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>A gennayn automatically succeeds with the @UUID[Compendium.pf2e.actionspf2e.Item.Aid] action supporting any Performance or Diplomacy skill check. Their Aid action automatically counts as a critical success while aiding in the creation of new art or a new performance.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CkVJHzEWjrHkLFr9",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Attuned Element",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Upon waking each day, a gennayn attunes to one planar element. They gain the corresponding trait, a movement Speed, a cantrip, resistance, and an elemental damage type for their energy fist attack based on their attuned element:</p>\n<ul>\n<li>air: fly 30 feet, resist electricity 5, electric arc, electricity damage;</li>\n<li>earth: burrow 15 feet, resist bludgeoning 5, scatter scree, bludgeoning damage;</li>\n<li>fire: fly 30 feet, resist fire 5, ignition, fire damage;</li>\n<li>metal: burrow 15 feet, resist slashing 5, needle darts, slashing damage; </li>\n<li>water: swim 20 feet, resist cold 5, frostbite, bludgeoning damage;</li>\n<li>wood: climb 15 feet, resist piercing 5, tangle vine, piercing damage.</li>\n</ul>\n<p>The attunement lasts until the gennayn attunes to a different element.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "alwaysActive": true,
-                        "key": "RollOption",
-                        "option": "attuned-element",
-                        "selection": "air",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.TraitAir",
-                                "value": "air"
-                            },
-                            {
-                                "label": "PF2E.TraitEarth",
-                                "value": "earth"
-                            },
-                            {
-                                "label": "PF2E.TraitFire",
-                                "value": "fire"
-                            },
-                            {
-                                "label": "PF2E.TraitMetal",
-                                "value": "metal"
-                            },
-                            {
-                                "label": "PF2E.TraitWater",
-                                "value": "water"
-                            },
-                            {
-                                "label": "PF2E.TraitWood",
-                                "value": "wood"
-                            }
-                        ],
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:air"
-                        ],
-                        "type": "electricity",
-                        "value": 5
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:earth"
-                        ],
-                        "type": "earth",
-                        "value": 5
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:fire"
-                        ],
-                        "type": "fire",
-                        "value": 5
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:metal"
-                        ],
-                        "type": "slashing",
-                        "value": 5
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:water"
-                        ],
-                        "type": "water",
-                        "value": 5
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "attuned-element:wood"
-                        ],
-                        "type": "piercing",
-                        "value": 5
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:air"
-                        ],
-                        "selector": "fly",
-                        "value": 30
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:earth"
-                        ],
-                        "selector": "burrow",
-                        "value": 15
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:fire"
-                        ],
-                        "selector": "fly",
-                        "value": 30
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:metal"
-                        ],
-                        "selector": "burrow",
-                        "value": 15
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:water"
-                        ],
-                        "selector": "swim",
-                        "value": 20
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "attuned-element:wood"
-                        ],
-                        "selector": "climb",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MoWGhukIZdExEFOX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gennayn transforms into a Tiny elemental or animal. This doesn't affect the gennayn's statistics, but it could change the damage type of their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MPbSZNAmmHYrByoA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Little Wish",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature the gennayn can see that's within 60 feet attempts a saving throw or skill check</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gennayn reshapes reality in a small way to twist fate, allowing the creature to reroll the saving throw or skill check and take the better result.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "fortune"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Aw65n0u4S5wL1veD",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Elemental Fist",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 18,
                     "value": 10
                 },
-                "damageRolls": {
-                    "5f0LATFnUPdr8L5Q": {
-                        "damage": "2d6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "electricity"
-                        },
-                        "predicate": [
-                            "attuned-element:air"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "attuned-element:earth"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "fire"
-                        },
-                        "predicate": [
-                            "attuned-element:fire"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "slashing"
-                        },
-                        "predicate": [
-                            "attuned-element:metal"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "bludgeoning"
-                        },
-                        "predicate": [
-                            "attuned-element:water"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    },
-                    {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "piercing"
-                        },
-                        "predicate": [
-                            "attuned-element:wood"
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "f7qjnfWY3sFWubKT",
@@ -374,7 +45,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At Will; Self Only)",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -435,7 +106,7 @@
             },
             "img": "systems/pf2e/icons/spells/comprehend-language.webp",
             "name": "Translate (At Will)",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -507,7 +178,7 @@
             },
             "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
             "name": "Cleanse Cuisine",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -568,7 +239,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc (Attuned Element)",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -653,7 +324,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite (Attuned Element)",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -721,7 +392,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -782,7 +453,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -979,7 +650,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition (Attuned Element)",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1092,7 +763,7 @@
             },
             "img": "icons/magic/light/projectile-needles-salvo-white.webp",
             "name": "Needle Darts (Attuned Element)",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1232,7 +903,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1295,7 +966,7 @@
             },
             "img": "systems/pf2e/icons/spells/scatter-scree.webp",
             "name": "Scatter Scree (Attuned Element)",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -1382,7 +1053,7 @@
             },
             "img": "systems/pf2e/icons/spells/summon-instrument.webp",
             "name": "Summon Instrument",
-            "sort": 1700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1444,7 +1115,7 @@
             "folder": "sspn0dATguOE2tTz",
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine (Attuned Element)",
-            "sort": 1800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1502,22 +1173,124 @@
             "type": "spell"
         },
         {
-            "_id": "s6NQpVpMrGGFUtYA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1900000,
+            "_id": "Aw65n0u4S5wL1veD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Elemental Fist",
+            "sort": 1500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "5f0LATFnUPdr8L5Q": {
+                        "damage": "2d6",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "electricity"
+                        },
+                        "predicate": [
+                            "attuned-element:air"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "bludgeoning"
+                        },
+                        "predicate": [
+                            "attuned-element:earth"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "fire"
+                        },
+                        "predicate": [
+                            "attuned-element:fire"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "slashing"
+                        },
+                        "predicate": [
+                            "attuned-element:metal"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "bludgeoning"
+                        },
+                        "predicate": [
+                            "attuned-element:water"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "piercing"
+                        },
+                        "predicate": [
+                            "attuned-element:wood"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wYGShO3Tg6PQD3Qj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Inspiring Influence",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A gennayn automatically succeeds with the @UUID[Compendium.pf2e.actionspf2e.Item.Aid] action supporting any Performance or Diplomacy skill check. Their Aid action automatically counts as a critical success while aiding in the creation of new art or a new performance.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1525,17 +1298,244 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
+                "traits": {
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "CkVJHzEWjrHkLFr9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Attuned Element",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Upon waking each day, a gennayn attunes to one planar element. They gain the corresponding trait, a movement Speed, a cantrip, resistance, and an elemental damage type for their energy fist attack based on their attuned element:</p>\n<ul>\n<li>air: fly 30 feet, resist electricity 5, electric arc, electricity damage;</li>\n<li>earth: burrow 15 feet, resist bludgeoning 5, scatter scree, bludgeoning damage;</li>\n<li>fire: fly 30 feet, resist fire 5, ignition, fire damage;</li>\n<li>metal: burrow 15 feet, resist slashing 5, needle darts, slashing damage; </li>\n<li>water: swim 20 feet, resist cold 5, frostbite, bludgeoning damage;</li>\n<li>wood: climb 15 feet, resist piercing 5, tangle vine, piercing damage.</li>\n</ul>\n<p>The attunement lasts until the gennayn attunes to a different element.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "attuned-element",
+                        "selection": "air",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAir",
+                                "value": "air"
+                            },
+                            {
+                                "label": "PF2E.TraitEarth",
+                                "value": "earth"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitMetal",
+                                "value": "metal"
+                            },
+                            {
+                                "label": "PF2E.TraitWater",
+                                "value": "water"
+                            },
+                            {
+                                "label": "PF2E.TraitWood",
+                                "value": "wood"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:air"
+                        ],
+                        "type": "electricity",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:earth"
+                        ],
+                        "type": "earth",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:fire"
+                        ],
+                        "type": "fire",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:metal"
+                        ],
+                        "type": "slashing",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:water"
+                        ],
+                        "type": "water",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "attuned-element:wood"
+                        ],
+                        "type": "piercing",
+                        "value": 5
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:air"
+                        ],
+                        "selector": "fly",
+                        "value": 30
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:earth"
+                        ],
+                        "selector": "burrow",
+                        "value": 15
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:fire"
+                        ],
+                        "selector": "fly",
+                        "value": 30
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:metal"
+                        ],
+                        "selector": "burrow",
+                        "value": 15
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:water"
+                        ],
+                        "selector": "swim",
+                        "value": 20
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "attuned-element:wood"
+                        ],
+                        "selector": "climb",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MoWGhukIZdExEFOX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gennayn transforms into a Tiny elemental or animal. This doesn't affect the gennayn's statistics, but it could change the damage type of their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MPbSZNAmmHYrByoA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Little Wish",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature the gennayn can see that's within 60 feet attempts a saving throw or skill check</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The gennayn reshapes reality in a small way to twist fate, allowing the creature to reroll the saving throw or skill check and take the better result.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Gennayn",

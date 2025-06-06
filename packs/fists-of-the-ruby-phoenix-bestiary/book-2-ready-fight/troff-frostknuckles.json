@@ -4,349 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "U1uqr0HgPoIr8ash",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Avalanche Pummel",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Troff makes an icicle gouge Strike against an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature. On a hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded]. Either way, the effect lasts until the start of Troff's next turn. If his Strike fails (but isn't a critical failure), Troff still deals @Damage[13[piercing]] damage to the creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "54wMKEbOXBHvnjXX",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Chattering Blow",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<hr />\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a @Check[fortitude|dc:31|traits:damaging-effect] save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d4[persistent,cold]] damage and a -5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is @Damage[4d4[persistent,cold]] damage and the penalty is -15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is @Damage[6d4[persistent,cold]] damage and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] instead of taking a Speed penalty.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "press"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PoK81ppdAf3Y4ZT7",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Flurry of Blows",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Troff makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "a2Ht2VRQHOf9f798",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Icicle Stance",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<hr />\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "initiative",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.TroffFrostknuckles.IcicleStance.AboveTarget",
-                        "option": "icicle-stance-above",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "icicle-stance-above"
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ksxlZjKnc1Li0gFK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bracers of Armor II",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 14
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "saving-throw",
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bracers-of-armor-ii",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornbracers"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "pqQoijXmReVC6SQg",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "od7xvcj90msw2mihg126": {
-                        "damage": "2d6+13",
-                        "damageType": "bludgeoning"
-                    },
-                    "sh0e7y0px44m99gcl07d": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tSarOldwU95b0USG",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Icicle Gouge",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "trip"
-                    ]
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "ed9uwwb8lf5yvgrxgljt": {
-                        "damage": "2d8+13",
-                        "damageType": "piercing"
-                    },
-                    "afm8f7tumjnlbktf9i9r": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "backstabber",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "zItNhmNjS4wVdwWY",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+2 Striking Frost Handwraps of Mighty Blows",
-            "sort": 800000,
+            "sort": 100000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -431,6 +95,342 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ksxlZjKnc1Li0gFK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8mhSUxEvNuXDP8Ki"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bracers of Armor II",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 14
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "saving-throw",
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bracers-of-armor-ii",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornbracers"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "pqQoijXmReVC6SQg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "od7xvcj90msw2mihg126": {
+                        "damage": "2d6+13",
+                        "damageType": "bludgeoning"
+                    },
+                    "sh0e7y0px44m99gcl07d": {
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tSarOldwU95b0USG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Icicle Gouge",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "trip"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "ed9uwwb8lf5yvgrxgljt": {
+                        "damage": "2d8+13",
+                        "damageType": "piercing"
+                    },
+                    "afm8f7tumjnlbktf9i9r": {
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "backstabber",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "U1uqr0HgPoIr8ash",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Avalanche Pummel",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Troff makes an icicle gouge Strike against an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature. On a hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded]. Either way, the effect lasts until the start of Troff's next turn. If his Strike fails (but isn't a critical failure), Troff still deals @Damage[13[piercing]] damage to the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "54wMKEbOXBHvnjXX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Chattering Blow",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<hr />\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a @Check[fortitude|dc:31|traits:damaging-effect] save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d4[persistent,cold]] damage and a -5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is @Damage[4d4[persistent,cold]] damage and the penalty is -15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is @Damage[6d4[persistent,cold]] damage and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] instead of taking a Speed penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "press"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PoK81ppdAf3Y4ZT7",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Flurry of Blows",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Troff makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a2Ht2VRQHOf9f798",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Icicle Stance",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<hr />\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to him.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.TroffFrostknuckles.IcicleStance.AboveTarget",
+                        "option": "icicle-stance-above",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "icicle-stance-above"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Troff Frostknuckles",

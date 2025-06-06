@@ -4,20 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cvwM3Cy7NFVgilh7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Masked Lies",
+            "_id": "5EBezJ0eDhQen735",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>As long as Alzarius wears his Razmir mask, it's very difficult to tell if he's lying. All Perception checks to see through his deceptions take a –4 circumstance penalty as a result.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,102 +27,60 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "value": 3
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "ExVTbhbC9UlgFvsz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Skilled Diplomat",
+            "_id": "QSxKArMvQIgJsTIH",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Bloodline Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Whenever Alzarius attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] using Diplomacy, he can attempt his check against the Will DC of up to 50 creatures at once. If he focuses on Making an Impression on just one target, he treats a success as a critical success. Finally, whenever he makes a Request, he can make requests as if the target's attitude toward him was one step better than it is, as long as they aren't hostile.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VKk43Gkuqk3lkO44",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frozen Bloodline",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Alzarius's sorcerous bloodline is tied to the element of water—particularly to its manifestation in the form of ice or snow. When he casts a spell that inflicts cold damage, the target takes an additional 1 cold damage per spell rank.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "phase": "afterDerived",
-                        "predicate": [
-                            "item:damage:type:cold"
-                        ],
-                        "selector": [
-                            "spell-damage"
-                        ],
-                        "value": "@spell.level"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t8t15Lfj05IlEtCH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Quickened Casting",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Alzarius can cast a spell more efficiently. If his next action is to cast a cantrip or a spell up to 4th-rank, he reduces the number of actions it takes to cast it by 1 (minimum 1 action).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
+                "proficiency": {
                     "value": 1
                 },
                 "publication": {
@@ -129,572 +89,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "spellshape"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "fr12rvt4Ek18pG5y",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Signature Spells",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Alzarius can cast @UUID[Compendium.pf2e.spells-srd.Item.Aqueous Orb], @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Heal], @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard], and @UUID[Compendium.pf2e.spells-srd.Item.Ice Storm] at a higher rank by spending a spell slot of that rank.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GBnBaeuMYpbshBPY",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Snowcaster's Legacy",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Alzarius inflicts damage with a Strike, he deals an additional 2d6 cold damage as shards of ice and blasts of frozen wind slash and buffet the creature struck.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ml1qk9IoT8ifaWL4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2"
-            },
-            "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
-            "name": "Invisibility Potion",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>An <em>invisibility</em> potion is colorless and oddly lightweight. Upon drinking it, you gain the effects of a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 4
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 20
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "invisibility-potion",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "consumable",
-                        "illusion",
-                        "magical",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "laPWwnieLciFmkCI",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Moderate)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "3d8+10",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 6
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 50
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-moderate",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "CG4oR77fDO6Y8o7M",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
-            "name": "Bands of Force",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 8
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 500
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "slug": "bracers-of-armor",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "value": 5
-                    }
-                ],
-                "size": "med",
-                "slug": "bands-of-force",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "force",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmbands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "e6K6jA867DcvmMtz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.OTeONq4r10Xm6gSy"
-            },
-            "img": "icons/equipment/finger/ring-band-engraved-scrolls-silver.webp",
-            "name": "Ring of Lies",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This plain silver ring has an almost oily sheen. While wearing the ring, you gain a +2 item bonus to Deception checks.</p>\n<p><strong>Activate—Sweeten Lies</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Snapping your fingers on the hand that wears the ring causes the ring to cast @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words] on you with no visual manifestations of a spell being cast.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 10
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 850
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "deception",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "size": "med",
-                "slug": "ring-of-lies",
-                "traits": {
-                    "rarity": "uncommon",
-                    "value": [
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "RY9E16PdCnfVQrgR",
-            "img": "icons/equipment/head/mask-carved-wood-white.webp",
-            "name": "Razmir mask and robes",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "o7Lnal1I3y5DOgXx",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "icRfiIIcInNUtffs"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "iHjKLAl3UPjQK4Hp": {
-                        "damage": "2d4+8",
-                        "damageType": "bludgeoning"
-                    },
-                    "y8VjkF7Dqd8Z2W16": {
-                        "damage": "3d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": "snowcasters-staff",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "adQr6C0gqOGW0dth",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "YI0gp6DckzcXMpVF"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "TKCw7uQqccgjcx3F": {
-                        "damage": "2d6",
-                        "damageType": "cold"
-                    },
-                    "fO5pQs2ejK1blW4J": {
-                        "damage": "2d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "aW0lnwgZJkVdfcIP",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "YI0gp6DckzcXMpVF"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "qZncwUIv1zmEaA7z": {
-                        "damage": "2d4+6",
-                        "damageType": "piercing"
-                    },
-                    "rGMICxvONaxQoEv3": {
-                        "damage": "2d6",
-                        "damageType": "cold"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "TZMypn6AudjZVzvk",
@@ -703,7 +109,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -788,7 +194,7 @@
             },
             "img": "systems/pf2e/icons/spells/scintillating-safeguard.webp",
             "name": "Scintillating Safeguard",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -849,7 +255,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -913,7 +319,7 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-blast.webp",
             "name": "Elemental Blast",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -995,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-form.webp",
             "name": "Elemental Form (Water Only)",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1057,7 +463,7 @@
             },
             "img": "icons/magic/water/vortex-water-whirlpool.webp",
             "name": "Howling Blizzard",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -1173,7 +579,7 @@
             },
             "img": "icons/magic/water/wave-water-blue.webp",
             "name": "Mariner's Curse",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1241,7 +647,7 @@
             },
             "img": "icons/magic/water/barrier-ice-crystal-wall-jagged-blue.webp",
             "name": "Wall of Ice",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1322,7 +728,7 @@
             },
             "img": "icons/creatures/mammals/bats-movement-flying-black.webp",
             "name": "Fly",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1385,7 +791,7 @@
             },
             "img": "systems/pf2e/icons/spells/ice-storm.webp",
             "name": "Ice Storm",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1485,7 +891,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Mountain Resilience",
-            "sort": 2500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1547,7 +953,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement",
-            "sort": 2600000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1609,7 +1015,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Vapor Form",
-            "sort": 2700000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1673,7 +1079,7 @@
             },
             "img": "icons/commodities/materials/slime-thick-blue.webp",
             "name": "Aqueous Orb",
-            "sort": 2800000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1741,7 +1147,7 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-motion.webp",
             "name": "Elemental Motion",
-            "sort": 2900000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1800,7 +1206,7 @@
             },
             "img": "icons/consumables/meat/fish-whole-blue.webp",
             "name": "Feet to Fins",
-            "sort": 3000000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1862,7 +1268,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 3100000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1934,7 +1340,7 @@
             },
             "img": "icons/magic/time/hourglass-tilted-gray.webp",
             "name": "Slow",
-            "sort": 3200000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2011,7 +1417,7 @@
             },
             "img": "icons/environment/settlement/lighthouse-rock-red.webp",
             "name": "Veil of Privacy",
-            "sort": 3300000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2073,7 +1479,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-swirling-white.webp",
             "name": "Wall of Wind",
-            "sort": 3400000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2135,7 +1541,7 @@
             },
             "img": "icons/consumables/fruit/berry-clustered-white.webp",
             "name": "Cleanse Affliction",
-            "sort": 3500000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2199,7 +1605,7 @@
             },
             "img": "systems/pf2e/icons/spells/darkvision.webp",
             "name": "Darkvision",
-            "sort": 3600000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2275,7 +1681,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 3700000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2338,7 +1744,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 3800000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2416,7 +1822,7 @@
             },
             "img": "icons/magic/perception/orb-eye-scrying.webp",
             "name": "Status",
-            "sort": 3900000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2492,7 +1898,7 @@
             },
             "img": "icons/magic/water/elemental-water.webp",
             "name": "Water Breathing",
-            "sort": 4000000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2555,7 +1961,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 4100000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2643,7 +2049,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 4200000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2724,7 +2130,7 @@
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
-            "sort": 4300000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2787,7 +2193,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 4400000,
+            "sort": 3200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -2854,7 +2260,7 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-toss.webp",
             "name": "Elemental Toss",
-            "sort": 4500000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2932,7 +2338,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 4600000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3013,7 +2419,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Frostbite",
-            "sort": 4700000,
+            "sort": 3500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3098,7 +2504,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 4800000,
+            "sort": 3600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3159,7 +2565,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 4900000,
+            "sort": 3700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3357,7 +2763,7 @@
             },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
-            "sort": 5000000,
+            "sort": 3800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3438,7 +2844,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 5100000,
+            "sort": 3900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3502,7 +2908,7 @@
             },
             "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
-            "sort": 5200000,
+            "sort": 4000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3559,112 +2965,13 @@
             "type": "spell"
         },
         {
-            "_id": "5EBezJ0eDhQen735",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Spontaneous Spells",
-            "sort": 5300000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "QSxKArMvQIgJsTIH",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Bloodline Spells",
-            "sort": 5400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "YI0gp6DckzcXMpVF",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 5500000,
+            "sort": 4100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -3753,7 +3060,7 @@
             },
             "img": "icons/weapons/staves/staff-ornate-teal.webp",
             "name": "Snowcaster's Staff",
-            "sort": 5600000,
+            "sort": 4200000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -3848,6 +3155,699 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "CG4oR77fDO6Y8o7M",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.02q8s6sSicMkhs1l"
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
+            "name": "Bands of Force",
+            "sort": 4300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 500
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "slug": "bracers-of-armor",
+                        "type": "item",
+                        "value": 1
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "value": 5
+                    }
+                ],
+                "size": "med",
+                "slug": "bands-of-force",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "force",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmbands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "e6K6jA867DcvmMtz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.OTeONq4r10Xm6gSy"
+            },
+            "img": "icons/equipment/finger/ring-band-engraved-scrolls-silver.webp",
+            "name": "Ring of Lies",
+            "sort": 4400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This plain silver ring has an almost oily sheen. While wearing the ring, you gain a +2 item bonus to Deception checks.</p>\n<p><strong>Activate—Sweeten Lies</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Snapping your fingers on the hand that wears the ring causes the ring to cast @UUID[Compendium.pf2e.spells-srd.Item.Honeyed Words] on you with no visual manifestations of a spell being cast.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 10
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 850
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "deception",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
+                "size": "med",
+                "slug": "ring-of-lies",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "RY9E16PdCnfVQrgR",
+            "img": "icons/equipment/head/mask-carved-wood-white.webp",
+            "name": "Razmir mask and robes",
+            "sort": 4500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "ml1qk9IoT8ifaWL4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2"
+            },
+            "img": "icons/consumables/potions/bottle-round-ring-teal.webp",
+            "name": "Invisibility Potion",
+            "sort": 4600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>An <em>invisibility</em> potion is colorless and oddly lightweight. Upon drinking it, you gain the effects of a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] spell.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 20
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "invisibility-potion",
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "consumable",
+                        "illusion",
+                        "magical",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "laPWwnieLciFmkCI",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.G7haQ5gDt30ftJLC"
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Moderate)",
+            "sort": 4700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "3d8+10",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain @Damage[(3d8+10)[healing]] Hit Points.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 50
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-moderate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "o7Lnal1I3y5DOgXx",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "icRfiIIcInNUtffs"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 4800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "iHjKLAl3UPjQK4Hp": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "y8VjkF7Dqd8Z2W16": {
+                        "damage": "3d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": "snowcasters-staff",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "adQr6C0gqOGW0dth",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "YI0gp6DckzcXMpVF"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 4900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "TKCw7uQqccgjcx3F": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    },
+                    "fO5pQs2ejK1blW4J": {
+                        "damage": "2d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aW0lnwgZJkVdfcIP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "YI0gp6DckzcXMpVF"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 5000000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "qZncwUIv1zmEaA7z": {
+                        "damage": "2d4+6",
+                        "damageType": "piercing"
+                    },
+                    "rGMICxvONaxQoEv3": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cvwM3Cy7NFVgilh7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Masked Lies",
+            "sort": 5100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>As long as Alzarius wears his Razmir mask, it's very difficult to tell if he's lying. All Perception checks to see through his deceptions take a –4 circumstance penalty as a result.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ExVTbhbC9UlgFvsz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Skilled Diplomat",
+            "sort": 5200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Whenever Alzarius attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] using Diplomacy, he can attempt his check against the Will DC of up to 50 creatures at once. If he focuses on Making an Impression on just one target, he treats a success as a critical success. Finally, whenever he makes a Request, he can make requests as if the target's attitude toward him was one step better than it is, as long as they aren't hostile.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VKk43Gkuqk3lkO44",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Frozen Bloodline",
+            "sort": 5300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Alzarius's sorcerous bloodline is tied to the element of water—particularly to its manifestation in the form of ice or snow. When he casts a spell that inflicts cold damage, the target takes an additional 1 cold damage per spell rank.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            "item:damage:type:cold"
+                        ],
+                        "selector": [
+                            "spell-damage"
+                        ],
+                        "value": "@spell.level"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t8t15Lfj05IlEtCH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quickened Casting",
+            "sort": 5400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Alzarius can cast a spell more efficiently. If his next action is to cast a cantrip or a spell up to 4th-rank, he reduces the number of actions it takes to cast it by 1 (minimum 1 action).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fr12rvt4Ek18pG5y",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Signature Spells",
+            "sort": 5500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Alzarius can cast @UUID[Compendium.pf2e.spells-srd.Item.Aqueous Orb], @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Heal], @UUID[Compendium.pf2e.spells-srd.Item.Howling Blizzard], and @UUID[Compendium.pf2e.spells-srd.Item.Ice Storm] at a higher rank by spending a spell slot of that rank.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GBnBaeuMYpbshBPY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snowcaster's Legacy",
+            "sort": 5600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Alzarius inflicts damage with a Strike, he deals an additional 2d6 cold damage as shards of ice and blasts of frozen wind slash and buffet the creature struck.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Alzarius",

@@ -4,49 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lseWqsEmPmayLsqf",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Camouflage",
+            "_id": "dUSNsMfAgprMlimW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Zauglagaul can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] in exterior locations in Tanglebriar even if he doesn't have cover.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wqTR4ozN25T6OJlA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mist Vision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>Mist and fog (such as the Haze) doesn't impair Zauglagaul's vision; he ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from mist and fog.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -54,406 +28,180 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DH9dqEVVGTZe7G9s",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Primal",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:primal"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HJiQ5csE8Zk6bsoQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>120 feet @Check[will|dc:39]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 120,
-                        "slug": "frightful-presence",
-                        "traits": [
-                            "emotion",
-                            "fear",
-                            "mental"
-                        ]
-                    }
-                ],
-                "slug": "frightful-presence",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2y5PjoJxmfA6wGl8",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Miasma",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. After the dragon uses their Poison Breath, a cloud of poison gas continues to emanate from their body for 1 round. Any creature that ends its turn in the miasma takes @Damage[5d6[poison]] damage (@Check[fortitude|dc:39|basic] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. The dragon can see through this concealment.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "misma"
-                        ],
-                        "radius": 20,
-                        "traits": [
-                            "poison"
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "tOWLcNI0zUSPc3Rn"
+                            },
+                            {
+                                "id": "7udWZMt5PM0Zum8k"
+                            },
+                            {
+                                "id": "cVWYcbbdYztWB3G0"
+                            },
+                            {
+                                "id": "Hgr1hPHoJu3IWDAf"
+                            },
+                            {
+                                "id": "FdO8NS6rTDcNeq2x"
+                            }
                         ]
                     },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "miasma",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "I0wNsm5MwUO1PaPN",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Old Wound",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>After Zuldanavox nearly bit off Zauglagaul's right wing decades ago, it never quite healed right. A crescent-shaped patch of discolored scales at the base of his wing on his right side marks this wound. The PCs might already know about this wound (see Zauglagaul at a Disadvantage below); otherwise, a PC only learns about this weakness if they witness a critical hit against Zauglagaul that inflicts piercing damage. Once a PC knows about Zauglagaul's old wound, they can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] during their turn to focus on this old wound, automatically treating Zauglagaul as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn. If a PC critically hits Zauglagaul in the same round they Seek in this way, the pain causes the dragon to become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 hour. Multiple critical hits can increase the value of these conditions up to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ItyDWQiPz0eJ2hOb",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Twisting Tail",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using</p>\n<hr />\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a –2 penalty. If the Strike hits, the dragon disrupts the creature's action.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "attack-roll",
-                        "key": "RollOption",
-                        "option": "twisting-tail",
-                        "toggleable": true
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "GcrJddpuVlu1OPrh"
+                            },
+                            {
+                                "id": "LwxcxgWB0e0klb0e"
+                            },
+                            {
+                                "id": "msTOUil1EHkk2mM2"
+                            }
+                        ]
                     },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "twisting-tail"
-                        ],
-                        "selector": "tail-attack",
-                        "type": "untyped",
-                        "value": -2
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "ZvB8my454aEkOt6o"
+                            },
+                            {
+                                "id": "0G8nzkjSD4K0AzaS"
+                            },
+                            {
+                                "id": "C0LlSbLxvKE2ChPl"
+                            }
+                        ]
                     },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "twisting-tail"
-                        ],
-                        "selector": "tail-attack",
-                        "text": "PF2E.AttackEffects.InterruptAction",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "seieSTqFDdAHCefa"
+                            },
+                            {
+                                "id": "rczzgszDCFm1VavN"
+                            },
+                            {
+                                "id": "jYxe3XWslZ7HUHXj"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "EPC0CxRjbmOXWqCn"
+                            },
+                            {
+                                "id": "msTOUil1EHkk2mM2"
+                            },
+                            {
+                                "id": "v1TYvTmbdSH2EGom"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "1mzOhb826BUmms07"
+                            },
+                            {
+                                "id": "z2oNaLACMbKJXU6n"
+                            },
+                            {
+                                "id": "0G8nzkjSD4K0AzaS"
+                            }
+                        ]
+                    },
+                    "slot6": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "z2oNaLACMbKJXU6n"
+                            },
+                            {
+                                "id": "GuFvkafzSvLJAwWo"
+                            },
+                            {
+                                "id": "zEMVDdm5jn0SgGyl"
+                            }
+                        ]
+                    },
+                    "slot7": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "g89lcMv2dQswbjJ1"
+                            },
+                            {
+                                "id": "YgXAbaNkI40tREzO"
+                            },
+                            {
+                                "id": "z2oNaLACMbKJXU6n"
+                            }
+                        ]
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "7HZ8GFUyFGOv2EYQ"
+                            },
+                            {
+                                "id": "z2oNaLACMbKJXU6n"
+                            },
+                            {
+                                "id": "UNQoWhIBJ98MyVwR"
+                            }
+                        ]
+                    },
+                    "slot9": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "p4tGMb0EVteZn9c0"
+                            },
+                            {
+                                "id": "0ZCYgUv3qQ636U5a"
+                            }
+                        ]
                     }
-                ],
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1FbPUVt1mVdHjwrB",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Forest Passage",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The horned dragon ignores any difficult terrain caused by plants, such as bushes, vines, and undergrowth. Even plants manipulated by magic don't impede their progress.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3Fn7wuVzeuI4kT5H",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Impaling Charge",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon doesn't have a creature impaled on their horn</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to gore a foe. They Stride, then attempt a horn Strike. On a hit, the target becomes impaled on the dragon's horn. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] while on the horn (and can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] as normal). The dragon doesn't need to use additional actions to keep the impaled creature grabbed. If the dragon moves, they bring the grabbed creature along with them.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VPryni3E3RGw5MdV",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Breath",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zauglagaul breathes a toxic cloud of spores that deals @Damage[18d6[poison]] damage in a @Template[cone|distance:60]. Creatures in the area must attempt a @Check[fortitude|dc:39] save. Zauglagaul can't use Spore Breath again for [[/gmr 1d4 #Recharge Spore Breath]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration as the spores take root and cause the victim to suffer from distracting hallucinations.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for an unlimited duration.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fungus",
-                        "poison",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "O3Pp2Vb15TQKafR0",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Trackless Journey",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The horned dragon always gains the benefits of Cover Tracks in natural surroundings, even while moving at full speed.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "POSKvqNa5Az0M5pp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "spelldc": {
+                    "dc": 41,
                     "value": 33
                 },
-                "proficient": {
-                    "value": 0
+                "tradition": {
+                    "value": "primal"
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "s6adAtDXbmqHceWK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1300000,
+            "_id": "m9dIszotbO8vukOI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "13YfnOyihv4vqe5O": {
-                        "damage": "4d10+17",
-                        "damageType": "piercing"
-                    },
-                    "s0MevxnjafMkB4qN": {
-                        "damage": "4d4",
-                        "damageType": "poison"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -461,131 +209,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "poison",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 41,
+                    "value": 33
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "zLSUNYt5ukMkU9zC",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 36
-                },
-                "damageRolls": {
-                    "F0aZ1Pe6svOb4Ig6": {
-                        "damage": "4d8+17",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "BWkGmIVrerzvJg6A",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "kASSkknsck59AqJ4": {
-                        "damage": "4d8+15",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-25"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "zgg5I2ssn7V4bFRq",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Horn",
-            "sort": 1600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "wZCjcK17CYCE76jc": {
-                        "damage": "3d8+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "p4tGMb0EVteZn9c0",
@@ -594,7 +232,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 1700000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "line",
@@ -692,7 +330,7 @@
             },
             "img": "systems/pf2e/icons/spells/storm-lord.webp",
             "name": "Wrathful Storm",
-            "sort": 1800000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -771,7 +409,7 @@
             },
             "img": "systems/pf2e/icons/spells/eclipse-burst.webp",
             "name": "Eclipse Burst",
-            "sort": 1900000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -872,7 +510,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 2000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -987,7 +625,7 @@
             },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
-            "sort": 2100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1071,7 +709,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 2200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1140,7 +778,7 @@
             },
             "img": "icons/magic/defensive/armor-stone-skin.webp",
             "name": "Petrify",
-            "sort": 2300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1206,7 +844,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
-            "sort": 2400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1271,7 +909,7 @@
             },
             "img": "icons/magic/fire/explosion-flame-blue.webp",
             "name": "Control Water",
-            "sort": 2500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1337,7 +975,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Toxic Cloud",
-            "sort": 2600000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1425,7 +1063,7 @@
             },
             "img": "systems/pf2e/icons/spells/blight.webp",
             "name": "Blight",
-            "sort": 2700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1491,7 +1129,7 @@
             },
             "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
             "name": "Mirage",
-            "sort": 2800000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1556,7 +1194,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 2900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1636,7 +1274,7 @@
             },
             "img": "systems/pf2e/icons/spells/gaseous-form.webp",
             "name": "Vapor Form",
-            "sort": 3000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1699,7 +1337,7 @@
             },
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 3100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1767,7 +1405,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind",
-            "sort": 3200000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1833,7 +1471,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 3300000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1904,7 +1542,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangling Flora",
-            "sort": 3400000,
+            "sort": 2000000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -1975,7 +1613,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangling Flora (At Will)",
-            "sort": 3500000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -2051,7 +1689,7 @@
             },
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
             "name": "Humanoid Form",
-            "sort": 3600000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2113,7 +1751,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Mist",
-            "sort": 3700000,
+            "sort": 2300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2177,7 +1815,7 @@
             },
             "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
             "name": "Caustic Blast",
-            "sort": 3800000,
+            "sort": 2400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -2265,7 +1903,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 3900000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2346,7 +1984,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 4000000,
+            "sort": 2600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2427,7 +2065,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
             "name": "Electric Arc",
-            "sort": 4100000,
+            "sort": 2700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2512,7 +2150,7 @@
             },
             "img": "systems/pf2e/icons/spells/grease.webp",
             "name": "Grease",
-            "sort": 4200000,
+            "sort": 2800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2577,7 +2215,7 @@
             },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
             "name": "Gust of Wind",
-            "sort": 4300000,
+            "sort": 2900000,
             "system": {
                 "area": {
                     "type": "line",
@@ -2657,7 +2295,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 4400000,
+            "sort": 3000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2853,7 +2491,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
             "name": "Ignition",
-            "sort": 4500000,
+            "sort": 3100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2963,7 +2601,7 @@
             },
             "img": "systems/pf2e/icons/spells/pest-form.webp",
             "name": "Pest Form",
-            "sort": 4600000,
+            "sort": 3200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3024,7 +2662,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 4700000,
+            "sort": 3300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3103,7 +2741,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 4800000,
+            "sort": 3400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -3161,204 +2799,29 @@
             "type": "spell"
         },
         {
-            "_id": "dUSNsMfAgprMlimW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Prepared Spells",
-            "sort": 4900000,
+            "_id": "s6adAtDXbmqHceWK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 3500000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": []
                 },
-                "description": {
-                    "value": ""
+                "bonus": {
+                    "value": 36
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "tOWLcNI0zUSPc3Rn"
-                            },
-                            {
-                                "id": "7udWZMt5PM0Zum8k"
-                            },
-                            {
-                                "id": "cVWYcbbdYztWB3G0"
-                            },
-                            {
-                                "id": "Hgr1hPHoJu3IWDAf"
-                            },
-                            {
-                                "id": "FdO8NS6rTDcNeq2x"
-                            }
-                        ]
+                "damageRolls": {
+                    "13YfnOyihv4vqe5O": {
+                        "damage": "4d10+17",
+                        "damageType": "piercing"
                     },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "GcrJddpuVlu1OPrh"
-                            },
-                            {
-                                "id": "LwxcxgWB0e0klb0e"
-                            },
-                            {
-                                "id": "msTOUil1EHkk2mM2"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "ZvB8my454aEkOt6o"
-                            },
-                            {
-                                "id": "0G8nzkjSD4K0AzaS"
-                            },
-                            {
-                                "id": "C0LlSbLxvKE2ChPl"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "seieSTqFDdAHCefa"
-                            },
-                            {
-                                "id": "rczzgszDCFm1VavN"
-                            },
-                            {
-                                "id": "jYxe3XWslZ7HUHXj"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "EPC0CxRjbmOXWqCn"
-                            },
-                            {
-                                "id": "msTOUil1EHkk2mM2"
-                            },
-                            {
-                                "id": "v1TYvTmbdSH2EGom"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "1mzOhb826BUmms07"
-                            },
-                            {
-                                "id": "z2oNaLACMbKJXU6n"
-                            },
-                            {
-                                "id": "0G8nzkjSD4K0AzaS"
-                            }
-                        ]
-                    },
-                    "slot6": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "z2oNaLACMbKJXU6n"
-                            },
-                            {
-                                "id": "GuFvkafzSvLJAwWo"
-                            },
-                            {
-                                "id": "zEMVDdm5jn0SgGyl"
-                            }
-                        ]
-                    },
-                    "slot7": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "g89lcMv2dQswbjJ1"
-                            },
-                            {
-                                "id": "YgXAbaNkI40tREzO"
-                            },
-                            {
-                                "id": "z2oNaLACMbKJXU6n"
-                            }
-                        ]
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "7HZ8GFUyFGOv2EYQ"
-                            },
-                            {
-                                "id": "z2oNaLACMbKJXU6n"
-                            },
-                            {
-                                "id": "UNQoWhIBJ98MyVwR"
-                            }
-                        ]
-                    },
-                    "slot9": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "p4tGMb0EVteZn9c0"
-                            },
-                            {
-                                "id": "0ZCYgUv3qQ636U5a"
-                            }
-                        ]
+                    "s0MevxnjafMkB4qN": {
+                        "damage": "4d4",
+                        "damageType": "poison"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 41,
-                    "value": 33
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "m9dIszotbO8vukOI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 5000000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "ORC",
@@ -3366,21 +2829,558 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 41,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "poison",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zLSUNYt5ukMkU9zC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 3600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "F0aZ1Pe6svOb4Ig6": {
+                        "damage": "4d8+17",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "BWkGmIVrerzvJg6A",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 3700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "kASSkknsck59AqJ4": {
+                        "damage": "4d8+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-25"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zgg5I2ssn7V4bFRq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Horn",
+            "sort": 3800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "wZCjcK17CYCE76jc": {
+                        "damage": "3d8+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lseWqsEmPmayLsqf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Camouflage",
+            "sort": 3900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Zauglagaul can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] in exterior locations in Tanglebriar even if he doesn't have cover.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wqTR4ozN25T6OJlA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mist Vision",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Mist and fog (such as the Haze) doesn't impair Zauglagaul's vision; he ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from mist and fog.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DH9dqEVVGTZe7G9s",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Primal",
+            "sort": 4100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:primal"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HJiQ5csE8Zk6bsoQ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 4200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>120 feet @Check[will|dc:39]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2y5PjoJxmfA6wGl8",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Miasma",
+            "sort": 4300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. After the dragon uses their Poison Breath, a cloud of poison gas continues to emanate from their body for 1 round. Any creature that ends its turn in the miasma takes @Damage[5d6[poison]] damage (@Check[fortitude|dc:39|basic] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. The dragon can see through this concealment.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "misma"
+                        ],
+                        "radius": 20,
+                        "traits": [
+                            "poison"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "miasma",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "I0wNsm5MwUO1PaPN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Old Wound",
+            "sort": 4400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>After Zuldanavox nearly bit off Zauglagaul's right wing decades ago, it never quite healed right. A crescent-shaped patch of discolored scales at the base of his wing on his right side marks this wound. The PCs might already know about this wound (see Zauglagaul at a Disadvantage below); otherwise, a PC only learns about this weakness if they witness a critical hit against Zauglagaul that inflicts piercing damage. Once a PC knows about Zauglagaul's old wound, they can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] during their turn to focus on this old wound, automatically treating Zauglagaul as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn. If a PC critically hits Zauglagaul in the same round they Seek in this way, the pain causes the dragon to become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 hour. Multiple critical hits can increase the value of these conditions up to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ItyDWQiPz0eJ2hOb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Twisting Tail",
+            "sort": 4500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using</p>\n<hr />\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a –2 penalty. If the Strike hits, the dragon disrupts the creature's action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "twisting-tail",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "twisting-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "type": "untyped",
+                        "value": -2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "twisting-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "text": "PF2E.AttackEffects.InterruptAction",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1FbPUVt1mVdHjwrB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Forest Passage",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The horned dragon ignores any difficult terrain caused by plants, such as bushes, vines, and undergrowth. Even plants manipulated by magic don't impede their progress.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Fn7wuVzeuI4kT5H",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Impaling Charge",
+            "sort": 4700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The dragon doesn't have a creature impaled on their horn</p>\n<hr />\n<p><strong>Effect</strong> The dragon attempts to gore a foe. They Stride, then attempt a horn Strike. On a hit, the target becomes impaled on the dragon's horn. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] while on the horn (and can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] as normal). The dragon doesn't need to use additional actions to keep the impaled creature grabbed. If the dragon moves, they bring the grabbed creature along with them.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VPryni3E3RGw5MdV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Breath",
+            "sort": 4800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zauglagaul breathes a toxic cloud of spores that deals @Damage[18d6[poison]] damage in a @Template[cone|distance:60]. Creatures in the area must attempt a @Check[fortitude|dc:39] save. Zauglagaul can't use Spore Breath again for [[/gmr 1d4 #Recharge Spore Breath]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration as the spores take root and cause the victim to suffer from distracting hallucinations.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for an unlimited duration.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fungus",
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "O3Pp2Vb15TQKafR0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Trackless Journey",
+            "sort": 4900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The horned dragon always gains the benefits of Cover Tracks in natural surroundings, even while moving at full speed.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "POSKvqNa5Az0M5pp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
+            "sort": 5000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 33
                 },
-                "tradition": {
-                    "value": "primal"
+                "proficient": {
+                    "value": 0
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Zauglagaul",

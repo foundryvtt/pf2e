@@ -3,370 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Dye4kplXn2HWokpZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "xzuxIMk5QK7iPQ9j",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HYEhG7CYIOvCkH8C",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H9Hu5uk0AogKrXF4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 15 (Deactivated by Unholy)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "unholy"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 15
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "BsKlvqGTEEIQo1cx",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+4 Bonus on Perception to Detect Illusions",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:illusion"
-                        ],
-                        "selector": "perception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EIhaPhUMiN88cQT6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Righteousness",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "allies",
-                                "events": [
-                                    "enter"
-                                ],
-                                "includesSelf": false,
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Righteousness"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "aura-of-righteousness",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q57wXsK3JdmLYoDR",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Blade of Justice",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals @Damage[1d6[persistent,spirit]] damage to the target. The planetar can convert all the physical damage from the attack into spirit damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "blade-of-justice",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 3,
-                        "key": "DamageDice",
-                        "predicate": [
-                            "blade-of-justice"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "holy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "RXUhJpHPbpDMUlbJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The planetar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "XSN5GyOi1NAbLqve",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Holy Armaments",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while a planetar wields it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            {
-                                "not": "item:category:unarmed"
-                            }
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "property-runes",
-                        "value": "holy"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ED7Sb3O9SLxFnTRr",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "YBf7cE1gXS2MxYx2"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Holy Greatsword",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d12+16",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -374,21 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "good",
-                        "holy",
-                        "magical",
-                        "versatile-p"
-                    ]
+                "spelldc": {
+                    "dc": 37,
+                    "mod": 0,
+                    "value": 29
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "dbOkQYP7WwCgZOu4",
@@ -397,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -459,7 +109,7 @@
             },
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Earthquake",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -538,7 +188,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-stun.webp",
             "name": "Power Word Stun",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -598,7 +248,7 @@
             },
             "img": "systems/pf2e/icons/spells/sunburst.webp",
             "name": "Sunburst",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -686,7 +336,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -755,7 +405,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -818,7 +468,7 @@
             },
             "img": "systems/pf2e/icons/spells/power-word-blind.webp",
             "name": "Power Word Blind",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -878,7 +528,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-fear.webp",
             "name": "Remove Fear (At will)",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -939,7 +589,7 @@
             },
             "img": "icons/skills/melee/strike-dagger-white-orange.webp",
             "name": "Blade Barrier",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1021,7 +671,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic (At will)",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1083,7 +733,7 @@
             },
             "img": "icons/magic/life/heart-shadow-red.webp",
             "name": "Breath of Life",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1154,7 +804,7 @@
             },
             "img": "icons/magic/death/undead-ghost-scream-teal.webp",
             "name": "Call Spirit",
-            "sort": 2100000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1217,7 +867,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
             "name": "Death Ward",
-            "sort": 2200000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1278,7 +928,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (Constant) (Evil only)",
-            "sort": 2300000,
+            "sort": 1500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1342,7 +992,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Freedom of Movement",
-            "sort": 2400000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1403,7 +1053,7 @@
             },
             "img": "icons/magic/life/heart-cross-strong-green.webp",
             "name": "Restoration",
-            "sort": 2500000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1469,7 +1119,7 @@
             },
             "img": "systems/pf2e/icons/spells/resurrect.webp",
             "name": "Resurrect",
-            "sort": 2600000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1534,7 +1184,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 2700000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1595,7 +1245,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 2800000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1658,7 +1308,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 2900000,
+            "sort": 2100000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1747,7 +1397,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (At will) (Self only)",
-            "sort": 3000000,
+            "sort": 2200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1807,7 +1457,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-paralysis.webp",
             "name": "Remove Paralysis",
-            "sort": 3100000,
+            "sort": 2300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1869,7 +1519,7 @@
             },
             "img": "systems/pf2e/icons/spells/angelic-messenger.webp",
             "name": "Angelic Messenger",
-            "sort": 3200000,
+            "sort": 2400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1932,7 +1582,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 3300000,
+            "sort": 2500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2123,51 +1773,13 @@
             "type": "spell"
         },
         {
-            "_id": "xzuxIMk5QK7iPQ9j",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 3400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 37,
-                    "mod": 0,
-                    "value": 29
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "YBf7cE1gXS2MxYx2",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UX71GkWBL9g41VwM"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Greatsword",
-            "sort": 3500000,
+            "sort": 2600000,
             "system": {
                 "baseItem": "greatsword",
                 "bonus": {
@@ -2244,6 +1856,394 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ED7Sb3O9SLxFnTRr",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "YBf7cE1gXS2MxYx2"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Holy Greatsword",
+            "sort": 2700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d12+16",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "good",
+                        "holy",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Dye4kplXn2HWokpZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HYEhG7CYIOvCkH8C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H9Hu5uk0AogKrXF4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 15 (Deactivated by Unholy)",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "unholy"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 15
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BsKlvqGTEEIQo1cx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 Bonus on Perception to Detect Illusions",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:illusion"
+                        ],
+                        "selector": "perception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EIhaPhUMiN88cQT6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Righteousness",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Righteousness"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "aura-of-righteousness",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q57wXsK3JdmLYoDR",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Blade of Justice",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals @Damage[1d6[persistent,spirit]] damage to the target. The planetar can convert all the physical damage from the attack into spirit damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "blade-of-justice",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 3,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "blade-of-justice"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "holy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RXUhJpHPbpDMUlbJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The planetar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XSN5GyOi1NAbLqve",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Holy Armaments",
+            "sort": 3500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any weapon gains the effect of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy]</em> property rune while a planetar wields it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            {
+                                "not": "item:category:unarmed"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "holy"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Planetar",

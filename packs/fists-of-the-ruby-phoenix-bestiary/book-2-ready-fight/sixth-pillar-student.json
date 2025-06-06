@@ -4,89 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hmQqc1WWSebjduDS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bludgeoning Energy",
+            "_id": "uMz0RtoUgvpPoKW6",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Spontaneous Arcane Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The students' combine elemental energies with physical brawn, blasting opponents with huge gusts of compressed air instead of typical energies. Any of the students' spells that deal energy damage (such as fireball, burning hands, ray of frost, and so on) instead deal bludgeoning damage.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "override",
-                        "predicate": [
-                            "item:damage:category:energy",
-                            "item:type:spell"
-                        ],
-                        "property": "damage-type",
-                        "selectors": [
-                            "spell-damage",
-                            "inline-damage"
-                        ],
-                        "value": "bludgeoning"
-                    },
-                    {
-                        "itemType": "spell",
-                        "key": "ItemAlteration",
-                        "mode": "add",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:elemental-blast",
-                                    "item:slug:elemental-motion",
-                                    "item:slug:elemental-toss"
-                                ]
-                            }
-                        ],
-                        "property": "traits",
-                        "value": "air"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "waRVozA8spHfRmQy",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "tlkgipub1rpnzf9vn2hq": {
-                        "damage": "3d6+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -94,20 +27,84 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot6": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot8": {
+                        "max": 3,
+                        "value": 3
+                    }
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 35,
+                    "mod": 0,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "63pPqK8bI1CuXafX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 35,
+                    "mod": 0,
+                    "value": 27
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
         },
         {
             "_id": "nYLlyjfx6uFGPBXo",
@@ -2545,116 +2542,13 @@
             "type": "spell"
         },
         {
-            "_id": "uMz0RtoUgvpPoKW6",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Arcane Spells",
-            "sort": 3800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot6": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot8": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 35,
-                    "mod": 0,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "63pPqK8bI1CuXafX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 3900000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 35,
-                    "mod": 0,
-                    "value": 27
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "AwFYUeIzqWfnAMED",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.FNDq4NFSN0g2HKWO"
             },
             "img": "icons/equipment/hand/gauntlet-simple-leather-brown-gold.webp",
             "name": "+2 Greater Striking Handwraps of Mighty Blows",
-            "sort": 4000000,
+            "sort": 3800000,
             "system": {
                 "baseItem": null,
                 "bonus": {
@@ -2737,6 +2631,112 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "waRVozA8spHfRmQy",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 3900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "tlkgipub1rpnzf9vn2hq": {
+                        "damage": "3d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hmQqc1WWSebjduDS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bludgeoning Energy",
+            "sort": 4000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The students' combine elemental energies with physical brawn, blasting opponents with huge gusts of compressed air instead of typical energies. Any of the students' spells that deal energy damage (such as fireball, burning hands, ray of frost, and so on) instead deal bludgeoning damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:damage:category:energy",
+                            "item:type:spell"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:elemental-blast",
+                                    "item:slug:elemental-motion",
+                                    "item:slug:elemental-toss"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "air"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sixth Pillar Student",

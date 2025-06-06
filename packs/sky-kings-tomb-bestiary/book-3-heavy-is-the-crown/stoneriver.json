@@ -4,593 +4,40 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "5jDHIJ0xWXWiB9nQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "+10 to Detect Lies and Illusions",
+            "_id": "cGbv4jdRL9vCpfdS",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:sense-motive",
-                                    "illusion"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vR1gxHu9uRGjcqJK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "2-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JKh5DQqL2EFdW89b",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 30 (Deactivated by Cold or Unholy)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "cold",
-                            "unholy"
-                        ],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 30
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KVJ0rUbUamghX6w7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Bolster Torag's Chosen",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>20 feet. Dwarves and creatures that worship Torag in the area gain a +1 status bonus to AC and Will saves.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "predicate": [
-                                    {
-                                        "or": [
-                                            "target:trait:dwarf",
-                                            "target:deity:slug:torag"
-                                        ]
-                                    }
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Bolster Torag's Chosen"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 20,
-                        "slug": "bolster-torags-chosen",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": "bolster-torags-chosen",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mmdx2eslcYPOaAqB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.IQtb58p4EaeUzTN1"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "retributive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NAqzcCJdxWoCQrrx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Devour Magic",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Whenever Stoneriver deals damage with Swallow Whole, he consumes one of the swallowed creature's magical effects, as @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] with a [[/r 1d20+21 #Counteract]]{+21} counteract modifier.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ONrwFvyv9DsatjWc",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Measure Soul",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Stoneriver mentally pries through the mind of a creature within 60 feet, dealing @Damage[10d8[mental]] damage (@Check[will|dc:29|basic] save). Stoneriver can choose to make this damage nonlethal or choose not to damage the creature at all. For 1 minute, Stoneriver gains a +1 circumstance bonus to attack rolls, damage rolls, and Perception checks against that creature. If the creature is evil and it failed its save, the creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure). Stoneriver can't use Measure Soul again for 1d4 rounds.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "measure-soul"
-                        ],
-                        "selector": [
-                            "attack-roll",
-                            "perception",
-                            "damage"
-                        ],
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "measure-soul",
-                        "toggleable": true
-                    }
-                ],
+                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "mental"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "value": 21
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "J5Z3ttUHqoTdRGZw",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Rock Tunneler",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Stoneriver can burrow through solid stone, leaving behind a tunnel if he desires.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m0tgHB0rHmtUxvBs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Large, @Damage[6d6[bludgeoning],2d6[fire]]{6d6 bludgeoning plus 2d6 fire} and devour magic, Rupture 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attack"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8qZJKdBRYIiSU6cT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "improved-grab",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "OwuCiIr7ZFX0MXS8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Torag Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9Ml1AxzxfV8nldeK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tongue",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "improved-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "9napsHZVBGQBhRE1": {
-                        "damage": "3d6+11",
-                        "damageType": "bludgeoning"
-                    },
-                    "WGu8Eqh8uE3F0i1a": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "good",
-                        "holy",
-                        "magical",
-                        "reach-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "pVLJ88ZratpyK151",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "EVVvtxZnAnsh8wIW": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "P1vAtwKWSVpwcrgE": {
-                        "damage": "3d8+11",
-                        "damageType": "slashing"
-                    },
-                    "wPxtsODDfGQ8nSVw": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "holy",
-                        "magical",
-                        "reach-20",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "k5nJMoML14swpHyn",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 1400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "hRa04V0ckmFHepWh": {
-                        "damage": "1d6",
-                        "damageType": "fire"
-                    },
-                    "jfSszuRo1174xwP6": {
-                        "damage": "3d8+11",
-                        "damageType": "slashing"
-                    },
-                    "u6GKoqTL71ppuhVI": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "backswing",
-                        "fatal-d12",
-                        "good",
-                        "holy",
-                        "magical",
-                        "reach-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "4eg3qF1jrhexj4v1",
@@ -599,7 +46,7 @@
             },
             "img": "icons/magic/fire/blast-jet-stream-embers-orange.webp",
             "name": "Blazing Fissure",
-            "sort": 1500000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -697,7 +144,7 @@
             },
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Flame Strike",
-            "sort": 1600000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "details": "10-foot radius, 40-foot-tall cylinder",
@@ -785,7 +232,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -847,7 +294,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1800000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -936,7 +383,7 @@
             },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
-            "sort": 1900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1039,7 +486,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-fear.webp",
             "name": "Remove Fear (At Will)",
-            "sort": 2000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1114,7 +561,7 @@
             },
             "img": "icons/magic/life/heart-cross-strong-green.webp",
             "name": "Restoration",
-            "sort": 2100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1177,7 +624,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will, Evil Only)",
-            "sort": 2200000,
+            "sort": 900000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1242,7 +689,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 2300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1443,7 +890,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2400000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1501,22 +948,35 @@
             "type": "spell"
         },
         {
-            "_id": "cGbv4jdRL9vCpfdS",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2500000,
+            "_id": "9Ml1AxzxfV8nldeK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "9napsHZVBGQBhRE1": {
+                        "damage": "3d6+11",
+                        "damageType": "bludgeoning"
+                    },
+                    "WGu8Eqh8uE3F0i1a": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1524,17 +984,557 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "value": 21
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "good",
+                        "holy",
+                        "magical",
+                        "reach-30"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "pVLJ88ZratpyK151",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "EVVvtxZnAnsh8wIW": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "P1vAtwKWSVpwcrgE": {
+                        "damage": "3d8+11",
+                        "damageType": "slashing"
+                    },
+                    "wPxtsODDfGQ8nSVw": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "holy",
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "k5nJMoML14swpHyn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "hRa04V0ckmFHepWh": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "jfSszuRo1174xwP6": {
+                        "damage": "3d8+11",
+                        "damageType": "slashing"
+                    },
+                    "u6GKoqTL71ppuhVI": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "backswing",
+                        "fatal-d12",
+                        "good",
+                        "holy",
+                        "magical",
+                        "reach-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5jDHIJ0xWXWiB9nQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+10 to Detect Lies and Illusions",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-motive",
+                                    "illusion"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vR1gxHu9uRGjcqJK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "2-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JKh5DQqL2EFdW89b",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 30 (Deactivated by Cold or Unholy)",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "cold",
+                            "unholy"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 30
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KVJ0rUbUamghX6w7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bolster Torag's Chosen",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. Dwarves and creatures that worship Torag in the area gain a +1 status bonus to AC and Will saves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            "target:trait:dwarf",
+                                            "target:deity:slug:torag"
+                                        ]
+                                    }
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Bolster Torag's Chosen"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "bolster-torags-chosen",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": "bolster-torags-chosen",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mmdx2eslcYPOaAqB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.IQtb58p4EaeUzTN1"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "retributive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NAqzcCJdxWoCQrrx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour Magic",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever Stoneriver deals damage with Swallow Whole, he consumes one of the swallowed creature's magical effects, as @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] with a [[/r 1d20+21 #Counteract]]{+21} counteract modifier.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ONrwFvyv9DsatjWc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Measure Soul",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Stoneriver mentally pries through the mind of a creature within 60 feet, dealing @Damage[10d8[mental]] damage (@Check[will|dc:29|basic] save). Stoneriver can choose to make this damage nonlethal or choose not to damage the creature at all. For 1 minute, Stoneriver gains a +1 circumstance bonus to attack rolls, damage rolls, and Perception checks against that creature. If the creature is evil and it failed its save, the creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} on a critical failure). Stoneriver can't use Measure Soul again for 1d4 rounds.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "measure-soul"
+                        ],
+                        "selector": [
+                            "attack-roll",
+                            "perception",
+                            "damage"
+                        ],
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "measure-soul",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J5Z3ttUHqoTdRGZw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rock Tunneler",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Stoneriver can burrow through solid stone, leaving behind a tunnel if he desires.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m0tgHB0rHmtUxvBs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, @Damage[6d6[bludgeoning],2d6[fire]]{6d6 bludgeoning plus 2d6 fire} and devour magic, Rupture 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8qZJKdBRYIiSU6cT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OwuCiIr7ZFX0MXS8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Torag Lore",
+            "sort": 2500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Stoneriver",

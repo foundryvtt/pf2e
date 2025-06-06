@@ -3,232 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iOtx7VnTOTClWj6a",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Shield Arm",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The iron warden has a shield built into its arm, that it can use as a steel shield (+2 to AC and Hardness 5). Because it's a part of the iron warden, all damage in excess of its Hardness is dealt only to the iron warden.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eOHmqozXG1YpdShH",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Shield Block",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ncg1Kg7qrX9KGyjS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Breath Poison",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The iron warden exhales poisonous gas in a @Template[burst|distance:10] centered on the corner of one of the iron warden's squares. The gas persists until the start of the warden's next turn. Any creature in the area (or that later enters the area) is exposed to the iron warden's poison.</p>\n<p>The warden can't Breathe Poison again for [[/gmr 1d4 #Recharge Breath Poison]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "exceptions": [
-                            {
-                                "definition": [
-                                    {
-                                        "or": [
-                                            "damage:type:acid",
-                                            "spell:cause-rust"
-                                        ]
-                                    }
-                                ],
-                                "label": "PF2E.IWR.Custom.AcidAndSpellsThatCauseRust"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "type": "spells",
-                        "value": 15
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7sOSn6x9XtFWAy5t",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Inexorable March",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The iron warden Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a @Check[fortitude|dc:37] save. On a critical success, the resisting creature takes no damage; otherwise, it's damaged as if hit by the iron warden's fist.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wSyZJGdhvo67IbSF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Iron Warden Poison",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Any drained value from this poison is reduced by 1 every hour</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:33];</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<hr />\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0vSVpFhBgh2bSdVc",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "uzr3pngsx92vlari6tp9": {
-                        "damage": "3d10+12",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "a0XkKP0IkwYZyXUO",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
             },
             "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Steel Shield",
-            "sort": 700000,
+            "sort": 100000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "steel-shield",
@@ -280,6 +61,225 @@
                 }
             },
             "type": "shield"
+        },
+        {
+            "_id": "0vSVpFhBgh2bSdVc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "uzr3pngsx92vlari6tp9": {
+                        "damage": "3d10+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iOtx7VnTOTClWj6a",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shield Arm",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The iron warden has a shield built into its arm, that it can use as a steel shield (+2 to AC and Hardness 5). Because it's a part of the iron warden, all damage in excess of its Hardness is dealt only to the iron warden.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eOHmqozXG1YpdShH",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ncg1Kg7qrX9KGyjS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Breath Poison",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The iron warden exhales poisonous gas in a @Template[burst|distance:10] centered on the corner of one of the iron warden's squares. The gas persists until the start of the warden's next turn. Any creature in the area (or that later enters the area) is exposed to the iron warden's poison.</p>\n<p>The warden can't Breathe Poison again for [[/gmr 1d4 #Recharge Breath Poison]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    {
+                                        "or": [
+                                            "damage:type:acid",
+                                            "spell:cause-rust"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.AcidAndSpellsThatCauseRust"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "spells",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7sOSn6x9XtFWAy5t",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Inexorable March",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The iron warden Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a @Check[fortitude|dc:37] save. On a critical success, the resisting creature takes no damage; otherwise, it's damaged as if hit by the iron warden's fist.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wSyZJGdhvo67IbSF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Iron Warden Poison",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any drained value from this poison is reduced by 1 every hour</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:33];</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<hr />\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Iron Warden",

@@ -4,57 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3hN44tqTe2tp7Axj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 30 Feet",
+            "_id": "Ix9EPRHOUFoz8Aqj",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AjQpBvc8QdfxEyAD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Psychic Daze",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The mindreaver targets one creature within 120 feet and violently intrudes into their mind. The target attempts a @Check[will|dc:22] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target creature is unaffected.</p>\n<p><strong>Success</strong> The target creature gains weakness 1 to mental damage for 1 minute. If they already have weakness to mental damage, the value of the weakness increases by one.</p>\n<p><strong>Failure</strong> The target creature takes 2d10 mental damage and gains weakness 1 to mental damage for 1 minute. If they already have weakness to mental damage, the value of the weakness increases by one.</p>\n<p><strong>Critical Failure</strong> As failure, except the target's weakness to mental damage increases by 2.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Psychic Daze]</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -62,164 +27,34 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot3": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot4": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "mental",
-                        "psychic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "omdTvhVUo6TfJRVO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zPhqmCvWyHO8i9ws"
-            },
-            "img": "icons/commodities/biological/eye-purple.webp",
-            "name": "Pendant of the Occult",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the @UUID[Compendium.pf2e.spells-srd.Item.Guidance] cantrip as an occult innate spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "occultism",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "pendant-of-the-occult",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "occult"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "1mIFrUJ5ZOqT6Mwi",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 22,
                     "value": 14
                 },
-                "damageRolls": {
-                    "kthPOXmw3g019EqM": {
-                        "damage": "1d6+3",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "qNlAAp5Rg1Hyw1r1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 500000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "dAbhMqmgc5p00k5I": {
-                        "damage": "2d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "dnJ53u9mFDavyktj",
@@ -228,7 +63,7 @@
             },
             "img": "systems/pf2e/icons/spells/clairvoyance.webp",
             "name": "Clairvoyance",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -290,7 +125,7 @@
             },
             "img": "systems/pf2e/icons/spells/seal-fate.webp",
             "name": "Seal Fate",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -359,7 +194,7 @@
             },
             "img": "icons/commodities/bones/skull-hollow-worn-blue.webp",
             "name": "Agonizing Despair",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -447,7 +282,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -533,7 +368,7 @@
             },
             "img": "systems/pf2e/icons/spells/sculpt-sound.webp",
             "name": "Sculpt Sound",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -608,7 +443,7 @@
             },
             "img": "systems/pf2e/icons/spells/blood-vendetta.webp",
             "name": "Blood Vendetta",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -693,7 +528,7 @@
             },
             "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
             "name": "Soothe",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -774,7 +609,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -837,7 +672,7 @@
             },
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -903,7 +738,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -990,7 +825,7 @@
             },
             "img": "systems/pf2e/icons/spells/deja-vu.webp",
             "name": "Déjà Vu",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1058,7 +893,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1700000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1119,7 +954,7 @@
             },
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
-            "sort": 1800000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1186,7 +1021,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1900000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1261,7 +1096,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2000000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1323,7 +1158,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2100000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1441,22 +1276,95 @@
             "type": "spell"
         },
         {
-            "_id": "Ix9EPRHOUFoz8Aqj",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2200000,
+            "_id": "omdTvhVUo6TfJRVO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zPhqmCvWyHO8i9ws"
+            },
+            "img": "icons/commodities/biological/eye-purple.webp",
+            "name": "Pendant of the Occult",
+            "sort": 1800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the @UUID[Compendium.pf2e.spells-srd.Item.Guidance] cantrip as an occult innate spell.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "occultism",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "pendant-of-the-occult",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "invested",
+                        "occult"
+                    ]
+                },
+                "usage": {
+                    "value": "worn"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1mIFrUJ5ZOqT6Mwi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1900000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "kthPOXmw3g019EqM": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1464,34 +1372,126 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "slot3": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot4": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 14
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "qNlAAp5Rg1Hyw1r1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "dAbhMqmgc5p00k5I": {
+                        "damage": "2d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3hN44tqTe2tp7Axj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 Feet",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AjQpBvc8QdfxEyAD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Psychic Daze",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mindreaver targets one creature within 120 feet and violently intrudes into their mind. The target attempts a @Check[will|dc:22] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target creature is unaffected.</p>\n<p><strong>Success</strong> The target creature gains weakness 1 to mental damage for 1 minute. If they already have weakness to mental damage, the value of the weakness increases by one.</p>\n<p><strong>Failure</strong> The target creature takes 2d10 mental damage and gains weakness 1 to mental damage for 1 minute. If they already have weakness to mental damage, the value of the weakness increases by one.</p>\n<p><strong>Critical Failure</strong> As failure, except the target's weakness to mental damage increases by 2.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Psychic Daze]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "psychic"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ulat-Kini Mindreaver",

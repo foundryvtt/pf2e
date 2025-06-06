@@ -3,119 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MqZKv72y1ZKA6RAE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Capturing Grab",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>This ability functions as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab], plus on a success, the mantis can choose to pull the creature adjacent to it, then makes a mandibles Strike against the creature. This extra benefit doesn't apply when the mantis maintains the Grab.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yEhFyHlybvFRrc0k",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Lunging Strike",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The giant mantis lunges forward, making a leg Strike with an extended reach of 20 feet. If it hits, the mantis can use Capturing Grab after the Strike even if the creature is out of reach.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nmSxnKrk324bG1w4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sudden Strike",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the giant mantis.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            "encounter:round:1",
-                            {
-                                "lt": [
-                                    "self:participant:initiative:rank",
-                                    "target:participant:initiative:rank"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "strike-attack-roll",
-                            "spell-attack-roll",
-                            "strike-damage",
-                            "attack-spell-damage"
-                        ],
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Mo3NNcPkDUwnRiIF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Leg",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -160,7 +51,7 @@
             "_id": "GDRN1E60FSxKpOv0",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -197,6 +88,115 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "MqZKv72y1ZKA6RAE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Capturing Grab",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This ability functions as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab], plus on a success, the mantis can choose to pull the creature adjacent to it, then makes a mandibles Strike against the creature. This extra benefit doesn't apply when the mantis maintains the Grab.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yEhFyHlybvFRrc0k",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Lunging Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The giant mantis lunges forward, making a leg Strike with an extended reach of 20 feet. If it hits, the mantis can use Capturing Grab after the Strike even if the creature is out of reach.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nmSxnKrk324bG1w4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sudden Strike",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On the first round of combat, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the giant mantis.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Giant Mantis",

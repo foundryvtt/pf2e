@@ -4,167 +4,279 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "nB76Ig6XS6Wv86JA",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tumbling Traveler",
+            "_id": "DKvgwTBxfbe7Txnl",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>The tumbleweed leshy courier gains a +10-foot circumstance bonus to Speed while traveling during exploration mode.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "tumbling-traveler",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "tumbling-traveler"
-                        ],
-                        "selector": "speed",
-                        "type": "circumstance",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Bcv0cDl1eItdbixX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.wCnsRCHvtZkZTmO0"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Nimble Dodge",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The tumbleweed leshy courier is targeted with an attack by an attacker they can see</p><hr /><p><strong>Effect</strong> The leshy gains a +2 circumstance bonus to AC against the triggering attack.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "option": "nimble-dodge",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "nimble-dodge"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "nimble-dodge",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xTcDZSkp3WAdhSKI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spiny Burst",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the tumbleweed leshy courier dies, a burst of primal energy explodes from their body, restoring @Damage[2d8[healing,vitality]|shortLabel] Hit Points to each plant creature in a @Template[type:emanation|distance:30]. This area immediately fills with brambles and thistles, becoming difficult terrain. Any creature that moves through the area takes @Damage[1[piercing]] damage per square traversed. If the terrain is not a viable environment for these plants, they wither after 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing",
-                        "primal",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yB7IqUJb0VoQlhoB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "2HHg2g4OoPZJPAb0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
+            },
+            "img": "icons/magic/nature/plant-poison-spit-green.webp",
+            "name": "Speak with Plants ((tumbleweeds and scrubland brush only)",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
                 "description": {
-                    "value": "<p>The tumbleweed leshy courier transforms into a Small tumbleweed. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants]. Additionally, when the leshy uses their Change Shape ability, they still have a Speed of 10 feet for the purpose of travel during exploration mode.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>You can ask questions of and receive answers from plants and fungi, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants and fungi have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant or fungus monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration is 8 hours.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "DKvgwTBxfbe7Txnl"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": "Pathfinder Player Core"
                 },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
                 "rules": [],
-                "slug": "change-shape",
+                "slug": "speak-with-plants",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
                 "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
                     "value": [
                         "concentrate",
-                        "polymorph",
-                        "primal"
+                        "manipulate",
+                        "plant",
+                        "wood"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "TyLsf0yTsW7dZXtj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
+            },
+            "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
+            "name": "Crossbow",
+            "sort": 300000,
+            "system": {
+                "baseItem": "crossbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "crossbow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 120,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "crossbow",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "yIAtYjeIlEW35IRl",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 400000,
+            "system": {
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "MAXRV9saFYZ6W8PM",
@@ -356,85 +468,114 @@
             "type": "melee"
         },
         {
-            "_id": "2HHg2g4OoPZJPAb0",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
-            },
-            "img": "icons/magic/nature/plant-poison-spit-green.webp",
-            "name": "Speak with Plants ((tumbleweeds and scrubland brush only)",
+            "_id": "nB76Ig6XS6Wv86JA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tumbling Traveler",
             "sort": 900000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
                 "description": {
-                    "value": "<p>You can ask questions of and receive answers from plants and fungi, but the spell doesn't make them more friendly or intelligent than normal. Most normal plants and fungi have a distinctive view of the world around them, so they don't recognize details about creatures or know anything about the world beyond their immediate vicinity. Cunning plant or fungus monsters are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration is 8 hours.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 hour"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "DKvgwTBxfbe7Txnl"
+                    "value": "<p>The tumbleweed leshy courier gains a +10-foot circumstance bonus to Speed while traveling during exploration mode.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "speak-with-plants",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "tumbling-traveler",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tumbling-traveler"
+                        ],
+                        "selector": "speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "manipulate",
-                        "plant",
-                        "wood"
-                    ]
+                    "value": []
                 }
             },
-            "type": "spell"
+            "type": "action"
         },
         {
-            "_id": "DKvgwTBxfbe7Txnl",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
+            "_id": "Bcv0cDl1eItdbixX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.wCnsRCHvtZkZTmO0"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Nimble Dodge",
             "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The tumbleweed leshy courier is targeted with an attack by an attacker they can see</p><hr /><p><strong>Effect</strong> The leshy gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Core Rulebook"
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "nimble-dodge",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xTcDZSkp3WAdhSKI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spiny Burst",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the tumbleweed leshy courier dies, a burst of primal energy explodes from their body, restoring @Damage[2d8[healing,vitality]|shortLabel] Hit Points to each plant creature in a @Template[type:emanation|distance:30]. This area immediately fills with brambles and thistles, becoming difficult terrain. Any creature that moves through the area takes @Damage[1[piercing]] damage per square traversed. If the terrain is not a viable environment for these plants, they wither after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -442,193 +583,52 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 17,
-                    "value": 0
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "TyLsf0yTsW7dZXtj",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
-            },
-            "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
-            "name": "Crossbow",
-            "sort": 1100000,
-            "system": {
-                "baseItem": "crossbow",
-                "bonus": {
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
-                "description": {
-                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "crossbow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": 120,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "crossbow",
-                "splashDamage": {
-                    "value": 0
-                },
                 "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": [
+                        "healing",
+                        "primal",
+                        "vitality"
+                    ]
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "yIAtYjeIlEW35IRl",
+            "_id": "yB7IqUJb0VoQlhoB",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
             },
-            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
-            "name": "Dagger",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
             "sort": 1200000,
             "system": {
-                "baseItem": "dagger",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": 1
                 },
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "knife",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 2
-                    }
+                    "value": "<p>The tumbleweed leshy courier transforms into a Small tumbleweed. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants]. Additionally, when the leshy uses their Change Shape ability, they still have a Speed of 10 feet for the purpose of travel during exploration mode.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": "-"
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "dagger",
-                "splashDamage": {
-                    "value": 0
-                },
+                "slug": "change-shape",
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
+                        "concentrate",
+                        "polymorph",
+                        "primal"
                     ]
-                },
-                "usage": {
-                    "canBeAmmo": false,
-                    "value": "held-in-one-hand"
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Tumbleweed Leshy Courier",

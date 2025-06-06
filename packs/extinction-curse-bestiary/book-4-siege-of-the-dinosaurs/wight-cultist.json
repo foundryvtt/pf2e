@@ -4,320 +4,62 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "rdFZCjqKcogZyMg7",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Dreadful Spite",
+            "_id": "NlM6fsKFpKz5nVMX",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The wight cultist is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The wight makes a Strike before being destroyed. It doesn't gain any temporary HP from drain life on this Strike. A creature hit by this Strike is also @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QDO52xyGxgu4Sa4l",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jUDRlSsIxqf6G6h3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Drain Life",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the wight damages a living creature with its claw or ranseur Strike, the wight gains [[/r 12 #Temporary Hit Points]]{12 temporary Hit Points} and the creature must succeed at a @Check[fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the wight increases the amount of drain by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:jaws",
-                                    "item:slug:ranseur"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "drain-life",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "lYkQae8WS94MiKJn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wight Spawn",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A living humanoid slain by a wight's claw or ranseur Strike rises as a wight after [[/gmr 1d4 #rounds]]{1d4 rounds}. This wight spawn is under the command of the wight that killed it. It doesn't have drain life or wight spawn and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for as long as it is a wight spawn. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains drain life and wight spawn, and is no longer clumsy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oFEYbMQiLvzwPAtG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Bokrug (Platinum)",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
+                "proficiency": {
                     "value": 0
                 },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 150
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "thIGTmJJq0pQ2UGS",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "En5XyqbwPFuM1ya6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Ranseur",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "drain-life"
-                    ]
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "vdt9nfzcpxrzcpdtyi6o": {
-                        "damage": "2d10+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "magical",
-                        "reach"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "sHOiqltQCZRdyxTa",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "drain-life"
-                    ]
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "egtuc95hz3jelo6q7tbi": {
-                        "damage": "3d6+13",
-                        "damageType": "bludgeoning"
+                "slots": {
+                    "slot0": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot3": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot6": {
+                        "max": 1,
+                        "value": 1
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 29,
+                    "mod": 0,
+                    "value": 19
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "egWN7I1nMFTk0Gkd",
@@ -326,7 +68,7 @@
             },
             "img": "icons/creatures/slimes/slime-face-teeth-purple.webp",
             "name": "Crushing Despair",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -409,7 +151,7 @@
             },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -488,7 +230,7 @@
             },
             "img": "icons/magic/light/projectiles-salvo-blue.webp",
             "name": "Downpour",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -550,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze (At Will)",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -629,7 +371,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -716,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -772,71 +514,13 @@
             "type": "spell"
         },
         {
-            "_id": "NlM6fsKFpKz5nVMX",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot3": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot6": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 29,
-                    "mod": 0,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "En5XyqbwPFuM1ya6",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UfurZQK6H6SgOjqe"
             },
             "img": "icons/weapons/polearms/trident-curved-steel.webp",
             "name": "Ranseur",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "baseItem": "ranseur",
                 "bonus": {
@@ -915,6 +599,322 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "oFEYbMQiLvzwPAtG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Bokrug (Platinum)",
+            "sort": 900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 150
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "thIGTmJJq0pQ2UGS",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "En5XyqbwPFuM1ya6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Ranseur",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "drain-life"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "vdt9nfzcpxrzcpdtyi6o": {
+                        "damage": "2d10+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "magical",
+                        "reach"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "sHOiqltQCZRdyxTa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "drain-life"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "egtuc95hz3jelo6q7tbi": {
+                        "damage": "3d6+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "rdFZCjqKcogZyMg7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dreadful Spite",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The wight cultist is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The wight makes a Strike before being destroyed. It doesn't gain any temporary HP from drain life on this Strike. A creature hit by this Strike is also @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QDO52xyGxgu4Sa4l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jUDRlSsIxqf6G6h3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Drain Life",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the wight damages a living creature with its claw or ranseur Strike, the wight gains [[/r 12 #Temporary Hit Points]]{12 temporary Hit Points} and the creature must succeed at a @Check[fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Further damage dealt by the wight increases the amount of drain by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:jaws",
+                                    "item:slug:ranseur"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "drain-life",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lYkQae8WS94MiKJn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wight Spawn",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living humanoid slain by a wight's claw or ranseur Strike rises as a wight after [[/gmr 1d4 #rounds]]{1d4 rounds}. This wight spawn is under the command of the wight that killed it. It doesn't have drain life or wight spawn and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for as long as it is a wight spawn. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains drain life and wight spawn, and is no longer clumsy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Wight Cultist",

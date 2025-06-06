@@ -4,200 +4,41 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9tVyGfBUHb3AJZmy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy (100 feet)",
+            "_id": "H6XACq7YBA9a8Frt",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p><span></span></p>\n<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "prtTIT0LyapARhoz",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Hope Vulnerability",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The elegecide is fueled by the certainty of doom, which leaves it weakened by any hope. The first time each round that a creature critically fails at an attack or skill check against the elegecide, it experiences a burst of hope that leaves it @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "affects": "origin",
-                        "key": "EphemeralEffect",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:trip",
-                                    "action:shove",
-                                    "action:demoralize"
-                                ]
-                            }
-                        ],
-                        "selectors": [
-                            "attack-roll",
-                            "skill-check"
-                        ],
-                        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Hope Vulnerability"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "y53eOVRvnut1jdIQ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Doom Aura",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet</p>\n<p>The elegecide constantly emits telepathic warnings about future dangers and harm. When a non-demon creature ends its turn in the aura, it must attempt a @Check[will|dc:18] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "radius": 30,
-                        "traits": [
-                            "aura",
-                            "divine",
-                            "fear"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "fear"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6nmHe20KIytqxeJS",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dorsal Lash",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The elegecide lashes out with its trailing dorsal fins, looping them around a target within 15 feet. It sends a burst of telepathic information about all the possible ways the target can be injured in the next minute. The target takes @Damage[(1d4+2)[mental]] damage and must attempt a @Check[reflex|dc:18|traits:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the elegecide.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the elegecide.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "mental"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "271d7bp9MXjJ9bZQ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 8
-                },
-                "damageRolls": {
-                    "ZWbt9YmthjWjxsri": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "yuYhqrectkCoN9VG",
@@ -206,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 600000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -276,7 +117,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -363,7 +204,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -428,7 +269,7 @@
             },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -510,7 +351,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -591,7 +432,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -654,7 +495,7 @@
             },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -730,7 +571,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -787,41 +628,200 @@
             "type": "spell"
         },
         {
-            "_id": "H6XACq7YBA9a8Frt",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1400000,
+            "_id": "271d7bp9MXjJ9bZQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "ZWbt9YmthjWjxsri": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "prepared": {
-                    "value": "innate"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9tVyGfBUHb3AJZmy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy (100 feet)",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><span></span></p>\n<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "prtTIT0LyapARhoz",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Hope Vulnerability",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The elegecide is fueled by the certainty of doom, which leaves it weakened by any hope. The first time each round that a creature critically fails at an attack or skill check against the elegecide, it experiences a burst of hope that leaves it @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {},
+                "rules": [
+                    {
+                        "affects": "origin",
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "action:shove",
+                                    "action:demoralize"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "attack-roll",
+                            "skill-check"
+                        ],
+                        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Hope Vulnerability"
+                    }
+                ],
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
+        },
+        {
+            "_id": "y53eOVRvnut1jdIQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Doom Aura",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet</p>\n<p>The elegecide constantly emits telepathic warnings about future dangers and harm. When a non-demon creature ends its turn in the aura, it must attempt a @Check[will|dc:18] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "radius": 30,
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "fear"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "fear"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6nmHe20KIytqxeJS",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dorsal Lash",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The elegecide lashes out with its trailing dorsal fins, looping them around a target within 15 feet. It sends a burst of telepathic information about all the possible ways the target can be injured in the next minute. The target takes @Damage[(1d4+2)[mental]] damage and must attempt a @Check[reflex|dc:18|traits:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the elegecide.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the elegecide.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Haunting Elegecide (Doom Demon)",

@@ -3,400 +3,42 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "P0VFneuZMPCfZ35e",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "CFncnCOk0MBxjpim",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7IutovQnFT0tSCco",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "QPrrVmViA5QTr6tE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bastion Aura",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>50 feet. All good-aligned creatures in the aura have fast healing 30 for as long as they remain in range, and they gain a +2 status bonus to attack rolls and damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bastion Aura]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "effects": [
-                            {
-                                "affects": "all",
-                                "events": [
-                                    "enter"
-                                ],
-                                "predicate": [
-                                    "target:trait:good"
-                                ],
-                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Bastion Aura"
-                            }
-                        ],
-                        "key": "Aura",
-                        "radius": 50,
-                        "slug": "bastion-aura",
-                        "traits": [
-                            "divine",
-                            "healing"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine",
-                        "good",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CYtByJ7KaQiXTAWv",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.IQtb58p4EaeUzTN1"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Damage Reduction</strong> 22</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "retributive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2KSiu60tktdQLiFE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ultimate Sacrifice",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If the bastion archon is slain by an evil creature, it explodes in a geyser of holy light, restoring 140 HP to all good-aligned creatures in a @Template[emanation|distance:40]. The ground in the affected area is also subjected to a level 10 @UUID[Compendium.pf2e.spells-srd.Item.Consecrate] ritual, and the ground is consecrated for 10 years (or only 24 hours if the ultimate sacrifice took place in Hell, Abaddon, or the Abyss).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "good",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xa0P6lS6jAgU3iPX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Archon's Door",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Once per day, if an archon sees another creature cast @UUID[Compendium.pf2e.spells-srd.Item.Translocate], the archon can use dimension door (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's dimension door. If the archon's dimension door has enough distance, the archon appears the same distance and direction from the creature as before either creature used dimension door.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LpnkFiQmJ2nxDYm5",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Blinding Beams",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The bastion archon hits a creature with two fist Strikes this turn and can use its Holy Beam</p>\n<hr />\n<p><strong>Effect</strong> The bastion archon fires its Holy Beam at only the creature it hit twice. The creature's save result is one degree of success worse than the result it rolled.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "itoyZJLBh98BavI1",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Entrench",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bastion archon locks itself in place, becoming voluntarily @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. While Entrenched, the archon can't be forcibly moved or tripped, and it gains a +2 circumstance bonus to AC and Reflex saves. Entrench ends automatically as soon as the bastion archon uses another move action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "entrench",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "entrench"
-                        ],
-                        "selector": [
-                            "ac",
-                            "reflex"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DpIIIQSKrhsFKToW",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Holy Beam",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The bastion archon releases a blinding beam of holy light in a @Template[line|distance:500] that deals @Damage[20d6[spirit]] damage to non-archons in the area, with a @Check[reflex|dc:38|traits:damaging-effect] save.</p>\n<p>The bastion archon can't use Holy Beam again for [[/gmr 1d4 #Recharge Holy Beam]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is blinded permanently.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "good",
-                        "holy",
-                        "incapacitation",
-                        "light"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "x6cH9h8wAkR78uX9",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "14m5ylqb6eypq5salyoy": {
-                        "damage": "4d8+20",
-                        "damageType": "bludgeoning"
-                    },
-                    "i6kst0oqbji1iad2vnu6": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "holy",
-                        "magical",
-                        "reach-15",
-                        "unarmed"
-                    ]
+                "spelldc": {
+                    "dc": 42,
+                    "mod": 0,
+                    "value": 34
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "pLU70j6ysOj7eVT8",
@@ -405,7 +47,7 @@
             },
             "img": "icons/magic/water/wave-water-teal.webp",
             "name": "Air Walk (Constant)",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -466,7 +108,7 @@
             },
             "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
             "name": "Polar Ray",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -545,7 +187,7 @@
             },
             "img": "systems/pf2e/icons/spells/sunburst.webp",
             "name": "Sunburst",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -633,7 +275,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -694,7 +336,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -757,7 +399,7 @@
             },
             "img": "icons/magic/light/projectile-beams-salvo-yellow.webp",
             "name": "Meteor Swarm",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -856,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/spells/prismatic-spray.webp",
             "name": "Prismatic Spray",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -920,7 +562,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-target.webp",
             "name": "True Target",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -985,7 +627,7 @@
             },
             "img": "systems/pf2e/icons/spells/vibrant-pattern.webp",
             "name": "Vibrant Pattern",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -1055,7 +697,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At will)",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1110,23 +752,32 @@
             "type": "spell"
         },
         {
-            "_id": "CFncnCOk0MBxjpim",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2100000,
+            "_id": "x6cH9h8wAkR78uX9",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "14m5ylqb6eypq5salyoy": {
+                        "damage": "4d8+20",
+                        "damageType": "bludgeoning"
+                    },
+                    "i6kst0oqbji1iad2vnu6": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1134,18 +785,367 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 42,
-                    "mod": 0,
-                    "value": 34
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "holy",
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "P0VFneuZMPCfZ35e",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7IutovQnFT0tSCco",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QPrrVmViA5QTr6tE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bastion Aura",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>50 feet. All good-aligned creatures in the aura have fast healing 30 for as long as they remain in range, and they gain a +2 status bonus to attack rolls and damage rolls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bastion Aura]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "predicate": [
+                                    "target:trait:good"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Bastion Aura"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 50,
+                        "slug": "bastion-aura",
+                        "traits": [
+                            "divine",
+                            "healing"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "good",
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CYtByJ7KaQiXTAWv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.IQtb58p4EaeUzTN1"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Damage Reduction</strong> 22</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "retributive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2KSiu60tktdQLiFE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ultimate Sacrifice",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the bastion archon is slain by an evil creature, it explodes in a geyser of holy light, restoring 140 HP to all good-aligned creatures in a @Template[emanation|distance:40]. The ground in the affected area is also subjected to a level 10 @UUID[Compendium.pf2e.spells-srd.Item.Consecrate] ritual, and the ground is consecrated for 10 years (or only 24 hours if the ultimate sacrifice took place in Hell, Abaddon, or the Abyss).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "good",
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xa0P6lS6jAgU3iPX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Archon's Door",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Once per day, if an archon sees another creature cast @UUID[Compendium.pf2e.spells-srd.Item.Translocate], the archon can use dimension door (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's dimension door. If the archon's dimension door has enough distance, the archon appears the same distance and direction from the creature as before either creature used dimension door.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LpnkFiQmJ2nxDYm5",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Blinding Beams",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The bastion archon hits a creature with two fist Strikes this turn and can use its Holy Beam</p>\n<hr />\n<p><strong>Effect</strong> The bastion archon fires its Holy Beam at only the creature it hit twice. The creature's save result is one degree of success worse than the result it rolled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "itoyZJLBh98BavI1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Entrench",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bastion archon locks itself in place, becoming voluntarily @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. While Entrenched, the archon can't be forcibly moved or tripped, and it gains a +2 circumstance bonus to AC and Reflex saves. Entrench ends automatically as soon as the bastion archon uses another move action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "entrench",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "entrench"
+                        ],
+                        "selector": [
+                            "ac",
+                            "reflex"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DpIIIQSKrhsFKToW",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Holy Beam",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The bastion archon releases a blinding beam of holy light in a @Template[line|distance:500] that deals @Damage[20d6[spirit]] damage to non-archons in the area, with a @Check[reflex|dc:38|traits:damaging-effect] save.</p>\n<p>The bastion archon can't use Holy Beam again for [[/gmr 1d4 #Recharge Holy Beam]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is blinded permanently.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "good",
+                        "holy",
+                        "incapacitation",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Bastion Archon",

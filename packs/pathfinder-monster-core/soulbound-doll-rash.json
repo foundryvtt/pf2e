@@ -3,65 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iaTfEZ50lrTlV5Ku",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Personality Fragments",
+            "_id": "AAFWcmRlGxb76Pps",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match a strong personality trait of the donor soul. Because of its soul sliver, a soulbound doll is not immune to spirit as most constructs are.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Immunity",
-                        "mode": "remove",
-                        "type": "spirit"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "jG0R8rvY0cpJadHK",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -69,21 +27,27 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {
+                    "slot3": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "mod": 0,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "IbxT3V3a7VcR5Sj1",
@@ -92,7 +56,7 @@
             },
             "img": "icons/magic/light/projectile-stars-blue.webp",
             "name": "Levitate",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -152,7 +116,7 @@
             },
             "img": "systems/pf2e/icons/spells/dragon-breath.webp",
             "name": "Breathe Fire",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -240,7 +204,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -304,7 +268,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -367,7 +331,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -442,23 +406,29 @@
             "type": "spell"
         },
         {
-            "_id": "AAFWcmRlGxb76Pps",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 800000,
+            "_id": "jG0R8rvY0cpJadHK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -466,27 +436,57 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot3": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "mod": 0,
-                    "value": 10
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
+                "weaponType": {
+                    "value": "melee"
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "iaTfEZ50lrTlV5Ku",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Personality Fragments",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match a strong personality trait of the donor soul. Because of its soul sliver, a soulbound doll is not immune to spirit as most constructs are.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "spirit"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Soulbound Doll (Rash)",

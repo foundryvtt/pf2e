@@ -4,248 +4,69 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GWHDB2yeLa8Idnjm",
-            "folder": "HTjQRF1nfB7t5Hx1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wealthsense",
+            "_id": "kwQAFE60cOj8ZnDI",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>150 gp</p>\n<p>The failed prophet can detect concentrations of coinage and other valuables as an imprecise sense with a range of 60 feet. The failed prophet detects any creature carrying coins and treasure totaling at least the average cost of a consumable item of the failed prophet's level.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                "prepared": {
+                    "value": "spontaneous"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mn2gCpob7OkjIEZ4",
-            "folder": "HTjQRF1nfB7t5Hx1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Broken Mindscape",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>A creature entering the aura or starting its turn in the aura must attempt a Will save. Use the moderate spell DC for the failed prophet's level.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and becomes immune to broken mindscape for 1 minute.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as disjointed visions of the failed prophet's mindscape assail its senses.</p>\n<p><strong>Failure</strong> The creature's mind is pulled into the failed prophet's mindscape. It's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. While paralyzed, the creature can take any actions with the mental or spirit traits, or that deal mental or spirit damage, as though those actions were purely mental. Such actions only have line of effect to the originating failed prophet and other creatures currently paralyzed by broken mindscape, though they treat all such creatures as though they were adjacent.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute or until the failed prophet is destroyed, whichever happens first.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Shining Kingdoms"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "illusion",
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WpxjN9yD3rgbfB9T",
-            "folder": "HTjQRF1nfB7t5Hx1",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Taboos",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Despite the failed prophet's transformed body, a lifelong adherence to the strictures of the Prophecies of Kalistrade has ingrained the philosophical prohibitions into their soul. Whenever a failed prophet is critically hit by an unarmed attack, is critically hit by or critically fails a save against a touch spell, or is exposed to a disease or poison effect (even though immune), they take a –2 status penalty to their AC, attack bonuses, DCs, Perception, saving throws, and skill modifiers for 1 minute. Breaking other Kalistocratic taboos can also trigger this penalty at the GM's discretion.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Shining Kingdoms"
-                },
-                "rules": [
-                    {
-                        "exceptions": [
-                            {
-                                "definition": [
-                                    "item:magical",
-                                    "item:damage:type:bludgeoning"
-                                ],
-                                "label": "magical bludgeoning"
-                            }
-                        ],
-                        "key": "Resistance",
-                        "type": "physical",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Dua6lGd8g9R6kb9p",
-            "folder": "HTjQRF1nfB7t5Hx1",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Greedy Grab",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The failed prophet's last action was a successful fist Strike that dealt damage</p><hr /><p><strong>Effect</strong> The failed prophet attempts a Thievery check against the target's Reflex DC. On a success, the failed prophet pilfers coins and gems from the target with a total value as indicated in the table, to a maximum of what the target is carrying. Valuables in unlocked containers on the target's person can be taken just as easily as those carried. On a critical success, the failed prophet steals double that amount. The failed prophet gains a number of temporary Hit Points equal to the value stolen that last for 1 minute.</p><table class=\"pf2e lost-omens\"><thead><tr><th>Level</th><th>Value Stolen</th></tr></thead><tbody><tr><td><p>10–12</p></td><td><p>[[/r 5d10]] gp</p></td></tr><tr><td><p>13–15</p></td><td><p>[[/r 6d10]] gp</p></td></tr><tr><td><p>16–18</p></td><td><p>[[/r 7d10]] gp</p></td></tr><tr><td><p>19–20</p></td><td><p>[[/r 8d10]] gp</p></td></tr></tbody></table>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Shining Kingdoms"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GozzqnT0QfxGvwVK",
-            "folder": "HTjQRF1nfB7t5Hx1",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "This Is My Reality!",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>@Damage[6d6[spirit]|options:area-effect], @Check[will|dc:30|basic|options:area-damage]</p>\n<p>The failed prophet exerts control over their crumbling mindscape to inflict harm upon those trapped within. This can take the form of falling debris, natural disasters, or anything else the failed prophet can imagine. No matter the form, each creature currently @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by the failed prophet's broken mindscape takes spirit damage with a basic Will save. The save DC uses the high spell DC for the failed prophet's level and the unlimited use area damage for the failed prophet's level.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Lost Omens Shining Kingdoms"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CG9VyMbMk1LKXXMh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mercantile Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "20tB0ugkp4BKKh4W",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "greedy-grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "62AAwByylVAD3p1W": {
-                        "damage": "2d10+11",
-                        "damageType": "bludgeoning"
+                "slots": {
+                    "slot1": {
+                        "max": 5,
+                        "value": 5
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot5": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 27,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "I6WtP8bRXMk4JCYj",
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/magic/death/undead-ghosts-trio-blue.webp",
             "name": "Invoke Spirits",
-            "sort": 800000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -344,7 +165,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/magic/unholy/beam-impact-purple.webp",
             "name": "Shadow Blast",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -442,7 +263,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
             "name": "Telekinetic Haul",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -501,7 +322,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -577,7 +398,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -647,7 +468,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Vision of Death",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -733,7 +554,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -804,7 +625,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -880,7 +701,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/magic/fire/flame-burning-eye.webp",
             "name": "Paranoia",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -955,7 +776,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/feeblemind.webp",
             "name": "Stupefy",
-            "sort": 1700000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1020,7 +841,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1081,7 +902,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1166,7 +987,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Figment",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1227,7 +1048,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Force Barrage",
-            "sort": 2100000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1299,7 +1120,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
-            "sort": 2200000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1364,7 +1185,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 2300000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1425,7 +1246,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/magic/control/silhouette-hold-change-blue.webp",
             "name": "Phantasmal Minion",
-            "sort": 2400000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1485,7 +1306,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2500000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1545,7 +1366,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Telekinetic Hand",
-            "sort": 2600000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1624,7 +1445,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2700000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1742,22 +1563,27 @@
             "type": "spell"
         },
         {
-            "_id": "kwQAFE60cOj8ZnDI",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spontaneous Spells",
-            "sort": 2800000,
+            "_id": "20tB0ugkp4BKKh4W",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2200000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": [
+                        "greedy-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "62AAwByylVAD3p1W": {
+                        "damage": "2d10+11",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "spontaneous"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -1765,39 +1591,213 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 5,
-                        "value": 5
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot5": {
-                        "max": 3,
-                        "value": 3
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "value": 19
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GWHDB2yeLa8Idnjm",
+            "folder": "HTjQRF1nfB7t5Hx1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wealthsense",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "tradition": {
-                    "value": "occult"
+                "actions": {
+                    "value": null
                 },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>150 gp</p>\n<p>The failed prophet can detect concentrations of coinage and other valuables as an imprecise sense with a range of 60 feet. The failed prophet detects any creature carrying coins and treasure totaling at least the average cost of a consumable item of the failed prophet's level.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mn2gCpob7OkjIEZ4",
+            "folder": "HTjQRF1nfB7t5Hx1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Broken Mindscape",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>A creature entering the aura or starting its turn in the aura must attempt a Will save. Use the moderate spell DC for the failed prophet's level.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and becomes immune to broken mindscape for 1 minute.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as disjointed visions of the failed prophet's mindscape assail its senses.</p>\n<p><strong>Failure</strong> The creature's mind is pulled into the failed prophet's mindscape. It's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. While paralyzed, the creature can take any actions with the mental or spirit traits, or that deal mental or spirit damage, as though those actions were purely mental. Such actions only have line of effect to the originating failed prophet and other creatures currently paralyzed by broken mindscape, though they treat all such creatures as though they were adjacent.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute or until the failed prophet is destroyed, whichever happens first.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "illusion",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WpxjN9yD3rgbfB9T",
+            "folder": "HTjQRF1nfB7t5Hx1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Taboos",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Despite the failed prophet's transformed body, a lifelong adherence to the strictures of the Prophecies of Kalistrade has ingrained the philosophical prohibitions into their soul. Whenever a failed prophet is critically hit by an unarmed attack, is critically hit by or critically fails a save against a touch spell, or is exposed to a disease or poison effect (even though immune), they take a –2 status penalty to their AC, attack bonuses, DCs, Perception, saving throws, and skill modifiers for 1 minute. Breaking other Kalistocratic taboos can also trigger this penalty at the GM's discretion.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                },
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "item:damage:type:bludgeoning"
+                                ],
+                                "label": "magical bludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Dua6lGd8g9R6kb9p",
+            "folder": "HTjQRF1nfB7t5Hx1",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Greedy Grab",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The failed prophet's last action was a successful fist Strike that dealt damage</p><hr /><p><strong>Effect</strong> The failed prophet attempts a Thievery check against the target's Reflex DC. On a success, the failed prophet pilfers coins and gems from the target with a total value as indicated in the table, to a maximum of what the target is carrying. Valuables in unlocked containers on the target's person can be taken just as easily as those carried. On a critical success, the failed prophet steals double that amount. The failed prophet gains a number of temporary Hit Points equal to the value stolen that last for 1 minute.</p><table class=\"pf2e lost-omens\"><thead><tr><th>Level</th><th>Value Stolen</th></tr></thead><tbody><tr><td><p>10–12</p></td><td><p>[[/r 5d10]] gp</p></td></tr><tr><td><p>13–15</p></td><td><p>[[/r 6d10]] gp</p></td></tr><tr><td><p>16–18</p></td><td><p>[[/r 7d10]] gp</p></td></tr><tr><td><p>19–20</p></td><td><p>[[/r 8d10]] gp</p></td></tr></tbody></table>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GozzqnT0QfxGvwVK",
+            "folder": "HTjQRF1nfB7t5Hx1",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "This Is My Reality!",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[6d6[spirit]|options:area-effect], @Check[will|dc:30|basic|options:area-damage]</p>\n<p>The failed prophet exerts control over their crumbling mindscape to inflict harm upon those trapped within. This can take the form of falling debris, natural disasters, or anything else the failed prophet can imagine. No matter the form, each creature currently @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by the failed prophet's broken mindscape takes spirit damage with a basic Will save. The save DC uses the high spell DC for the failed prophet's level and the unlimited use area damage for the failed prophet's level.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Shining Kingdoms"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CG9VyMbMk1LKXXMh",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mercantile Lore",
+            "sort": 2800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {}
             },
-            "type": "spellcastingEntry"
+            "type": "lore"
         }
     ],
     "name": "Failed Prophet",

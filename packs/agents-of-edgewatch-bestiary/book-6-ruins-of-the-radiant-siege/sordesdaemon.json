@@ -4,244 +4,58 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "BGk06cTCmFh4ZooN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "NPjuafWJNiaGNe5E",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "aqhyDgyM7LmIL9o2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
+                "slots": {
+                    "slot1": {
+                        "max": 1,
                         "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8QnTTWcdqDNyOtIl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Miasma of Pollution",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. Creatures in the aura can't reduce the value of the sickened condition.</p>\n<p>A creature that enters the aura or begins its turn in it must succeed at a @Check[fortitude|dc:34] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it is sickened on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>Creatures made of water (such as water elementals) and plant creatures use an outcome one degree of success worse than the result of their save.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "miasma-of-pollution",
-                        "traits": [
-                            "disease"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ztgpLrKdJjctex5J",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pollution Infusion",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Non-fiend creatures adjacent to the afflicted creature take a -1 circumstance penalty to saving throws against disease</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:36]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 5</strong> dead.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pollution Infusion]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "pollution-infusion",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease",
-                        "virulent"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wW8lBy7vi5CcDHTN",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Retch of Foulness",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sordesdaemon exhales a spray of sewage that deals @Damage[8d6[acid]] damage and @Damage[8d6[poison]] damage in a @Template[cone|distance:30] (@Check[fortitude|dc:40|basic] save).</p>\n<p>It can't use Retch of Foulness again for [[/gmr 1d4 #Recharge Retch of Foulness]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Qc7N0GKOoFezaIK1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "pollution-infusion"
-                    ]
-                },
-                "bonus": {
-                    "total": 29,
-                    "value": 29
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+14",
-                        "damageType": "bludgeoning"
                     },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
+                    "slot4": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "slot5": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "slot8": {
+                        "max": 2,
+                        "value": 2
                     }
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unarmed",
-                        "unholy"
-                    ]
+                "spelldc": {
+                    "dc": 38,
+                    "mod": 0,
+                    "value": 28
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "blSYbcYvup6PmxxZ",
@@ -250,7 +64,7 @@
             },
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Horrid Wilting",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -333,7 +147,7 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-epidemic.webp",
             "name": "Spiritual Epidemic",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -399,7 +213,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Cloudkill (At Will)",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -486,7 +300,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -547,7 +361,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -608,7 +422,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (At Will) (Good Only)",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -666,22 +480,36 @@
             "type": "spell"
         },
         {
-            "_id": "NPjuafWJNiaGNe5E",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1300000,
+            "_id": "Qc7N0GKOoFezaIK1",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "pollution-infusion"
+                    ]
+                },
+                "bonus": {
+                    "total": 29,
+                    "value": 29
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -689,35 +517,207 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot4": {
-                        "max": 1,
-                        "value": 1
-                    },
-                    "slot5": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "slot8": {
-                        "max": 2,
-                        "value": 2
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 38,
-                    "mod": 0,
-                    "value": 28
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed",
+                        "unholy"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "BGk06cTCmFh4ZooN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aqhyDgyM7LmIL9o2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8QnTTWcdqDNyOtIl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Miasma of Pollution",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Creatures in the aura can't reduce the value of the sickened condition.</p>\n<p>A creature that enters the aura or begins its turn in it must succeed at a @Check[fortitude|dc:34] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it is sickened on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>Creatures made of water (such as water elementals) and plant creatures use an outcome one degree of success worse than the result of their save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "miasma-of-pollution",
+                        "traits": [
+                            "disease"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ztgpLrKdJjctex5J",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pollution Infusion",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Non-fiend creatures adjacent to the afflicted creature take a -1 circumstance penalty to saving throws against disease</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:36]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 5</strong> dead.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pollution Infusion]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "pollution-infusion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease",
+                        "virulent"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wW8lBy7vi5CcDHTN",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Retch of Foulness",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sordesdaemon exhales a spray of sewage that deals @Damage[8d6[acid]] damage and @Damage[8d6[poison]] damage in a @Template[cone|distance:30] (@Check[fortitude|dc:40|basic] save).</p>\n<p>It can't use Retch of Foulness again for [[/gmr 1d4 #Recharge Retch of Foulness]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Sordesdaemon",

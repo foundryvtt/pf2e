@@ -3,415 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qvgyve9ubbhtjhlb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Consecration Vulnerability",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A relictner in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by @UUID[Compendium.pf2e.spells-srd.Item.Anointed Ground], is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9y280jhc7njt1nez",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lair Sense",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The relictner bonds with a single structure they consider their lair, such as a house, temple, or ruin. A relictner is aware of any creature that enters the lair, and the direction and approximate distance to the creature. If the lair is destroyed, the relictner can bond with a new lair by residing within a structure they own or claim for 1 week.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "detection",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Zyy2H5wK3HtqNuuy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0fo5e4nnx624my4t",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Weathering Aura",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. The relictner radiates an aura of degradation. All objects in the area have their Hardness reduced by 10, to a minimum of 0, for as long as they remain in the aura and for 1 round after leaving it. The relictner can't deactivate this aura.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "weathering-aura",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xt70n62im3owz0y2",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Crumble",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The relictner erodes an object within 30 feet, dealing @Damage[3d10[bludgeoning]] damage to it, with a @Check[reflex|dc:31|basic] if the object is attended.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s6celq1ixxucp8ro",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Death Gasp",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The relictner draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead. The relictner gains the undead trait and becomes immune to bleed, death effects, disease, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, and sleep. Any such effects the relictner is currently inflicted with are suspended but take effect again once they take a breath.</p>\n<p>Death Gasp lasts as long as the relictner holds their breath (up to 12 rounds).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Death Gasp]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "14ufiu26cnai5yer",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Demolition",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The relictner bellows in fury, causing the surrounding structure to collapse. All creatures in a @Template[emanation|distance:30] take @Damage[8d10[bludgeoning]] damage from falling debris (@Check[reflex|dc:31|basic]). A creature that fails its save is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The area becomes difficult terrain.</p>\n<p>The relictner can't use Demolition again for [[/gmr 1d4 #Recharge Demolition]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "X0l5lixcXAtLUYYZ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
-            "name": "Chain Mail (Broken)",
-            "sort": 800000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "chain-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 6
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-mail",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "h6ms55ripngjxrjb",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Eroding Touch",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 26
-                },
-                "damageRolls": {
-                    "oSniWtRUWPrrKCFy": {
-                        "damage": "3d12+10",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "k7dcbgnjv5bmyic2",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Targeted Collapse",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "JGvtvUunmweS6Ogw": {
-                        "damage": "3d10+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "range-30",
-                        "trip",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "ZeX1y7UFISFL1frx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MYnh7w7EL3AcQT41"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dwarven-war-axe.webp",
             "name": "Dwarven War Axe (Broken)",
-            "sort": 1100000,
+            "sort": 100000,
             "system": {
                 "baseItem": "dwarven-war-axe",
                 "bonus": {
@@ -490,6 +88,408 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "X0l5lixcXAtLUYYZ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
+            "name": "Chain Mail (Broken)",
+            "sort": 200000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "chain-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-mail",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "h6ms55ripngjxrjb",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Eroding Touch",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "oSniWtRUWPrrKCFy": {
+                        "damage": "3d12+10",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "k7dcbgnjv5bmyic2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Targeted Collapse",
+            "sort": 400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "JGvtvUunmweS6Ogw": {
+                        "damage": "3d10+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "range-30",
+                        "trip",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qvgyve9ubbhtjhlb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Consecration Vulnerability",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A relictner in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by @UUID[Compendium.pf2e.spells-srd.Item.Anointed Ground], is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9y280jhc7njt1nez",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lair Sense",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The relictner bonds with a single structure they consider their lair, such as a house, temple, or ruin. A relictner is aware of any creature that enters the lair, and the direction and approximate distance to the creature. If the lair is destroyed, the relictner can bond with a new lair by residing within a structure they own or claim for 1 week.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "detection",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Zyy2H5wK3HtqNuuy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0fo5e4nnx624my4t",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Weathering Aura",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. The relictner radiates an aura of degradation. All objects in the area have their Hardness reduced by 10, to a minimum of 0, for as long as they remain in the aura and for 1 round after leaving it. The relictner can't deactivate this aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "weathering-aura",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xt70n62im3owz0y2",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Crumble",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The relictner erodes an object within 30 feet, dealing @Damage[3d10[bludgeoning]] damage to it, with a @Check[reflex|dc:31|basic] if the object is attended.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "s6celq1ixxucp8ro",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Death Gasp",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The relictner draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead. The relictner gains the undead trait and becomes immune to bleed, death effects, disease, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, and sleep. Any such effects the relictner is currently inflicted with are suspended but take effect again once they take a breath.</p>\n<p>Death Gasp lasts as long as the relictner holds their breath (up to 12 rounds).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Death Gasp]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "14ufiu26cnai5yer",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Demolition",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The relictner bellows in fury, causing the surrounding structure to collapse. All creatures in a @Template[emanation|distance:30] take @Damage[8d10[bludgeoning]] damage from falling debris (@Check[reflex|dc:31|basic]). A creature that fails its save is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The area becomes difficult terrain.</p>\n<p>The relictner can't use Demolition again for [[/gmr 1d4 #Recharge Demolition]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Relictner Eroder",

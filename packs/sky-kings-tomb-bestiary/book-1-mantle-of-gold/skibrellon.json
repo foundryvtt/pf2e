@@ -4,23 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4rUyfoRxZeSvhm77",
-            "_stats": {
-                "compendiumSource": "Actor.zMoOfK6QSycciTaG.Item.lR6U1WrQJA6pPlmE"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sporesense (Imprecise) 60 feet",
+            "_id": "JOosFxabMqzZIqR1",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>A hyphae tyrant intuitively senses and tracks all nearby fungi. The sense can distinguish between fungus creatures, features made of fungus, and creatures covered in spores.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -28,303 +28,87 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "primal"
-                    ]
+                "slots": {
+                    "slot0": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "5sjGnxbYVEdHc945"
+                            },
+                            {
+                                "id": "99HHDUyDZ5KrWfAX"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "id": "rJPnJSXJFNGnIW7h"
+                            },
+                            {
+                                "id": "H1tvaoANNCnEx3eA"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "AQDzLGiQFw3KeseK"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 21,
+                    "value": 13
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "4Sjc6p9rknUl46L7",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Burst",
+            "_id": "BEkfOgRlDXfcqJC8",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
-                "deathNote": true,
                 "description": {
-                    "value": "<p>When a hyphae tyrant dies, a burst of primal energy explodes from its body in a @Template[emanation|distance:30], restoring 3d8 to each fungus creature and dealing @Damage[3d8[void]] damage (@Check[fortitude|dc:20]{basic Fortitude} save) to each non-fungus creature in the area. This area is filled with fungus, becoming difficult terrain.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "healing",
-                        "void"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "bpgOyxowR8mwKmhU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The hyphae tyrant transforms into a Small fungus. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8oNze8UsvdvZmjkC",
-            "_stats": {
-                "compendiumSource": "Actor.zMoOfK6QSycciTaG.Item.eA8XIQs39g3Y3ATP"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Cloud",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A hyphae tyrant unleashes a cloud of spores in a @Template[emanation|distance:20]. Each non-fungi creature in this area must succeed at a @Check[fortitude|dc:20] save or take @Damage[2[persistent,poison]] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet on a critical failure).</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": "",
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gbTdrNJaeTVQO3BL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spores",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A creature that takes damage from a hyphae tyrant's spore pod Strike must attempt a saving throw with the same DC and effect as its Spore Cloud ability.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "DpUWQTGXbdm69gaN",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "TVcRhuUcriptv1KB": {
-                        "damage": "1d6+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "wBsrod0foM2xdo0B",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "p0GOxoDGR3295MsI"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spore Shephard's Staff",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "GYoO1eBiZ9qSnMgq": {
-                        "damage": "2d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "JGPy8DBBDbluZtmm",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spore Pod",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "spores"
-                    ]
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "Xsa2vV6lxwK3LutP": {
-                        "damage": "2d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "YfpTkWgT4xFN3CGi",
@@ -333,7 +117,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -394,7 +178,7 @@
             },
             "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
             "name": "Create Mycoguardian",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -457,7 +241,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -520,7 +304,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -587,7 +371,7 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "type": "line",
@@ -674,7 +458,7 @@
             },
             "img": "systems/pf2e/icons/spells/lose-the-path.webp",
             "name": "Lose the Path",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -741,7 +525,7 @@
             },
             "img": "icons/magic/nature/tree-animated-smile.webp",
             "name": "Protector Tree (Creates Fungus)",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -802,7 +586,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -863,113 +647,6 @@
             "type": "spell"
         },
         {
-            "_id": "JOosFxabMqzZIqR1",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Prepared Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "5sjGnxbYVEdHc945"
-                            },
-                            {
-                                "id": "99HHDUyDZ5KrWfAX"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 2,
-                        "prepared": [
-                            {
-                                "id": "rJPnJSXJFNGnIW7h"
-                            },
-                            {
-                                "id": "H1tvaoANNCnEx3eA"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "AQDzLGiQFw3KeseK"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "occult"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "BEkfOgRlDXfcqJC8",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 0
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "p0GOxoDGR3295MsI",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bTwZNckINJgiT8Ef"
@@ -977,7 +654,7 @@
             "folder": "q6r2mbisUIr8xQHQ",
             "img": "icons/weapons/staves/staff-forest-gold.webp",
             "name": "Spore Shephard's Staff",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1067,6 +744,329 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "DpUWQTGXbdm69gaN",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "TVcRhuUcriptv1KB": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wBsrod0foM2xdo0B",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "p0GOxoDGR3295MsI"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spore Shephard's Staff",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "GYoO1eBiZ9qSnMgq": {
+                        "damage": "2d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JGPy8DBBDbluZtmm",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spore Pod",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "spores"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "Xsa2vV6lxwK3LutP": {
+                        "damage": "2d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4rUyfoRxZeSvhm77",
+            "_stats": {
+                "compendiumSource": "Actor.zMoOfK6QSycciTaG.Item.lR6U1WrQJA6pPlmE"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sporesense (Imprecise) 60 feet",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A hyphae tyrant intuitively senses and tracks all nearby fungi. The sense can distinguish between fungus creatures, features made of fungus, and creatures covered in spores.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4Sjc6p9rknUl46L7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Burst",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a hyphae tyrant dies, a burst of primal energy explodes from its body in a @Template[emanation|distance:30], restoring 3d8 to each fungus creature and dealing @Damage[3d8[void]] damage (@Check[fortitude|dc:20]{basic Fortitude} save) to each non-fungus creature in the area. This area is filled with fungus, becoming difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bpgOyxowR8mwKmhU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hyphae tyrant transforms into a Small fungus. This ability otherwise uses the effects of @UUID[Compendium.pf2e.spells-srd.Item.One with Plants].</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8oNze8UsvdvZmjkC",
+            "_stats": {
+                "compendiumSource": "Actor.zMoOfK6QSycciTaG.Item.eA8XIQs39g3Y3ATP"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Cloud",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A hyphae tyrant unleashes a cloud of spores in a @Template[emanation|distance:20]. Each non-fungi creature in this area must succeed at a @Check[fortitude|dc:20] save or take @Damage[2[persistent,poison]] damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "",
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gbTdrNJaeTVQO3BL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spores",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes damage from a hyphae tyrant's spore pod Strike must attempt a saving throw with the same DC and effect as its Spore Cloud ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Skibrellon",

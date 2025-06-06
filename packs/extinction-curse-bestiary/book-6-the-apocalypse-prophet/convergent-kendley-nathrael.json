@@ -4,443 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "iCvFkYwUNj1fDYM9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Convergent Link",
+            "_id": "ORzFTDNAhTrNzkq6",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Creatures with this ability can communicate with each other by manifesting an aura of wispy Utopian runes.</p>\n<p>This has the effects of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Telepathy] with a range of 300 feet, but requires line of sight.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "WcSu6LxPKmis0S40",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Disrupted Link",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>While Kendley is @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], or @UUID[Compendium.pf2e.conditionitems.Item.Frightened], she loses her innate spells and her convergent link and convergent tactics abilities.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "15cOjThlAU6xLAzc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Convergent Calm",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Kendley casts @UUID[Compendium.pf2e.spells-srd.Item.Calm], creatures controlled by the @UUID[Compendium.pf2e.extinction-curse-bestiary.Actor.Convergence Lattice] automatically fail their saving throws against the effect, but they can still use hostile actions against creatures who aren't @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the <em>convergence lattice</em>.</p>\n<p>Each time she Sustains the Spell, creatures affected by the spell are exposed to the <em>convergence lattice</em> as though they had been in conversation with her.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xVc28OEoqZGKHa2g",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Convergent Tactics",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Kendley's attacks (including @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile]) deal an extra 4d8 damage to creatures within reach of one of her allies who has convergent tactics.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Convergent.Tactics",
-                        "option": "convergent-tactics",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 4,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "convergent-tactics",
-                            {
-                                "or": [
-                                    "item:slug:telekinetic-projectile",
-                                    "item:slug:bastard-sword",
-                                    "item:slug:composite-longbow"
-                                ]
-                            }
-                        ],
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "cM3DMiodWWRFm8ve",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
-            "name": "Chain Mail",
-            "sort": 500000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "chain-mail",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4500
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "chain-mail",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "crP8U9DcyPC2PxEq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 600000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "arrows",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
+                "proficiency": {
                     "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "rjSNiLNccg17t8pc",
-            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
-            "name": "Key to Strongbox in A10",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "km1pCQZC65kAx4WY",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "2y98GhAzbFbtTv88"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "convergent-tactics"
-                    ]
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "0c7xpqvaanjnyvn6wsle": {
-                        "damage": "3d8+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 12
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "ZwS0gU5ghEmq2cOB",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "5WvF0LR7Xr4lkeWV"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Composite Longbow",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "convergent-tactics"
-                    ]
-                },
-                "bonus": {
-                    "value": 29
-                },
-                "damageRolls": {
-                    "gjs3wckpiy5x68klp17h": {
-                        "damage": "3d8+11",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
@@ -448,23 +27,20 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-2d10",
-                        "magical",
-                        "propulsive",
-                        "range-increment-100",
-                        "reload-0",
-                        "volley-30"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "ranged"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 39,
+                    "value": 31
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "vebtRV0UMG9x1p84",
@@ -473,7 +49,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -562,7 +138,7 @@
             },
             "img": "icons/creatures/abilities/wolf-heads-swirl-purple.webp",
             "name": "Calm Emotions (At Will)",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -634,7 +210,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -697,7 +273,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -759,7 +335,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -877,52 +453,13 @@
             "type": "spell"
         },
         {
-            "_id": "ORzFTDNAhTrNzkq6",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 39,
-                    "value": 31
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "2y98GhAzbFbtTv88",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6KWYmeRMxsQfWhhJ"
             },
             "img": "icons/weapons/swords/greatsword-crossguard-silver.webp",
             "name": "Bastard Sword",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "baseItem": "bastard-sword",
                 "bonus": {
@@ -1007,7 +544,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
             "name": "Composite Longbow",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "baseItem": "composite-longbow",
                 "bonus": {
@@ -1086,6 +623,469 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "cM3DMiodWWRFm8ve",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Kf4eJEXnFPuAsseP"
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
+            "name": "Chain Mail",
+            "sort": 900000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "chain-mail",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4500
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "chain-mail",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "rjSNiLNccg17t8pc",
+            "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
+            "name": "Key to Strongbox in A10",
+            "sort": 1000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "crP8U9DcyPC2PxEq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "km1pCQZC65kAx4WY",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "2y98GhAzbFbtTv88"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bastard Sword",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "convergent-tactics"
+                    ]
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "0c7xpqvaanjnyvn6wsle": {
+                        "damage": "3d8+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 12
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "two-hand-d12"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZwS0gU5ghEmq2cOB",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "5WvF0LR7Xr4lkeWV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Longbow",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "convergent-tactics"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "gjs3wckpiy5x68klp17h": {
+                        "damage": "3d8+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-2d10",
+                        "magical",
+                        "propulsive",
+                        "range-increment-100",
+                        "reload-0",
+                        "volley-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iCvFkYwUNj1fDYM9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Convergent Link",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Creatures with this ability can communicate with each other by manifesting an aura of wispy Utopian runes.</p>\n<p>This has the effects of @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Telepathy] with a range of 300 feet, but requires line of sight.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WcSu6LxPKmis0S40",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Disrupted Link",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While Kendley is @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Fascinated], or @UUID[Compendium.pf2e.conditionitems.Item.Frightened], she loses her innate spells and her convergent link and convergent tactics abilities.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "15cOjThlAU6xLAzc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Convergent Calm",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Kendley casts @UUID[Compendium.pf2e.spells-srd.Item.Calm], creatures controlled by the @UUID[Compendium.pf2e.extinction-curse-bestiary.Actor.Convergence Lattice] automatically fail their saving throws against the effect, but they can still use hostile actions against creatures who aren't @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the <em>convergence lattice</em>.</p>\n<p>Each time she Sustains the Spell, creatures affected by the spell are exposed to the <em>convergence lattice</em> as though they had been in conversation with her.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xVc28OEoqZGKHa2g",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Convergent Tactics",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Kendley's attacks (including @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile]) deal an extra 4d8 damage to creatures within reach of one of her allies who has convergent tactics.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Convergent.Tactics",
+                        "option": "convergent-tactics",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 4,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "convergent-tactics",
+                            {
+                                "or": [
+                                    "item:slug:telekinetic-projectile",
+                                    "item:slug:bastard-sword",
+                                    "item:slug:composite-longbow"
+                                ]
+                            }
+                        ],
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Convergent Kendley Nathrael",

@@ -3,96 +3,81 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UmeNuzExQLQPFzTE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Guarded Thoughts",
+            "_id": "pdwlm8jY2MDoJUAN",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Spontaneous Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>Dark nagas are immune to any form of mind reading.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "PAbtJjm0RNsZSr1R",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dark Naga Venom",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 5 minutes</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up ([[/gmr 1d4+1 #minutes]]{1d4+1 minutes})</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dark-naga-venom",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sylWtqbDKbIIyCtj",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 300000,
-            "system": {
-                "attack": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "dark-naga-venom"
-                    ]
+                "prepared": {
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
-                "bonus": {
-                    "value": 19
+                "proficiency": {
+                    "value": 0
                 },
-                "damageRolls": {
-                    "8flfg0q174kcxdepg29f": {
-                        "damage": "2d8+5",
-                        "damageType": "piercing"
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot1": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot2": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot3": {
+                        "max": 4,
+                        "value": 4
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "value": 3
                     }
                 },
+                "slug": null,
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "arcane"
+                }
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "FReUvGRM1Bo8CeGZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -100,19 +85,21 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "mod": 0,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "3oRKX2nQoCW1rglg",
@@ -121,7 +108,7 @@
             },
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -183,7 +170,7 @@
             },
             "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
             "name": "Wall of Fire",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -262,7 +249,7 @@
             },
             "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -334,7 +321,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
             "name": "Lightning Bolt",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "line",
@@ -422,7 +409,7 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading (Constant)",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -490,7 +477,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -553,7 +540,7 @@
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -618,7 +605,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -679,7 +666,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -766,7 +753,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -833,7 +820,7 @@
             },
             "img": "icons/commodities/materials/feather-damaged-brown.webp",
             "name": "Feather Fall",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -893,7 +880,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -959,7 +946,7 @@
             },
             "img": "systems/pf2e/icons/spells/longstrider.webp",
             "name": "Longstrider",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1020,7 +1007,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1101,7 +1088,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1175,7 +1162,7 @@
             },
             "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "name": "Read Aura",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1254,7 +1241,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1310,81 +1297,31 @@
             "type": "spell"
         },
         {
-            "_id": "pdwlm8jY2MDoJUAN",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Spontaneous Spells",
-            "sort": 2100000,
+            "_id": "sylWtqbDKbIIyCtj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 2000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
+                "attack": {
                     "value": ""
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "spontaneous"
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "dark-naga-venom"
+                    ]
                 },
-                "proficiency": {
-                    "value": 0
+                "bonus": {
+                    "value": 19
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot1": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot2": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot3": {
-                        "max": 4,
-                        "value": 4
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "value": 3
+                "damageRolls": {
+                    "8flfg0q174kcxdepg29f": {
+                        "damage": "2d8+5",
+                        "damageType": "piercing"
                     }
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "FReUvGRM1Bo8CeGZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 2200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1392,21 +1329,84 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "mod": 0,
-                    "value": 17
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "UmeNuzExQLQPFzTE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Guarded Thoughts",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Dark nagas are immune to any form of mind reading.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PAbtJjm0RNsZSr1R",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dark Naga Venom",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 5 minutes</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] with no Perception check to wake up ([[/gmr 1d4+1 #minutes]]{1d4+1 minutes})</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dark-naga-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Dark Naga",

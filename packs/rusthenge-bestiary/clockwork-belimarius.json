@@ -3,266 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "edVyMro5viX5rgD9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wind-Up",
+            "_id": "60deOo2mPqEopbvy",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>24 hours, [[/act disable-device dc=21]]{DC 21 Thievery}, standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device] to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "perception",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ClockworkWindUp",
-                        "option": "wind-up",
-                        "priority": 50,
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "wind-up"
-                        ],
-                        "selector": "perception",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fH4zN6EufktPqbW4",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Clockwork Wand",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[thievery|dc:25|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 1st-rank innate spell the clockwork mage cast (@UUID[Compendium.pf2e.spells-srd.Item.Fear], if the clockwork Belimarius hasn't yet cast a 1st-rank spell in this adventure). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pyDc4hD647pfgYEk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Dispelling Critical",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>On a critical hit with a halberd Strike, shards of noqual built into the clockwork Belimarius glow green for a moment. Instead of inflicting additional damage with the critical hit, the clockwork Belimarius instead attempts a counteract check with a [[/r 1d20+18 #Counteract]]{+18} bonus against one magical effect active on the target.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IvUr6AnOtG8K2BSD",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Energize Clockwork Wand",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes.</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd rank or higher.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT10M",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "LNRtNrzHIseTefIq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Clockwork Wand",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>The clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 2nd-rank innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 160
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-2nd-level-spell",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "WQOlDXTuTi9ft8ls",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "Wz63TgYADlZxkXwy"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Halberd",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "dispelling-critical"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "rh2xFMZZMv7hrQ1m": {
-                        "damage": "2d10+4",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "versatile-s"
-                    ]
+                "spelldc": {
+                    "dc": 21,
+                    "mod": 0,
+                    "value": 13
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "0uP0B0abMW2C3oCF",
@@ -271,7 +48,7 @@
             },
             "img": "icons/magic/air/air-smoke-casting.webp",
             "name": "Magnetic Repulsion",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -333,7 +110,7 @@
             },
             "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
             "name": "Resist Energy",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -411,7 +188,7 @@
             },
             "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
             "name": "Color Spray",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -483,7 +260,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -570,7 +347,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -651,7 +428,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Mystic Armor",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -714,7 +491,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -776,7 +553,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tangle Vine",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -834,52 +611,13 @@
             "type": "spell"
         },
         {
-            "_id": "60deOo2mPqEopbvy",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 1500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
-                },
-                "tradition": {
-                    "value": "arcane"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "Wz63TgYADlZxkXwy",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dgWxsYm0DWHb27h6"
             },
             "img": "systems/pf2e/icons/equipment/weapons/halberd.webp",
             "name": "Halberd",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "halberd",
                 "bonus": {
@@ -957,6 +695,268 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "LNRtNrzHIseTefIq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD"
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
+            "name": "Clockwork Wand",
+            "sort": 1100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "wand",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>The clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 2nd-rank innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 5
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 160
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "magic-wand-2nd-level-spell",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "wand"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "WQOlDXTuTi9ft8ls",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Wz63TgYADlZxkXwy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Halberd",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "dispelling-critical"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "rh2xFMZZMv7hrQ1m": {
+                        "damage": "2d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "edVyMro5viX5rgD9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wind-Up",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>24 hours, [[/act disable-device dc=21]]{DC 21 Thievery}, standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device] to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "perception",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ClockworkWindUp",
+                        "option": "wind-up",
+                        "priority": 50,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wind-up"
+                        ],
+                        "selector": "perception",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fH4zN6EufktPqbW4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Clockwork Wand",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[thievery|dc:25|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 1st-rank innate spell the clockwork mage cast (@UUID[Compendium.pf2e.spells-srd.Item.Fear], if the clockwork Belimarius hasn't yet cast a 1st-rank spell in this adventure). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pyDc4hD647pfgYEk",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dispelling Critical",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>On a critical hit with a halberd Strike, shards of noqual built into the clockwork Belimarius glow green for a moment. Instead of inflicting additional damage with the critical hit, the clockwork Belimarius instead attempts a counteract check with a [[/r 1d20+18 #Counteract]]{+18} bonus against one magical effect active on the target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IvUr6AnOtG8K2BSD",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Energize Clockwork Wand",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes.</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd rank or higher.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Clockwork Belimarius",

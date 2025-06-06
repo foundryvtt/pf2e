@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jxmONdR97WrExGJ9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unfinished",
+            "_id": "V6QRaodIWo9GSTIf",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>Vrisk's smooth head does not have ears, so he's @UUID[Compendium.pf2e.conditionitems.Item.Deafened]{Deaf}. He automatically critically fails any Perception checks that require hearing and is immune to auditory effects. He can supply verbal components for casting spells and command components for activating magic items, but if he performs an action he isn't accustomed to that involves auditory elements, he must succeed at a @Check[flat|dc:5] or the action is lost. He has both the @UUID[Compendium.pf2e.feats-srd.Item.Sign Language] and @UUID[Compendium.pf2e.feats-srd.Item.Read Lips] skill feats.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,62 +28,75 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "6FcGSgVmu1FJFqzo"
+                            },
+                            {
+                                "id": "3RFfHj2hOEmatv4M"
+                            },
+                            {
+                                "id": "qcbErCSAm37cFIfb"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "muYCAMAq5REruHjF"
+                            },
+                            {
+                                "id": "igUoroibn3wivdFl"
+                            },
+                            {
+                                "id": "RigwDVqCsWBIBRo3"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "prepared": [
+                            {
+                                "id": "IlikoB6sxmXhmpTZ"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "IrJCzZfE66Y6S88d",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
+            "_id": "4RGZH3m9ZdDasktz",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane School Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>Harmed by void (@Damage[3d8[untyped]], @Damage[2d8[untyped]] from areas or persistent damage); healed by vitality (area @Damage[2d6[healing]] HP); slowed by emotion</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [],
-                "slug": "golem-golem-antimagic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HbVNA1Ibe1obOwtL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Daze",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Vrisk is affected by the @UUID[Compendium.pf2e.spells-srd.Item.Daze] spell as if he was a living creature</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -88,207 +104,17 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 20,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "xVhkhzcrxHeGPBV8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Redact",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If targeted by @UUID[Compendium.pf2e.spells-srd.Item.Redact] or any other spell that erases text, Vrisk must succeed at a @Check[will|dc:20] save or immediately die as the rune on his forehead is erased.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "D5gGfJZt4NavZvV2",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR"
-            },
-            "img": "systems/pf2e/icons/conditions/deafened.webp",
-            "name": "Deafened",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a <strong>DC 5</strong> flat check or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": "senses",
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "perception-initiative",
-                        "slug": "deafened",
-                        "type": "status",
-                        "value": -2
-                    }
-                ],
-                "slug": "deafened",
-                "value": {
-                    "isValued": false,
-                    "value": null
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "SwghIGu10ObQSg36",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Golem Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "CryRvd7udW50Uq7P",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "t22Q5UzX5rAzOkMZ": {
-                        "damage": "1d10+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "80K7IlUbQGepKdbk",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "cgtff3WRtQEkZHch"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Morningstar",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 11
-                },
-                "damageRolls": {
-                    "i34P6JZktFaoty7t": {
-                        "damage": "1d6+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "IlikoB6sxmXhmpTZ",
@@ -297,7 +123,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 900000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -359,7 +185,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1000000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -446,7 +272,7 @@
             },
             "img": "systems/pf2e/icons/spells/protective-ward.webp",
             "name": "Protective Ward",
-            "sort": 1100000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -505,7 +331,7 @@
             },
             "img": "systems/pf2e/icons/spells/pummeling-rubble.webp",
             "name": "Pummeling Rubble",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -592,7 +418,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1300000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -659,7 +485,7 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1400000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -721,7 +547,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1500000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -784,7 +610,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 1600000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -849,126 +675,13 @@
             "type": "spell"
         },
         {
-            "_id": "V6QRaodIWo9GSTIf",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Prepared Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "6FcGSgVmu1FJFqzo"
-                            },
-                            {
-                                "id": "3RFfHj2hOEmatv4M"
-                            },
-                            {
-                                "id": "qcbErCSAm37cFIfb"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "muYCAMAq5REruHjF"
-                            },
-                            {
-                                "id": "igUoroibn3wivdFl"
-                            },
-                            {
-                                "id": "RigwDVqCsWBIBRo3"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 1,
-                        "prepared": [
-                            {
-                                "id": "IlikoB6sxmXhmpTZ"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "4RGZH3m9ZdDasktz",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane School Spells",
-            "sort": 1800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 20,
-                    "value": 12
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "cgtff3WRtQEkZHch",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5fu6dCtqhdBnHNqh"
             },
             "img": "icons/weapons/maces/mace-round-spiked-black.webp",
             "name": "Morningstar",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "baseItem": "morningstar",
                 "bonus": {
@@ -1046,6 +759,293 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "D5gGfJZt4NavZvV2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR"
+            },
+            "img": "systems/pf2e/icons/conditions/deafened.webp",
+            "name": "Deafened",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a <strong>DC 5</strong> flat check or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>"
+                },
+                "duration": {
+                    "value": 0
+                },
+                "group": "senses",
+                "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "perception-initiative",
+                        "slug": "deafened",
+                        "type": "status",
+                        "value": -2
+                    }
+                ],
+                "slug": "deafened",
+                "value": {
+                    "isValued": false,
+                    "value": null
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "CryRvd7udW50Uq7P",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "t22Q5UzX5rAzOkMZ": {
+                        "damage": "1d10+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "80K7IlUbQGepKdbk",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "cgtff3WRtQEkZHch"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Morningstar",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "i34P6JZktFaoty7t": {
+                        "damage": "1d6+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jxmONdR97WrExGJ9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unfinished",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Vrisk's smooth head does not have ears, so he's @UUID[Compendium.pf2e.conditionitems.Item.Deafened]{Deaf}. He automatically critically fails any Perception checks that require hearing and is immune to auditory effects. He can supply verbal components for casting spells and command components for activating magic items, but if he performs an action he isn't accustomed to that involves auditory elements, he must succeed at a @Check[flat|dc:5] or the action is lost. He has both the @UUID[Compendium.pf2e.feats-srd.Item.Sign Language] and @UUID[Compendium.pf2e.feats-srd.Item.Read Lips] skill feats.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IrJCzZfE66Y6S88d",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.r34QDwKiWZoVymJa"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Harmed by void (@Damage[3d8[untyped]], @Damage[2d8[untyped]] from areas or persistent damage); healed by vitality (area @Damage[2d6[healing]] HP); slowed by emotion</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GolemAntimagic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "golem-golem-antimagic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HbVNA1Ibe1obOwtL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Daze",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Vrisk is affected by the @UUID[Compendium.pf2e.spells-srd.Item.Daze] spell as if he was a living creature</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xVhkhzcrxHeGPBV8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Redact",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If targeted by @UUID[Compendium.pf2e.spells-srd.Item.Redact] or any other spell that erases text, Vrisk must succeed at a @Check[will|dc:20] save or immediately die as the rune on his forehead is erased.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SwghIGu10ObQSg36",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Golem Lore",
+            "sort": 1900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "type": "lore"
         }
     ],
     "name": "Vrisk",

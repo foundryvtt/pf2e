@@ -4,308 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JO3mcH2vMLFBPCFB",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 status to all saves vs. air and electricity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "air",
-                            "electricity"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JGAHVhPfRTORJiSs",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "MEwlMZUNW2jXFkq2",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Toughest Teamwork: Wind Shell",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 60 feet is targeted by a physical ranged attack</p>\n<hr />\n<p><strong>Effect</strong> Takatorra wraps their ally in a protective shell of air. The ally gains a +4 status bonus to AC against physical ranged attacks until the beginning of their next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8GHga8d1Un6mx7Zf",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Airflow Blades",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Takatorra extends the cutting surface of their blades with high-pressure airflow. Until the end of their turn, their blades have a reach of 15 feet.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e6mM15bwBepNyJ88",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Blade Barrage",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Takatorra unleashes a flurry of attacks. Takatorra makes five melee Strikes. They gain a cumulative +2 circumstance bonus to damage for each successful Strike. If one target is hit with at least two of these Strikes, they also take @Damage[2d6[bleed]]. They then become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blade Barrage]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oJJtV0bS1XhwYapq",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Disarming Whirl",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Takatorra spins, striking at their foes' weapons. Takatorra attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] against each enemy within their melee reach. Each attempt counts toward Takatorra's multiple attack penalty, but the penalty doesn't increase until they have made all the attempts.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tNQzlavpfoGS3sGT",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "TqLv3NYJZpg3x6d0"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tengu Gale Blade",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "wok2473qfefes5mdthcc": {
-                        "damage": "4d6+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "disarm",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "k3M2i0wXVqXeB9eH",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Vacuum Slash",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "s4z8cz9ssfoaanhktady": {
-                        "damage": "6d6+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "air",
-                        "range-increment-120"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "TqLv3NYJZpg3x6d0",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6qJkA6fnHHiF4CEV"
             },
             "img": "systems/pf2e/icons/equipment/weapons/tengu-gale-blade.webp",
             "name": "Tengu Gale Blade",
-            "sort": 900000,
+            "sort": 100000,
             "system": {
                 "baseItem": "tengu-gale-blade",
                 "bonus": {
@@ -385,6 +90,301 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "tNQzlavpfoGS3sGT",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "TqLv3NYJZpg3x6d0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tengu Gale Blade",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "wok2473qfefes5mdthcc": {
+                        "damage": "4d6+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "disarm",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "k3M2i0wXVqXeB9eH",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vacuum Slash",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "s4z8cz9ssfoaanhktady": {
+                        "damage": "6d6+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "range-increment-120"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JO3mcH2vMLFBPCFB",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 status to all saves vs. air and electricity",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "air",
+                            "electricity"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JGAHVhPfRTORJiSs",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MEwlMZUNW2jXFkq2",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Toughest Teamwork: Wind Shell",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 60 feet is targeted by a physical ranged attack</p>\n<hr />\n<p><strong>Effect</strong> Takatorra wraps their ally in a protective shell of air. The ally gains a +4 status bonus to AC against physical ranged attacks until the beginning of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8GHga8d1Un6mx7Zf",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Airflow Blades",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Takatorra extends the cutting surface of their blades with high-pressure airflow. Until the end of their turn, their blades have a reach of 15 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "air"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e6mM15bwBepNyJ88",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Blade Barrage",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Takatorra unleashes a flurry of attacks. Takatorra makes five melee Strikes. They gain a cumulative +2 circumstance bonus to damage for each successful Strike. If one target is hit with at least two of these Strikes, they also take @Damage[2d6[bleed]]. They then become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Blade Barrage]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oJJtV0bS1XhwYapq",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Disarming Whirl",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Takatorra spins, striking at their foes' weapons. Takatorra attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] against each enemy within their melee reach. Each attempt counts toward Takatorra's multiple attack penalty, but the penalty doesn't increase until they have made all the attempts.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Takatorra (Daitengu Form)",

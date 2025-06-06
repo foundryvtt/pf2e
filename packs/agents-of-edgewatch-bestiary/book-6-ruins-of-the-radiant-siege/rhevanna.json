@@ -4,306 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "bfY8oZGxT5bdbToz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "gpQwZhqK70OriQ2S",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ecUXFzmWTDeBzbIu",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "II1iKHEPt0qdurXn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Plunder Life",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>60 feet. When a healing effect restores Hit Points to a non-fiend creature in the aura, the amount of Hit Points restored is halved. The rhevanna gains temporary Hit Points equal to the amount of Hit Points restored.</p>\n<p>The rhevanna loses any remaining temporary Hit Points after 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 60,
-                        "slug": "plunder-life",
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JnTr0G2JvwVYzdfR",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Detaining Strike",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The rhevanna hits a creature with a weapon Strike</p>\n<hr />\n<p><strong>Effect</strong> The rhevanna casts an innate @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether] spell on the creature.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "SMwhRQyOrogJbUal",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Lifedrinker",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The rhevanna kills a living creature of at least 16th level</p>\n<hr />\n<p><strong>Effect</strong> The rhevanna drinks the triggering creature's life force and regains @Damage[40[healing]] Hit Points. If the triggering creature is a celestial, the rhevanna instead regains @Damage[80[healing]] Hit Points.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "healing"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "1cQlKfzWAd8gXGFa",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Malefic Binding",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The rhevanna can target celestials with their @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul] ability, and a gem containing a celestial bound by a rhevanna has Hardness 40.</p>\n<p>If the rhevanna destroys a gem in which they placed a celestial, the celestial is destroyed forever.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "76fFiqfOfbkyXm8t",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "7PZ30IOoip4691vx"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spiked Chain",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 43,
-                    "value": 43
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+18",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "3d6",
-                        "damageType": "spirit"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disarm",
-                        "evil",
-                        "magical",
-                        "reach-10",
-                        "trip",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "U5JrBAObBwJKEgSJ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 40,
-                    "value": 40
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "4d6+18",
-                        "damageType": "slashing"
-                    },
-                    "1": {
-                        "damage": "3d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -311,20 +27,18 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
+                "spelldc": {
+                    "dc": 45,
+                    "mod": 0,
+                    "value": 37
                 },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "O7e5Dog7CmhIv1wD",
@@ -333,7 +47,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -400,7 +114,7 @@
             },
             "img": "icons/magic/unholy/orb-glowing-purple.webp",
             "name": "Bind Soul (At Will)",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -461,7 +175,7 @@
             },
             "img": "icons/equipment/shield/heater-steel-segmented-purple.webp",
             "name": "Dimensional Anchor (At Will)",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -527,7 +241,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -589,7 +303,7 @@
             },
             "img": "systems/pf2e/icons/spells/possession.webp",
             "name": "Possession",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -656,7 +370,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Plane Shift (At Will) (Self Only)",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -719,7 +433,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
             "name": "Detect Alignment (Constant) (Good Only)",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -783,7 +497,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -844,7 +558,7 @@
             },
             "img": "systems/pf2e/icons/spells/scrying.webp",
             "name": "Scrying",
-            "sort": 1700000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -910,7 +624,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 1800000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -971,7 +685,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 1900000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1034,7 +748,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 2000000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1089,104 +803,13 @@
             "type": "spell"
         },
         {
-            "_id": "gpQwZhqK70OriQ2S",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 45,
-                    "mod": 0,
-                    "value": 37
-                },
-                "tradition": {
-                    "value": "divine"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "ggAeDkCyOjPH2bhe",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yTYPPB7WrhanBPbu"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/gems/lesser-semiprecious-stones/obsidian.webp",
-            "name": "Black Sapphire",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2000
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "sapphire",
-                "stackGroup": "gems",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "7PZ30IOoip4691vx",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zi9ovfoRp2fMhfpO"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spiked-chain.webp",
             "name": "Spiked Chain",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "spiked-chain",
                 "bonus": {
@@ -1265,6 +888,383 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "ggAeDkCyOjPH2bhe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yTYPPB7WrhanBPbu"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/gems/lesser-semiprecious-stones/obsidian.webp",
+            "name": "Black Sapphire",
+            "sort": 1500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2000
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "sapphire",
+                "stackGroup": "gems",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "76fFiqfOfbkyXm8t",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7PZ30IOoip4691vx"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spiked Chain",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 43,
+                    "value": 43
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+18",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "3d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "evil",
+                        "magical",
+                        "reach-10",
+                        "trip",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "U5JrBAObBwJKEgSJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 40,
+                    "value": 40
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "4d6+18",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "3d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bfY8oZGxT5bdbToz",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ecUXFzmWTDeBzbIu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "II1iKHEPt0qdurXn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Plunder Life",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet. When a healing effect restores Hit Points to a non-fiend creature in the aura, the amount of Hit Points restored is halved. The rhevanna gains temporary Hit Points equal to the amount of Hit Points restored.</p>\n<p>The rhevanna loses any remaining temporary Hit Points after 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "plunder-life",
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JnTr0G2JvwVYzdfR",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Detaining Strike",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The rhevanna hits a creature with a weapon Strike</p>\n<hr />\n<p><strong>Effect</strong> The rhevanna casts an innate @UUID[Compendium.pf2e.spells-srd.Item.Planar Tether] spell on the creature.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SMwhRQyOrogJbUal",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lifedrinker",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The rhevanna kills a living creature of at least 16th level</p>\n<hr />\n<p><strong>Effect</strong> The rhevanna drinks the triggering creature's life force and regains @Damage[40[healing]] Hit Points. If the triggering creature is a celestial, the rhevanna instead regains @Damage[80[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "healing"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1cQlKfzWAd8gXGFa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Malefic Binding",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The rhevanna can target celestials with their @UUID[Compendium.pf2e.spells-srd.Item.Seize Soul] ability, and a gem containing a celestial bound by a rhevanna has Hardness 40.</p>\n<p>If the rhevanna destroys a gem in which they placed a celestial, the celestial is destroyed forever.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Rhevanna",

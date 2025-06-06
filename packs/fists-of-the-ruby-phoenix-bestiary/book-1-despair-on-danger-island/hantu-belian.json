@@ -4,75 +4,22 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "n5SQugbmcCxuxtr3",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unrest Aura",
+            "_id": "lZUnB7d6Laq58nWv",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Occult Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[will|dc:27] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of its next turn (1 minute on a critical failure). During this confusion, the creature attempts to cause turmoil, using its actions to create disarray in its general vicinity by throwing around objects or scaring passersby. A creature that succeeds at its save is immune to all hantu belians' unrest auras for 1 hour. A hantu belian can suppress or resume the effects of this aura as an action, which has the concentrate trait.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "unrest-aura-active"
-                        ],
-                        "radius": 30,
-                        "slug": "unrest-aura",
-                        "traits": [
-                            "emotion",
-                            "mental",
-                            "occult"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "unrest-aura-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "mental",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VTV7ejLurYpBwrGW",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Greater Possession",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A hantu belian can use its possession innate spell to possess a creature for up to 1 hour rather than 1 minute. While possessing a creature, the hantu uses its own Acrobatics, Athletics, and Stealth modifiers unless those of the possessed creature are higher.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -80,104 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9GF4mDZyFZvyBN5k",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 30,
+                    "mod": 0,
                     "value": 22
                 },
-                "damageRolls": {
-                    "o7fwklamqgiw5dq6n0dp": {
-                        "damage": "2d6+13",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
+                "tradition": {
+                    "value": "occult"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "V8X84XTylUSv486h",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 400000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 22
-                },
-                "damageRolls": {
-                    "vqcq54wda6td050pk3el": {
-                        "damage": "2d8+13",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "a0sS1SfXc8OlPRdG",
@@ -186,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/possession.webp",
             "name": "Possession (Greater Possession)",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -253,7 +117,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse",
-            "sort": 600000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -314,7 +178,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 700000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -384,7 +248,7 @@
             },
             "img": "icons/magic/death/skull-poison-green.webp",
             "name": "Remove Disease",
-            "sort": 800000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -445,7 +309,7 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -532,7 +396,7 @@
             },
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1000000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -729,7 +593,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1100000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -793,7 +657,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1200000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -856,7 +720,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1300000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -974,22 +838,28 @@
             "type": "spell"
         },
         {
-            "_id": "lZUnB7d6Laq58nWv",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
-            "sort": 1400000,
+            "_id": "9GF4mDZyFZvyBN5k",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "o7fwklamqgiw5dq6n0dp": {
+                        "damage": "2d6+13",
+                        "damageType": "slashing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -997,21 +867,151 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 30,
-                    "mod": 0,
-                    "value": 22
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "occult"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "V8X84XTylUSv486h",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "vqcq54wda6td050pk3el": {
+                        "damage": "2d8+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "n5SQugbmcCxuxtr3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unrest Aura",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[will|dc:27] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of its next turn (1 minute on a critical failure). During this confusion, the creature attempts to cause turmoil, using its actions to create disarray in its general vicinity by throwing around objects or scaring passersby. A creature that succeeds at its save is immune to all hantu belians' unrest auras for 1 hour. A hantu belian can suppress or resume the effects of this aura as an action, which has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "unrest-aura-active"
+                        ],
+                        "radius": 30,
+                        "slug": "unrest-aura",
+                        "traits": [
+                            "emotion",
+                            "mental",
+                            "occult"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "unrest-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VTV7ejLurYpBwrGW",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Possession",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A hantu belian can use its possession innate spell to possess a creature for up to 1 hour rather than 1 minute. While possessing a creature, the hantu uses its own Acrobatics, Athletics, and Stealth modifiers unless those of the possessed creature are higher.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Hantu Belian",

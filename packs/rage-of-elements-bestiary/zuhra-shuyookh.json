@@ -3,359 +3,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GCGDpEcfAqUJ61j4",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "UEAruD5HcVwPqfn4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rAKjsA5qLGEESIh5",
-            "_stats": {
-                "compendiumSource": "Actor.nHgfiWS35zsMEe4k.Item.RrpDOSh8ukqc73TP"
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Conductive Redirection",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The zuhra is hit by an attack, spell, or effect that deals electricity damage</p>\n<hr />\n<p><strong>Effect</strong> The zuhra conducts the electricity through their body, taking damage as normal, and redirecting a bolt at one target within 30 feet that they can see. The zuhra makes a ranged attack roll with a [[/r 1d20+27 #Conductive Redirection]]{+27} modifier against the target's AC. On a hit or critical hit, the target takes electricity damage equal to the full damage of the triggering effect.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "electricity"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5y0mRxzlQBq0e2xn",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magnetic Field",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>10 feet.</p>\n<p>All squares in the aura are difficult terrain for creatures wearing metal armor or made of metal. Strikes with metallic weapons made by or against creatures in this aura take a –2 status penalty to the attack roll. Zuhras ignore these effects.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "magnetic-field",
-                        "traits": [
-                            "arcane",
-                            "metal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane",
-                        "aura",
-                        "metal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "z4vQqksoMQh3omAJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The zuhra transforms into a Small or Medium metal elemental or animal. This doesn't affect the zuhra's statistics, but it could change the damage type of their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xs9sPobzLJWpAXon",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magnetic Reposition",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh targets any number of creatures affected by their magnetic field, and moves each target 10 feet in a direction the zuhra chooses. Each target can resist being moved if it succeeds at a @Check[fortitude|dc:32] save.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
+                "spelldc": {
+                    "dc": 32,
+                    "value": 24
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "B3GAgBc6Uumdpb3P",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Magnetic Storm",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shuyookh's magnetic field is active</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh electromagnetically flings razor-sharp metal scraps. Each creature in a @Template[emanation|distance:30] takes @Damage[8d6[slashing],3d12[electricity]] damage, with a @Check[fortitude|dc:32|basic] save.</p>\n<p>The shuyookh's magnetic field is deactivated for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "arcane"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "o9k3vrbtMfMIkgsi",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Mercurial Wish",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> three times per year</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh conducts a @UUID[Compendium.pf2e.spells-srd.Item.Wish] ritual for the benefit of a mortal, requiring no cost or secondary casters. The shuyookh's result is a success if they succeed at a @Check[flat|dc:5] or a failure if not. The shuyookh attempts to fulfill the wish in a way that creates an unstable or impermanent benefit.</p>"
-                },
-                "frequency": {
-                    "max": 3,
-                    "per": "P1Y"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "downtime"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tucy19B5HiS6Xkcd",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "kHS9rCQelHbzEDIU"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spiked Chain",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 27
-                },
-                "damageRolls": {
-                    "LfmeCHNiB9nB4aQN": {
-                        "damage": "1d12",
-                        "damageType": "electricity"
-                    },
-                    "vP5DxjYZwb5cBxU3": {
-                        "damage": "2d8+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "finesse",
-                        "magical",
-                        "reach-15",
-                        "trip"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CrCeX0pG3YXWVMaZ",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hand Blade",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "LuYoNEEnnX117aTQ": {
-                        "damage": "2d4+11",
-                        "damageType": "slashing"
-                    },
-                    "fRbW22E14BkPdm7U": {
-                        "category": "persistent",
-                        "damage": "4d4",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "2xJ6YTMRmB0QmWgH",
@@ -364,7 +48,7 @@
             },
             "img": "icons/magic/lightning/bolt-strike-explosion-purple.webp",
             "name": "Interplanar Teleport (At Will) (To Astral Plane, Elemental Planes, or Universe only)",
-            "sort": 1000000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -428,7 +112,7 @@
             },
             "img": "icons/tools/smithing/plate-steel-grey.webp",
             "name": "Wall of Metal",
-            "sort": 1100000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -490,7 +174,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Truespeech (Constant)",
-            "sort": 1200000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -557,7 +241,7 @@
             },
             "img": "systems/pf2e/icons/spells/mercurial-stride.webp",
             "name": "Mercurial Stride",
-            "sort": 1300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -643,7 +327,7 @@
             },
             "img": "icons/skills/melee/spear-tips-three-purple.webp",
             "name": "Weapon Storm",
-            "sort": 1400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -709,7 +393,7 @@
             },
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 1500000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -777,7 +461,7 @@
             },
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Magnetic Acceleration (At Will)",
-            "sort": 1600000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -868,7 +552,7 @@
             },
             "img": "icons/tools/smithing/plate-steel-grey.webp",
             "name": "Clad In Metal (Can Choose Uncommon and Rare Metals)",
-            "sort": 1700000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -931,7 +615,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -996,7 +680,7 @@
             },
             "img": "icons/tools/fishing/hook-curved-barbed-steel-white.webp",
             "name": "Magnetic Attraction (At Will)",
-            "sort": 1900000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1058,7 +742,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 2000000,
+            "sort": 1200000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1119,52 +803,13 @@
             "type": "spell"
         },
         {
-            "_id": "UEAruD5HcVwPqfn4",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 32,
-                    "value": 24
-                },
-                "tradition": {
-                    "value": "arcane"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "kHS9rCQelHbzEDIU",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.zi9ovfoRp2fMhfpO"
             },
             "img": "systems/pf2e/icons/equipment/weapons/spiked-chain.webp",
             "name": "Spiked Chain",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "spiked-chain",
                 "bonus": {
@@ -1243,6 +888,361 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "tucy19B5HiS6Xkcd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "kHS9rCQelHbzEDIU"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spiked Chain",
+            "sort": 1400000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "LfmeCHNiB9nB4aQN": {
+                        "damage": "1d12",
+                        "damageType": "electricity"
+                    },
+                    "vP5DxjYZwb5cBxU3": {
+                        "damage": "2d8+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "reach-15",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CrCeX0pG3YXWVMaZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hand Blade",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "LuYoNEEnnX117aTQ": {
+                        "damage": "2d4+11",
+                        "damageType": "slashing"
+                    },
+                    "fRbW22E14BkPdm7U": {
+                        "category": "persistent",
+                        "damage": "4d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GCGDpEcfAqUJ61j4",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rAKjsA5qLGEESIh5",
+            "_stats": {
+                "compendiumSource": "Actor.nHgfiWS35zsMEe4k.Item.RrpDOSh8ukqc73TP"
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Conductive Redirection",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The zuhra is hit by an attack, spell, or effect that deals electricity damage</p>\n<hr />\n<p><strong>Effect</strong> The zuhra conducts the electricity through their body, taking damage as normal, and redirecting a bolt at one target within 30 feet that they can see. The zuhra makes a ranged attack roll with a [[/r 1d20+27 #Conductive Redirection]]{+27} modifier against the target's AC. On a hit or critical hit, the target takes electricity damage equal to the full damage of the triggering effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5y0mRxzlQBq0e2xn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magnetic Field",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet.</p>\n<p>All squares in the aura are difficult terrain for creatures wearing metal armor or made of metal. Strikes with metallic weapons made by or against creatures in this aura take a –2 status penalty to the attack roll. Zuhras ignore these effects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "magnetic-field",
+                        "traits": [
+                            "arcane",
+                            "metal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "aura",
+                        "metal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z4vQqksoMQh3omAJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The zuhra transforms into a Small or Medium metal elemental or animal. This doesn't affect the zuhra's statistics, but it could change the damage type of their Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xs9sPobzLJWpAXon",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magnetic Reposition",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh targets any number of creatures affected by their magnetic field, and moves each target 10 feet in a direction the zuhra chooses. Each target can resist being moved if it succeeds at a @Check[fortitude|dc:32] save.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "B3GAgBc6Uumdpb3P",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Magnetic Storm",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shuyookh's magnetic field is active</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh electromagnetically flings razor-sharp metal scraps. Each creature in a @Template[emanation|distance:30] takes @Damage[8d6[slashing],3d12[electricity]] damage, with a @Check[fortitude|dc:32|basic] save.</p>\n<p>The shuyookh's magnetic field is deactivated for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o9k3vrbtMfMIkgsi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Mercurial Wish",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> three times per year</p>\n<hr />\n<p><strong>Effect</strong> The shuyookh conducts a @UUID[Compendium.pf2e.spells-srd.Item.Wish] ritual for the benefit of a mortal, requiring no cost or secondary casters. The shuyookh's result is a success if they succeed at a @Check[flat|dc:5] or a failure if not. The shuyookh attempts to fulfill the wish in a way that creates an unstable or impermanent benefit.</p>"
+                },
+                "frequency": {
+                    "max": 3,
+                    "per": "P1Y"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "downtime"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Zuhra Shuyookh",

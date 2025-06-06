@@ -634,21 +634,21 @@ class PackExtractor {
             return [];
         }
         const itemTypes: ItemType[] = [
-            "action",
             "affliction",
+            "spellcastingEntry",
+            "spell",
+            "weapon",
+            "shield",
             "armor",
+            "equipment",
+            "consumable",
+            "treasure",
             "backpack",
             "condition",
-            "consumable",
             "effect",
-            "equipment",
-            "lore",
             "melee",
-            "shield",
-            "spell",
-            "spellcastingEntry",
-            "treasure",
-            "weapon",
+            "action",
+            "lore",
         ];
 
         type ItemSourcesByType = { [T in ItemType]?: ItemInstances<null>[T]["_source"][] };

@@ -4,64 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "KfnBvdwtxJAolRiZ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Healing Hands",
+            "_id": "Jd8HfXYEeaXoes82",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>When the priest casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:heal"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "spell-damage",
-                            "spell-healing"
-                        ],
-                        "slug": "base",
-                        "value": 10
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pGCZfWgN4raVGlQO",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steady Spellcasting",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If another creature's reaction would disrupt the priest's spellcasting action, the priest attempts a @Check[flat|dc:15]. If the priest succeeds, their action isn't disrupted.</p>"
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -69,128 +28,108 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "qi8YorcBX5IlKo6m"
+                            },
+                            {
+                                "id": "yr3vG1wywp8FC7H6"
+                            },
+                            {
+                                "id": "GPE3KzkibIzsysdJ"
+                            },
+                            {
+                                "id": "yatjzHxPXd1zp0y5"
+                            },
+                            {
+                                "id": "M9ZShqvSnbGOK94p"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "igiH7G1SFd3e4RM0"
+                            },
+                            {
+                                "id": "hB9WGRqVmYf71RNK"
+                            },
+                            {
+                                "id": "tumKP6kPDg8mjtib"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "a8r6EVey3I4UUB1z"
+                            },
+                            {
+                                "id": "81XSYcDGApnjyKQc"
+                            },
+                            {
+                                "id": "CtJEDX9h63iVDMW1"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 6,
+                        "prepared": [
+                            {
+                                "id": "6e3Y62nLA4ddVGpU"
+                            },
+                            {
+                                "id": "4HAkJqM103PysUgC"
+                            },
+                            {
+                                "id": "9w4PQaK9HeREgQxX"
+                            },
+                            {
+                                "id": "dO9xrt8K7pGrpIpH"
+                            },
+                            {
+                                "id": "dO9xrt8K7pGrpIpH"
+                            },
+                            {
+                                "id": "dO9xrt8K7pGrpIpH"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "gBCG8ipfUT0UILgG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Iomedae",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "msfeBop7LBA0rN2F",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Iomedae Lore",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "spelldc": {
+                    "dc": 25,
                     "value": 17
                 },
-                "proficient": {
-                    "value": 0
+                "tradition": {
+                    "value": "divine"
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
                 "traits": {}
             },
-            "type": "lore"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "9oD5pXUDWLvWCPPq",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "ywBUASzQtRA4ZB3d"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Longsword",
-            "sort": 500000,
+            "_id": "qdLJW8hvH4hbSy0b",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 200000,
             "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {
-                    "KHaEpHVHbj6GQil5": {
-                        "damage": "1d8+9",
-                        "damageType": "slashing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -198,101 +137,18 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "longsword",
-                "traits": {
-                    "value": [
-                        "magical",
-                        "versatile-p"
-                    ]
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 25,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "4AojNhKHR7Lsy4jG",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "gE1ZU9lQ9bijFlsB"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "J1wZjWLpbuBCsAsY": {
-                        "damage": "1d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "DHLpx57gZUv9XPIn",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "gE1ZU9lQ9bijFlsB"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 700000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "Wj84LeoBOmZqSILF": {
-                        "damage": "1d4+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "dagger",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "6e3Y62nLA4ddVGpU",
@@ -302,7 +158,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
             "name": "Crisis of Faith",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -412,7 +268,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/life/ankh-gold-blue.webp",
             "name": "Heroism",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -474,7 +330,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Holy Light",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -568,7 +424,7 @@
             "folder": "6JF73zNhT8zbp1qC",
             "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
             "name": "Consecrate",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -637,7 +493,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -700,7 +556,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "icons/magic/unholy/silhouette-evil-horned-giant.webp",
             "name": "Enlarge",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -772,7 +628,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -835,7 +691,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/alarm.webp",
             "name": "Alarm",
-            "sort": 1500000,
+            "sort": 1000000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -901,7 +757,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1600000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -969,7 +825,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 1700000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1052,7 +908,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1800000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1114,7 +970,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/magic/life/cross-worn-green.webp",
             "name": "Heal",
-            "sort": 1900000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1311,7 +1167,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/weapons/swords/sword-gold-holy.webp",
             "name": "Infuse Vitality",
-            "sort": 2000000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1376,7 +1232,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2100000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1441,7 +1297,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1504,7 +1360,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
             "name": "Sure Strike",
-            "sort": 2300000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1565,7 +1421,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "systems/pf2e/icons/spells/weapon-surge.webp",
             "name": "Weapon Surge",
-            "sort": 2400000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1618,160 +1474,13 @@
             "type": "spell"
         },
         {
-            "_id": "Jd8HfXYEeaXoes82",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 2500000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "qi8YorcBX5IlKo6m"
-                            },
-                            {
-                                "id": "yr3vG1wywp8FC7H6"
-                            },
-                            {
-                                "id": "GPE3KzkibIzsysdJ"
-                            },
-                            {
-                                "id": "yatjzHxPXd1zp0y5"
-                            },
-                            {
-                                "id": "M9ZShqvSnbGOK94p"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "igiH7G1SFd3e4RM0"
-                            },
-                            {
-                                "id": "hB9WGRqVmYf71RNK"
-                            },
-                            {
-                                "id": "tumKP6kPDg8mjtib"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "a8r6EVey3I4UUB1z"
-                            },
-                            {
-                                "id": "81XSYcDGApnjyKQc"
-                            },
-                            {
-                                "id": "CtJEDX9h63iVDMW1"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 6,
-                        "prepared": [
-                            {
-                                "id": "6e3Y62nLA4ddVGpU"
-                            },
-                            {
-                                "id": "4HAkJqM103PysUgC"
-                            },
-                            {
-                                "id": "9w4PQaK9HeREgQxX"
-                            },
-                            {
-                                "id": "dO9xrt8K7pGrpIpH"
-                            },
-                            {
-                                "id": "dO9xrt8K7pGrpIpH"
-                            },
-                            {
-                                "id": "dO9xrt8K7pGrpIpH"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "qdLJW8hvH4hbSy0b",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 0
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "ywBUASzQtRA4ZB3d",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
             },
             "img": "icons/weapons/swords/sword-guard-blue.webp",
             "name": "Longsword",
-            "sort": 2700000,
+            "sort": 2000000,
             "system": {
                 "baseItem": "longsword",
                 "bonus": {
@@ -1857,7 +1566,7 @@
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
-            "sort": 2800000,
+            "sort": 2100000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1938,6 +1647,297 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "gBCG8ipfUT0UILgG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Iomedae",
+            "sort": 2200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "9oD5pXUDWLvWCPPq",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ywBUASzQtRA4ZB3d"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Longsword",
+            "sort": 2300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "KHaEpHVHbj6GQil5": {
+                        "damage": "1d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "longsword",
+                "traits": {
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4AojNhKHR7Lsy4jG",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "gE1ZU9lQ9bijFlsB"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "J1wZjWLpbuBCsAsY": {
+                        "damage": "1d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DHLpx57gZUv9XPIn",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "gE1ZU9lQ9bijFlsB"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 2500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "Wj84LeoBOmZqSILF": {
+                        "damage": "1d4+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "dagger",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KfnBvdwtxJAolRiZ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Healing Hands",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the priest casts @UUID[Compendium.pf2e.spells-srd.Item.Heal], they roll d10s instead of d8s.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "spell-damage",
+                            "spell-healing"
+                        ],
+                        "slug": "base",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pGCZfWgN4raVGlQO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steady Spellcasting",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If another creature's reaction would disrupt the priest's spellcasting action, the priest attempts a @Check[flat|dc:15]. If the priest succeeds, their action isn't disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "msfeBop7LBA0rN2F",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Iomedae Lore",
+            "sort": 2800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Priest of Iomedae",

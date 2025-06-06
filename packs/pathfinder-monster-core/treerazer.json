@@ -3,526 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UoKQ5xYxwkzldwhR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "_id": "4VHRW4Y0OmyqAHpQ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9NSBH5zk6mEIcPjF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "t3USaq2CKWLoaP9A",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 50 (Deactivated by Holy)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "deathNote": true,
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "deactivatedBy": [
-                            "holy"
-                        ],
-                        "key": "FastHealing",
-                        "predicate": [
-                            {
-                                "not": "self:effect:spore-feedback"
-                            }
-                        ],
-                        "type": "regeneration",
-                        "value": 50
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "self:treerazer"
-                    }
-                ],
-                "slug": "regeneration",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "spBsMqVOA8rbhE2e",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Aura of Corruption",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>120 feet.</p>\n<p>Plants near Treerazer twist, deform, and transform into thorny or fungoid parodies of their natural shapes. A living creature in this area must succeed at a @Check[fortitude|dc:47] save each round or become partially transformed into plantlike matter. Those who fail this saving throw are treated as if they were plants for the purposes of any effect that particularly harms or inconveniences plant creatures more than other creatures, but do not gain any benefits of being plant creatures.</p>\n<p>This effect lasts as long as the creature remains within the area of corruption and for 1 minute thereafter.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Corruption]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 120,
-                        "slug": "aura-of-corruption",
-                        "traits": [
-                            "plant",
-                            "primal"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "plant",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7TG8awCuym8R9OVb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "reactive-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "NWBV7oqS64HKJSkz",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Blackaxe - Owner's Authority",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> Treerazer sense the world around Blackaxe as though you were in its location and can use any of your innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[will|dc:50] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "scrying"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c09zz4QRa6hJSZ6q",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Blackaxe - Owner's Reclamation",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> <em>Blackaxe</em> appears in Treerazer's hands, teleporting instantly from its prior location.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "teleportation"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "uyDcXzwKNRuKIzY5",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Blackaxe - Rejuvenating Deforestation",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> Make a Strike against a living tree with Blackaxe. If it hits, the tree withers to ash and you heal @Damage[250[healing]]{250 Hit Points} and gain the benefit of a 6th-rank @UUID[Compendium.pf2e.spells-srd.Item.Sound Body] spell.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "death",
-                        "healing",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "871udt0tIPBiUS63",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Defoliation",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Treerazer exudes a pulse of sickly green light in a 30-foot-radius emanation. All plants in the area (including creatures under the effect of his aura of corruption) blacken and wither.</p>\n<p>Non-creature plants immediately wither and die. Plant and fungus creatures take @Damage[20d8[void]] damage with a @Check[fortitude|dc:49|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>\n<p>Treerazer can choose to exclude any number of plants or fungi in the area from this effect, and generally does so to preserve twisted and corrupted plants or fungi, or plant and fungus creatures that are allied to his cause.</p>\n<p>Treerazer can't use Defoliation for [[/gmr 1d4 #Recharge Defoliation]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "plant",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "veNUDgghA30FdVNB",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Dispelling Strike",
-            "sort": 1000000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> Treerazer hits a creature, object, or spell effect with a weapon Strike or subjects one to Defoliation;</p>\n<hr />\n<p><strong>Effect</strong> Treerazer casts his innate @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], targeting the creature he hit with his Strike or one spell affecting that creature.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "xkIBsOSynEo9Ii6k",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Staggering Strike",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When Treerazer scores a critical hit with a melee attack, the target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "melee-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sBRqXEDoaHJdg0SF",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "etv02A5iCRxbUkwf"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Blackaxe",
-            "sort": 1200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 47
-                },
-                "damageRolls": {
-                    "225a6vv5x9pr1ymlo2yn": {
-                        "damage": "5d12+18",
-                        "damageType": "slashing"
-                    },
-                    "c91bso17qvvw864jjqo4": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
+                "autoHeightenLevel": {
+                    "value": 9
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "damageType": "slashing",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "target:trait:plant"
-                        ],
-                        "selector": "blackaxe-damage"
-                    },
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.TreerazerPlantAttack",
-                        "option": "target:trait:plant",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "magical",
-                        "reach-15",
-                        "sweep",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "g2irWtwE4YUnllGP",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 1300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 45
-                },
-                "damageRolls": {
-                    "cfnd06scpmtmq5s2r6xd": {
-                        "damage": "5d10+20",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -530,22 +27,22 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "jaws",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-15",
-                        "unarmed",
-                        "unholy"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
-                }
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 49,
+                    "mod": 0,
+                    "value": 43
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "EGmapWbHWyErL5iU",
@@ -554,7 +51,7 @@
             },
             "img": "systems/pf2e/icons/spells/time-stop.webp",
             "name": "Freeze Time",
-            "sort": 1400000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -615,7 +112,7 @@
             },
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Desiccate",
-            "sort": 1500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -700,7 +197,7 @@
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers (At Will)",
-            "sort": 1600000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -766,7 +263,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -830,7 +327,7 @@
             },
             "img": "systems/pf2e/icons/spells/planar-ally.webp",
             "name": "Planar Servitor",
-            "sort": 1800000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -893,7 +390,7 @@
             },
             "img": "icons/equipment/feet/boots-leather-laced-brown.webp",
             "name": "Unfettered Movement (Constant)",
-            "sort": 1900000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -955,7 +452,7 @@
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind (At Will)",
-            "sort": 2000000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1022,7 +519,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 2100000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1103,7 +600,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic (At Will)",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1166,7 +663,7 @@
             },
             "img": "icons/skills/melee/strike-weapon-polearm-ice-blue.webp",
             "name": "Telekinetic Maneuver (At Will)",
-            "sort": 2300000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1229,7 +726,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 2400000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1294,7 +791,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2500000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1412,55 +909,13 @@
             "type": "spell"
         },
         {
-            "_id": "4VHRW4Y0OmyqAHpQ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 2600000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": 9
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 49,
-                    "mod": 0,
-                    "value": 43
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "etv02A5iCRxbUkwf",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.o9IErbpmItz9NZT3"
             },
             "img": "systems/pf2e/icons/equipment/artifacts/blackaxe.webp",
             "name": "Blackaxe",
-            "sort": 2700000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "greataxe",
                 "bonus": {
@@ -1565,6 +1020,551 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "sBRqXEDoaHJdg0SF",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "etv02A5iCRxbUkwf"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Blackaxe",
+            "sort": 1500000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 47
+                },
+                "damageRolls": {
+                    "225a6vv5x9pr1ymlo2yn": {
+                        "damage": "5d12+18",
+                        "damageType": "slashing"
+                    },
+                    "c91bso17qvvw864jjqo4": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:trait:plant"
+                        ],
+                        "selector": "blackaxe-damage"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.TreerazerPlantAttack",
+                        "option": "target:trait:plant",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "magical",
+                        "reach-15",
+                        "sweep",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "g2irWtwE4YUnllGP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1600000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 45
+                },
+                "damageRolls": {
+                    "cfnd06scpmtmq5s2r6xd": {
+                        "damage": "5d10+20",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "jaws",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-15",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UoKQ5xYxwkzldwhR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9NSBH5zk6mEIcPjF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t3USaq2CKWLoaP9A",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.lR9R5Vld8Eu2Dha5"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 50 (Deactivated by Holy)",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "holy"
+                        ],
+                        "key": "FastHealing",
+                        "predicate": [
+                            {
+                                "not": "self:effect:spore-feedback"
+                            }
+                        ],
+                        "type": "regeneration",
+                        "value": 50
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:treerazer"
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "spBsMqVOA8rbhE2e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Aura of Corruption",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>120 feet.</p>\n<p>Plants near Treerazer twist, deform, and transform into thorny or fungoid parodies of their natural shapes. A living creature in this area must succeed at a @Check[fortitude|dc:47] save each round or become partially transformed into plantlike matter. Those who fail this saving throw are treated as if they were plants for the purposes of any effect that particularly harms or inconveniences plant creatures more than other creatures, but do not gain any benefits of being plant creatures.</p>\n<p>This effect lasts as long as the creature remains within the area of corruption and for 1 minute thereafter.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Corruption]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "slug": "aura-of-corruption",
+                        "traits": [
+                            "plant",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "plant",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7TG8awCuym8R9OVb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NWBV7oqS64HKJSkz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blackaxe - Owner's Authority",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> Treerazer sense the world around Blackaxe as though you were in its location and can use any of your innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[will|dc:50] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "scrying"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c09zz4QRa6hJSZ6q",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Blackaxe - Owner's Reclamation",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> <em>Blackaxe</em> appears in Treerazer's hands, teleporting instantly from its prior location.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uyDcXzwKNRuKIzY5",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blackaxe - Rejuvenating Deforestation",
+            "sort": 2400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> Make a Strike against a living tree with Blackaxe. If it hits, the tree withers to ash and you heal @Damage[250[healing]]{250 Hit Points} and gain the benefit of a 6th-rank @UUID[Compendium.pf2e.spells-srd.Item.Sound Body] spell.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "healing",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "871udt0tIPBiUS63",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Defoliation",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Treerazer exudes a pulse of sickly green light in a 30-foot-radius emanation. All plants in the area (including creatures under the effect of his aura of corruption) blacken and wither.</p>\n<p>Non-creature plants immediately wither and die. Plant and fungus creatures take @Damage[20d8[void]] damage with a @Check[fortitude|dc:49|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>\n<p>Treerazer can choose to exclude any number of plants or fungi in the area from this effect, and generally does so to preserve twisted and corrupted plants or fungi, or plant and fungus creatures that are allied to his cause.</p>\n<p>Treerazer can't use Defoliation for [[/gmr 1d4 #Recharge Defoliation]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "plant",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "veNUDgghA30FdVNB",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Dispelling Strike",
+            "sort": 2600000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> Treerazer hits a creature, object, or spell effect with a weapon Strike or subjects one to Defoliation;</p>\n<hr />\n<p><strong>Effect</strong> Treerazer casts his innate @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], targeting the creature he hit with his Strike or one spell affecting that creature.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xkIBsOSynEo9Ii6k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Staggering Strike",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When Treerazer scores a critical hit with a melee attack, the target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "melee-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Treerazer",

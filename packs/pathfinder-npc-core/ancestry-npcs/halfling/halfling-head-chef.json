@@ -4,564 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Q5Nn1TqQrvtrxABX",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+15 to Smell and Taste",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "to-smell-and-taste"
-                        ],
-                        "selector": "perception",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mQVxcuOMHDYi8EBb",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Culinary Specialist",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>For encounters involving cooking and taste, the head chef is a 7th-level challenge.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "sXFGN98pGRn0UcNY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Keen Eyes",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to @Check[flat|dc:3] for a concealed target or @Check[flat|dc:9] for a hidden one.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:seek",
-                            {
-                                "lte": [
-                                    "target:distance",
-                                    30
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "target:hidden",
-                                    "target:undetected"
-                                ]
-                            }
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Q9CnAyy8lWL7Tl4K",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Dash of Spice",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The head chef is targeted with a melee attack by an adjacent attacker they can see</p><hr /><p><strong>Effect</strong> The head chef uses Spice Mix against the attacker.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "expbuuRqjktRYCHs",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Angry Rant",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The chef shouts a flurry of insults and criticisms at either an ally or enemy within 30 feet with the following effects:</p>\n<p><strong>Ally</strong> The chef's assistant is shaken by the barrage of criticism but is determined to work faster and harder. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round but is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. They can use the extra action to Interact, Step, or Stride, or as part of an action or activity to prepare, cook, or serve food.</p>\n<p><strong>Enemy</strong> The target must succeed a @Check[will|dc:18] save or take @Damage[1d6[mental]] damage and become frightened 1 (or @Damage[2d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "round"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "linguistic",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "GGYH8NGCqXyBBMY0",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Spice Mix",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The head chef throws a mixture of irritating spices into an adjacent creature's eyes, causing the creature to be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until it Interacts to clear its vision.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qRdEpimZuSup7Kgd",
-            "img": "icons/consumables/plants/dill-herb-bundle-green.webp",
-            "name": "Herbs and Spices",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "other",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "bsbGPNiCjX7oRRfG",
-            "img": "icons/equipment/head/headwrap-cloth-white.webp",
-            "name": "Chef's Hat",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornheadwear"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "ubyBGQ2AFIsVx5WS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Baking Lore",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "H30RFvcAvsstrcmZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Cooking Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "B0PGsDJlg6I4orYz",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "kabCBbI8KIHmYu94"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Filcher's Fork",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "DeNXwdfeLNVxzPmJ": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "filchers-fork",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "backstabber",
-                        "deadly-d6"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Vex3iD34K6VGk0qH",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "kabCBbI8KIHmYu94"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Filcher's Fork",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "aLusUulhgHm1U7hL": {
-                        "damage": "1d4+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "filchers-fork",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "backstabber",
-                        "deadly-d6",
-                        "thrown-20"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "bWeYad3JPh5khIsv",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "gAd7i8re269vZXee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hot Frying Pan",
-            "sort": 1300000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "1d4",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "hot-frying-pan",
-                "traits": {
-                    "value": [
-                        "fatal-d8"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "VDE2RU74I7RKtdCV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "iwcYK86QB3FdTf8o": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
             "_id": "kabCBbI8KIHmYu94",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.CVTgOpNuRE7hsnc1"
             },
             "img": "icons/weapons/staves/staff-forked-wood.webp",
             "name": "Filcher's Fork",
-            "sort": 1500000,
+            "sort": 100000,
             "system": {
                 "baseItem": "filchers-fork",
                 "bonus": {
@@ -652,7 +101,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/frying-pan.webp",
             "name": "Frying Pan",
-            "sort": 1600000,
+            "sort": 200000,
             "system": {
                 "baseItem": "frying-pan",
                 "bonus": {
@@ -730,6 +179,557 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "bsbGPNiCjX7oRRfG",
+            "img": "icons/equipment/head/headwrap-cloth-white.webp",
+            "name": "Chef's Hat",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornheadwear"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qRdEpimZuSup7Kgd",
+            "img": "icons/consumables/plants/dill-herb-bundle-green.webp",
+            "name": "Herbs and Spices",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "B0PGsDJlg6I4orYz",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "kabCBbI8KIHmYu94"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Filcher's Fork",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "DeNXwdfeLNVxzPmJ": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "filchers-fork",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "backstabber",
+                        "deadly-d6"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Vex3iD34K6VGk0qH",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "kabCBbI8KIHmYu94"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Filcher's Fork",
+            "sort": 600000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "aLusUulhgHm1U7hL": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "filchers-fork",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "backstabber",
+                        "deadly-d6",
+                        "thrown-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bWeYad3JPh5khIsv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "gAd7i8re269vZXee"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hot Frying Pan",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "hot-frying-pan",
+                "traits": {
+                    "value": [
+                        "fatal-d8"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VDE2RU74I7RKtdCV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "iwcYK86QB3FdTf8o": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Q5Nn1TqQrvtrxABX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+15 to Smell and Taste",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "to-smell-and-taste"
+                        ],
+                        "selector": "perception",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mQVxcuOMHDYi8EBb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Culinary Specialist",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>For encounters involving cooking and taste, the head chef is a 7th-level challenge.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sXFGN98pGRn0UcNY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Keen Eyes",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The halfling gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of them. Whenever the halfling targets a creature that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or hidden from them, reduce the DC of the flat check to @Check[flat|dc:3] for a concealed target or @Check[flat|dc:9] for a hidden one.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    30
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q9CnAyy8lWL7Tl4K",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dash of Spice",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The head chef is targeted with a melee attack by an adjacent attacker they can see</p><hr /><p><strong>Effect</strong> The head chef uses Spice Mix against the attacker.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "expbuuRqjktRYCHs",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Angry Rant",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The chef shouts a flurry of insults and criticisms at either an ally or enemy within 30 feet with the following effects:</p>\n<p><strong>Ally</strong> The chef's assistant is shaken by the barrage of criticism but is determined to work faster and harder. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round but is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. They can use the extra action to Interact, Step, or Stride, or as part of an action or activity to prepare, cook, or serve food.</p>\n<p><strong>Enemy</strong> The target must succeed a @Check[will|dc:18] save or take @Damage[1d6[mental]] damage and become frightened 1 (or @Damage[2d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GGYH8NGCqXyBBMY0",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Spice Mix",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The head chef throws a mixture of irritating spices into an adjacent creature's eyes, causing the creature to be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until it Interacts to clear its vision.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ubyBGQ2AFIsVx5WS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Baking Lore",
+            "sort": 1500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "H30RFvcAvsstrcmZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Cooking Lore",
+            "sort": 1600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Halfling Head Chef",

@@ -4,363 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7rYYffte0B1eDFDt",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 Feet",
+            "_id": "yinuvv1DAaHpt2dq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "magical",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "c1COFBWgk0baYBNq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mmU40z6zMLqnvDyN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "28xyMG8bDPJrcRsP",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death-Stealing Gaze",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>30 feet. When a non-demon ends its turn in the aura, it must attempt a @Check[fortitude|dc:38] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>A creature that dies while it has drain from a vrolikai's gaze rises as a ghoul the next midnight. The GM determines what kind of ghoul.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "death-stealing-gaze",
-                        "traits": [
-                            "divine",
-                            "visual"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FQZGypLzxjxM8v3a",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Black Spore Knives",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Ziberae manifests a sickle-shaped blade of what looks like seething black fungus in four of her hands (or three of them if she's wielding his apotheosis knife in one hand). These weapons function as +2 greater striking daggers that deal an additional 2d6 poison damage. On a critical hit, the additional poison damage inflicted by a black spore knife is persistent poison damage. They fade away into nothingness 1 minute after Ziberae no longer carries them.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "critical": false,
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "black-spore-knife-damage"
-                    },
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "poison",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "black-spore-knife-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Nl0sqXtr54YzMawN",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume Death",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vrolikai focuses their deathstealing gaze upon a single target they can see within 30 feet. The target must immediately attempt a Fortitude save against death-stealing gaze.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is affected by death-stealing gaze and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. If the creature was already drained 1 by the death-stealing gaze before attempting the save, a failed save increases the value of the drained condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}. The vrolikai gains 10 temporary Hit Points, and the drained creature is temporarily immune until the start of the vrolikai's next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature increases the amount of drain by 2.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "visual"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "ej0lyLnZuPKMNMnI",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Focused Apotheosis",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Zibrerae attacks a single target with all of their black spore knives. The demon makes a black spore knife Strike with the following additional effects. This counts toward Zibrerae's multiple attack penalty as a number of attacks equal to the number of back spore knives Zibrerae used.</p>\n<p>Ziberae can use her <em>apotheosis knife</em> in place of one of her black spore knives. When she does so, she attacks with her <em>apotheosis knife</em> Strike instead of a black spore knife Strike.</p><hr /><p><strong>Critical Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first (typically @Damage[6d6[void]]{6d6 extra damage}) and takes @Damage[4d6[persistent,void]] damage.</p>\n<p><strong>Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first.</p>\n<p><strong>Failure</strong> The vrolikai deals the damage their black flame knife Strike normally deals on a hit.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JS74Gdm0nVhPpG4k",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mindwarping",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The sting of a vrolikai is mind-warping. A creature struck must attempt a @Check[will|dc:44] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes stupefied 1. If it's already stupefied, its stupefied value increases by 1 instead (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}).</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 minute.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "mindwarping",
-                "traits": {
-                    "value": [
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "5tiASMinDzyHUAEv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 900000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "xfyb2s0sgthdl7cu2z2m": {
-                        "damage": "4d12+18",
-                        "damageType": "piercing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PFAC6dSt4RN7aRDz",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Stinger",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": [
-                        "mindwarping"
-                    ]
-                },
-                "bonus": {
-                    "value": 38
-                },
-                "damageRolls": {
-                    "ffnpb7at0iv3nqz2nhlc": {
-                        "damage": "4d8+18",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -368,108 +28,22 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-15",
-                        "unholy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 44,
+                    "mod": 0,
+                    "value": 36
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
-        },
-        {
-            "_id": "MOP3EMonCVQz3pnv",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "mvNVZ2WDuG6j9KRI"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Apotheosis Knife",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 41
-                },
-                "damageRolls": {
-                    "3HtgVQd0VDuhhDSd": {
-                        "damage": "1d4",
-                        "damageType": "spirit"
-                    },
-                    "DRuUgBxzVgkgHL4p": {
-                        "category": "persistent",
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    },
-                    "vniyyLNl8E0isJkw": {
-                        "damage": "4d4+15",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "apotheosis-knife",
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unholy",
-                        "versatile-s"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "PbmI29cqq7bJwH3g",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Black Spore Knife",
-            "sort": 1200000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 40
-                },
-                "damageRolls": {
-                    "lv5fO4vP2yQYtkHo": {
-                        "damage": "3d4+18",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "unholy"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "D8ZnN3huVkGhtjgw",
@@ -478,7 +52,7 @@
             },
             "img": "systems/pf2e/icons/spells/massacre.webp",
             "name": "Massacre",
-            "sort": 1300000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "line",
@@ -560,7 +134,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 1400000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -649,7 +223,7 @@
             },
             "img": "icons/magic/unholy/hand-claw-fog-green.webp",
             "name": "Execute",
-            "sort": 1500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -765,7 +339,7 @@
             },
             "img": "icons/magic/life/cross-beam-green.webp",
             "name": "Regenerate",
-            "sort": 1600000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -827,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "Truesight (Constant)",
-            "sort": 1700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -890,7 +464,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 1800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -961,7 +535,7 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 1900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1039,7 +613,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 2000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1098,55 +672,13 @@
             "type": "spell"
         },
         {
-            "_id": "yinuvv1DAaHpt2dq",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 2100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 44,
-                    "mod": 0,
-                    "value": 36
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "mvNVZ2WDuG6j9KRI",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.MlKNR5Q784mgmU0C"
             },
             "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Apotheosis Knife",
-            "sort": 2200000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1246,6 +778,474 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "5tiASMinDzyHUAEv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "xfyb2s0sgthdl7cu2z2m": {
+                        "damage": "4d12+18",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PFAC6dSt4RN7aRDz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stinger",
+            "sort": 1200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "mindwarping"
+                    ]
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "ffnpb7at0iv3nqz2nhlc": {
+                        "damage": "4d8+18",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "MOP3EMonCVQz3pnv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "mvNVZ2WDuG6j9KRI"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Apotheosis Knife",
+            "sort": 1300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "3HtgVQd0VDuhhDSd": {
+                        "damage": "1d4",
+                        "damageType": "spirit"
+                    },
+                    "DRuUgBxzVgkgHL4p": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "vniyyLNl8E0isJkw": {
+                        "damage": "4d4+15",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "apotheosis-knife",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unholy",
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PbmI29cqq7bJwH3g",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Black Spore Knife",
+            "sort": 1400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 40
+                },
+                "damageRolls": {
+                    "lv5fO4vP2yQYtkHo": {
+                        "damage": "3d4+18",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7rYYffte0B1eDFDt",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 Feet",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c1COFBWgk0baYBNq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mmU40z6zMLqnvDyN",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "28xyMG8bDPJrcRsP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death-Stealing Gaze",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. When a non-demon ends its turn in the aura, it must attempt a @Check[fortitude|dc:38] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>A creature that dies while it has drain from a vrolikai's gaze rises as a ghoul the next midnight. The GM determines what kind of ghoul.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "death-stealing-gaze",
+                        "traits": [
+                            "divine",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FQZGypLzxjxM8v3a",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Black Spore Knives",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Ziberae manifests a sickle-shaped blade of what looks like seething black fungus in four of her hands (or three of them if she's wielding his apotheosis knife in one hand). These weapons function as +2 greater striking daggers that deal an additional 2d6 poison damage. On a critical hit, the additional poison damage inflicted by a black spore knife is persistent poison damage. They fade away into nothingness 1 minute after Ziberae no longer carries them.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "critical": false,
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "black-spore-knife-damage"
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "black-spore-knife-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Nl0sqXtr54YzMawN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Consume Death",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vrolikai focuses their deathstealing gaze upon a single target they can see within 30 feet. The target must immediately attempt a Fortitude save against death-stealing gaze.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is affected by death-stealing gaze and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. If the creature was already drained 1 by the death-stealing gaze before attempting the save, a failed save increases the value of the drained condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}. The vrolikai gains 10 temporary Hit Points, and the drained creature is temporarily immune until the start of the vrolikai's next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature increases the amount of drain by 2.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ej0lyLnZuPKMNMnI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Focused Apotheosis",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Zibrerae attacks a single target with all of their black spore knives. The demon makes a black spore knife Strike with the following additional effects. This counts toward Zibrerae's multiple attack penalty as a number of attacks equal to the number of back spore knives Zibrerae used.</p>\n<p>Ziberae can use her <em>apotheosis knife</em> in place of one of her black spore knives. When she does so, she attacks with her <em>apotheosis knife</em> Strike instead of a black spore knife Strike.</p><hr /><p><strong>Critical Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first (typically @Damage[6d6[void]]{6d6 extra damage}) and takes @Damage[4d6[persistent,void]] damage.</p>\n<p><strong>Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first.</p>\n<p><strong>Failure</strong> The vrolikai deals the damage their black flame knife Strike normally deals on a hit.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JS74Gdm0nVhPpG4k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mindwarping",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The sting of a vrolikai is mind-warping. A creature struck must attempt a @Check[will|dc:44] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes stupefied 1. If it's already stupefied, its stupefied value increases by 1 instead (to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}).</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "mindwarping",
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Ziberae",

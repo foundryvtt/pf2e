@@ -4,512 +4,182 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LZn2iQ0qoNvdoEAa",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Circumstance to All Saves Vs. Disease",
+            "_id": "FDADc8nnuxnNJe0r",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:trait:disease"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "2-circumstance-to-all-saves-vs-disease",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Xd9KhQKXQuIVz96m",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Retaliatory Flare",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Tokainen would be damage by an adjacent creature</p><hr /><p><strong>Effect</strong> Tokainen's flesh flares with scouring flames, dealing @Damage[1d4[fire]] damage to all adjacent enemies (@Check[reflex|dc:28|basic] save; increased to @Damage[2d8[fire]] damage if Tokainen is using Channel the Cataclysm stance).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qGlEQho8pn1kknmx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "d3LyPtIJs0BSUXuL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Calculated Bloodletting",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm], any living creature that fails its save against that spell is dealt @Damage[1d6[persistent,bleed]] damage. In addition, if that version of <em>harm</em> has an area, you can designate up to 5 living creatures in the area; they're not affected by that casting of <em>harm</em>.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "spellshape"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ns0UejYzkMJbPnx2",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Channel Cataclysm",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Tokainen screams in rage, channeling the cataclysmic fury of Scal into her own body as she Interacts to draw a weapon. While she is in this stance, Tokainen gains fast healing 5, immunity to fire, her melee Strikes deal an additional 2d8 fire damage, and she gains access to her Spiral Swing ability. While Tokainen is in this stance, she can't cast spells.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "channel-cataclysm",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FastHealing",
-                        "predicate": [
-                            "channel-cataclysm"
-                        ],
-                        "value": 5
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "channel-cataclysm"
-                        ],
-                        "type": "fire"
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "channel-cataclysm"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "stance"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "YtkmxIDb60rfTrqx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spiral Swing",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Tokainen is wielding her meteor hammer and is in Channel Cataclysm stance</p><hr /><p><strong>Effect</strong> Tokainen swings her meteor hammer in a wide circle, dealing @Damage[4d8[bludgeoning],4d8[fire]] damage to each enemy in a @Template[emanation|distance:10]. Tokainen can't use Spiral Swing again for [[/gmr 1d4 #Recharge Spiral Swing]]{1d4 rounds}.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "OPgSAWx714bVCglx"
+                            },
+                            {
+                                "id": "aJO99ax8FkWzegqk"
+                            },
+                            {
+                                "id": "2F5aJhXlwYmtqf7v"
+                            },
+                            {
+                                "id": "24GYfrtUMPIT08YY"
+                            },
+                            {
+                                "id": "q9dN8xgzZ99svnQR"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "QxyzVT8zC9Lmeq7I"
+                            },
+                            {
+                                "id": "7m67eSuU84E4IHdB"
+                            },
+                            {
+                                "id": "7m67eSuU84E4IHdB"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "oONAJr2XaftFiFdM"
+                            },
+                            {
+                                "id": "oONAJr2XaftFiFdM"
+                            },
+                            {
+                                "id": "J3ykbfkoyA1UAytn"
+                            }
+                        ]
+                    },
+                    "slot3": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "77QQeX9CEHxotNAN"
+                            },
+                            {
+                                "id": "BCVjtjWmS2HBwuvM"
+                            },
+                            {
+                                "id": "p8XnEiy8qvO6VqM5"
+                            }
+                        ]
+                    },
+                    "slot4": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "id": "I4a2otZA4FETC5bI"
+                            },
+                            {
+                                "id": "8kngWRrv7BpVdzAO"
+                            },
+                            {
+                                "id": "8kngWRrv7BpVdzAO"
+                            }
+                        ]
+                    },
+                    "slot5": {
+                        "max": 7,
+                        "prepared": [
+                            {
+                                "id": "JJC0k5aawu0jDWRM"
+                            },
+                            {
+                                "id": "sakYHhtq9m4C8Fvi"
+                            },
+                            {
+                                "id": "jPvssgcRuF2iVrZi"
+                            },
+                            {
+                                "id": "jPvssgcRuF2iVrZi"
+                            },
+                            {
+                                "id": "jPvssgcRuF2iVrZi"
+                            },
+                            {
+                                "id": "jPvssgcRuF2iVrZi"
+                            },
+                            {
+                                "id": "jPvssgcRuF2iVrZi"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "flourish"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "4paJBcrPASYHCyff",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
-            },
-            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
-            "name": "Breastplate",
-            "sort": 700000,
-            "system": {
-                "acBonus": 4,
-                "baseItem": "breastplate",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
-                },
-                "dexCap": 1,
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "group": "plate",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 8
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "breastplate",
-                "speedPenalty": -5,
-                "strength": 3,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "3AYukGreHed2sC83",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Nin)",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "nNE4x5TnCowevTDP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
-            },
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Scal)",
-            "sort": 900000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "vSNyasCZa0JTZDhv",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "sW2TteOJMiVVTPLX"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Meteor Hammer",
-            "sort": 1000000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "spelldc": {
+                    "dc": 28,
                     "value": 20
                 },
-                "damageRolls": {
-                    "xZx2acy0FWNMKUBn": {
-                        "damage": "2d8+8",
-                        "damageType": "bludgeoning"
-                    }
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "r86KYvrAjx5qrNbP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Focus Spells",
+            "sort": 200000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": "meteor-hammer",
-                "traits": {
-                    "value": [
-                        "backswing",
-                        "disarm",
-                        "reach-10",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "CSZRuQT3XbqK8fmW",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 28,
                     "value": 20
                 },
-                "damageRolls": {
-                    "O6RCWJZV1VLETRJf": {
-                        "damage": "1d4+8",
-                        "damageType": "bludgeoning"
-                    }
+                "tradition": {
+                    "value": "divine"
                 },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                }
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "sakYHhtq9m4C8Fvi",
@@ -519,7 +189,7 @@
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "icons/magic/fire/explosion-embers-orange.webp",
             "name": "Divine Immolation",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -608,7 +278,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "icons/weapons/misc/whip-red-yellow.webp",
             "name": "Commanding Lash",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -675,7 +345,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/magic/light/projectile-beam-yellow.webp",
             "name": "Divine Wrath",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -764,7 +434,7 @@
             "folder": "7cyoYPoPYA01mErU",
             "img": "icons/environment/settlement/sewer-entrance.webp",
             "name": "Vampiric Maiden",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -861,7 +531,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/skills/wounds/injury-eyes-blood-red.webp",
             "name": "Blindness",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -930,7 +600,7 @@
             "folder": "4fJHnYFqH0VjZXPv",
             "img": "icons/magic/light/beam-explosion-pink-purple.webp",
             "name": "Chilling Darkness",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1023,7 +693,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 1800000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1086,7 +756,7 @@
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See the Unseen",
-            "sort": 1900000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1149,7 +819,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2000000,
+            "sort": 1100000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -1220,7 +890,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command",
-            "sort": 2100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1300,7 +970,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 2200000,
+            "sort": 1300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1383,7 +1053,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Enfeeble",
-            "sort": 2300000,
+            "sort": 1400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1450,7 +1120,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2400000,
+            "sort": 1500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1531,7 +1201,7 @@
             "folder": "T8AzYUgNIAgTJ9Iz",
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 2500000,
+            "sort": 1600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1726,7 +1396,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 2600000,
+            "sort": 1700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1790,7 +1460,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 2700000,
+            "sort": 1800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1853,7 +1523,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 2800000,
+            "sort": 1900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1917,7 +1587,7 @@
             "folder": "wnvibtD90h7CStDC",
             "img": "systems/pf2e/icons/spells/touch-of-obedience.webp",
             "name": "Touch of Obedience",
-            "sort": 2900000,
+            "sort": 2000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1982,7 +1652,7 @@
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Void Warp",
-            "sort": 3000000,
+            "sort": 2100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -2062,245 +1732,13 @@
             "type": "spell"
         },
         {
-            "_id": "FDADc8nnuxnNJe0r",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
-            "sort": 3100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "OPgSAWx714bVCglx"
-                            },
-                            {
-                                "id": "aJO99ax8FkWzegqk"
-                            },
-                            {
-                                "id": "2F5aJhXlwYmtqf7v"
-                            },
-                            {
-                                "id": "24GYfrtUMPIT08YY"
-                            },
-                            {
-                                "id": "q9dN8xgzZ99svnQR"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "QxyzVT8zC9Lmeq7I"
-                            },
-                            {
-                                "id": "7m67eSuU84E4IHdB"
-                            },
-                            {
-                                "id": "7m67eSuU84E4IHdB"
-                            }
-                        ]
-                    },
-                    "slot2": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "oONAJr2XaftFiFdM"
-                            },
-                            {
-                                "id": "oONAJr2XaftFiFdM"
-                            },
-                            {
-                                "id": "J3ykbfkoyA1UAytn"
-                            }
-                        ]
-                    },
-                    "slot3": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "77QQeX9CEHxotNAN"
-                            },
-                            {
-                                "id": "BCVjtjWmS2HBwuvM"
-                            },
-                            {
-                                "id": "p8XnEiy8qvO6VqM5"
-                            }
-                        ]
-                    },
-                    "slot4": {
-                        "max": 3,
-                        "prepared": [
-                            {
-                                "id": "I4a2otZA4FETC5bI"
-                            },
-                            {
-                                "id": "8kngWRrv7BpVdzAO"
-                            },
-                            {
-                                "id": "8kngWRrv7BpVdzAO"
-                            }
-                        ]
-                    },
-                    "slot5": {
-                        "max": 7,
-                        "prepared": [
-                            {
-                                "id": "JJC0k5aawu0jDWRM"
-                            },
-                            {
-                                "id": "sakYHhtq9m4C8Fvi"
-                            },
-                            {
-                                "id": "jPvssgcRuF2iVrZi"
-                            },
-                            {
-                                "id": "jPvssgcRuF2iVrZi"
-                            },
-                            {
-                                "id": "jPvssgcRuF2iVrZi"
-                            },
-                            {
-                                "id": "jPvssgcRuF2iVrZi"
-                            },
-                            {
-                                "id": "jPvssgcRuF2iVrZi"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "r86KYvrAjx5qrNbP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Focus Spells",
-            "sort": 3200000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 28,
-                    "value": 20
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "J6TwmnV3u53nZo7i",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
-            "name": "Gold Pieces",
-            "sort": 3300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 20,
-                "rules": [],
-                "size": "med",
-                "slug": "gold-pieces",
-                "stackGroup": "coins",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
             "_id": "sW2TteOJMiVVTPLX",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xu3azdMCIa53Oe1f"
             },
             "img": "icons/weapons/thrown/bolas-steel.webp",
             "name": "Meteor Hammer",
-            "sort": 3400000,
+            "sort": 2200000,
             "system": {
                 "baseItem": "meteor-hammer",
                 "bonus": {
@@ -2380,6 +1818,568 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "4paJBcrPASYHCyff",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk"
+            },
+            "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+            "name": "Breastplate",
+            "sort": 2300000,
+            "system": {
+                "acBonus": 4,
+                "baseItem": "breastplate",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or @UUID[Compendium.pf2e.equipment-srd.Item.Half Plate] armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dexCap": 1,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "breastplate",
+                "speedPenalty": -5,
+                "strength": 3,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "3AYukGreHed2sC83",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol (Nin)",
+            "sort": 2400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "nNE4x5TnCowevTDP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI"
+            },
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol (Scal)",
+            "sort": 2500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "J6TwmnV3u53nZo7i",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 2600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "vSNyasCZa0JTZDhv",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "sW2TteOJMiVVTPLX"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Meteor Hammer",
+            "sort": 2700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "xZx2acy0FWNMKUBn": {
+                        "damage": "2d8+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "meteor-hammer",
+                "traits": {
+                    "value": [
+                        "backswing",
+                        "disarm",
+                        "reach-10",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CSZRuQT3XbqK8fmW",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 2800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "O6RCWJZV1VLETRJf": {
+                        "damage": "1d4+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LZn2iQ0qoNvdoEAa",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Circumstance to All Saves Vs. Disease",
+            "sort": 2900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:disease"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "2-circumstance-to-all-saves-vs-disease",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Xd9KhQKXQuIVz96m",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Retaliatory Flare",
+            "sort": 3000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Tokainen would be damage by an adjacent creature</p><hr /><p><strong>Effect</strong> Tokainen's flesh flares with scouring flames, dealing @Damage[1d4[fire]] damage to all adjacent enemies (@Check[reflex|dc:28|basic] save; increased to @Damage[2d8[fire]] damage if Tokainen is using Channel the Cataclysm stance).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qGlEQho8pn1kknmx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 3100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "d3LyPtIJs0BSUXuL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Calculated Bloodletting",
+            "sort": 3200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm], any living creature that fails its save against that spell is dealt @Damage[1d6[persistent,bleed]] damage. In addition, if that version of <em>harm</em> has an area, you can designate up to 5 living creatures in the area; they're not affected by that casting of <em>harm</em>.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ns0UejYzkMJbPnx2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Channel Cataclysm",
+            "sort": 3300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Tokainen screams in rage, channeling the cataclysmic fury of Scal into her own body as she Interacts to draw a weapon. While she is in this stance, Tokainen gains fast healing 5, immunity to fire, her melee Strikes deal an additional 2d8 fire damage, and she gains access to her Spiral Swing ability. While Tokainen is in this stance, she can't cast spells.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "channel-cataclysm",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "channel-cataclysm"
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "channel-cataclysm"
+                        ],
+                        "type": "fire"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "channel-cataclysm"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "stance"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YtkmxIDb60rfTrqx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spiral Swing",
+            "sort": 3400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Tokainen is wielding her meteor hammer and is in Channel Cataclysm stance</p><hr /><p><strong>Effect</strong> Tokainen swings her meteor hammer in a wide circle, dealing @Damage[4d8[bludgeoning],4d8[fire]] damage to each enemy in a @Template[emanation|distance:10]. Tokainen can't use Spiral Swing again for [[/gmr 1d4 #Recharge Spiral Swing]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "flourish"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Tokainen",

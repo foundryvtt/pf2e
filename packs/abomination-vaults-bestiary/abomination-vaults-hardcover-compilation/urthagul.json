@@ -4,208 +4,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kFeAtCbycBHyIGcR",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fIssfjOuDo0yfwLc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Eerie Flexibility",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Despite its size, the gug's multiple joints allow it to fit through tight spaces as if it were a Medium creature. While @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze]{Squeezing}, it can move at its full Speed.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b1w5wps2XBnNPOls",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Furious Claws",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The gug makes up to four claw Strikes, each against a different target. These attacks all count toward the gug's multiple attack penalty, but the penalty doesn't increase until after the gug makes all its attacks.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "yTXiHzmRavI1BmKJ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "rend",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JuUN4gbsoB92ylTF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-effects.Item.ytqvHyF0oMKbo65P"
-            },
-            "img": "systems/pf2e/icons/equipment/other/crimson-fulcrum-lenses.webp",
-            "name": "Effect: Crimson Fulcrum Lens",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Crimson Fulcrum Lens]</p>\n<p>You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack).</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "level": {
-                    "value": 9
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #165: Eyes of Empty Death"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "melee-strike-damage",
-                        "slug": "crimson-fulcrum-lens",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "item:slug:jaws"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "slug": "crimson-fulcrum-lens",
-                        "value": 4
-                    }
-                ],
-                "slug": "effect-crimson-fulcrum-lens",
-                "start": {
-                    "initiative": null,
-                    "value": 0
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "Kc9RfQ1ZLqepop3p",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.yAqGhT0GuZrkvWZl"
             },
             "img": "systems/pf2e/icons/equipment/other/crimson-fulcrum-lenses.webp",
             "name": "Crimson Fulcrum Lens",
-            "sort": 600000,
+            "sort": 100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -290,10 +95,79 @@
             "type": "equipment"
         },
         {
+            "_id": "JuUN4gbsoB92ylTF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-effects.Item.ytqvHyF0oMKbo65P"
+            },
+            "img": "systems/pf2e/icons/equipment/other/crimson-fulcrum-lenses.webp",
+            "name": "Effect: Crimson Fulcrum Lens",
+            "sort": 200000,
+            "system": {
+                "description": {
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Crimson Fulcrum Lens]</p>\n<p>You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack).</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 9
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #165: Eyes of Empty Death"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "melee-strike-damage",
+                        "slug": "crimson-fulcrum-lens",
+                        "type": "item",
+                        "value": 2
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:slug:jaws"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "slug": "crimson-fulcrum-lens",
+                        "value": 4
+                    }
+                ],
+                "slug": "effect-crimson-fulcrum-lens",
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
             "_id": "iwppReF9hEA7igPO",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -338,7 +212,7 @@
             "_id": "VgEW660oBhpCgGPZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -379,6 +253,132 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "kFeAtCbycBHyIGcR",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fIssfjOuDo0yfwLc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Eerie Flexibility",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Despite its size, the gug's multiple joints allow it to fit through tight spaces as if it were a Medium creature. While @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze]{Squeezing}, it can move at its full Speed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b1w5wps2XBnNPOls",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Furious Claws",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gug makes up to four claw Strikes, each against a different target. These attacks all count toward the gug's multiple attack penalty, but the penalty doesn't increase until after the gug makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yTXiHzmRavI1BmKJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Urthagul",

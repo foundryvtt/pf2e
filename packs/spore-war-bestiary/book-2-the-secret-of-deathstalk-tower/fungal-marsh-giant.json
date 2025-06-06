@@ -4,92 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XJnrKfLYt73rxGte",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spore Cloud",
+            "_id": "SOapd5GiFsybvQAC",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. The fungal marsh giant exudes a faintly visible cloud of green spores when not underwater. Any creature that ends its turn in the spore cloud takes @Damage[2d6[poison]] damage (@Check[fortitude|dc:27|basic] save). A creature that fails this save also becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 20,
-                        "traits": [
-                            "poison"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "j2rTwTtnlsXlNIpr",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Moldy Mess",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Item.Prone] within the fungal marsh giant's reach</p><hr /><p><strong>Effect</strong> The fungal marsh giant shakes and heaves their body, causing great swaths of mold and fungal crust to slough off them and cover the prone creature. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] in the mold until they @UUID[Compendium.pf2e.actionspf2e.Item.Escape] (DC 27) and takes @Damage[6d6[poison]] damage (@Check[fortitude|dc:27|basic] save). The fungal marsh giant can't use Moldy Mess again for [[/gmr 1d4 #Recharge Moldy Mess]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fungus",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "eoLK3mAvvXiMTLnH",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Twist the Hook",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The fungal marsh giant makes a melee Strike with its scythe. If it hits, it twists and yanks the scythe to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing @Damage[2d6[persistent,bleed]] damage to the creature.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "ORC",
@@ -97,136 +28,23 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": []
-                }
+                "spelldc": {
+                    "dc": 27,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 19
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
             },
-            "type": "action"
-        },
-        {
-            "_id": "EF6jFpXwBUM3i2gf",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 400000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d8+13",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "reach-10",
-                        "unarmed"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "4hkCvTjHbDQlib2s",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "wM7EOyEUbkFSvcW7"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scythe",
-            "sort": 500000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "QLCQywJenYZX35WS": {
-                        "damage": "2d10+13",
-                        "damageType": "slashing"
-                    },
-                    "d1YP6YEWZsGBrLBg": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "scythe",
-                "traits": {
-                    "value": [
-                        "deadly-d10",
-                        "magical",
-                        "trip"
-                    ]
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "huY2kc7XivnkykqV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Mold Spit",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "W4E74kucW4PPJciS": {
-                        "damage": "6d6",
-                        "damageType": "poison"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "fungus",
-                        "primal",
-                        "range-60",
-                        "water"
-                    ]
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "sH6Sj3TiElSGbaIg",
@@ -235,7 +53,7 @@
             },
             "img": "icons/creatures/slimes/slime-movement-splash-green.webp",
             "name": "Toxic Cloud",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -324,7 +142,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -405,7 +223,7 @@
             },
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -467,7 +285,7 @@
             },
             "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
             "name": "Mist",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -526,56 +344,13 @@
             "type": "spell"
         },
         {
-            "_id": "SOapd5GiFsybvQAC",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Innate Spells",
-            "sort": 1100000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 27,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 19
-                },
-                "tradition": {
-                    "value": "occult"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "wM7EOyEUbkFSvcW7",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.H74vYwHJ8XT4qOPI"
             },
             "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
             "name": "Scythe",
-            "sort": 1200000,
+            "sort": 600000,
             "system": {
                 "baseItem": "scythe",
                 "bonus": {
@@ -655,6 +430,231 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "EF6jFpXwBUM3i2gf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 700000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-10",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4hkCvTjHbDQlib2s",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "wM7EOyEUbkFSvcW7"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scythe",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "QLCQywJenYZX35WS": {
+                        "damage": "2d10+13",
+                        "damageType": "slashing"
+                    },
+                    "d1YP6YEWZsGBrLBg": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "scythe",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "huY2kc7XivnkykqV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mold Spit",
+            "sort": 900000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "W4E74kucW4PPJciS": {
+                        "damage": "6d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fungus",
+                        "primal",
+                        "range-60",
+                        "water"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XJnrKfLYt73rxGte",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Cloud",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The fungal marsh giant exudes a faintly visible cloud of green spores when not underwater. Any creature that ends its turn in the spore cloud takes @Damage[2d6[poison]] damage (@Check[fortitude|dc:27|basic] save). A creature that fails this save also becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "poison"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "j2rTwTtnlsXlNIpr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Moldy Mess",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Item.Prone] within the fungal marsh giant's reach</p><hr /><p><strong>Effect</strong> The fungal marsh giant shakes and heaves their body, causing great swaths of mold and fungal crust to slough off them and cover the prone creature. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] in the mold until they @UUID[Compendium.pf2e.actionspf2e.Item.Escape] (DC 27) and takes @Damage[6d6[poison]] damage (@Check[fortitude|dc:27|basic] save). The fungal marsh giant can't use Moldy Mess again for [[/gmr 1d4 #Recharge Moldy Mess]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fungus",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eoLK3mAvvXiMTLnH",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Twist the Hook",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fungal marsh giant makes a melee Strike with its scythe. If it hits, it twists and yanks the scythe to knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] and create an awful wound, dealing @Damage[2d6[persistent,bleed]] damage to the creature.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Fungal Marsh Giant",

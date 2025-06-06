@@ -3,121 +3,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kBxRAEuGBWNPM636",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Language Adaptation",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A leucrotta can learn any language it hears spoken for at least 10 minutes, adding it to its languages known and replacing the language it previously learned using this ability. Typically, a leucrotta knows Gnoll as the language granted by this ability.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "obCe64sZedFgSWGQ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Luring Cry",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>60 feet</p>\n<p><strong>Requirements</strong> The leucrotta's last action was Sound Mimicry</p>\n<hr />\n<p><strong>Effect</strong> The leucrotta utters a plaintive cry to draw its prey closer. Each creature within the emanation that was deceived by Sound Mimicry must succeed at a @Check[will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] and compelled to move toward the sound of the leucrotta's voice on their turn. Fascinated creatures are also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>\n<p>If the leucrotta attacks, the fascinated condition ends only for the creature that is attacked. If the leucrotta speaks a creature's name while using its Luring Cry, that creature takes a -2 circumstance penalty to their saving throw to resist the ability.</p>\n<p>On a successful save, a creature is temporarily immune to Luring Cry for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "incapacitation",
-                        "linguistic",
-                        "mental",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "H7lzbseyLDhs5Tp3",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Sound Mimicry",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The leucrotta perfectly imitates voices and speech and attempts a @Check[deception] check against listeners' Will DC to fool them. The leucrotta gains a +4 bonus to this Deception check if it has listened to the creature it's imitating for at least 10 minutes at any point in the last 24 hours. The leucrotta can't duplicate voice-based abilities or spells, though it can perfectly mimic the sound of verbal spellcasting and can attempt to deceive constructs or undead that respond to voice commands. The leucrotta can't imitate speech in languages it doesn't know.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "sound-mimicry",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "sound-mimicry"
-                        ],
-                        "selector": "deception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "mNQAWCGl6DU8cQUP",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jagged Jaws",
-            "sort": 400000,
+            "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -160,7 +49,7 @@
             "_id": "8UGnwgNXjFG8VCZU",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hoof",
-            "sort": 500000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -198,6 +87,117 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "kBxRAEuGBWNPM636",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Language Adaptation",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A leucrotta can learn any language it hears spoken for at least 10 minutes, adding it to its languages known and replacing the language it previously learned using this ability. Typically, a leucrotta knows Gnoll as the language granted by this ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "obCe64sZedFgSWGQ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Luring Cry",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>60 feet</p>\n<p><strong>Requirements</strong> The leucrotta's last action was Sound Mimicry</p>\n<hr />\n<p><strong>Effect</strong> The leucrotta utters a plaintive cry to draw its prey closer. Each creature within the emanation that was deceived by Sound Mimicry must succeed at a @Check[will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] and compelled to move toward the sound of the leucrotta's voice on their turn. Fascinated creatures are also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</p>\n<p>If the leucrotta attacks, the fascinated condition ends only for the creature that is attacked. If the leucrotta speaks a creature's name while using its Luring Cry, that creature takes a -2 circumstance penalty to their saving throw to resist the ability.</p>\n<p>On a successful save, a creature is temporarily immune to Luring Cry for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "incapacitation",
+                        "linguistic",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "H7lzbseyLDhs5Tp3",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Sound Mimicry",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The leucrotta perfectly imitates voices and speech and attempts a @Check[deception] check against listeners' Will DC to fool them. The leucrotta gains a +4 bonus to this Deception check if it has listened to the creature it's imitating for at least 10 minutes at any point in the last 24 hours. The leucrotta can't duplicate voice-based abilities or spells, though it can perfectly mimic the sound of verbal spellcasting and can attempt to deceive constructs or undead that respond to voice commands. The leucrotta can't imitate speech in languages it doesn't know.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sound-mimicry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sound-mimicry"
+                        ],
+                        "selector": "deception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Leucrotta",

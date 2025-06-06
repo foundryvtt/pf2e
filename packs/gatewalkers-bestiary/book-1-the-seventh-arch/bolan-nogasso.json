@@ -4,20 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "e1fXyipkeQPfAhvQ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Guardian Thorns",
+            "_id": "CQEesz5CNMt6BtQP",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Druid Prepared Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>Bolan compels plant-based materials within @Template[emanation|distance:10]{10 feet} of him to grow sharp thorns and spiky branches. This ability affects all walls, floors, and large objects made from dead organic material, such as wood. Affected areas become difficult terrain. Non-fey and non-plant creatures in the affected area or those who move through an affected square take @Damage[2d10[piercing]] (@Check[reflex|dc:18|basic]). This ability does not affect stone, dirt, living plants, or other materials. The effect ends when Bolan moves out of his square.</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,274 +28,91 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "UV6FnYHXyx51bqi6"
+                            },
+                            {
+                                "id": "A5fGPxUPRUT8ws4l"
+                            },
+                            {
+                                "id": "A6iIPQFJ8ANgSMJK"
+                            },
+                            {
+                                "id": "ex0Fq7SV6fd0qOmD"
+                            },
+                            {
+                                "id": "dMQ9MoUr14ixXNQp"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "OECVbTyGmfc5i0Ke"
+                            },
+                            {
+                                "id": "zn3CuLPttWwaj9m0"
+                            },
+                            {
+                                "id": "qRG1l01HEr5Dd9xg"
+                            },
+                            {
+                                "id": "SfpYC9zPjhfYsbYM"
+                            }
+                        ]
+                    }
+                },
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "TlR0lKJzoCsqWCDA",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Item Treachery",
+            "_id": "TGcVVlnIzAdEGbVW",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Druid Order Spells",
             "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Bolan targets a held item (such as a bow stave, wooden shield, or scroll) within 60 feet composed, at least partially, of wood, cotton, or other dead plant matter. The plant-based part of this item animates and attempts to wriggle free of its holder's grasp. The holder must attempt a @Check[reflex|dc:18] save.</p>\n<hr />\n<p><strong>Success</strong> The creature holds onto the item with no ill effect.</p>\n<p><strong>Failure</strong> The creature struggles to hold onto the item. Until the start of the creature's next turn, attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the creature of that item gain a +2 circumstance bonus, and the creature takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.</p>\n<p><strong>Critical Failure</strong> The creature drops the item into the creature's space or drops the object in an adjacent square of Bolan's choice, at which point the item returns to normal.</p>"
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 18,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "LgnVcq7w3CiTBhew",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Vengeful Fibers",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A piece of clothing animates and attacks its wearer at Bolan's command. Bolan targets a creature within 60 feet wearing clothing made from plants, such as cotton, hemp, or grass. The clothing chokes its wearer, restricts their movement, and abrades their skin. The target takes @Damage[2d10[bludgeoning]] (@Check[fortitude|dc:18|basic]). A creature that takes damage in this way is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes a –10-foot circumstance penalty to Speed until the beginning of Bolan's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vengeful Fibers]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "AKGmwRBisoefjjxV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
-            },
-            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
-            "name": "Hide Armor",
-            "sort": 400000,
-            "system": {
-                "acBonus": 3,
-                "baseItem": "hide-armor",
-                "bulk": {
-                    "value": 2
-                },
-                "category": "medium",
-                "checkPenalty": -2,
-                "containerId": null,
-                "description": {
-                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
-                },
-                "dexCap": 2,
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": null
-                },
-                "group": "leather",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "resilient": 0
-                },
-                "size": "med",
-                "slug": "hide-armor",
-                "speedPenalty": -5,
-                "strength": 2,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "armor"
-        },
-        {
-            "_id": "tP82LjarpjKhPbF8",
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/mask-plague.webp",
-            "name": "Leaf Mask",
-            "sort": 500000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "QDROxihbv7wdXszl",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "8RLHCYIjKnxHPS3H"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff",
-            "sort": 600000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "cQzk8Uq4DiPA63MT": {
-                        "damage": "1d4+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "two-handed",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "DamageAlteration",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "two-handed"
-                        ],
-                        "property": "dice-faces",
-                        "selectors": [
-                            "{item|_id}-damage"
-                        ],
-                        "slug": "base",
-                        "value": 8
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "feat:plant-shape"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "UV6FnYHXyx51bqi6",
@@ -301,7 +121,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 700000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -462,7 +282,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 800000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -548,7 +368,7 @@
             },
             "img": "icons/skills/movement/feet-winged-sandals-tan.webp",
             "name": "Fleet Step",
-            "sort": 900000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -608,7 +428,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 1000000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -669,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1100000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -733,7 +553,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1200000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -814,7 +634,7 @@
             },
             "img": "systems/pf2e/icons/spells/shillelagh.webp",
             "name": "Shillelagh",
-            "sort": 1300000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -874,7 +694,7 @@
             },
             "img": "icons/creatures/unholy/demon-horned-winged-laughing.webp",
             "name": "Summon Fey",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -934,7 +754,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1500000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -997,7 +817,7 @@
             },
             "img": "systems/pf2e/icons/spells/wild-morph.webp",
             "name": "Wild Morph (Plant Shape)",
-            "sort": 1600000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -1051,124 +871,13 @@
             "type": "spell"
         },
         {
-            "_id": "CQEesz5CNMt6BtQP",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Druid Prepared Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "UV6FnYHXyx51bqi6"
-                            },
-                            {
-                                "id": "A5fGPxUPRUT8ws4l"
-                            },
-                            {
-                                "id": "A6iIPQFJ8ANgSMJK"
-                            },
-                            {
-                                "id": "ex0Fq7SV6fd0qOmD"
-                            },
-                            {
-                                "id": "dMQ9MoUr14ixXNQp"
-                            }
-                        ]
-                    },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "OECVbTyGmfc5i0Ke"
-                            },
-                            {
-                                "id": "zn3CuLPttWwaj9m0"
-                            },
-                            {
-                                "id": "qRG1l01HEr5Dd9xg"
-                            },
-                            {
-                                "id": "SfpYC9zPjhfYsbYM"
-                            }
-                        ]
-                    }
-                },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
-            "_id": "TGcVVlnIzAdEGbVW",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Druid Order Spells",
-            "sort": 1800000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "value": 10
-                },
-                "tradition": {
-                    "value": "primal"
-                }
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "6ldQ1VDV5BVYCbS5",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 1900000,
+            "sort": 1300000,
             "system": {
                 "baseItem": "dagger",
                 "bonus": {
@@ -1256,7 +965,7 @@
             },
             "img": "icons/weapons/staves/staff-simple.webp",
             "name": "Staff",
-            "sort": 2000000,
+            "sort": 1400000,
             "system": {
                 "baseItem": "staff",
                 "bonus": {
@@ -1331,6 +1040,297 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "AKGmwRBisoefjjxV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
+            },
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+            "name": "Hide Armor",
+            "sort": 1500000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "hide-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hide-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "tP82LjarpjKhPbF8",
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/mask-plague.webp",
+            "name": "Leaf Mask",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "QDROxihbv7wdXszl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "8RLHCYIjKnxHPS3H"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Staff",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "cQzk8Uq4DiPA63MT": {
+                        "damage": "1d4+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "property": "dice-faces",
+                        "selectors": [
+                            "{item|_id}-damage"
+                        ],
+                        "slug": "base",
+                        "value": 8
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "feat:plant-shape"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "two-hand-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "e1fXyipkeQPfAhvQ",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Guardian Thorns",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Bolan compels plant-based materials within @Template[emanation|distance:10]{10 feet} of him to grow sharp thorns and spiky branches. This ability affects all walls, floors, and large objects made from dead organic material, such as wood. Affected areas become difficult terrain. Non-fey and non-plant creatures in the affected area or those who move through an affected square take @Damage[2d10[piercing]] (@Check[reflex|dc:18|basic]). This ability does not affect stone, dirt, living plants, or other materials. The effect ends when Bolan moves out of his square.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TlR0lKJzoCsqWCDA",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Item Treachery",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Bolan targets a held item (such as a bow stave, wooden shield, or scroll) within 60 feet composed, at least partially, of wood, cotton, or other dead plant matter. The plant-based part of this item animates and attempts to wriggle free of its holder's grasp. The holder must attempt a @Check[reflex|dc:18] save.</p>\n<hr />\n<p><strong>Success</strong> The creature holds onto the item with no ill effect.</p>\n<p><strong>Failure</strong> The creature struggles to hold onto the item. Until the start of the creature's next turn, attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the creature of that item gain a +2 circumstance bonus, and the creature takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.</p>\n<p><strong>Critical Failure</strong> The creature drops the item into the creature's space or drops the object in an adjacent square of Bolan's choice, at which point the item returns to normal.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LgnVcq7w3CiTBhew",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Vengeful Fibers",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A piece of clothing animates and attacks its wearer at Bolan's command. Bolan targets a creature within 60 feet wearing clothing made from plants, such as cotton, hemp, or grass. The clothing chokes its wearer, restricts their movement, and abrades their skin. The target takes @Damage[2d10[bludgeoning]] (@Check[fortitude|dc:18|basic]). A creature that takes damage in this way is also @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes a –10-foot circumstance penalty to Speed until the beginning of Bolan's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vengeful Fibers]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Bolan Nogasso",

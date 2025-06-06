@@ -4,159 +4,101 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "I7zUPwVMtrP17lu5",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Eschew Materials",
+            "_id": "ZjdHv1h2KMIjC0bA",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Prepared Arcane Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>You can use clever workarounds to replicate the arcane essence of certain materials. When you @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that requires material components, you can provide these material components without a spell component pouch by drawing intricate replacement sigils in the air.</p>\n<p>Unlike when providing somatic components, you still must have a hand completely free. This doesn't remove the need for any materials listed in the spell's cost entry.</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "b7EhfvvU3nImCmog",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spell-effects.Item.qkwb5DD3zmKwvbk0"
-            },
-            "img": "systems/pf2e/icons/spells/mage-armor.webp",
-            "name": "Spell Effect: Mage Armor",
-            "sort": 200000,
-            "system": {
-                "description": {
-                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]</p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "days",
-                    "value": 1
-                },
-                "level": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "fromEquipment": false,
-                        "key": "FlatModifier",
-                        "label": "Mage Armor",
-                        "selector": "ac",
-                        "type": "item",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 9,
-                                    "start": 6,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 10,
-                                    "value": 3
-                                }
-                            ],
-                            "field": "item|system.level.value"
-                        }
-                    },
-                    {
-                        "fromEquipment": false,
-                        "key": "FlatModifier",
-                        "label": "Mage Armor",
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 7,
-                                    "start": 4,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 9,
-                                    "start": 8,
-                                    "value": 2
-                                },
-                                {
-                                    "start": 10,
-                                    "value": 3
-                                }
-                            ],
-                            "field": "item|system.level.value"
-                        }
-                    },
-                    {
-                        "key": "DexterityModifierCap",
-                        "label": "Mage Armor",
-                        "value": 5
-                    }
-                ],
-                "slug": "spell-effect-mage-armor",
-                "start": {
-                    "initiative": null,
+                "proficiency": {
                     "value": 0
                 },
-                "tokenIcon": {
-                    "show": true
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "Bfmk1sIeDozHP8sw"
+                            },
+                            {
+                                "id": "pWkkLRlBKwkZXwRV"
+                            },
+                            {
+                                "id": "k8LXiFujBidaVILZ"
+                            },
+                            {
+                                "id": "QIJI8QlhWROosKoM"
+                            },
+                            {
+                                "id": "nPh7Vp2lOuzlA117"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 4,
+                        "prepared": [
+                            {
+                                "id": "YzfpcFsAlaO7HoNe"
+                            },
+                            {
+                                "expended": true,
+                                "id": "xIln3iwIgdBldH3w"
+                            },
+                            {
+                                "id": "5qjjpBTfrmtcZUBg"
+                            },
+                            {
+                                "id": "xl1IybOXvhixr2gM"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "effect"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "jybYCirNRpxTm5fl",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 300000,
+            "_id": "BW9xnDoY4BohVAGZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Focus Spells",
+            "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4",
-                        "damageType": "bludgeoning"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -164,21 +106,24 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "nonlethal",
-                        "unarmed"
-                    ]
+                "slots": {
+                    "slot1": {
+                        "max": 1,
+                        "value": 1
+                    }
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slug": null,
+                "spelldc": {
+                    "dc": 18,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 }
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Bfmk1sIeDozHP8sw",
@@ -187,7 +132,7 @@
             },
             "img": "icons/magic/acid/projectile-smoke-glowing.webp",
             "name": "Acid Splash",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -348,7 +293,7 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -434,7 +379,7 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "area": {
                     "type": "emanation",
@@ -501,7 +446,7 @@
             },
             "img": "systems/pf2e/icons/spells/force-bolt.webp",
             "name": "Force Bolt",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -577,7 +522,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Mage Armor",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -637,7 +582,7 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -698,7 +643,7 @@
             },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -769,7 +714,7 @@
             },
             "img": "icons/magic/symbols/runes-triangle-blue.webp",
             "name": "Prestidigitation",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "area": null,
                 "cost": {
@@ -832,7 +777,7 @@
             },
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
             "name": "Ray of Frost",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "area": null,
                 "cost": {
@@ -913,7 +858,7 @@
             },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -987,101 +932,128 @@
             "type": "spell"
         },
         {
-            "_id": "ZjdHv1h2KMIjC0bA",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Prepared Arcane Spells",
-            "sort": 1400000,
+            "_id": "b7EhfvvU3nImCmog",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spell-effects.Item.qkwb5DD3zmKwvbk0"
+            },
+            "img": "systems/pf2e/icons/spells/mage-armor.webp",
+            "name": "Spell Effect: Mage Armor",
+            "sort": 1300000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
-                    "value": ""
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor]</p>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>"
                 },
-                "prepared": {
-                    "flexible": false,
-                    "value": "prepared"
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "days",
+                    "value": 1
                 },
-                "proficiency": {
-                    "value": 0
+                "level": {
+                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slots": {
-                    "slot0": {
-                        "max": 5,
-                        "prepared": [
-                            {
-                                "id": "Bfmk1sIeDozHP8sw"
-                            },
-                            {
-                                "id": "pWkkLRlBKwkZXwRV"
-                            },
-                            {
-                                "id": "k8LXiFujBidaVILZ"
-                            },
-                            {
-                                "id": "QIJI8QlhWROosKoM"
-                            },
-                            {
-                                "id": "nPh7Vp2lOuzlA117"
-                            }
-                        ]
+                "rules": [
+                    {
+                        "fromEquipment": false,
+                        "key": "FlatModifier",
+                        "label": "Mage Armor",
+                        "selector": "ac",
+                        "type": "item",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 5,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 9,
+                                    "start": 6,
+                                    "value": 2
+                                },
+                                {
+                                    "start": 10,
+                                    "value": 3
+                                }
+                            ],
+                            "field": "item|system.level.value"
+                        }
                     },
-                    "slot1": {
-                        "max": 4,
-                        "prepared": [
-                            {
-                                "id": "YzfpcFsAlaO7HoNe"
-                            },
-                            {
-                                "expended": true,
-                                "id": "xIln3iwIgdBldH3w"
-                            },
-                            {
-                                "id": "5qjjpBTfrmtcZUBg"
-                            },
-                            {
-                                "id": "xl1IybOXvhixr2gM"
-                            }
-                        ]
+                    {
+                        "fromEquipment": false,
+                        "key": "FlatModifier",
+                        "label": "Mage Armor",
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 7,
+                                    "start": 4,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 9,
+                                    "start": 8,
+                                    "value": 2
+                                },
+                                {
+                                    "start": 10,
+                                    "value": 3
+                                }
+                            ],
+                            "field": "item|system.level.value"
+                        }
+                    },
+                    {
+                        "key": "DexterityModifierCap",
+                        "label": "Mage Armor",
+                        "value": 5
                     }
+                ],
+                "slug": "spell-effect-mage-armor",
+                "start": {
+                    "initiative": null,
+                    "value": 0
                 },
-                "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 12
+                "tokenIcon": {
+                    "show": true
                 },
-                "tradition": {
-                    "value": "arcane"
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "effect"
         },
         {
-            "_id": "BW9xnDoY4BohVAGZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 1500000,
+            "_id": "jybYCirNRpxTm5fl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 1400000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "focus"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -1089,24 +1061,52 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {
-                    "slot1": {
-                        "max": 1,
-                        "value": 1
-                    }
-                },
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 12
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "nonlethal",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "arcane"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "I7zUPwVMtrP17lu5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Eschew Materials",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You can use clever workarounds to replicate the arcane essence of certain materials. When you @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] that requires material components, you can provide these material components without a spell component pouch by drawing intricate replacement sigils in the air.</p>\n<p>Unlike when providing somatic components, you still must have a hand completely free. This doesn't remove the need for any materials listed in the spell's cost entry.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kemeneles",

@@ -3,132 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "kHnahHvifJfCVS11",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "eqiwUtaFLOTC1oND",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Cd0NzEZrJzdhDSY8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "FUwL7sL45SGQB0N6",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Special)",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If the vrock is flying and a creature triggers an attack of opportunity, the vrock can make 2 Strikes with its talons against that creature instead of 1 Strike.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "6h9jexgK3OdaDWsq",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Peace Vulnerability",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A vrock's wrath is the heart of their essence, and forcing peace upon them wrenches at their soul. If they fail a save against @UUID[Compendium.pf2e.spells-srd.Item.Calm] or a similar effect forcing them to be peaceful, a vrock takes @Damage[4d6[mental]] damage.</p>"
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -136,275 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
+                "spelldc": {
+                    "dc": 26,
+                    "mod": 0,
+                    "value": 18
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "pSi2yAlBjhVTBwq8",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Dance of Ruin",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vrock dances in flight and chants to create a ruinous explosion of electricity. If more vrocks within 30 feet want to join the dance, the vrock can delay the dance to wait for more vrocks; in that case, the effect occurs after the last vrock uses Dance of Ruin or one of the vrocks chooses to complete that round of the dance. Each non-demon creature in a @Template[emanation|distance:20] from any of the dancing vrocks takes @Damage[2d12[electricity]] damage (@Check[reflex|dc:28|basic] save). For each additional vrock that joins the dance, the damage increases by 1d12 and the save DC increases by 1 (to a maximum of four vrocks dealing 5d12 electricity damage with a DC 31 save). The vrocks can continue dancing by using Dance of Ruin each round, for up to 3 rounds in total. The emanation's size increases by 20 feet each round, and the damage increases by 1d12 per vrock each round.</p>\n<hr />\n<ul>\n<li><strong>1 Vrock Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[2d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[3d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[4d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>2 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[3d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[5d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[7d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>3 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[4d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[7d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[10d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>4 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[5d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[9d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[13d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n</ul>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "electricity",
-                        "manipulate",
-                        "move"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "rCo3WVukDgsbPhLD",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Spore Cloud",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The vrock emits a cloud of spores from their body, dealing @Damage[2d8[poison]] damage to all adjacent creatures. Each creature damaged this way must succeed at a @Check[fortitude|dc:28|traits:damaging-effect] save or take @Damage[2d8[persistent,piercing]] damage as the spores penetrate its skin and grow into thick, green vines. The vines cease growing after 10 rounds, and they wither away in [[/gmr 1d4 #Spore Cloud Duration]]{1d4 days} if not shaved off before then. The vines can be destroyed if the creature is affected by a good spell or if <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]</em> is applied to the vines (with an Interact action).</p>\n<p>Once the vrock uses Spore Cloud, the ability can't be used for [[/gmr 1d6 #Recharge Spore Cloud]]{1d6 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease",
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "nLB0CpyqlvJpfjnr",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Stunning Screech",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> The vrock emits a shrill screech. Each non-demon creature within a @Template[burst|distance:30] must attempt a @Check[fortitude|dc:28] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}, and on a critical failure, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "PT1M"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "divine",
-                        "incapacitation",
-                        "sonic"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "wAhBz8qI1QWAKLEv",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Beak",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "2sggwwvcd4hfnrvnu9e2": {
-                        "damage": "3d8+9",
-                        "damageType": "piercing"
-                    },
-                    "apl0gfrrkcj5pptifgz7": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "Tg3cDQ85HTqlUqQV",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "rxav7dknjvdfle8060ce": {
-                        "damage": "3d6+9",
-                        "damageType": "slashing"
-                    },
-                    "c7aaog9ucmphijdd88sz": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "3KkpzgxFNPh9aZJ4",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Talon",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 19
-                },
-                "damageRolls": {
-                    "xwrxtblhv81f785b9rj4": {
-                        "damage": "2d6+8",
-                        "damageType": "slashing"
-                    },
-                    "wn9abmg70qmwv9zgbqa6": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "ArbkmxGrqRbaOPC3",
@@ -413,7 +50,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -485,7 +122,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -557,7 +194,7 @@
             },
             "img": "systems/pf2e/icons/spells/mirror-image.webp",
             "name": "Mirror Image",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -620,7 +257,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Abyssal Pact",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -677,23 +314,33 @@
             "type": "spell"
         },
         {
-            "_id": "eqiwUtaFLOTC1oND",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1500000,
+            "_id": "wAhBz8qI1QWAKLEv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Beak",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "2sggwwvcd4hfnrvnu9e2": {
+                        "damage": "3d8+9",
+                        "damageType": "piercing"
+                    },
+                    "apl0gfrrkcj5pptifgz7": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -701,21 +348,374 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 26,
-                    "mod": 0,
-                    "value": 18
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "Tg3cDQ85HTqlUqQV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "rxav7dknjvdfle8060ce": {
+                        "damage": "3d6+9",
+                        "damageType": "slashing"
+                    },
+                    "c7aaog9ucmphijdd88sz": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "3KkpzgxFNPh9aZJ4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Talon",
+            "sort": 800000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "xwrxtblhv81f785b9rj4": {
+                        "damage": "2d6+8",
+                        "damageType": "slashing"
+                    },
+                    "wn9abmg70qmwv9zgbqa6": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "kHnahHvifJfCVS11",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Cd0NzEZrJzdhDSY8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FUwL7sL45SGQB0N6",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Special)",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the vrock is flying and a creature triggers an attack of opportunity, the vrock can make 2 Strikes with its talons against that creature instead of 1 Strike.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6h9jexgK3OdaDWsq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Peace Vulnerability",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A vrock's wrath is the heart of their essence, and forcing peace upon them wrenches at their soul. If they fail a save against @UUID[Compendium.pf2e.spells-srd.Item.Calm] or a similar effect forcing them to be peaceful, a vrock takes @Damage[4d6[mental]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pSi2yAlBjhVTBwq8",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Dance of Ruin",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vrock dances in flight and chants to create a ruinous explosion of electricity. If more vrocks within 30 feet want to join the dance, the vrock can delay the dance to wait for more vrocks; in that case, the effect occurs after the last vrock uses Dance of Ruin or one of the vrocks chooses to complete that round of the dance. Each non-demon creature in a @Template[emanation|distance:20] from any of the dancing vrocks takes @Damage[2d12[electricity]] damage (@Check[reflex|dc:28|basic] save). For each additional vrock that joins the dance, the damage increases by 1d12 and the save DC increases by 1 (to a maximum of four vrocks dealing 5d12 electricity damage with a DC 31 save). The vrocks can continue dancing by using Dance of Ruin each round, for up to 3 rounds in total. The emanation's size increases by 20 feet each round, and the damage increases by 1d12 per vrock each round.</p>\n<hr />\n<ul>\n<li><strong>1 Vrock Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[2d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[3d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[4d12[electricity]] damage @Check[reflex|dc:28|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>2 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[3d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[5d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[7d12[electricity]] damage @Check[reflex|dc:29|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>3 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[4d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[7d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[10d12[electricity]] damage @Check[reflex|dc:30|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n<li><strong>4 Vrocks Dancing</strong>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Round</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>@Template[emanation|distance:20] @Damage[5d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Template[emanation|distance:40] @Damage[9d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Template[emanation|distance:60] @Damage[13d12[electricity]] damage @Check[reflex|dc:31|basic]</td>\n</tr>\n</tbody>\n</table>\n</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "electricity",
+                        "manipulate",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rCo3WVukDgsbPhLD",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Spore Cloud",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vrock emits a cloud of spores from their body, dealing @Damage[2d8[poison]] damage to all adjacent creatures. Each creature damaged this way must succeed at a @Check[fortitude|dc:28|traits:damaging-effect] save or take @Damage[2d8[persistent,piercing]] damage as the spores penetrate its skin and grow into thick, green vines. The vines cease growing after 10 rounds, and they wither away in [[/gmr 1d4 #Spore Cloud Duration]]{1d4 days} if not shaved off before then. The vines can be destroyed if the creature is affected by a good spell or if <em>@UUID[Compendium.pf2e.equipment-srd.Item.Holy Water]</em> is applied to the vines (with an Interact action).</p>\n<p>Once the vrock uses Spore Cloud, the ability can't be used for [[/gmr 1d6 #Recharge Spore Cloud]]{1d6 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nLB0CpyqlvJpfjnr",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Stunning Screech",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> The vrock emits a shrill screech. Each non-demon creature within a @Template[burst|distance:30] must attempt a @Check[fortitude|dc:28] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}, and on a critical failure, it's @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "incapacitation",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Vrock",

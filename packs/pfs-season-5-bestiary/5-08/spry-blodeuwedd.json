@@ -4,301 +4,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "5t9D4gKM7JVpBSf6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wild Empathy",
+            "_id": "h7vIylds9BVXZM8F",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>The blodeuwedd can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on and make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests} of animals.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "KgYaEP7QLp7DpYYS",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8RH2spsc79xmzAXn",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Allergen Aura",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>A blodeuwedd exudes a 30-foot aura of pollen and irritating allergens. A non-plant living creature that begins its turn in the aura must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. A creature that succeeds at its save is then temporarily immune to the allergen aura for 24 hours. A blodeuwedd can suppress this aura or activate it again as a free action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "allergen-aura-active"
-                        ],
-                        "radius": 30,
-                        "slug": "allergen-aura",
-                        "traits": [
-                            "primal"
-                        ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "allergen-aura-active",
-                        "toggleable": true,
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "JtEaK5YV5AgypBAF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Change Shape",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>A blodeuwedd can take on the appearance of a single unique humanoid or the form of a prairie owl.</p>\n<p>When in humanoid form, the blodeuwedd loses its claw attack.</p>\n<p>In owl form, its statistics change as follows:</p>\n<ul>\n<li><strong>Size</strong> Small;</li>\n<li><strong>Speed</strong> fly 60 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">a</span> talons [[/r {1d20+15} #Attack]]{+15}, Damage @Damage[(1d3-1)[slashing]].</li>\n</ul>\n<p>A blodeuwedd can return to their normal form as a free action.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "change-shape",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CAKfIK6WRhkgpCW2",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Living Footsteps",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Every Stride action taken by a blodeuwedd causes small plants, grasses, and wildflowers to sprout from the ground, though they can suppress this effect if they desire. In a region or terrain that wouldn't normally support plant life, these plants thrive for 1 minute before withering away.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VwEyLSgIQwBeoPyV",
-            "_stats": {
-                "compendiumSource": "Actor.3w7qrvJsy55a8ct9.Item.VwEyLSgIQwBeoPyV"
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Nature's Infusion",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> While surrounded by any field or fertile plain, a blodeuwedd can infuse themself with borrowed life energy from nearby plants and nutrients in the ground. The blodeuwedd gains 15 temporary Hit Points that last for 1 hour.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "day",
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Nature's Infusion",
-                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nature's Infusion"
-                },
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "L35cRaqjhItrc6Po",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 700000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "krhrxo1ecgqv19sskib7": {
-                        "damage": "2d8+5",
-                        "damageType": "slashing"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
                 },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "RTbPNwtAI2pRCjBX",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "30vWGptXw7CTKs0b"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sling",
-            "sort": 800000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 15
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -306,19 +28,20 @@
                     "title": ""
                 },
                 "rules": [],
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "propulsive",
-                        "range-increment-50"
-                    ]
+                "spelldc": {
+                    "dc": 25,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 17
                 },
-                "weaponType": {
-                    "value": "ranged"
-                }
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "Ls9N1RlhjwbpZEaD",
@@ -327,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain",
-            "sort": 900000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -392,7 +115,7 @@
             },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
-            "sort": 1000000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -457,7 +180,7 @@
             },
             "img": "systems/pf2e/icons/spells/sleep.webp",
             "name": "Sleep",
-            "sort": 1100000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -528,7 +251,7 @@
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
-            "sort": 1200000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -588,7 +311,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-humanoid.webp",
             "name": "Wall of Thorns",
-            "sort": 1300000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -665,7 +388,7 @@
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangle",
-            "sort": 1400000,
+            "sort": 700000,
             "system": {
                 "area": {
                     "details": "all squares in a 20-foot-radius burst that contain plants",
@@ -738,7 +461,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1500000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -801,7 +524,7 @@
             },
             "img": "icons/magic/nature/root-vine-entangled-hand.webp",
             "name": "Tanglefoot",
-            "sort": 1600000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -858,53 +581,13 @@
             "type": "spell"
         },
         {
-            "_id": "h7vIylds9BVXZM8F",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 1700000,
-            "system": {
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slots": {},
-                "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "item": 0,
-                    "mod": 0,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "primal"
-                },
-                "traits": {}
-            },
-            "type": "spellcastingEntry"
-        },
-        {
             "_id": "30vWGptXw7CTKs0b",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
             },
             "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
             "name": "Sling",
-            "sort": 1800000,
+            "sort": 1000000,
             "system": {
                 "baseItem": "sling",
                 "bonus": {
@@ -979,6 +662,323 @@
                 }
             },
             "type": "weapon"
+        },
+        {
+            "_id": "L35cRaqjhItrc6Po",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "krhrxo1ecgqv19sskib7": {
+                        "damage": "2d8+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "RTbPNwtAI2pRCjBX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "30vWGptXw7CTKs0b"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sling",
+            "sort": 1200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "propulsive",
+                        "range-increment-50"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5t9D4gKM7JVpBSf6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wild Empathy",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The blodeuwedd can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on and make very simple @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Requests} of animals.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KgYaEP7QLp7DpYYS",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8RH2spsc79xmzAXn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Allergen Aura",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A blodeuwedd exudes a 30-foot aura of pollen and irritating allergens. A non-plant living creature that begins its turn in the aura must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}. A creature that succeeds at its save is then temporarily immune to the allergen aura for 24 hours. A blodeuwedd can suppress this aura or activate it again as a free action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "allergen-aura-active"
+                        ],
+                        "radius": 30,
+                        "slug": "allergen-aura",
+                        "traits": [
+                            "primal"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "allergen-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JtEaK5YV5AgypBAF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.eQM5hQ1W3d1uen97"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Change Shape",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A blodeuwedd can take on the appearance of a single unique humanoid or the form of a prairie owl.</p>\n<p>When in humanoid form, the blodeuwedd loses its claw attack.</p>\n<p>In owl form, its statistics change as follows:</p>\n<ul>\n<li><strong>Size</strong> Small;</li>\n<li><strong>Speed</strong> fly 60 feet;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">a</span> talons [[/r {1d20+15} #Attack]]{+15}, Damage @Damage[(1d3-1)[slashing]].</li>\n</ul>\n<p>A blodeuwedd can return to their normal form as a free action.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CAKfIK6WRhkgpCW2",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Living Footsteps",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Every Stride action taken by a blodeuwedd causes small plants, grasses, and wildflowers to sprout from the ground, though they can suppress this effect if they desire. In a region or terrain that wouldn't normally support plant life, these plants thrive for 1 minute before withering away.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VwEyLSgIQwBeoPyV",
+            "_stats": {
+                "compendiumSource": "Actor.3w7qrvJsy55a8ct9.Item.VwEyLSgIQwBeoPyV"
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Nature's Infusion",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> While surrounded by any field or fertile plain, a blodeuwedd can infuse themself with borrowed life energy from nearby plants and nutrients in the ground. The blodeuwedd gains 15 temporary Hit Points that last for 1 hour.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Nature's Infusion",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nature's Infusion"
+                },
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Spry Blodeuwedd",

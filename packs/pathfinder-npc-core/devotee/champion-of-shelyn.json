@@ -4,219 +4,390 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zY5hQb6NWtzvkcL4",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Champion's Aura",
+            "_id": "LrsRFnEBYFDzYu56",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>Any follower of @UUID[Compendium.pf2e.deities.Item.Shelyn] in the aura knows the champion is a champion of Shelyn. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                    "value": ""
                 },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
+                "prepared": {
+                    "value": "focus"
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "champions-aura",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
-                        "key": "Aura",
-                        "predicate": [
-                            "champions-aura"
-                        ],
-                        "radius": 15,
-                        "traits": [
-                            "divine"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Yx4MgJWpZzUsU4IG",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Champion's Courage",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>When the champion becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened], they reduce the condition value by 1 (to a minimum of 0).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dRd0M7P3MVBvrJhb",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Liberating Step",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages, grabs, or restrains the champion's ally, and both are in the champion's aura</p><hr /><p><strong>Effect</strong> The champion frees an ally from restraint. If the trigger was an ally taking damage, the ally gains resistance 10 to all damage against the triggering damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Liberating Step]</p>\n<p>The ally can attempt to break free of effects grabbing, @UUID[Compendium.pf2e.conditionitems.Item.Restrained]{Restraining}, @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]{Immobilizing}, or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]{Paralyzing} them. They either attempt a new save against one such effect that allows a save or attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from one effect as a free action. Whether or not it needed to escape, the ally can then Step as a free action if it's able to move.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "e9KYlRN3U7f2qytl",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Blessed Weapon",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>If a champion's glaive Strike is a critical hit, the weapon deals an additional 1d6 persistent vitality damage, and they can force the target to move 5 feet in a direction of their choice.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "category": "persistent",
-                        "critical": true,
-                        "damageType": "vitality",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "selector": "glaive-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "glaive-attack-roll",
-                        "text": "{item|description}",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "vWJOLM8BI73ppqof",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Smite",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The champion chooses one enemy they can see. Their Strikes against that enemy gain a +4 status bonus to damage, or +8 if the target is unholy.</p>\n<p>This benefit lasts until the start of the champion's next turn, but if the target takes a hostile action against the champion or one of their allies, the duration is extended until the end of the target's next turn (this can be extended indefinitely if the target keeps taking hostile actions on subsequent rounds).</p>"
-                },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "option": "smite",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "smite"
-                        ],
-                        "selector": "damage",
-                        "slug": "smite-damage",
-                        "type": "status",
-                        "value": 4
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
-                        "predicate": [
-                            "target:trait:unholy"
-                        ],
-                        "relabel": "Smite (vs Unholy)",
-                        "selector": "damage",
-                        "slug": "smite-damage",
-                        "value": 8
-                    }
-                ],
+                "rules": [],
+                "slots": {},
                 "slug": null,
+                "spelldc": {
+                    "dc": 22,
+                    "value": 14
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "nN0lgOFte6ZtbjrG",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zNN9212H2FGfM7VS"
+            },
+            "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+            "name": "Lay on Hands",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your hands become infused with powerful vitality, capable of healing a living creature or damaging an undead creature with a touch.</p><ul><li><strong>Willing Living Creature</strong> The target regains 6 Hit Points. If the target is someone other than yourself, it also gains a +2 status bonus to AC for 1 round.</li><li><strong>Undead Creature</strong> The target takes 1d6 vitality damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</li></ul><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "LrsRFnEBYFDzYu56"
+                },
+                "overlays": {
+                    "a33QUFoKgoOprovO": {
+                        "name": "Lay on Hands (Vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "37YW4ZGhxx7Y2mdI": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "37YW4ZGhxx7Y2mdI": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "uLuOg62dVyxvbW66": {
+                        "name": "Lay on Hands (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "b39tbePoPlJSzLku": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "b39tbePoPlJSzLku": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "lay-on-hands",
+                "target": {
+                    "value": "1 willing living creature or 1 undead creature"
+                },
+                "time": {
+                    "value": "1"
+                },
                 "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
                     "value": [
-                        "concentrate"
+                        "champion",
+                        "focus",
+                        "healing",
+                        "manipulate",
+                        "vitality"
                     ]
                 }
             },
-            "type": "action"
+            "type": "spell"
+        },
+        {
+            "_id": "hSZCH4Z8TY9wRW3N",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rQYob0QMJ0I1U2sU"
+            },
+            "img": "systems/pf2e/icons/spells/protectors-sacrifice.webp",
+            "name": "Protector's Sacrifice",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 30 feet takes damage.</p>\n<hr />\n<p>You protect your ally by suffering in their stead. Reduce the damage the triggering ally would take by 3. You redirect this damage to yourself, but your immunities, weaknesses, resistances and so on do not apply.</p>\n<p>You aren't subject to any conditions or other effects of whatever damaged your ally (such as poison from a venomous bite). Your ally is still subject to those effects even if you redirect all of the triggering damage to yourself.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage you redirect increases by 3.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "LrsRFnEBYFDzYu56"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "protectors-sacrifice",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "reaction"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cleric",
+                        "focus",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Q1WuFfIcUteTbcFO",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
+            },
+            "img": "icons/weapons/polearms/glaive-simple.webp",
+            "name": "Glaive",
+            "sort": 400000,
+            "system": {
+                "baseItem": "glaive",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>This polearm consists of a long, single-edged blade on the end of a 7-foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "group": "polearm",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "glaive",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8",
+                        "forceful",
+                        "reach"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "Jr5uOeowOvUGQFRK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
+            },
+            "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
+            "name": "Crossbow",
+            "sort": 500000,
+            "system": {
+                "baseItem": "crossbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "crossbow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 120,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "crossbow",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
         },
         {
             "_id": "4nAlyMgdG05iZtwO",
@@ -287,13 +458,77 @@
             "type": "armor"
         },
         {
+            "_id": "1pRYHhcan4PbW3Cy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
+            "name": "Religious Symbol of Shelyn",
+            "sort": 700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-silver",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
             "_id": "LxlN56aoktJiRQKW",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -350,70 +585,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "1pRYHhcan4PbW3Cy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.upzjwQ96cZG0Xlmx"
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol of Shelyn",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 2
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "has-religious-symbol",
-                        "requiresEquipped": false
-                    }
-                ],
-                "size": "med",
-                "slug": "religious-symbol-silver",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "other"
-                }
-            },
-            "type": "equipment"
         },
         {
             "_id": "jd5FhNKWsDnj5iHW",
@@ -545,201 +716,69 @@
             "type": "melee"
         },
         {
-            "_id": "nN0lgOFte6ZtbjrG",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.zNN9212H2FGfM7VS"
-            },
-            "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
-            "name": "Lay on Hands",
+            "_id": "zY5hQb6NWtzvkcL4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Champion's Aura",
             "sort": 1200000,
             "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Your hands become infused with powerful vitality, capable of healing a living creature or damaging an undead creature with a touch.</p><ul><li><strong>Willing Living Creature</strong> The target regains 6 Hit Points. If the target is someone other than yourself, it also gains a +2 status bonus to AC for 1 round.</li><li><strong>Undead Creature</strong> The target takes 1d6 vitality damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</li></ul><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "LrsRFnEBYFDzYu56"
-                },
-                "overlays": {
-                    "a33QUFoKgoOprovO": {
-                        "name": "Lay on Hands (Vs. Undead)",
-                        "overlayType": "override",
-                        "sort": 2,
-                        "system": {
-                            "damage": {
-                                "37YW4ZGhxx7Y2mdI": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "1d6",
-                                    "kinds": [
-                                        "damage"
-                                    ],
-                                    "materials": [],
-                                    "type": "vitality"
-                                }
-                            },
-                            "defense": {
-                                "save": {
-                                    "basic": true,
-                                    "statistic": "fortitude"
-                                }
-                            },
-                            "heightening": {
-                                "damage": {
-                                    "37YW4ZGhxx7Y2mdI": "1d6"
-                                },
-                                "interval": 1,
-                                "type": "interval"
-                            }
-                        }
-                    },
-                    "uLuOg62dVyxvbW66": {
-                        "name": "Lay on Hands (Healing)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "b39tbePoPlJSzLku": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "6",
-                                    "kinds": [
-                                        "healing"
-                                    ],
-                                    "materials": [],
-                                    "type": "vitality"
-                                }
-                            },
-                            "defense": null,
-                            "heightening": {
-                                "damage": {
-                                    "b39tbePoPlJSzLku": "6"
-                                },
-                                "interval": 1,
-                                "type": "interval"
-                            }
-                        }
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core 2"
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "lay-on-hands",
-                "target": {
-                    "value": "1 willing living creature or 1 undead creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "champion",
-                        "focus",
-                        "healing",
-                        "manipulate",
-                        "vitality"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "hSZCH4Z8TY9wRW3N",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rQYob0QMJ0I1U2sU"
-            },
-            "img": "systems/pf2e/icons/spells/protectors-sacrifice.webp",
-            "name": "Protector's Sacrifice",
-            "sort": 1300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet takes damage.</p>\n<hr />\n<p>You protect your ally by suffering in their stead. Reduce the damage the triggering ally would take by 3. You redirect this damage to yourself, but your immunities, weaknesses, resistances and so on do not apply.</p>\n<p>You aren't subject to any conditions or other effects of whatever damaged your ally (such as poison from a venomous bite). Your ally is still subject to those effects even if you redirect all of the triggering damage to yourself.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage you redirect increases by 3.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "LrsRFnEBYFDzYu56"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "protectors-sacrifice",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "reaction"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "cleric",
-                        "focus",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "LrsRFnEBYFDzYu56",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Champion Devotion Spells",
-            "sort": 1400000,
-            "system": {
-                "autoHeightenLevel": {
+                "actions": {
                     "value": null
                 },
+                "category": "defensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>15 feet.</p>\n<p>Any follower of @UUID[Compendium.pf2e.deities.Item.Shelyn] in the aura knows the champion is a champion of Shelyn. At the end of the champion's turn, each ally in the aura reduces its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] value by 1. The aura can be suppressed or resumed with a single action, which has the concentrate trait, and ends if the champion falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
                 },
-                "prepared": {
-                    "value": "focus"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
                 },
-                "proficiency": {
-                    "value": 1
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "champions-aura",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "champions-aura"
+                        ],
+                        "radius": 15,
+                        "traits": [
+                            "divine"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Yx4MgJWpZzUsU4IG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Champion's Courage",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the champion becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened], they reduce the condition value by 1 (to a minimum of 0).</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -747,188 +786,149 @@
                     "title": ""
                 },
                 "rules": [],
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 22,
-                    "value": 14
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "action"
         },
         {
-            "_id": "Q1WuFfIcUteTbcFO",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.vlnzTSsRmWeSkt9O"
+            "_id": "dRd0M7P3MVBvrJhb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Liberating Step",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy damages, grabs, or restrains the champion's ally, and both are in the champion's aura</p><hr /><p><strong>Effect</strong> The champion frees an ally from restraint. If the trigger was an ally taking damage, the ally gains resistance 10 to all damage against the triggering damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Liberating Step]</p>\n<p>The ally can attempt to break free of effects grabbing, @UUID[Compendium.pf2e.conditionitems.Item.Restrained]{Restraining}, @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]{Immobilizing}, or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]{Paralyzing} them. They either attempt a new save against one such effect that allows a save or attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from one effect as a free action. Whether or not it needed to escape, the ally can then Step as a free action if it's able to move.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
             },
-            "img": "icons/weapons/polearms/glaive-simple.webp",
-            "name": "Glaive",
+            "type": "action"
+        },
+        {
+            "_id": "e9KYlRN3U7f2qytl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blessed Weapon",
             "sort": 1500000,
             "system": {
-                "baseItem": "glaive",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonusDamage": {
-                    "value": 0
+                "actions": {
+                    "value": null
                 },
-                "bulk": {
-                    "value": 2
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This polearm consists of a long, single-edged blade on the end of a 7-foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
-                    "invested": null
-                },
-                "group": "polearm",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 1
-                    }
+                    "value": "<p>If a champion's glaive Strike is a critical hit, the weapon deals an additional 1d6 persistent vitality damage, and they can force the target to move 5 feet in a direction of their choice.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 1,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "glaive",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "vitality",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "glaive-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "glaive-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8",
-                        "forceful",
-                        "reach"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": []
                 }
             },
-            "type": "weapon"
+            "type": "action"
         },
         {
-            "_id": "Jr5uOeowOvUGQFRK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
-            },
-            "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
-            "name": "Crossbow",
+            "_id": "vWJOLM8BI73ppqof",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Smite",
             "sort": 1600000,
             "system": {
-                "baseItem": "crossbow",
-                "bonus": {
-                    "value": 0
+                "actionType": {
+                    "value": "action"
                 },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
+                "actions": {
                     "value": 1
                 },
-                "category": "simple",
-                "containerId": null,
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d8"
-                },
+                "category": "offensive",
                 "description": {
-                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "crossbow",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
+                    "value": "<p>The champion chooses one enemy they can see. Their Strikes against that enemy gain a +4 status bonus to damage, or +8 if the target is unholy.</p>\n<p>This benefit lasts until the start of the champion's next turn, but if the target takes a hostile action against the champion or one of their allies, the duration is extended until the end of the target's next turn (this can be extended indefinitely if the target keeps taking hostile actions on subsequent rounds).</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": ""
                 },
-                "quantity": 1,
-                "range": 120,
-                "reload": {
-                    "value": "1"
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "crossbow",
-                "splashDamage": {
-                    "value": 0
-                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "smite",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "smite"
+                        ],
+                        "selector": "damage",
+                        "slug": "smite-damage",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "target:trait:unholy"
+                        ],
+                        "relabel": "Smite (vs Unholy)",
+                        "selector": "damage",
+                        "slug": "smite-damage",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
+                    "value": [
+                        "concentrate"
+                    ]
                 }
             },
-            "type": "weapon"
+            "type": "action"
         }
     ],
     "name": "Champion of Shelyn",

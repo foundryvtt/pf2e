@@ -4,215 +4,44 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "CpTRDv42ZCA5jHZL",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "_id": "Clp8AW2RSTyDENC1",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "TtqhvUO0vvhjbIFp",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Exorcism Vulnerability",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>If an invidiak attempts to possess a creature and the creature rolls a critical success on its saving throw to resist @UUID[Compendium.pf2e.spells-srd.Item.Possession], or if an invidiak's possession of a creature is ended prematurely, such as via a successful @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], the invidiak takes @Damage[6d6[mental]] damage and cannot use possession for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zBhbPtqzK6B5JjcX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Share Pain",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the invidiak deals damage to the invidiak</p><hr /><p><strong>Effect</strong> An echo of the invidiak's pain lashes out at the triggering creature, dealing an amount of nonlethal mental damage equal to half the damage the invidiak took from the triggering attack (@Check[will|dc:25|basic] save). On a critical failure, the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "illusion",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tIiXnBCscCuQi4WY",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Favored Host",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Each invidiak has a type of creature they prefer possessing, chosen from aberration, animal, beast, or any humanoid (such as dwarf, elf, or human)—in most cases, the favored type of target is human. When an invidiak casts possession on a favored host, the duration of possession increases to unlimited, and the effect lasts until dispelled or until the invidiak dismisses it.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fDEMKsDuC7SNDbx6",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unbodied Possession",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>An invidiak leaves no body behind when using @UUID[Compendium.pf2e.spells-srd.Item.Possession].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "s43Ks62ECjo1B5kX",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 600000,
-            "system": {
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "6u9ie9655zs3laetxd7n": {
-                        "damage": "2d8",
-                        "damageType": "cold"
-                    },
-                    "7wvc7t6dley1ik6sbjr1": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    }
                 },
                 "description": {
                     "value": ""
                 },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed",
-                        "unholy"
-                    ]
-                }
+                "spelldc": {
+                    "dc": 25,
+                    "value": 17
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "rLwqo1kjVbrummG2",
@@ -221,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/possession.webp",
             "name": "Possession (Range Touch)",
-            "sort": 700000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -288,7 +117,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate",
-            "sort": 800000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -360,7 +189,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Translocate (At Will)",
-            "sort": 900000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -432,7 +261,7 @@
             },
             "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
             "name": "Illusory Creature",
-            "sort": 1000000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -497,7 +326,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Demonic Pact",
-            "sort": 1100000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -562,7 +391,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -643,7 +472,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -710,7 +539,7 @@
             },
             "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1400000,
+            "sort": 900000,
             "system": {
                 "area": null,
                 "cost": {
@@ -828,22 +657,29 @@
             "type": "spell"
         },
         {
-            "_id": "Clp8AW2RSTyDENC1",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1500000,
+            "_id": "s43Ks62ECjo1B5kX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1000000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "6u9ie9655zs3laetxd7n": {
+                        "damage": "2d8",
+                        "damageType": "cold"
+                    },
+                    "7wvc7t6dley1ik6sbjr1": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -851,21 +687,185 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 25,
-                    "value": 17
-                },
-                "tradition": {
-                    "value": "divine"
-                },
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "CpTRDv42ZCA5jHZL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TtqhvUO0vvhjbIFp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Exorcism Vulnerability",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If an invidiak attempts to possess a creature and the creature rolls a critical success on its saving throw to resist @UUID[Compendium.pf2e.spells-srd.Item.Possession], or if an invidiak's possession of a creature is ended prematurely, such as via a successful @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], the invidiak takes @Damage[6d6[mental]] damage and cannot use possession for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zBhbPtqzK6B5JjcX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Share Pain",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the invidiak deals damage to the invidiak</p><hr /><p><strong>Effect</strong> An echo of the invidiak's pain lashes out at the triggering creature, dealing an amount of nonlethal mental damage equal to half the damage the invidiak took from the triggering attack (@Check[will|dc:25|basic] save). On a critical failure, the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tIiXnBCscCuQi4WY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Favored Host",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each invidiak has a type of creature they prefer possessing, chosen from aberration, animal, beast, or any humanoid (such as dwarf, elf, or human)—in most cases, the favored type of target is human. When an invidiak casts possession on a favored host, the duration of possession increases to unlimited, and the effect lasts until dispelled or until the invidiak dismisses it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fDEMKsDuC7SNDbx6",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unbodied Possession",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An invidiak leaves no body behind when using @UUID[Compendium.pf2e.spells-srd.Item.Possession].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Invidiak",

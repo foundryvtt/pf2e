@@ -4,421 +4,43 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ubvpDvMrWmhogbo1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy 100 feet",
+            "_id": "ALMe5beClL9bM9TZ",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "autoHeightenLevel": {
                     "value": null
                 },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "telepathy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "magical"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "f69SjwU7qcOkazIT",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "constant-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VtP22G3rxYqH8YYB",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
                 "description": {
                     "value": ""
                 },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                "prepared": {
+                    "value": "innate"
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "item:magical"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9d8dv9dVZcJ24hTQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Defiance Vulnerability",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>Defiance causes a ghalzarokh anguish. If a creature scores a critical success on a saving throw to resist the ghalzarokh's @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Command], @UUID[Compendium.pf2e.spells-srd.Item.Dominate], or @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] spells or Project Blame, the demon takes @Damage[4d6[mental]] damage. The demon takes the same damage if it rolls a critical failure on an Intimidation check.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "VCmPQKNuDLaeg6QH",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Project Blame",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature succeeds or critically succeeds at a saving throw against one of the ghalzarokh's spells or Abyssal Spew, or the ghalzarokh misses a creature with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The creature must attempt a @Check[will|dc:36] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to Project Blame for 24 hours, and the ghalzarokh suffers from its defiance vulnerability.</p>\n<p><strong>Success</strong> The creature's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition increases by 1 (if they succeeded on a saving throw) or its @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] condition increases by 1 (if the demon missed them with a Strike). This increase in value lasts until the end of the creature's next turn but can't increase either condition beyond a value of 3.</p>\n<p><strong>Failure</strong> As success, but the duration changes to 1 minute. A creature can attempt a @Check[will|dc:36] save at the end of its turn to remove the effect early.</p>\n<p><strong>Critical Failure</strong> As failure, but for 24 hours.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "divine",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "IToYXlRGc9dRTpwE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Abyssal Spew",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The ghalzarokh spews corrosive flame that deals @Damage[8d6[acid],8d6[fire]|options:area-damage]{8d6 acid damage and 8d6 fire damage} in a @Template[cone|distance:40] (@Check[reflex|dc:36|basic|options:area-effect] save). The ghalzarokh can't use Abyssal Spew again for [[/gmr 1d4 #Recharge Abyssal Spew]]{1d4 rounds}.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "acid",
-                        "divine",
-                        "fire"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "HyhfMDD2F0jSPr30",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "proficiency": {
                     "value": 1
                 },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "rend",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qi8QLhldt8kCKlHV",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BdQjSNSItoruWMul"
-            },
-            "img": "icons/sundries/gaming/playing-cards-grey.webp",
-            "name": "The Uprising",
-            "sort": 800000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "gm": "<p><strong>Epitome</strong> A guild of thieves sets up secret hideouts in the village surrounding Harrowheart. These thieves do not prey upon the PCs or the citizens of the Harrow Court, preferring instead to focus on self-improvement. A PC who spends Downtime training with these thieves can Retrain feats, skills, and class features, provided the new feat, skill, or class feature is neither combat- nor magic-themed. Feats and skill increases retrained here take only 5 days, while class features retrained here take only 3 weeks.</p>",
-                    "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> chaotic neutral</p>\n<hr />\n<p>When you have The Uprising invested, you gain a +2 item bonus to all saving throws against affects that attempt to control you or restrain you. This item bonus increases to +3 if you are 20th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The card calls forth a mob of shadowy figures who batter and hinder your enemies. Target a @Template[burst|distance:20] at any point on solid ground with 120 feet, and the mob of figures rises up from the ground, persisting for 1 minute. Make an unarmed Strike against the Fortitude DC of any number of creatures in this burst (you can choose to not attack some creatures in the area if you wish). Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes @Damage[3d6[bludgeoning]] damage. Whenever a creature ends its turn in the area, the figures attempt to Grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already grabbed. The mob's @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC is equal to your class DC. A creature can attack a figure in an attempt to release its grip. It's AC is equal to your class DC, and it's destroyed if it takes 12 or more damage. Even if destroyed, additional figures continue to rise up in the area until the effect's duration ends. You can Dismiss this effect. If you are at least 15th level, you can use a two-action activity, which has the concentrate trait, to move the burst up to 30 feet, which causes any currently grabbed creatures to be released and left behind. If part of the burst appears or moves into an area that can't support it on the ground, that portion of the burst disappears until it is supported.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 20
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #191: The Destiny War"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:grapple",
-                                    "inflicts:restrained",
-                                    "inflicts:controlled"
-                                ]
-                            }
-                        ],
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": "ternary(gte(@actor.level,20),3,2)"
-                    }
-                ],
-                "size": "lg",
-                "slug": null,
-                "traits": {
-                    "rarity": "unique",
-                    "value": [
-                        "artifact",
-                        "harrow-court",
-                        "invested",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "carried"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "OIgn15PuIFSOSxw7",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "VtRhfsxTCFHrpZ1H": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "jteFY7zPVKnaipCy": {
-                        "damage": "3d12+14",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
+                "showSlotlessLevels": {
+                    "value": false
                 },
-                "weaponType": {
-                    "value": "melee"
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 36,
+                    "value": 28
+                },
+                "tradition": {
+                    "value": "divine"
                 }
             },
-            "type": "melee"
-        },
-        {
-            "_id": "RWQ68vSwwnQTorlM",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 1000000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 30
-                },
-                "damageRolls": {
-                    "onKYGJVbqc6MP2VP": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "w00FX4Pjo1vZlmbp": {
-                        "damage": "3d8+14",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "agile",
-                        "magical",
-                        "reach-10",
-                        "unarmed",
-                        "unholy"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "7O3aIIl8s71XrIEv",
@@ -427,7 +49,7 @@
             },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 1100000,
+            "sort": 200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -495,7 +117,7 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 1200000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -574,7 +196,7 @@
             },
             "img": "icons/magic/fire/projectile-fireball-orange-yellow.webp",
             "name": "Fireball",
-            "sort": 1300000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -662,7 +284,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility (Constant)",
-            "sort": 1400000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -725,7 +347,7 @@
             },
             "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
             "name": "Abyssal Pact",
-            "sort": 1500000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -788,7 +410,7 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm (At Will)",
-            "sort": 1600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -868,7 +490,7 @@
             },
             "img": "systems/pf2e/icons/spells/command.webp",
             "name": "Command (At Will)",
-            "sort": 1700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -942,22 +564,110 @@
             "type": "spell"
         },
         {
-            "_id": "ALMe5beClL9bM9TZ",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
-            "sort": 1800000,
+            "_id": "qi8QLhldt8kCKlHV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.BdQjSNSItoruWMul"
+            },
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "The Uprising",
+            "sort": 900000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "gm": "<p><strong>Epitome</strong> A guild of thieves sets up secret hideouts in the village surrounding Harrowheart. These thieves do not prey upon the PCs or the citizens of the Harrow Court, preferring instead to focus on self-improvement. A PC who spends Downtime training with these thieves can Retrain feats, skills, and class features, provided the new feat, skill, or class feature is neither combat- nor magic-themed. Feats and skill increases retrained here take only 5 days, while class features retrained here take only 3 weeks.</p>",
+                    "value": "<p><strong>Suit</strong> Hammers (Str)</p>\n<p><strong>Alignment</strong> chaotic neutral</p>\n<hr />\n<p>When you have The Uprising invested, you gain a +2 item bonus to all saving throws against affects that attempt to control you or restrain you. This item bonus increases to +3 if you are 20th level.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> command, envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The card calls forth a mob of shadowy figures who batter and hinder your enemies. Target a @Template[burst|distance:20] at any point on solid ground with 120 feet, and the mob of figures rises up from the ground, persisting for 1 minute. Make an unarmed Strike against the Fortitude DC of any number of creatures in this burst (you can choose to not attack some creatures in the area if you wish). Any creature you succeed against is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and takes @Damage[3d6[bludgeoning]] damage. Whenever a creature ends its turn in the area, the figures attempt to Grab that creature if they haven't already, and they deal @Damage[1d6[bludgeoning]] damage to any creature already grabbed. The mob's @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC is equal to your class DC. A creature can attack a figure in an attempt to release its grip. It's AC is equal to your class DC, and it's destroyed if it takes 12 or more damage. Even if destroyed, additional figures continue to rise up in the area until the effect's duration ends. You can Dismiss this effect. If you are at least 15th level, you can use a two-action activity, which has the concentrate trait, to move the burst up to 30 feet, which causes any currently grabbed creatures to be released and left behind. If part of the burst appears or moves into an area that can't support it on the ground, that portion of the burst disappears until it is supported.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 20
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder #191: The Destiny War"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "inflicts:restrained",
+                                    "inflicts:controlled"
+                                ]
+                            }
+                        ],
+                        "selector": "saving-throw",
+                        "type": "item",
+                        "value": "ternary(gte(@actor.level,20),3,2)"
+                    }
+                ],
+                "size": "lg",
+                "slug": null,
+                "traits": {
+                    "rarity": "unique",
+                    "value": [
+                        "artifact",
+                        "harrow-court",
+                        "invested",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "carried"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "OIgn15PuIFSOSxw7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "VtRhfsxTCFHrpZ1H": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "jteFY7zPVKnaipCy": {
+                        "damage": "3d12+14",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 1
                 },
                 "publication": {
                     "license": "OGL",
@@ -965,20 +675,310 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 36,
-                    "value": 28
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
                 },
-                "tradition": {
-                    "value": "divine"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "RWQ68vSwwnQTorlM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 1100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "onKYGJVbqc6MP2VP": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
+                    },
+                    "w00FX4Pjo1vZlmbp": {
+                        "damage": "3d8+14",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10",
+                        "unarmed",
+                        "unholy"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ubvpDvMrWmhogbo1",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kdhbPaBMK1d1fpbA"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f69SjwU7qcOkazIT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VtP22G3rxYqH8YYB",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9d8dv9dVZcJ24hTQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Defiance Vulnerability",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Defiance causes a ghalzarokh anguish. If a creature scores a critical success on a saving throw to resist the ghalzarokh's @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Command], @UUID[Compendium.pf2e.spells-srd.Item.Dominate], or @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] spells or Project Blame, the demon takes @Damage[4d6[mental]] damage. The demon takes the same damage if it rolls a critical failure on an Intimidation check.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VCmPQKNuDLaeg6QH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Project Blame",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature succeeds or critically succeeds at a saving throw against one of the ghalzarokh's spells or Abyssal Spew, or the ghalzarokh misses a creature with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The creature must attempt a @Check[will|dc:36] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to Project Blame for 24 hours, and the ghalzarokh suffers from its defiance vulnerability.</p>\n<p><strong>Success</strong> The creature's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition increases by 1 (if they succeeded on a saving throw) or its @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] condition increases by 1 (if the demon missed them with a Strike). This increase in value lasts until the end of the creature's next turn but can't increase either condition beyond a value of 3.</p>\n<p><strong>Failure</strong> As success, but the duration changes to 1 minute. A creature can attempt a @Check[will|dc:36] save at the end of its turn to remove the effect early.</p>\n<p><strong>Critical Failure</strong> As failure, but for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IToYXlRGc9dRTpwE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Abyssal Spew",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ghalzarokh spews corrosive flame that deals @Damage[8d6[acid],8d6[fire]|options:area-damage]{8d6 acid damage and 8d6 fire damage} in a @Template[cone|distance:40] (@Check[reflex|dc:36|basic|options:area-effect] save). The ghalzarokh can't use Abyssal Spew again for [[/gmr 1d4 #Recharge Abyssal Spew]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "acid",
+                        "divine",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HyhfMDD2F0jSPr30",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.3JOi2cMcGhT3eze1"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 1800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Torgral",

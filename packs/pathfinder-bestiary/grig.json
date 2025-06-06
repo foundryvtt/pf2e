@@ -3,20 +3,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "e1GGSqrMS3yqPrVw",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Fiddle",
+            "_id": "eIFUAYDyIaHqOP6A",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Innate Spells",
             "sort": 100000,
             "system": {
-                "actionType": {
-                    "value": "action"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
                 "description": {
-                    "value": "<p>A grig can rub its legs together to create a catchy fiddling tune that compels others within @Template[emanation|distance:30]{30 feet} to dance about, with varying effects depending on a @Check[will|dc:18] save. A listener is temporarily immune for 10 minutes on a success, but otherwise, if the grig continues to Fiddle each round, the creature receives no additional saves.</p>\n<hr />\n<p><strong>Success</strong> No effect</p>\n<p><strong>Failure</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and -10-foot status penalty to Speeds</p>\n<p><strong>Critical Failure</strong> As failure, and also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fiddle]</p>"
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,109 +27,21 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "mental",
-                        "primal"
-                    ]
+                "spelldc": {
+                    "dc": 18,
+                    "mod": 0,
+                    "value": 10
+                },
+                "tradition": {
+                    "value": "primal"
                 }
             },
-            "type": "action"
-        },
-        {
-            "_id": "qUGNxVPDLyqLK3is",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "f77i5twqvpaxwe1xjvcr": {
-                        "damage": "1d4-2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "unarmed"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "j5LBfiOQPypQQTM6",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dissonant Note",
-            "sort": 300000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0hks0lvigvtbhorpp2zd": {
-                        "damage": "1d8",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "range-30",
-                        "sonic"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
             "_id": "JYwinwlgA0ff0yZ9",
@@ -135,7 +50,7 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 400000,
+            "sort": 200000,
             "system": {
                 "area": {
                     "type": "burst",
@@ -204,7 +119,7 @@
             },
             "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
             "name": "Invisibility (Self Only)",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -265,7 +180,7 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -343,7 +258,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -400,23 +315,28 @@
             "type": "spell"
         },
         {
-            "_id": "eIFUAYDyIaHqOP6A",
-            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Primal Innate Spells",
-            "sort": 800000,
+            "_id": "qUGNxVPDLyqLK3is",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 600000,
             "system": {
-                "autoHeightenLevel": {
-                    "value": null
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "f77i5twqvpaxwe1xjvcr": {
+                        "damage": "1d4-2",
+                        "damageType": "bludgeoning"
+                    }
                 },
                 "description": {
                     "value": ""
-                },
-                "prepared": {
-                    "flexible": false,
-                    "value": "innate"
-                },
-                "proficiency": {
-                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -424,21 +344,101 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": false
-                },
-                "slots": {},
                 "slug": null,
-                "spelldc": {
-                    "dc": 18,
-                    "mod": 0,
-                    "value": 10
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "unarmed"
+                    ]
                 },
-                "tradition": {
-                    "value": "primal"
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "type": "spellcastingEntry"
+            "type": "melee"
+        },
+        {
+            "_id": "j5LBfiOQPypQQTM6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dissonant Note",
+            "sort": 700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0hks0lvigvtbhorpp2zd": {
+                        "damage": "1d8",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "range-30",
+                        "sonic"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "e1GGSqrMS3yqPrVw",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Fiddle",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A grig can rub its legs together to create a catchy fiddling tune that compels others within @Template[emanation|distance:30]{30 feet} to dance about, with varying effects depending on a @Check[will|dc:18] save. A listener is temporarily immune for 10 minutes on a success, but otherwise, if the grig continues to Fiddle each round, the creature receives no additional saves.</p>\n<hr />\n<p><strong>Success</strong> No effect</p>\n<p><strong>Failure</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and -10-foot status penalty to Speeds</p>\n<p><strong>Critical Failure</strong> As failure, and also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fiddle]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Grig",
