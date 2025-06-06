@@ -1,0 +1,71 @@
+{
+    "_id": "GzsPazilxYUPISm1",
+    "folder": "gUEgeImPIUidaxNf",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Soul Bleed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your blade can rupture an enemy's very soul, draining away its essence to empower you. When you score a critical hit with your @UUID[Compendium.pf2e.equipment-srd.Item.Spectral Dagger], you deal 1d6 persistent spirit damage. If the target wasn't already taking persistent spirit damage when you scored the critical hit, you gain temporary Hit Points equal to the spirit damage dealt by the attack that last until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spectral Dagger"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "selector": "spectral-dagger-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "not": "target:condition:persistent-damage:spirit"
+                    }
+                ],
+                "selector": "spectral-dagger-damage",
+                "text": "PF2E.SpecificRule.SpectralDagger.SoulBleed.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

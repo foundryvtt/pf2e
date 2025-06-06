@@ -1,0 +1,88 @@
+{
+    "_id": "K2oSXGmqTUrcQYar",
+    "folder": "OB0hHuUjROemcE5L",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blessed Sentinel",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You infuse a weapon with the blessing of Ketephys and attack. Make a Strike. This Strike gains the holy trait and deals an additional 1d4 spirit damage, or 2d4 spirit damage against fiends. This counts as two attacks for your multiple attack penalty.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wylderheart Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "blessed-sentinel",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "blessed-sentinel"
+                ],
+                "selector": "weapon-damage",
+                "slug": "blessed-sentinel"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    "blessed-sentinel",
+                    "target:trait:fiend"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blessed-sentinel",
+                "value": 1
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "blessed-sentinel"
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "d2InKGKNEdVnPfNf",
+    "folder": "gUEgeImPIUidaxNf",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Instrument of Death",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your splinter of finality has reached the apex of its death-dealing potential. Whenever you critically succeed at an attack roll against an enemy and use @UUID[Compendium.pf2e.feats-srd.Item.Lethal Edge], add the following effects to the list you can choose from.</p><ul><li>The target is cursed and can't benefit from circumstance or status bonuses. This is a curse effect.</li><li>The target gains weakness 10 to spirit damage.</li></ul><p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Instrument of Death]</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Lethal Edge"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lethal-edge"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

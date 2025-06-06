@@ -1,0 +1,71 @@
+{
+    "_id": "naghcKF1jr4dS067",
+    "folder": "w8G9YTLmzPbWp5lf",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Smile at Failure",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know staying cool is key to prevailing in social situations, as anger leads to mistakes. When a creature you're interacting with decreases its attitude from indifferent to unfriendly or from unfriendly to hostile, you gain a +2 circumstance bonus to any attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on the creature for the next hour. If this decrease in attitude leads to combat, you gain a +1 circumstance bonus to the subsequent initiative roll instead.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Prophet of Kalistrade Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "smile-at-failure",
+                "toggleable": false
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "smile-at-failure"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "smile-at-failure",
+                    "action:make-an-impression"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

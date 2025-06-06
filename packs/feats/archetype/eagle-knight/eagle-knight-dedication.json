@@ -1,0 +1,72 @@
+{
+    "_id": "2shqQYK6l3RUEqiQ",
+    "folder": "GwVL9jInifkR7Euo",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Eagle Knight Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're invited by a current member of the Eagle Knights or the People's Council.</p><hr /><p>Eagle Knights are the marshals and envoys of Andoran and are committed to keeping the peace. On the first round of combat, if you roll Diplomacy for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to you. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] skill feat for Politics Lore. If you were already trained in Politics Lore, you also become trained in a Lore skill of your choice. You can use Politics Lore to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on or make a @UUID[Compendium.pf2e.actionspf2e.Item.Request] of government officials (or similar figures) or to Gather Information about them. If you critically succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] with Politics Lore, you know the information without having to spend any time gathering it.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.gVipISIgPjNbOUhk]{Eagle Knight}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Diplomacy and Society"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Shining Kingdoms"
+        },
+        "rules": [
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "encounter:round:1",
+                    {
+                        "lt": [
+                            "self:participant:initiative:rank",
+                            "target:participant:initiative:rank"
+                        ]
+                    },
+                    "self:participant:initiative:stat:diplomacy"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "spell-attack-roll",
+                    "strike-damage",
+                    "attack-spell-damage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}
