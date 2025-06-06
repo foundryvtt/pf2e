@@ -1,21 +1,20 @@
 {
-    "_id": "uAWWAiuo5mSJSVY4",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/defensive/shield-barrier-flaming-diamond-red.webp",
-    "name": "Effect: Designate Ally",
+    "_id": "TVWgsv3ypaqh5Y8T",
+    "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+    "name": "Effect: Lead by Example",
     "system": {
         "description": {
-            "value": "<p>Granted by Designate Ally</p>\n<p>You gain a +2 circumstance bonus to AC and Reflex saving throws.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Lead by Example]</p>\n<p>You gain a +2 circumstance bonus to your attack roll.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -24,11 +23,16 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "lead-by-example"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": [
-                    "reflex",
-                    "ac"
+                "predicate": [
+                    "target:mark:lead-by-example"
                 ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "strike-attack-roll",
                 "type": "circumstance",
                 "value": 2
             }

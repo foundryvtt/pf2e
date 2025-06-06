@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You infuse a weapon with the blessing of Ketephys and attack. Make a Strike. This Strike gains the holy trait and deals an additional @Damage[1d4[spirit]] damage, or @Damage[2d4[spirit]] damage against fiends. This counts as two attacks for your multiple attack penalty.</p>"
+            "value": "<p>You infuse a weapon with the blessing of Ketephys and attack. Make a Strike. This Strike gains the holy trait and deals an additional 1d4 spirit damage, or 2d4 spirit damage against fiends. This counts as two attacks for your multiple attack penalty.</p>"
         },
         "level": {
             "value": 6
@@ -31,7 +31,6 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
                 "option": "blessed-sentinel",
                 "toggleable": true
@@ -42,27 +41,28 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "predicate": [
-                    "blessed-sentinel",
-                    {
-                        "not": "target:trait:fiend"
-                    }
+                    "blessed-sentinel"
                 ],
-                "selector": "weapon-damage"
+                "selector": "weapon-damage",
+                "slug": "blessed-sentinel"
             },
             {
-                "damageType": "spirit",
-                "diceNumber": 2,
-                "dieSize": "d4",
-                "key": "DamageDice",
-                "label": "Blessed Sentinel against Fiend",
+                "key": "DamageAlteration",
+                "mode": "add",
                 "predicate": [
                     "blessed-sentinel",
                     "target:trait:fiend"
                 ],
-                "selector": "weapon-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "blessed-sentinel",
+                "value": 1
             },
             {
-                "key": "AdjustStrike",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "blessed-sentinel"

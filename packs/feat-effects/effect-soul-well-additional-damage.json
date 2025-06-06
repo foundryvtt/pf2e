@@ -1,21 +1,20 @@
 {
-    "_id": "rQENYZv3EFcpicTE",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/unholy/projectile-fireball-agile-purple.webp",
-    "name": "Effect: Soul Well (Living Creature)",
+    "_id": "HKk3oUYJNN82heeH",
+    "img": "icons/magic/unholy/orb-swirling-teal.webp",
+    "name": "Effect: Soul Well (Additional Damage)",
     "system": {
         "description": {
-            "value": "<p>Granted by Soul Well</p>\n<p>You die from the dying condition at dying 5 rather than dying 4.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soul Well]</p>\n<p>Your spectral dagger deals one additional weapon die of damage until the end of your next turn.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -24,10 +23,9 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.attributes.dying.max",
-                "value": 5
+                "diceNumber": "1",
+                "key": "DamageDice",
+                "selector": "spectral-dagger-damage"
             }
         ],
         "start": {

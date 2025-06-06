@@ -1,21 +1,20 @@
 {
-    "_id": "YsuyQ9QFbRvIZJoE",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/weapons/daggers/dagger-notched-blackened.webp",
-    "name": "Effect: Guillotine Blade",
+    "_id": "blwrnLLvtR6PVJlp",
+    "img": "icons/weapons/daggers/dagger-ritual-black.webp",
+    "name": "Effect: Hungry Blade",
     "system": {
         "description": {
-            "value": "<p>Granted by Guillotine Blade</p>\n<p>Your <em>spectral dagger</em> gains the effects of a <em>vorpal</em> rune.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Hungry Blade]</p>\n<p>Your <em>spectral dagger</em> gains the effects of a <em>keen</em> property rune that applies only to Strikes against the target of the required Strike.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
             "unit": "minutes",
-            "value": 1
+            "value": 10
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 12
         },
         "publication": {
             "license": "ORC",
@@ -24,13 +23,20 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "hungry-blade"
+            },
+            {
                 "definition": [
                     "item:slug:spectral-dagger"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    "target:mark:hungry-blade"
+                ],
                 "property": "property-runes",
-                "value": "vorpal"
+                "value": "keen"
             }
         ],
         "start": {

@@ -1,11 +1,10 @@
 {
     "_id": "YJPiAE71tq3bp74B",
-    "folder": "JFBjqNV6jSEl0Nul",
     "img": "icons/skills/targeting/crosshair-mark-rough-pink.webp",
     "name": "Effect: Nothing Personal",
     "system": {
         "description": {
-            "value": "<p>Granted by Nothing Personal</p>\n<p>Your first strike each round deals an extra die of weapon damage to the marked target. This increases to 2 die at level 14, and 3 die at level 20.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Nothing Personal]</p>\n<p>Your first strike each round deals an extra die of weapon damage to the marked target. This increases to 2 die at level 14, and 3 die at level 20.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,7 +14,7 @@
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -28,10 +27,10 @@
                 "slug": "nothing-personal"
             },
             {
-                "domain": "damage",
+                "domain": "strike-damage",
                 "key": "RollOption",
-                "label": "Nothing Personal - First weapon Strike this round",
-                "option": "first-strike",
+                "label": "PF2E.SpecificRule.Blackjacket.NothingPersonal.ToggleLabel",
+                "option": "nothing-personal-first-strike",
                 "toggleable": true
             },
             {
@@ -39,12 +38,9 @@
                 "key": "DamageDice",
                 "predicate": [
                     "target:mark:nothing-personal",
-                    "first-strike",
-                    {
-                        "not": "item:category:unarmed"
-                    }
+                    "nothing-personal-first-strike"
                 ],
-                "selector": "strike-damage"
+                "selector": "weapon-damage"
             }
         ],
         "start": {

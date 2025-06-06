@@ -1,16 +1,15 @@
 {
-    "_id": "HKk3oUYJNN82heeH",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/unholy/orb-swirling-teal.webp",
-    "name": "Effect: Soul Well (Self)",
+    "_id": "uAWWAiuo5mSJSVY4",
+    "img": "icons/magic/defensive/shield-barrier-flaming-diamond-red.webp",
+    "name": "Effect: Designate Ally",
     "system": {
         "description": {
-            "value": "<p>Granted by Soul Well</p>\n<p>Your spectral dagger deals one additional weapon die of damage until the end of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Designate Ally]</p>\n<p>You gain a +2 circumstance bonus to AC and Reflex saving throws.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "minutes",
             "value": 1
         },
         "fromSpell": false,
@@ -24,9 +23,13 @@
         },
         "rules": [
             {
-                "diceNumber": "1",
-                "key": "DamageDice",
-                "selector": "spectral-dagger-damage"
+                "key": "FlatModifier",
+                "selector": [
+                    "reflex",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "start": {

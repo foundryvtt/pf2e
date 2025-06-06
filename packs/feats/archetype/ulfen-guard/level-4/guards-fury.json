@@ -35,9 +35,10 @@
         "rules": [
             {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.classfeatures.Item.Rage"
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Rage"
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     "self:effect:rage"
@@ -47,15 +48,18 @@
             },
             {
                 "key": "RollOption",
-                "label": "Adjacent to Designated Ally",
-                "option": "adjacent-to-designated-ally",
+                "label": "PF2E.SpecificRule.UlfenGuard.GuardsFury.ToggleLabel",
+                "option": "guards-gury-adjacent",
+                "predicate": [
+                    "self:effect:rage"
+                ],
                 "toggleable": true
             },
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "adjacent-to-designated-ally"
+                    "guards-fury-adjacent"
                 ],
                 "selector": "strike-damage",
                 "slug": "rage",

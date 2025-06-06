@@ -1,21 +1,20 @@
 {
-    "_id": "TbQiJxLfEF6P1HnO",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/unholy/orb-swirling-teal.webp",
-    "name": "Effect: Soul Oubliette",
+    "_id": "4uh4EP1sxKRYx7kg",
+    "img": "icons/magic/life/heart-red-blue.webp",
+    "name": "Effect: Close Contract",
     "system": {
         "description": {
-            "value": "<p>Granted by Soul Oubliette</p>\n<p>You gain fast healing 15.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Close Contract]</p>\n<p>You gain temporary Hit Points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
             "unit": "hours",
-            "value": 24
+            "value": 1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 10
         },
         "publication": {
             "license": "ORC",
@@ -24,8 +23,8 @@
         },
         "rules": [
             {
-                "key": "FastHealing",
-                "value": 15
+                "key": "TempHP",
+                "value": "(floor(@actor.level/2)*5) - 10"
             }
         ],
         "start": {

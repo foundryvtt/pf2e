@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your blade can rupture an enemy's very soul, draining away its essence to empower you. When you score a critical hit with your spectral dagger, you deal 1d6 persistent spirit damage. If the target wasn't already taking persistent spirit damage when you scored the critical hit, you gain temporary Hit Points equal to the spirit damage dealt by the attack that last until the beginning of your next turn.</p>"
+            "value": "<p>Your blade can rupture an enemy's very soul, draining away its essence to empower you. When you score a critical hit with your @UUID[Compendium.pf2e.equipment-srd.Item.Spectral Dagger], you deal 1d6 persistent spirit damage. If the target wasn't already taking persistent spirit damage when you scored the critical hit, you gain temporary Hit Points equal to the spirit damage dealt by the attack that last until the beginning of your next turn.</p>"
         },
         "level": {
             "value": 6
@@ -32,14 +32,13 @@
         "rules": [
             {
                 "category": "persistent",
-                "critical": false,
+                "critical": true,
                 "damageType": "spirit",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
-                    "check:outcome:critical-success",
                     {
                         "not": "target:condition:persistent-damage:spirit"
                     }
@@ -52,10 +51,12 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "target:condition:persistent-damage:spirit"
+                    {
+                        "not": "target:condition:persistent-damage:spirit"
+                    }
                 ],
                 "selector": "spectral-dagger-damage",
-                "text": "You gain temporary Hit Points equal to the spirit damage dealt by the attack that last until the beginning of your next turn.",
+                "text": "PF2E.SpecificRule.SpectralDagger.SoulBleed.Note",
                 "title": "{item|name}"
             }
         ],

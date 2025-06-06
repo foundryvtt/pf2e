@@ -1,21 +1,20 @@
 {
-    "_id": "7L6Gltxxkjq9eyXN",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/control/buff-flight-wings-blue.webp",
-    "name": "Effect: Aura of Confidence",
+    "_id": "TbQiJxLfEF6P1HnO",
+    "img": "icons/magic/unholy/orb-swirling-teal.webp",
+    "name": "Effect: Soul Oubliette",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to saving throws against mental effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soul Oubliette]</p>\n<p>You gain fast healing 15.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "hours",
+            "value": 24
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 20
         },
         "publication": {
             "license": "ORC",
@@ -24,13 +23,8 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "item:trait:mental"
-                ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
+                "key": "FastHealing",
+                "value": 15
             }
         ],
         "start": {

@@ -1,21 +1,20 @@
 {
-    "_id": "TVWgsv3ypaqh5Y8T",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/skills/social/diplomacy-unity-alliance.webp",
-    "name": "Effect: Lead by Example",
+    "_id": "7L6Gltxxkjq9eyXN",
+    "img": "icons/magic/control/buff-flight-wings-blue.webp",
+    "name": "Effect: Aura of Confidence",
     "system": {
         "description": {
-            "value": "<p>Granted by Lead by Example</p>\n<p>You gain a +2 circumstance bonus to your attack roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Confidence]</p>\n<p>You gain a +2 status bonus to saving throws against mental effects.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 12
         },
         "publication": {
             "license": "ORC",
@@ -24,17 +23,12 @@
         },
         "rules": [
             {
-                "key": "TokenMark",
-                "slug": "lead-by-example"
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:mark:lead-by-example"
+                    "item:trait:mental"
                 ],
-                "removeAfterRoll": "if-enabled",
-                "selector": "strike-attack-roll",
-                "type": "circumstance",
+                "selector": "saving-throw",
+                "type": "status",
                 "value": 2
             }
         ],

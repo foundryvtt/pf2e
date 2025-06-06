@@ -1,11 +1,10 @@
 {
-    "_id": "xxkCSwizAu2wC7Fo",
-    "folder": "JFBjqNV6jSEl0Nul",
-    "img": "icons/magic/life/heart-glowing-red.webp",
-    "name": "Effect: Even the Odds",
+    "_id": "YsuyQ9QFbRvIZJoE",
+    "img": "icons/weapons/daggers/dagger-notched-blackened.webp",
+    "name": "Effect: Guillotine Blade",
     "system": {
         "description": {
-            "value": "<p>You gain 25 temporary Hit Points.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Guillotine Blade]</p>\n<p>Your <em>spectral dagger</em> gains the effects of a <em>vorpal</em> rune.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,7 +14,7 @@
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 18
         },
         "publication": {
             "license": "ORC",
@@ -24,8 +23,13 @@
         },
         "rules": [
             {
-                "key": "TempHP",
-                "value": 25
+                "definition": [
+                    "item:slug:spectral-dagger"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "vorpal"
             }
         ],
         "start": {

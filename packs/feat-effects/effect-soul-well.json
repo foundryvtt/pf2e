@@ -1,11 +1,10 @@
 {
     "_id": "9YO84RSGcq3XcA0E",
-    "folder": "JFBjqNV6jSEl0Nul",
     "img": "icons/magic/death/undead-ghosts-trio-blue.webp",
-    "name": "Aura: Soul Well",
+    "name": "Effect: Soul Well",
     "system": {
         "description": {
-            "value": "<p>Granted by Soul Well</p>\n<p>Living creatures in the aura die from the dying condition at dying 5 rather than dying 4.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Soul Well]</p>\n<p>Living creatures in the aura die from the dying condition at dying 5 rather than dying 4.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,7 +14,7 @@
         },
         "fromSpell": false,
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -27,16 +26,25 @@
                 "effects": [
                     {
                         "predicate": [
-                            "target:trait:living"
+                            "target:mode:living"
                         ],
-                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Soul Well (Living Creature)"
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Soul Well"
                     }
                 ],
                 "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
                 "radius": 30,
                 "traits": [
                     "occult"
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.dying.max",
+                "value": 5
             }
         ],
         "start": {
