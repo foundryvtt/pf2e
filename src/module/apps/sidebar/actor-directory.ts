@@ -7,7 +7,7 @@ import type {
 import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
-import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { htmlClosest, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
 /** Extend ActorDirectory to show more information */
@@ -176,8 +176,6 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
             return;
         }
 
-        super._onDragStart(event);
-
         // Adjust drag image if actor size differs from prototype token size
         if (canvas.ready) {
             const actor = this.collection.get(
@@ -189,16 +187,12 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                 const width = size.width / 5;
                 const height = size.length / 5;
                 if (pt.width !== width || pt.height !== height) {
-                    const img = htmlQuery(event.currentTarget, "img");
-                    if (img) {
-                        const w = width * canvas.dimensions.size * Math.abs(pt.texture.scaleX) * canvas.stage.scale.x;
-                        const h = height * canvas.dimensions.size * Math.abs(pt.texture.scaleY) * canvas.stage.scale.y;
-                        const preview = foundry.applications.ux.DragDrop.implementation.createDragImage(img, w, h);
-                        event.dataTransfer.setDragImage(preview, w / 2, h / 2);
-                    }
+                    pt.width = width;
+                    pt.height = height;
                 }
             }
         }
+        super._onDragStart(event);
 
         // Add additional party metadata to the drag event
         const fromParty = htmlClosest(event.target, "[data-party]")?.dataset.entryId;
