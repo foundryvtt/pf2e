@@ -41,12 +41,11 @@ type TableResultSchema = {
     _id: fields.DocumentIdField;
     /** A result subtype from CONST.TABLE_RESULT_TYPES */
     type: fields.DocumentTypeField<TableResultType>;
-    /** The text which describes the table result */
-    text: fields.HTMLField;
+    name: fields.StringField<string, string, true, false, true>;
     /** An image file url that represents the table result */
     img: fields.FilePathField<ImageFilePath>;
-    /** A named collection from which this result is drawn */
-    uuid: fields.DocumentUUIDField;
+    description: fields.HTMLField;
+    documentUuid: fields.DocumentUUIDField<foundry.utils.DocumentUUID, false, true, false>;
     /** The probabilistic weight of this result relative to other results */
     weight: fields.NumberField<number, number, true, false, true>;
     /**

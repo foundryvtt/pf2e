@@ -49,7 +49,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
         content: async (title) => {
             if (item) {
                 const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
-                const content = await fa.handlebars.enderTemplate(templatePath, { item });
+                const content = await fa.handlebars.renderTemplate(templatePath, { item });
                 return title + content;
             }
             return;
