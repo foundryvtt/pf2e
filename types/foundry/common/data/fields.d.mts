@@ -1266,7 +1266,7 @@ export class DocumentStatsField<TDocumentUUID extends DocumentUUID = DocumentUUI
     constructor(options?: ObjectFieldOptions<DocumentStatsSchema, true, false, true>, context?: DataFieldContext);
 }
 
-type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
+export type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
     /** The package name of the system the Document was created in. */
     systemId: StringField<string, string, true, false, true>;
     /** The version of the system the Document was created or last modified in. */

@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { createHTMLElement, setHasElement } from "@util";
+import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
 import type { ItemSourcePF2e, ItemType } from "./base/data/index.ts";
 import type { ItemPF2e } from "./base/document.ts";
@@ -55,7 +56,7 @@ function performLatePreparation(item: ItemPF2e): void {
     }
 }
 
-let mdConverter: showdown.Converter | null = null;
+let mdConverter: Converter | null = null;
 
 function markdownToHTML(markdown: string): string {
     const converter = (mdConverter ??= new showdown.Converter());

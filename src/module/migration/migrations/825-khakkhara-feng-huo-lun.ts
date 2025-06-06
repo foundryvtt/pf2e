@@ -1,3 +1,4 @@
+import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { BaseWeaponType } from "@item/weapon/types.ts";
 import { MigrationBase } from "../base.ts";

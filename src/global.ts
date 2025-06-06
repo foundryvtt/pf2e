@@ -348,6 +348,10 @@ declare global {
         }
     }
 
+    interface Window {
+        AutomaticBonusProgression: typeof AutomaticBonusProgression;
+    }
+
     namespace foundry {
         interface ClientSettingsMap {
             get(key: "pf2e.worldClock"): SettingConfig & { default: WorldClockSettingData };
